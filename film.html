@@ -110,19 +110,94 @@
     .profile-image-container:hover .profile-backdrop { transform: translate(10px, -10px); }
     .profile-content { display: flex; flex-direction: column; }
 
-    /* PLACES WORKED - GLOBE SECTION */
-    #globe-section { position: relative; z-index: 10; padding: 120px 52px; text-align: center; }
-    #globe-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
-    .globe-container { position: relative; width: 100%; height: 500px; max-width: 800px; margin: 40px auto 0 auto; display: flex; justify-content: center; align-items: center; }
-    #globe-canvas { width: 100%; height: 100%; display: block; outline: none; }
+    /* FLAT MAP SECTION */
+    #flat-map-section { position: relative; z-index: 10; padding: 120px 52px; text-align: center; }
+    #flat-map-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
     
-    .globe-label {
-      position: absolute; font-family: var(--font-mono); font-size: 0.65rem; color: var(--white);
-      letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap;
-      pointer-events: none; transition: opacity 0.4s ease; transform: translate(12px, -50%);
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8); z-index: 5; opacity: 0;
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      aspect-ratio: 2 / 1; /* Perfect equirectangular ratio */
+      margin: 60px auto 0 auto;
     }
-    .globe-label::before { content: ''; position: absolute; top: 50%; left: -12px; width: 8px; height: 1px; background: var(--gold); }
+    
+    .map-background {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      /* High quality public domain equirectangular SVG */
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg');
+      background-size: cover;
+      background-position: center;
+      filter: invert(1) opacity(0.12); /* Turns the black SVG white and transparent */
+      pointer-events: none;
+    }
+
+    .map-marker-wrap {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .map-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.3;
+      transition: opacity 0.5s, box-shadow 0.5s, transform 0.5s;
+    }
+
+    .map-label {
+      position: absolute;
+      top: 50%; left: 14px;
+      transform: translateY(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--white);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* Active State (When Highlighted) */
+    .map-marker-wrap.active .map-dot {
+      opacity: 1;
+      box-shadow: 0 0 12px var(--gold);
+      transform: scale(1.5);
+    }
+
+    /* Random Animation 1: Slide In */
+    .map-marker-wrap.active.anim-slide .map-label {
+      animation: mapSlide 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    /* Random Animation 2: Scale Up */
+    .map-marker-wrap.active.anim-scale .map-label {
+      animation: mapScale 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    /* Random Animation 3: Flicker / Tech */
+    .map-marker-wrap.active.anim-flicker .map-label {
+      animation: mapFlicker 0.8s ease forwards;
+    }
+
+    @keyframes mapSlide {
+      from { opacity: 0; transform: translate(10px, -50%); }
+      to { opacity: 1; transform: translate(0, -50%); }
+    }
+    @keyframes mapScale {
+      from { opacity: 0; transform: translate(0, -50%) scale(0.8); }
+      to { opacity: 1; transform: translate(0, -50%) scale(1); }
+    }
+    @keyframes mapFlicker {
+      0% { opacity: 0; }
+      20% { opacity: 0.8; }
+      40% { opacity: 0.2; }
+      60% { opacity: 1; }
+      80% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
 
     /* WORK */
     #work{position:relative;z-index:10;padding:120px 52px}
@@ -169,7 +244,7 @@
 
     /* MOBILE ADJUSTMENTS */
     @media(max-width:900px){
-      nav,#hero,#about,#about-me,#globe-section,#work,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#about,#about-me,#flat-map-section,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
@@ -178,7 +253,10 @@
       .work-grid{grid-template-columns:1fr 1fr}
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
-      .globe-container { height: 400px; }
+      
+      /* Make map fill vertical space better on phones */
+      .map-wrapper { aspect-ratio: auto; height: 300px; }
+      .map-background { background-size: contain; background-repeat: no-repeat; }
     }
     @media(max-width:560px){
       .work-grid{grid-template-columns:1fr}
@@ -252,17 +330,18 @@
   <div class="profile-content">
     <p class="section-label">The Director</p>
     <h2 class="section-title">ABOUT <span style="color:var(--gold)">ME</span></h2>
-    <p class="about-body">I am a filmmaker and photographer dedicated to capturing the quiet spaces between moments. With over a decade of experience behind the lens, my work is driven by a deep obsession with light, shadow, and authentic human connection. Over the past 10+ years, I have crafted visual narratives across documentaries, commercial campaigns, and fine art photography. For me, the medium doesn't matter as much as the message: whether the subject is in motion or frozen in time, I believe every single frame must tell a story.</p>
+    <p class="about-body">With over 10 years of professional experience in filmmaking and photography, I specialize in creating high-end visual content that elevates brands and tells compelling stories. From directing cinematic commercials to capturing striking editorial photography, my decade in the industry has taught me how to perfectly balance technical precision with raw creative vision. I approach every project with a cinematic eye, working closely with my clients to build visuals that linger long after the screen fades to black.</p>
   </div>
 </section>
 
-<section id="globe-section">
+<section id="flat-map-section">
   <p class="section-label">Global Footprint</p>
   <h2 class="section-title">PLACES I'VE <span style="color:var(--gold)">WORKED</span></h2>
   
-  <div class="globe-container" id="globe-container">
-    <canvas id="globe-canvas"></canvas>
-    </div>
+  <div class="map-wrapper">
+    <div class="map-background"></div>
+    <div id="map-markers-container"></div>
+  </div>
 </section>
 
 <section id="work">
@@ -362,31 +441,8 @@ document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*
 window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
 
 // ═══════════════════════════
-// 3D GLOBE SCENE
+// FLAT MAP LOGIC
 // ═══════════════════════════
-const glContainer = document.getElementById('globe-container');
-const glCanvas = document.getElementById('globe-canvas');
-const glR = new THREE.WebGLRenderer({canvas: glCanvas, antialias: true, alpha: true});
-glR.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-const glS = new THREE.Scene();
-const glCam = new THREE.PerspectiveCamera(45, glContainer.clientWidth / glContainer.clientHeight, 0.1, 100);
-glCam.position.z = 13;
-
-const globeGroup = new THREE.Group();
-glS.add(globeGroup);
-
-// Create the stylized pixel globe
-const gGeo = new THREE.SphereGeometry(4, 48, 48);
-const gMat = new THREE.PointsMaterial({color: 0x444455, size: 0.04, transparent: true, opacity: 0.5});
-const globePoints = new THREE.Points(gGeo, gMat);
-globeGroup.add(globePoints);
-
-// Add faint wireframe core for structure
-const gwGeo = new THREE.SphereGeometry(3.95, 24, 24);
-const gwMat = new THREE.MeshBasicMaterial({color: 0xc9a84c, wireframe: true, transparent: true, opacity: 0.03});
-globeGroup.add(new THREE.Mesh(gwGeo, gwMat));
-
-// Exact Lat/Lon Coordinates
 const locations = [
   {name: 'Germany', lat: 51.16, lon: 10.45},
   {name: 'Singapore', lat: 1.35, lon: 103.81},
@@ -405,42 +461,55 @@ const locations = [
   {name: 'Spain', lat: 40.46, lon: -3.74}
 ];
 
-const globeMarkers = [];
-const globeRadius = 4.02; 
+const mapContainer = document.getElementById('map-markers-container');
+const mapMarkers = [];
 
+// Convert Lat/Lon to exact percentages on an Equirectangular projection Map
 locations.forEach(loc => {
-  // Convert Lat/Lon to 3D Cartesian coordinates
-  const phi = (90 - loc.lat) * (Math.PI / 180);
-  const theta = (loc.lon + 180) * (Math.PI / 180);
+  const xPercent = (loc.lon + 180) / 3.6;
+  const yPercent = (90 - loc.lat) / 1.8;
 
-  const x = -(globeRadius * Math.sin(phi) * Math.cos(theta));
-  const z = (globeRadius * Math.sin(phi) * Math.sin(theta));
-  const y = (globeRadius * Math.cos(phi));
+  const wrap = document.createElement('div');
+  wrap.className = 'map-marker-wrap';
+  wrap.style.left = `${xPercent}%`;
+  wrap.style.top = `${yPercent}%`;
 
-  // Visual dot on the globe
-  const mMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(0.06, 8, 8), 
-    new THREE.MeshBasicMaterial({color: 0xc9a84c})
-  );
-  mMesh.position.set(x, y, z);
-  globeGroup.add(mMesh);
+  const dot = document.createElement('div');
+  dot.className = 'map-dot';
 
-  // Floating HTML Label
-  const el = document.createElement('div');
-  el.className = 'globe-label';
-  el.textContent = loc.name;
-  glContainer.appendChild(el);
+  const label = document.createElement('div');
+  label.className = 'map-label';
+  label.textContent = loc.name;
 
-  globeMarkers.push({ mesh: mMesh, el: el });
+  wrap.appendChild(dot);
+  wrap.appendChild(label);
+  mapContainer.appendChild(wrap);
+  mapMarkers.push(wrap);
 });
 
-function resizeGlobe() {
-   glR.setSize(glContainer.clientWidth, glContainer.clientHeight, false);
-   glCam.aspect = glContainer.clientWidth / glContainer.clientHeight;
-   glCam.updateProjectionMatrix();
+// Randomly ping locations to keep the map alive without overlapping text
+function animateMap() {
+  // Clear previous active states
+  mapMarkers.forEach(m => {
+    m.classList.remove('active', 'anim-slide', 'anim-scale', 'anim-flicker');
+  });
+
+  // Pick 3 random locations to highlight
+  const shuffled = mapMarkers.sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, 3);
+  const animStyles = ['anim-slide', 'anim-scale', 'anim-flicker'];
+
+  selected.forEach(m => {
+    m.classList.add('active');
+    // Assign a random animation style to the text label
+    m.classList.add(animStyles[Math.floor(Math.random() * animStyles.length)]);
+  });
 }
-resizeGlobe();
-window.addEventListener('resize', resizeGlobe);
+
+// Start Map Loop (Pings new locations every 2.5 seconds)
+setInterval(animateMap, 2500);
+animateMap(); // Trigger first ping immediately
+
 
 // ═══════════════════════════
 // 3D CAMERA SCENE
@@ -777,35 +846,6 @@ function animate(){
   fillL.intensity = 2 + Math.sin(t * 1.1 + 1) * 0.3;
 
   camR.render(camS,camCam);
-
-  // GLOBE 3D
-  globeGroup.rotation.y += 0.005; // Auto rotate globe
-  
-  // Map HTML labels to 3D Globe positions
-  globeMarkers.forEach(m => {
-    tempV.copy(m.mesh.position);
-    tempV.applyMatrix4(globeGroup.matrixWorld);
-
-    // Calculate if the point is on the front or back of the globe
-    const normal = tempV.clone().normalize();
-    const camVec = glCam.position.clone().sub(tempV).normalize();
-    const dot = normal.dot(camVec);
-
-    // If dot > 0.1, it's facing the camera. Otherwise, it's behind the globe.
-    if (dot > 0.1) {
-      m.el.style.opacity = '1';
-      tempV.project(glCam);
-      const x = (tempV.x * 0.5 + 0.5) * glContainer.clientWidth;
-      const y = (tempV.y * -0.5 + 0.5) * glContainer.clientHeight;
-      m.el.style.left = `${x}px`;
-      m.el.style.top = `${y}px`;
-    } else {
-      m.el.style.opacity = '0';
-    }
-  });
-
-  glR.render(glS, glCam);
-
   updateCounter();
 }
 animate();
