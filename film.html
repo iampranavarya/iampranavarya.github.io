@@ -54,7 +54,6 @@
     .nav-links a:hover::after{width:100%}
 
     /* HERO */
-    /* Added min-height and a large padding-top to prevent overlap with the longer navbar */
     #hero{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:140px 52px 60px 52px;}
     .hero-left{display:flex;flex-direction:column}
     .hero-eyebrow{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s 0.4s forwards}
@@ -170,7 +169,6 @@
     @media(max-width:900px){
       nav,#hero,#about,#about-me,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
-      /* Increased mobile padding to keep the hero content far away from the nav */
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
       .hero-right{height:360px}
@@ -326,10 +324,9 @@ const pPos=new Float32Array(200*3);
 for(let i=0;i<200;i++){pPos[i*3]=(Math.random()-.5)*28;pPos[i*3+1]=(Math.random()-.5)*18;pPos[i*3+2]=(Math.random()-.5)*14;}
 const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(pPos,3));
 bgS.add(new THREE.Points(pG,new THREE.PointsMaterial({color:0xc9a84c,size:0.04,transparent:true,opacity:0.25})));
-const bOct=new THREE.Mesh(new THREE.OctahedronGeometry(1.8,1),new THREE.MeshStandardMaterial({color:0x080810,emissive:0x0d0c02,metalness:0.95,roughness:0.3}));
-bOct.position.set(6,0,-3);bgS.add(bOct);
-const bWire=new THREE.Mesh(new THREE.OctahedronGeometry(1.82,1),new THREE.MeshBasicMaterial({color:0xc9a84c,wireframe:true,transparent:true,opacity:0.07}));
-bWire.position.copy(bOct.position);bgS.add(bWire);
+
+// Octahedron removed
+
 let bgMX=0,bgMY=0;
 document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*2;bgMY=(e.clientY/window.innerHeight-.5)*2;});
 window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
@@ -627,14 +624,11 @@ function animate(){
   const delta = clock.getDelta();
   t += delta * 0.6; 
 
-  // BG
+  // BG parallax
   bgCam.position.x += (bgMX * 0.4 - bgCam.position.x) * (delta * 1.8);
   bgCam.position.y += (-bgMY * 0.25 - bgCam.position.y) * (delta * 1.8);
   bgCam.lookAt(0,0,0);
   
-  bOct.rotation.y = t * 0.22;
-  bOct.rotation.x = Math.sin(t * 0.15) * 0.25;
-  bWire.rotation.copy(bOct.rotation);
   bL1.intensity = 2.5 + Math.sin(t * 1.2) * 0.4;
   
   bgR.render(bgS,bgCam);
