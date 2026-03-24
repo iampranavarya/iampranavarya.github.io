@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pranav Arya | Select Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #050507;
+      --gold: #c9a84c;
+      --tech-blue: #60aaff;
+      --white: #f0ece4;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+    
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-serif);
+      overflow: hidden; /* Prevents scrolling on the gateway page */
+    }
+
+    .split-layout {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* Common styles for both halves */
+    .split {
+      flex: 1; /* Both sides take up exactly half the screen */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    /* The overlay that darkens the background */
+    .split::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 7, 0.7);
+      transition: opacity 0.6s ease, background 0.6s ease;
+      z-index: 1;
+    }
+
+    /* Hover effect: The side expands */
+    .split:hover { flex: 1.35; }
+    .split:hover::before { opacity: 0; }
+
+    /* FILM SIDE (Left) */
+    .film-side {
+      background: radial-gradient(circle at center, #1a1508 0%, var(--black) 100%);
+      border-right: 1px solid rgba(201,168,76,0.1);
+    }
+    .film-side .sub-title { color: var(--gold); }
+    .film-side:hover .title { transform: scale(1.05); text-shadow: 0 0 30px rgba(201,168,76,0.3); }
+
+    /* TECH SIDE (Right) */
+    .tech-side {
+      background: radial-gradient(circle at center, #0a1118 0%, var(--black) 100%);
+    }
+    .tech-side .sub-title { color: var(--tech-blue); }
+    .tech-side:hover .title { transform: scale(1.05); text-shadow: 0 0 30px rgba(96,170,255,0.3); }
+
+    /* Content Styling */
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 12px;
+      transition: transform 0.6s ease, text-shadow 0.6s ease;
+    }
+
+    .sub-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* Subtle grain overlay for the whole page */
+    .grain {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Mobile adjustments: Stack them vertically instead of side-by-side */
+    @media (max-width: 800px) {
+      .split-layout { flex-direction: column; }
+      .film-side { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); }
+      .split:hover { flex: 1.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain"></div>
+
+  <div class="split-layout">
+    <a href="film.html" class="split film-side">
+      <div class="content">
+        <h1 class="title">FILM PRODUCTION</h1>
+        <p class="sub-title">Cinematography & Photography</p>
+      </div>
+    </a>
+
+    <a href="tech.html" class="split tech-side">
+      <div class="content">
+        <h1 class="title">TECHNICAL SERVICES</h1>
+        <p class="sub-title">Web Development & AI Solutions</p>
+      </div>
+    </a>
+  </div>
+
+</body>
+</html>
