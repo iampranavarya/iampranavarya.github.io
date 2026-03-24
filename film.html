@@ -54,7 +54,8 @@
     .nav-links a:hover::after{width:100%}
 
     /* HERO */
-    #hero{position:relative;z-index:10;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 52px}
+    /* Added min-height and a large padding-top to prevent overlap with the longer navbar */
+    #hero{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:140px 52px 60px 52px;}
     .hero-left{display:flex;flex-direction:column}
     .hero-eyebrow{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s 0.4s forwards}
     .hero-title{font-family:var(--font-display);font-size:clamp(4rem,10vw,11rem);line-height:0.88;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
@@ -169,7 +170,8 @@
     @media(max-width:900px){
       nav,#hero,#about,#about-me,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
-      #hero{grid-template-columns:1fr;height:auto;padding-top:140px;padding-bottom:60px; gap: 80px;}
+      /* Increased mobile padding to keep the hero content far away from the nav */
+      #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
       .hero-right{height:360px}
       #about, #about-me {grid-template-columns:1fr;gap:52px}
