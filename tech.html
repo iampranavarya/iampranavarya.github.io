@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pranav Arya | Technical Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --black:#050507; --deep:#0a0a0f;
+      --gold:#c9a84c;
+      --tech-blue:#60aaff; --tech-blue-dim:#1a3a5f;
+      --white:#f0ece4;
+      --font-display:'Bebas Neue',sans-serif;
+      --font-serif:'Cormorant Garamond',serif;
+      --font-mono:'Space Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--black); color:var(--white);
+      font-family:var(--font-serif); overflow-x:hidden; cursor:auto;
+    }
+    body.custom-cursor-active { cursor: none; }
+
+    /* LOADER */
+    #loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease}
+    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-logo{font-family:var(--font-display);font-size:3.5rem;letter-spacing:0.3em;color:var(--tech-blue);margin-bottom:36px;animation:loaderPulse 1.5s ease infinite alternate}
+    .loader-bar-wrap{width:260px;height:1px;background:rgba(96,170,255,0.15);position:relative;overflow:hidden}
+    .loader-bar{height:100%;background:var(--tech-blue);width:0%;transition:width 0.05s linear}
+    .loader-label{margin-top:16px;font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.25em;color:rgba(96,170,255,0.5);text-transform:uppercase}
+    @keyframes loaderPulse{from{opacity:0.5}to{opacity:1}}
+
+    /* CURSOR */
+    .cursor{position:fixed;width:10px;height:10px;background:var(--tech-blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:0;transition:opacity 0.3s}
+    .cursor-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(96,170,255,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;opacity:0}
+    body.custom-cursor-active .cursor, body.custom-cursor-active .cursor-ring { opacity: 1; }
+
+    /* CANVAS */
+    #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0; pointer-events:none;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:28px 52px}
+    nav::after{content:'';position:absolute;bottom:0;left:52px;right:52px;height:1px;background:linear-gradient(90deg,transparent,var(--tech-blue-dim),transparent);opacity:0.5}
+    .nav-logo{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.25em;color:var(--tech-blue);text-decoration:none; transition: opacity 0.3s;}
+    .nav-logo:hover{opacity: 0.7;}
+    .nav-links{display:flex;gap:40px;list-style:none}
+    .nav-links a{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;color:var(--white);text-decoration:none;opacity:0.6;text-transform:uppercase;transition:opacity 0.3s,color 0.3s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--tech-blue);transition:width 0.3s}
+    .nav-links a:hover{opacity:1;color:var(--tech-blue)}
+    .nav-links a:hover::after{width:100%}
+
+    /* HERO */
+    #hero{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 52px; max-width: 800px;}
+    .hero-eyebrow{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.3em;color:var(--tech-blue);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s 0.4s forwards}
+    .hero-title{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,8rem);line-height:0.9;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
+    .hero-title .blue{color:var(--tech-blue)}
+    .hero-sub{margin-top:28px;max-width:480px;font-size:1.1rem;font-style:italic;color:rgba(240,236,228,0.6);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
+    
+    /* SERVICES */
+    #services{position:relative;z-index:10;padding:120px 52px}
+    .section-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--tech-blue);text-transform:uppercase;margin-bottom:12px}
+    .section-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);line-height:1; margin-bottom: 60px;}
+    
+    .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+    .service-card{background:rgba(96,170,255,0.03);border:1px solid rgba(96,170,255,0.1);padding:48px 40px;transition:background 0.3s, transform 0.3s; position: relative; overflow: hidden;}
+    .service-card:hover{background:rgba(96,170,255,0.08); transform: translateY(-5px);}
+    .service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--tech-blue);transition:height 0.4s ease;}
+    .service-card:hover::before{height:100%;}
+    
+    .service-icon{font-family:var(--font-mono);font-size:1.2rem;color:var(--tech-blue);margin-bottom:24px; display:block;}
+    .service-name{font-family:var(--font-display);font-size:2.5rem;letter-spacing:0.05em;margin-bottom:16px;}
+    .service-desc{font-size:1.05rem;line-height:1.7;color:rgba(240,236,228,0.6);font-style:italic;}
+    .service-tags{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
+    .tag{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(240,236,228,0.2);color:rgba(240,236,228,0.5);}
+
+    /* CONTACT */
+    #contact{position:relative;z-index:10;padding:140px 52px;text-align:center}
+    .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,8rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:40px}
+    .btn-primary{display:inline-block;font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--tech-blue);padding:16px 40px;text-decoration:none;transition:background 0.3s,transform 0.2s}
+    .btn-primary:hover{background:#8cbdff;transform:translateY(-2px)}
+
+    /* FOOTER */
+    footer{position:relative;z-index:10;padding:28px 52px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05)}
+    footer p{font-family:var(--font-mono);font-size:0.55rem;color:rgba(240,236,228,0.3);letter-spacing:0.12em}
+    .social-links{display:flex;gap:24px}
+    .social-links a{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.15em;color:rgba(240,236,228,0.3);text-decoration:none;text-transform:uppercase;transition:color 0.3s}
+    .social-links a:hover{color:var(--tech-blue)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.028;pointer-events:none;z-index:9990}
+
+    @media(max-width:900px){
+      nav,#hero,#services,#contact,footer{padding-left:24px;padding-right:24px}
+      nav::after{left:24px;right:24px}
+      .services-grid{grid-template-columns:1fr}
+      #hero{padding-top:140px; min-height:80vh;}
+    }
+    @media(max-width:560px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo">SYS_INIT</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="loader-label" id="loader-label">Compiling data...</div>
+</div>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <a class="nav-logo" href="index.html">← PORTAL</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Initialize</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <p class="hero-eyebrow">System Architecture & AI</p>
+  <h1 class="hero-title">ENGINEERING<br><span class="blue">DIGITAL</span><br>REALITIES</h1>
+  <p class="hero-sub">Merging minimalist design with advanced computational logic. I build high-performance web applications and integrate custom Artificial Intelligence solutions to elevate your digital presence.</p>
+</section>
+
+<section id="services">
+  <p class="section-label">Capabilities</p>
+  <h2 class="section-title">THE STACK</h2>
+  
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">&lt;/&gt;</span>
+      <h3 class="service-name">WEB DEVELOPMENT</h3>
+      <p class="service-desc">From cinematic portfolio sites to complex, data-driven web applications. Built from the ground up with a focus on raw performance, flawless responsive design, and cutting-edge 3D integrations.</p>
+      <div class="service-tags">
+        <span class="tag">HTML/CSS/JS</span>
+        <span class="tag">Three.js</span>
+        <span class="tag">React</span>
+      </div>
+    </div>
+    
+    <div class="service-card">
+      <span class="service-icon">[AI]</span>
+      <h3 class="service-name">AI INTEGRATION</h3>
+      <p class="service-desc">Deploying intelligent systems to automate workflows, analyze data, and create interactive experiences. Bridging the gap between complex machine learning models and user-friendly interfaces.</p>
+      <div class="service-tags">
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">LLM Integration</span>
+        <span class="tag">Automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <p class="section-label">Deploy a Project</p>
+  <h2 class="contact-title">START<br><span style="color:var(--tech-blue)">SYSTEM</span></h2>
+  <a href="mailto:tech@pranavaryafilms.com" class="btn-primary">Initialize Contact</a>
+</section>
+
+<footer>
+  <p>© 2026 Pranav Arya Technical Services.</p>
+  <div class="social-links"><a href="#">GitHub</a><a href="#">LinkedIn</a></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// LOADER
+const loaderBar=document.getElementById('loader-bar');
+const loaderLabel=document.getElementById('loader-label');
+const loaderEl=document.getElementById('loader');
+const lbls=['Compiling data...','Loading dependencies...','Rendering topology...','System ready.'];
+let loadPct=0;
+const loaderInt=setInterval(()=>{
+  loadPct+=Math.random()*18+4;
+  if(loadPct>=100){loadPct=100;clearInterval(loaderInt);setTimeout(()=>loaderEl.classList.add('hide'),400);}
+  loaderBar.style.width=Math.min(loadPct,100)+'%';
+  loaderLabel.textContent=lbls[Math.min(Math.floor(loadPct/25),lbls.length-1)];
+},120);
+
+// CURSOR
+const cursorEl=document.getElementById('cursor');
+const ringEl=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.body.classList.add('custom-cursor-active');
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*0.15;ry+=(my-ry)*0.15;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
+  el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
+});
+
+// ═══════════════════════════
+// 3D ABSTRACT DATA CORE
+// ═══════════════════════════
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x050507, 0.04);
+
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
+camera.position.z = 12;
+
+// Track mouse position for parallax
+let mouseX = 0;
+let mouseY = 0;
+const target = new THREE.Vector2();
+const windowHalfX = window.innerWidth / 2;
+const windowHalfY = window.innerHeight / 2;
+
+document.addEventListener('mousemove', (event) => {
+  mouseX = (event.clientX - windowHalfX);
+  mouseY = (event.clientY - windowHalfY);
+});
+
+// Create the Data Core Group
+const coreGroup = new THREE.Group();
+// Shift the core to the right side of the screen on desktop
+coreGroup.position.set(window.innerWidth > 900 ? 5 : 0, 0, 0);
+scene.add(coreGroup);
+
+// 1. Outer Wireframe (Icosahedron)
+const outerGeo = new THREE.IcosahedronGeometry(4, 1);
+const outerMat = new THREE.MeshBasicMaterial({ color: 0x60aaff, wireframe: true, transparent: true, opacity: 0.15 });
+const outerMesh = new THREE.Mesh(outerGeo, outerMat);
+coreGroup.add(outerMesh);
+
+// 2. Inner Solid Core (Octahedron)
+const innerGeo = new THREE.OctahedronGeometry(2.5, 0);
+const innerMat = new THREE.MeshPhysicalMaterial({ 
+  color: 0x05050a, metalness: 0.9, roughness: 0.1, 
+  clearcoat: 1.0, wireframe: false,
+  emissive: 0x1a3a5f, emissiveIntensity: 0.5
+});
+const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+coreGroup.add(innerMesh);
+
+// 3. Floating Data Particles
+const particleGeo = new THREE.BufferGeometry();
+const particleCount = 400;
+const posArray = new Float32Array(particleCount * 3);
+
+for(let i = 0; i < particleCount * 3; i++) {
+  // Spread particles in a wide area
+  posArray[i] = (Math.random() - 0.5) * 30;
+}
+particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+const particleMat = new THREE.PointsMaterial({
+  size: 0.05,
+  color: 0x60aaff,
+  transparent: true,
+  opacity: 0.6,
+  blending: THREE.AdditiveBlending
+});
+const particleMesh = new THREE.Points(particleGeo, particleMat);
+scene.add(particleMesh);
+
+// Lighting for the inner core
+const pointLight = new THREE.PointLight(0x60aaff, 5, 20);
+pointLight.position.set(5, 5, 5);
+scene.add(pointLight);
+scene.add(new THREE.AmbientLight(0x111122, 1));
+
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  coreGroup.position.set(window.innerWidth > 900 ? 5 : 0, 0, 0);
+});
+
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const delta = clock.getDelta();
+  const time = clock.getElapsedTime();
+
+  // Smooth mouse follow
+  target.x = (mouseX * 0.001);
+  target.y = (mouseY * 0.001);
+  
+  // Parallax camera movement
+  camera.position.x += (target.x * 3 - camera.position.x) * 2 * delta;
+  camera.position.y += (-target.y * 3 - camera.position.y) * 2 * delta;
+  camera.lookAt(scene.position);
+
+  // Rotate Core Elements
+  outerMesh.rotation.x += 0.2 * delta;
+  outerMesh.rotation.y += 0.3 * delta;
+  
+  innerMesh.rotation.x -= 0.1 * delta;
+  innerMesh.rotation.y -= 0.15 * delta;
+
+  // Gentle floating motion for the core
+  coreGroup.position.y = Math.sin(time * 0.5) * 0.5;
+
+  // Rotate background particles slowly
+  particleMesh.rotation.y = time * 0.05;
+
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>
