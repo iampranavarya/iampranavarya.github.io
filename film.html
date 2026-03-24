@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pranav Arya Film Production</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{
@@ -12,14 +12,15 @@
       --gold:#c9a84c;--gold-dim:#7a6228;
       --white:#f0ece4;
       --font-display:'Bebas Neue',sans-serif;
-      --font-serif:'Cormorant Garamond',serif;
+      --font-body:'Inter',sans-serif;
       --font-mono:'Space Mono',monospace;
     }
     html{scroll-behavior:smooth}
     body{
       background:var(--black);
       color:var(--white);
-      font-family:var(--font-serif);
+      font-family:var(--font-body);
+      font-weight: 300;
       overflow-x:hidden;
       cursor: auto; 
     }
@@ -60,7 +61,10 @@
     .hero-title{font-family:var(--font-display);font-size:clamp(4rem,10vw,11rem);line-height:0.88;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
     .hero-title .gold{color:var(--gold)}
     .hero-title .outline{-webkit-text-stroke:1px rgba(240,236,228,0.22);color:transparent}
-    .hero-sub{margin-top:28px;max-width:380px;font-size:1.05rem;font-style:italic;color:rgba(240,236,228,0.5);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
+    
+    /* UPDATED: Clean, readable sub text */
+    .hero-sub{margin-top:28px;max-width:380px;font-size:1.05rem;font-weight:300;color:rgba(240,236,228,0.8);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
+    
     .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards}
     .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s}
     .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
@@ -92,7 +96,10 @@
     #about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .about-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
     .about-heading{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);line-height:1;letter-spacing:0.03em;margin-bottom:32px}
-    .about-body{font-size:1.1rem;font-style:italic;line-height:1.85;color:rgba(240,236,228,0.65);max-width:480px}
+    
+    /* UPDATED: Clean, readable sub text */
+    .about-body{font-size:1.1rem;font-weight:300;line-height:1.85;color:rgba(240,236,228,0.85);max-width:480px}
+    
     .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
     .stat-card{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);padding:36px 28px;transition:background 0.3s}
     .stat-card:hover{background:rgba(201,168,76,0.09)}
@@ -147,7 +154,10 @@
     #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .contact-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
     .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:40px}
-    .contact-email{font-family:var(--font-serif);font-size:1.1rem;font-style:italic;color:rgba(240,236,228,0.55);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:4px;transition:color 0.3s,border-color 0.3s}
+    
+    /* UPDATED: Clean, readable sub text */
+    .contact-email{font-size:1.2rem;font-weight:300;color:rgba(240,236,228,0.8);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:4px;transition:color 0.3s,border-color 0.3s}
+    
     .contact-email:hover{color:var(--gold);border-color:var(--gold)}
 
     /* FOOTER */
@@ -324,8 +334,6 @@ const pPos=new Float32Array(200*3);
 for(let i=0;i<200;i++){pPos[i*3]=(Math.random()-.5)*28;pPos[i*3+1]=(Math.random()-.5)*18;pPos[i*3+2]=(Math.random()-.5)*14;}
 const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(pPos,3));
 bgS.add(new THREE.Points(pG,new THREE.PointsMaterial({color:0xc9a84c,size:0.04,transparent:true,opacity:0.25})));
-
-// Octahedron removed
 
 let bgMX=0,bgMY=0;
 document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*2;bgMY=(e.clientY/window.innerHeight-.5)*2;});
