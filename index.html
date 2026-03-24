@@ -107,6 +107,41 @@
       z-index: 9999;
     }
 
+    /* NEW: Center Prompt Animation */
+    .choose-prompt {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(240, 236, 228, 0.9);
+      background: rgba(5, 5, 7, 0.85);
+      padding: 12px 24px;
+      border: 1px solid rgba(240, 236, 228, 0.15);
+      border-radius: 40px;
+      pointer-events: none; /* Prevents the badge from blocking clicks */
+      text-align: center;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+      /* Animation: Starts invisible, fades up, then gently pulses */
+      opacity: 0;
+      animation: promptFadeUp 1.5s 1.2s forwards, promptPulse 3s 2.7s infinite alternate ease-in-out;
+    }
+
+    @keyframes promptFadeUp {
+      from { opacity: 0; transform: translate(-50%, -20%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    @keyframes promptPulse {
+      from { box-shadow: 0 0 0px rgba(240,236,228,0); border-color: rgba(240, 236, 228, 0.15); }
+      to { box-shadow: 0 0 15px rgba(240,236,228,0.1); border-color: rgba(240, 236, 228, 0.35); }
+    }
+
     /* Mobile adjustments: Stack them vertically instead of side-by-side */
     @media (max-width: 800px) {
       .split-layout { flex-direction: column; }
@@ -118,6 +153,8 @@
 <body>
 
   <div class="grain"></div>
+
+  <div class="choose-prompt">What would you choose?</div>
 
   <div class="split-layout">
     <a href="film.html" class="split film-side">
