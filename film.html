@@ -61,10 +61,7 @@
     .hero-title{font-family:var(--font-display);font-size:clamp(4rem,10vw,11rem);line-height:0.88;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
     .hero-title .gold{color:var(--gold)}
     .hero-title .outline{-webkit-text-stroke:1px rgba(240,236,228,0.22);color:transparent}
-    
-    /* UPDATED: Clean, readable sub text */
     .hero-sub{margin-top:28px;max-width:380px;font-size:1.05rem;font-weight:300;color:rgba(240,236,228,0.8);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
-    
     .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards}
     .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s}
     .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
@@ -96,10 +93,7 @@
     #about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .about-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
     .about-heading{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);line-height:1;letter-spacing:0.03em;margin-bottom:32px}
-    
-    /* UPDATED: Clean, readable sub text */
     .about-body{font-size:1.1rem;font-weight:300;line-height:1.85;color:rgba(240,236,228,0.85);max-width:480px}
-    
     .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
     .stat-card{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);padding:36px 28px;transition:background 0.3s}
     .stat-card:hover{background:rgba(201,168,76,0.09)}
@@ -153,12 +147,12 @@
     #contact{position:relative;z-index:10;padding:140px 52px;text-align:center}
     #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .contact-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
-    .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:40px}
+    .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:50px}
     
-    /* UPDATED: Clean, readable sub text */
-    .contact-email{font-size:1.2rem;font-weight:300;color:rgba(240,236,228,0.8);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:4px;transition:color 0.3s,border-color 0.3s}
-    
-    .contact-email:hover{color:var(--gold);border-color:var(--gold)}
+    .contact-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 10px; }
+    .contact-item { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 300; color: rgba(240,236,228,0.8); text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
+    .contact-item:hover { color: var(--gold); border-color: var(--gold); }
+    .contact-icon { width: 22px; height: 22px; }
 
     /* FOOTER */
     footer{position:relative;z-index:10;padding:28px 52px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05)}
@@ -185,8 +179,12 @@
       #about, #about-me {grid-template-columns:1fr;gap:52px}
       .work-grid{grid-template-columns:1fr 1fr}
       #shot-counter{right:24px}
+      .contact-links { flex-direction: column; gap: 24px; align-items: center; }
     }
-    @media(max-width:560px){.work-grid{grid-template-columns:1fr}.nav-links{display:none}}
+    @media(max-width:560px){
+      .work-grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
   </style>
 </head>
 <body>
@@ -274,7 +272,23 @@
 <section id="contact">
   <p class="contact-label">Let's Collaborate</p>
   <h2 class="contact-title">LET'S<br><span style="color:var(--gold)">TALK</span></h2>
-  <a href="mailto:hello@pranavaryafilms.com" class="contact-email">hello@pranavaryafilms.com</a>
+  
+  <div class="contact-links">
+    <a href="mailto:Info@pranavarya.com" class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      Info@pranavarya.com
+    </a>
+    
+    <a href="tel:+919999999999" class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      9999999999
+    </a>
+    
+    <a href="https://www.instagram.com/iampranavarya/" target="_blank" class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      @iampranavarya
+    </a>
+  </div>
 </section>
 
 <footer>
