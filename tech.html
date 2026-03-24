@@ -50,8 +50,6 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 60px; 
       align-items: center; padding: 60px 5%; max-width: 1400px; margin: 0 auto;
     }
-    
-    /* Swap image and text sides on every even row */
     .service-row:nth-child(even) .service-content { order: 2; }
     .service-row:nth-child(even) .service-media { order: 1; }
 
@@ -88,8 +86,9 @@
     .service-canvas { 
       width: 100%; height: 100%; 
       border-radius: 2px;
-      background: #030305; /* Deep black background for the animations */
+      background: #030305;
       box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+      cursor: crosshair; /* Changes cursor slightly to encourage hovering */
     }
 
     /* CONTACT BUTTON */
@@ -203,18 +202,41 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 // ═══════════════════════════
-// CUSTOM CURSOR LOGIC
+// GLOBAL MOUSE & CURSOR TRACKING
 // ═══════════════════════════
-const cursorEl=document.getElementById('cursor');
-const ringEl=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
+let glMouse = {x: -1000, y: -1000};
+const cursorEl = document.getElementById('cursor');
+const ringEl = document.getElementById('cursor-ring');
+let rx=0, ry=0;
+
 document.body.classList.add('custom-cursor-active');
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
-(function animRing(){rx+=(mx-rx)*0.15;ry+=(my-ry)*0.15;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
+window.addEventListener('mousemove', e => { 
+  glMouse.x = e.clientX; 
+  glMouse.y = e.clientY; 
+  cursorEl.style.left = glMouse.x + 'px'; 
+  cursorEl.style.top = glMouse.y + 'px'; 
+});
+
+(function animRing(){
+  rx += (glMouse.x - rx) * 0.15; ry += (glMouse.y - ry) * 0.15;
+  ringEl.style.left = rx + 'px'; ringEl.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+
 document.querySelectorAll('a').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
   el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
 });
+
+// Helper to get mouse coordinates localized to a specific canvas
+function getLocalMouse(c) {
+  const rect = c.getBoundingClientRect();
+  return {
+    x: glMouse.x - rect.left,
+    y: glMouse.y - rect.top,
+    active: (glMouse.x >= rect.left && glMouse.x <= rect.right && glMouse.y >= rect.top && glMouse.y <= rect.bottom)
+  };
+}
 
 // ═══════════════════════════
 // DYNAMIC THEME & SCROLL ANIMATION
@@ -231,8 +253,6 @@ const observer = new IntersectionObserver((entries) => {
       root.style.setProperty('--theme-color', color);
       targetLightColor.set(color);
     }
-    
-    // Optimize performance: Only animate canvases that are currently visible
     if(entry.target.hasAttribute('data-color')) {
       const id = entry.target.querySelector('canvas').id.replace('canvas-', '');
       activeCanvases[id] = entry.isIntersecting;
@@ -243,7 +263,7 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach(sec => observer.observe(sec));
 
 // ═══════════════════════════
-// 2D CANVAS PIXEL ALGORITHMS
+// 2D CANVAS PIXEL ALGORITHMS (WITH DISPERSION)
 // ═══════════════════════════
 function resize(c) {
   const p = c.parentElement;
@@ -252,116 +272,220 @@ function resize(c) {
   }
 }
 
-// Service 1: 3D Point Cloud Sphere (AI Models)
+// S1: 3D HUMANOID POINT CLOUD (AI Models)
 const c1 = document.getElementById('canvas-s1'); const ctx1 = c1.getContext('2d');
 let s1_pts = [];
-for(let i=0; i<400; i++) {
-  const theta = Math.random() * 2 * Math.PI; const phi = Math.acos((Math.random() * 2) - 1);
-  s1_pts.push({ x: Math.sin(phi)*Math.cos(theta), y: Math.sin(phi)*Math.sin(theta), z: Math.cos(phi) });
+// Generate a mathematical silhouette of a human
+for(let i=0; i<600; i++) {
+  let r = Math.random(), px, py, pz;
+  if (r < 0.12) { // Head
+      px = (Math.random()-0.5)*0.3; py = (Math.random()-0.5)*0.3 - 0.9; pz = (Math.random()-0.5)*0.3;
+  } else if (r < 0.50) { // Torso
+      px = (Math.random()-0.5)*0.6; py = (Math.random()-0.5)*1.0 - 0.2; pz = (Math.random()-0.5)*0.3;
+  } else if (r < 0.70) { // Arms
+      let side = Math.random()>0.5 ? 1 : -1;
+      px = side * (0.4 + Math.random()*0.2); py = (Math.random()-0.5)*1.0 - 0.1; pz = (Math.random()-0.5)*0.2;
+  } else { // Legs
+      let side = Math.random()>0.5 ? 1 : -1;
+      px = side * 0.2 + (Math.random()-0.5)*0.2; py = (Math.random()-0.5)*1.2 + 0.9; pz = (Math.random()-0.5)*0.2;
+  }
+  // Store original 3D pos, and offset properties for mouse interaction
+  s1_pts.push({ x: px, y: py, z: pz, offX: 0, offY: 0 });
 }
 let s1_ang = 0;
+
 function drawS1() {
   resize(c1); ctx1.clearRect(0,0,c1.width,c1.height);
-  const cx = c1.width/2, cy = c1.height/2, r = Math.min(cx, cy) * 0.7;
+  const cx = c1.width/2, cy = c1.height/2, rScale = Math.min(cx, cy) * 0.65;
+  const m = getLocalMouse(c1);
   s1_ang += 0.01;
   ctx1.fillStyle = '#ff2a6d';
+
   s1_pts.forEach(p => {
+    // 3D to 2D Projection
     const rotX = p.x * Math.cos(s1_ang) - p.z * Math.sin(s1_ang);
     const rotZ = p.z * Math.cos(s1_ang) + p.x * Math.sin(s1_ang);
-    const scale = 300 / (300 - rotZ * 100);
-    const px = cx + rotX * r * scale; const py = cy + p.y * r * scale;
-    ctx1.globalAlpha = Math.max(0.1, (rotZ + 1) / 2);
-    ctx1.fillRect(px, py, 2.5, 2.5);
+    const scale = 2.5 / (2.5 - rotZ);
+    const px2d = cx + rotX * rScale * scale;
+    const py2d = cy + p.y * rScale * scale;
+
+    // Mouse Dispersion Forcefield
+    let targetX = 0, targetY = 0;
+    if(m.active) {
+      let dx = px2d - m.x, dy = py2d - m.y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 100) { // Push radius
+        targetX = (dx/dist) * (100 - dist) * 0.5;
+        targetY = (dy/dist) * (100 - dist) * 0.5;
+      }
+    }
+    // Smooth transition back to 0
+    p.offX += (targetX - p.offX) * 0.1;
+    p.offY += (targetY - p.offY) * 0.1;
+
+    ctx1.globalAlpha = Math.max(0.1, (rotZ + 1.5) / 3);
+    ctx1.fillRect(px2d + p.offX, py2d + p.offY, 2.5, 2.5);
   });
 }
 
-// Service 2: Neural Network (AI Automation)
+// S2: NEURAL NETWORK (AI Automation)
 const c2 = document.getElementById('canvas-s2'); const ctx2 = c2.getContext('2d');
-let s2_nodes = Array.from({length: 60}, () => ({
-  x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5)*0.005, vy: (Math.random() - 0.5)*0.005
+let s2_nodes = Array.from({length: 70}, () => ({
+  x: Math.random(), y: Math.random(), 
+  vx: (Math.random()-0.5)*0.003, vy: (Math.random()-0.5)*0.003
 }));
+
 function drawS2() {
   resize(c2); ctx2.clearRect(0,0,c2.width,c2.height);
   ctx2.fillStyle = '#05d9e8'; ctx2.strokeStyle = '#05d9e8';
+  const m = getLocalMouse(c2);
+
   s2_nodes.forEach(n => {
+    // Dispersion
+    if(m.active) {
+      let dx = (n.x * c2.width) - m.x, dy = (n.y * c2.height) - m.y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 120) { n.vx += (dx/dist)*0.001; n.vy += (dy/dist)*0.001; }
+    }
+    // Friction & bounds
+    n.vx *= 0.98; n.vy *= 0.98;
     n.x += n.vx; n.y += n.vy;
-    if(n.x < 0 || n.x > 1) n.vx *= -1; if(n.y < 0 || n.y > 1) n.vy *= -1;
+    if(n.x < 0 || n.x > 1) { n.vx *= -1; n.x = Math.max(0, Math.min(1, n.x)); }
+    if(n.y < 0 || n.y > 1) { n.vy *= -1; n.y = Math.max(0, Math.min(1, n.y)); }
+    
     ctx2.beginPath(); ctx2.arc(n.x * c2.width, n.y * c2.height, 2, 0, Math.PI*2); ctx2.fill();
   });
+
+  // Connecting lines
   for(let i=0; i<s2_nodes.length; i++) {
     for(let j=i+1; j<s2_nodes.length; j++) {
       const dx = s2_nodes[i].x - s2_nodes[j].x, dy = s2_nodes[i].y - s2_nodes[j].y;
       const dist = Math.sqrt(dx*dx + dy*dy);
       if(dist < 0.15) {
         ctx2.globalAlpha = 1 - (dist / 0.15);
-        ctx2.beginPath(); ctx2.moveTo(s2_nodes[i].x * c2.width, s2_nodes[i].y * c2.height);
-        ctx2.lineTo(s2_nodes[j].x * c2.width, s2_nodes[j].y * c2.height); ctx2.stroke();
+        ctx2.beginPath(); 
+        ctx2.moveTo(s2_nodes[i].x * c2.width, s2_nodes[i].y * c2.height);
+        ctx2.lineTo(s2_nodes[j].x * c2.width, s2_nodes[j].y * c2.height); 
+        ctx2.stroke();
       }
     }
   }
   ctx2.globalAlpha = 1;
 }
 
-// Service 3: Matrix Data Stream (Software Dev)
+// S3: FALLING SOFTWARE CODE (Software Dev)
 const c3 = document.getElementById('canvas-s3'); const ctx3 = c3.getContext('2d');
-let s3_drops = [];
+const codeSyntax = ['const','let','=>','{','}','function','await','();','if','||','&&','[0]','0','1'];
+let s3_drops = []; let s3_offsets = [];
+
 function drawS3() {
   resize(c3); 
-  ctx3.fillStyle = 'rgba(3, 3, 5, 0.15)'; ctx3.fillRect(0,0,c3.width,c3.height); // Trail effect
-  if(s3_drops.length === 0) s3_drops = Array.from({length: Math.floor(c3.width/15)}, () => Math.random() * c3.height);
+  ctx3.fillStyle = 'rgba(3, 3, 5, 0.15)'; ctx3.fillRect(0,0,c3.width,c3.height);
+  const m = getLocalMouse(c3);
+  
+  const colWidth = 20;
+  if(s3_drops.length !== Math.floor(c3.width/colWidth)) {
+    s3_drops = Array.from({length: Math.floor(c3.width/colWidth)}, () => Math.random() * c3.height);
+    s3_offsets = Array.from({length: Math.floor(c3.width/colWidth)}, () => 0);
+  }
+
   ctx3.fillStyle = '#01ffc3'; ctx3.font = '14px monospace';
   s3_drops.forEach((y, i) => {
-    const char = String.fromCharCode(0x30A0 + Math.random() * 96);
-    ctx3.fillText(char, i * 15, y);
-    if(y > c3.height && Math.random() > 0.975) s3_drops[i] = 0;
-    s3_drops[i] += 15;
+    const char = codeSyntax[Math.floor(Math.random() * codeSyntax.length)];
+    let baseX = i * colWidth;
+    
+    // Mouse push effect on the columns
+    let targetOffset = 0;
+    if(m.active) {
+      let dx = baseX - m.x, dy = y - m.y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 100) targetOffset = (dx/dist) * (100-dist);
+    }
+    s3_offsets[i] += (targetOffset - s3_offsets[i]) * 0.15;
+    
+    ctx3.fillText(char, baseX + s3_offsets[i], y);
+    if(y > c3.height && Math.random() > 0.95) s3_drops[i] = 0;
+    s3_drops[i] += 12;
   });
 }
 
-// Service 4: Pulsing Pixel Grid (App Dev)
+// S4: PULSING PIXEL GRID (App Dev)
 const c4 = document.getElementById('canvas-s4'); const ctx4 = c4.getContext('2d');
 let s4_grid = []; let s4_cols = 0; let s4_rows = 0;
+
 function drawS4() {
   resize(c4);
-  const size = 20; const pad = 4;
+  const size = 18; const pad = 4;
   s4_cols = Math.floor(c4.width / (size+pad)); s4_rows = Math.floor(c4.height / (size+pad));
   if(s4_grid.length !== s4_cols * s4_rows) s4_grid = Array.from({length: s4_cols * s4_rows}, () => Math.random());
   
   ctx4.clearRect(0,0,c4.width,c4.height);
   const offsetX = (c4.width - (s4_cols * (size+pad))) / 2;
   const offsetY = (c4.height - (s4_rows * (size+pad))) / 2;
+  const m = getLocalMouse(c4);
   
   s4_grid.forEach((val, i) => {
-    s4_grid[i] = Math.max(0, val - 0.02); // Fade out
-    if(Math.random() > 0.99) s4_grid[i] = 1; // Flash new
+    s4_grid[i] = Math.max(0, val - 0.02); // Fade out naturally
+    if(Math.random() > 0.99) s4_grid[i] = 1; // Flash new randomly
     
     const x = i % s4_cols; const y = Math.floor(i / s4_cols);
+    let cellX = offsetX + x * (size+pad);
+    let cellY = offsetY + y * (size+pad);
+    
+    // Mouse hover reveals the grid completely
+    if(m.active) {
+      let dist = Math.sqrt(Math.pow((cellX+size/2) - m.x, 2) + Math.pow((cellY+size/2) - m.y, 2));
+      if(dist < 100) s4_grid[i] = Math.max(s4_grid[i], 1 - (dist/100));
+    }
+    
     ctx4.fillStyle = `rgba(179, 0, 255, ${s4_grid[i] * 0.8 + 0.1})`;
-    ctx4.fillRect(offsetX + x * (size+pad), offsetY + y * (size+pad), size, size);
+    ctx4.fillRect(cellX, cellY, size, size);
   });
 }
 
-// Service 5: Cyberpunk 3D Terrain Grid (Web Creation)
+// S5: CYBERPUNK 3D TERRAIN GRID (Web Creation)
 const c5 = document.getElementById('canvas-s5'); const ctx5 = c5.getContext('2d');
 let s5_offset = 0;
+
 function drawS5() {
   resize(c5); ctx5.clearRect(0,0,c5.width,c5.height);
   ctx5.strokeStyle = '#f1c40f'; ctx5.lineWidth = 1.5;
-  const cx = c5.width/2, cy = c5.height * 0.3; // Horizon line
-  s5_offset = (s5_offset + 2) % 40; // Forward movement speed
+  const cx = c5.width/2, cy = c5.height * 0.3;
+  s5_offset = (s5_offset + 2) % 40;
+  const m = getLocalMouse(c5);
   
-  // Perspective horizontal lines
+  // Perspective horizontal lines with Mouse Distortion
   for(let i=0; i<25; i++) {
-    const y = cy + Math.pow(i, 1.8) + s5_offset * (i*0.05);
-    if(y > cy && y < c5.height) {
-      ctx5.globalAlpha = Math.min(1, (y - cy) / 150);
-      ctx5.beginPath(); ctx5.moveTo(0, y); ctx5.lineTo(c5.width, y); ctx5.stroke();
+    let baseY = cy + Math.pow(i, 1.8) + s5_offset * (i*0.05);
+    if(baseY > cy && baseY < c5.height) {
+      ctx5.globalAlpha = Math.min(1, (baseY - cy) / 150);
+      ctx5.beginPath();
+      for(let x=0; x<=c5.width; x+=20) {
+        let yDistort = 0;
+        if(m.active) {
+          let dist = Math.sqrt(Math.pow(x - m.x, 2) + Math.pow(baseY - m.y, 2));
+          if(dist < 120) yDistort = Math.sin(dist*0.1) * (120-dist)*0.2;
+        }
+        if(x===0) ctx5.moveTo(x, baseY + yDistort);
+        else ctx5.lineTo(x, baseY + yDistort);
+      }
+      ctx5.stroke();
     }
   }
   // Perspective vertical lines
   ctx5.globalAlpha = 0.5;
-  for(let i=-15; i<15; i++) {
-    ctx5.beginPath(); ctx5.moveTo(cx, cy); ctx5.lineTo(cx + i * 80, c5.height); ctx5.stroke();
+  for(let i=-20; i<20; i++) {
+    let startX = cx + i * 20; let endX = cx + i * 100;
+    ctx5.beginPath(); ctx5.moveTo(startX, cy); 
+    
+    // Distort vertical end points if mouse is near
+    let targetX = endX;
+    if(m.active) {
+      let dx = endX - m.x, dy = c5.height - m.y;
+      if(Math.sqrt(dx*dx + dy*dy) < 200) targetX += dx * 0.3;
+    }
+    ctx5.lineTo(targetX, c5.height); 
+    ctx5.stroke();
   }
   ctx5.globalAlpha = 1;
 }
@@ -402,12 +526,6 @@ scene.add(pointLight);
 let currentLightColor = new THREE.Color(0x60aaff);
 let targetLightColor = new THREE.Color(0x60aaff);
 
-let mouseX = 0; let mouseY = 0; const targetPos = new THREE.Vector2();
-document.addEventListener('mousemove', (event) => {
-  mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
-  mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
-});
-let scrollY = 0; window.addEventListener('scroll', () => { scrollY = window.scrollY; });
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
@@ -431,9 +549,12 @@ function animate() {
   pointLight.color.copy(currentLightColor);
   particlesMat.color.copy(currentLightColor);
   
-  targetPos.x = mouseX; targetPos.y = mouseY;
-  camera.position.x += (targetPos.x * 4 - camera.position.x) * delta * 2;
-  const targetCamY = -targetPos.y * 4 - (scrollY * 0.005);
+  // Convert center-based mouse for Three.js Parallax
+  let tX = (glMouse.x - window.innerWidth / 2) * 0.001;
+  let tY = (glMouse.y - window.innerHeight / 2) * 0.001;
+  
+  camera.position.x += (tX * 4 - camera.position.x) * delta * 2;
+  const targetCamY = -tY * 4 - (window.scrollY * 0.005);
   camera.position.y += (targetCamY - camera.position.y) * delta * 2;
   camera.lookAt(scene.position);
 
