@@ -319,22 +319,26 @@ function resizeCam(){
 resizeCam();
 window.addEventListener('resize',resizeCam);
 
-// Lights
-camS.add(new THREE.AmbientLight(0x0d0d18,3));
-const keyL=new THREE.SpotLight(0xfff5e0,5,30,Math.PI/5,0.35);keyL.position.set(4,5,6);keyL.castShadow=true;camS.add(keyL);
-const fillL=new THREE.PointLight(0xc9a84c,2,20);fillL.position.set(-4,2,3);camS.add(fillL);
-const rimL=new THREE.PointLight(0xc9a84c,3,15);rimL.position.set(0,-5,-3);camS.add(rimL);
-const glowL=new THREE.PointLight(0x60aaff,0,10);glowL.position.set(0,0,3.8);camS.add(glowL);
+// Lights (Upgraded for a moody, high-end studio look)
+camS.add(new THREE.AmbientLight(0x0d0d18, 4));
+const keyL=new THREE.SpotLight(0xfff5e0, 8, 30, Math.PI/5, 0.4);
+keyL.position.set(4, 6, 6); keyL.castShadow=true; 
+keyL.shadow.bias = -0.001; // Prevents shadow artifacts
+camS.add(keyL);
+const fillL=new THREE.PointLight(0xc9a84c, 3, 20); fillL.position.set(-4, 2, 3); camS.add(fillL);
+const rimL=new THREE.PointLight(0xc9a84c, 5, 15); rimL.position.set(0, -5, -3); camS.add(rimL);
+const glowL=new THREE.PointLight(0x60aaff, 0, 10); glowL.position.set(0, 0, 3.8); camS.add(glowL);
 
-// Materials
-const bodyM =new THREE.MeshStandardMaterial({color:0x111118,metalness:0.85,roughness:0.3});
-const blackM =new THREE.MeshStandardMaterial({color:0x070710,metalness:0.6,roughness:0.5});
-const goldM  =new THREE.MeshStandardMaterial({color:0xc9a84c,metalness:1,roughness:0.12,emissive:0x3a2800,emissiveIntensity:0.25});
-const silverM=new THREE.MeshStandardMaterial({color:0x909090,metalness:1,roughness:0.18});
-const glassM =new THREE.MeshStandardMaterial({color:0x0a1828,metalness:0.05,roughness:0,transparent:true,opacity:0.5});
-const lensM  =new THREE.MeshStandardMaterial({color:0x040410,metalness:0.4,roughness:0.08,transparent:true,opacity:0.88});
-const rubberM=new THREE.MeshStandardMaterial({color:0x0c0c12,metalness:0.1,roughness:0.9});
-const redM   =new THREE.MeshStandardMaterial({color:0xcc1100,metalness:0.2,roughness:0.5,emissive:0x440000,emissiveIntensity:0.5});
+// Materials (Upgraded to MeshPhysicalMaterial for premium real-world physics)
+const bodyM = new THREE.MeshPhysicalMaterial({color: 0x111115, metalness: 0.7, roughness: 0.4, clearcoat: 0.3, clearcoatRoughness: 0.2});
+const blackM = new THREE.MeshPhysicalMaterial({color: 0x050508, metalness: 0.8, roughness: 0.5, clearcoat: 0.1});
+const goldM = new THREE.MeshPhysicalMaterial({color: 0xd4af37, metalness: 1.0, roughness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.1});
+const silverM = new THREE.MeshPhysicalMaterial({color: 0xaaaaaa, metalness: 1.0, roughness: 0.2, clearcoat: 0.5});
+// Real glass transmission
+const glassM = new THREE.MeshPhysicalMaterial({color: 0x112233, metalness: 0.1, roughness: 0.05, transmission: 0.95, thickness: 0.5, transparent: true});
+const lensM = new THREE.MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
+const rubberM = new THREE.MeshStandardMaterial({color: 0x08080a, metalness: 0.1, roughness: 0.9});
+const redM = new THREE.MeshPhysicalMaterial({color: 0xcc1100, metalness: 0.3, roughness: 0.2, clearcoat: 1.0});
 
 const camGroup=new THREE.Group();
 camS.add(camGroup);
