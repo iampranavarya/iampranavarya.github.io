@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pranav Arya | Technical Services</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     
@@ -13,14 +13,16 @@
       --white:#f0ece4;
       --theme-color: #60aaff; 
       --font-display:'Bebas Neue',sans-serif;
-      --font-serif:'Cormorant Garamond',serif;
+      --font-body:'Inter',sans-serif;
       --font-mono:'Space Mono',monospace;
     }
 
     html { scroll-behavior: smooth; }
     body {
       background: var(--black); color: var(--white);
-      font-family: var(--font-serif); overflow-x: hidden; cursor: auto;
+      font-family: var(--font-body); 
+      font-weight: 300;
+      overflow-x: hidden; cursor: auto;
     }
     body.custom-cursor-active { cursor: none; }
 
@@ -42,7 +44,9 @@
     .hero-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.4em; color: var(--theme-color); text-transform: uppercase; margin-bottom: 20px; transition: color 0.5s ease; }
     .hero-title { font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 8rem); line-height: 0.9; letter-spacing: 0.02em; }
     .hero-title span { color: var(--theme-color); transition: color 0.5s ease; }
-    .hero-sub { margin-top: 24px; max-width: 500px; font-size: 1.1rem; font-style: italic; color: rgba(240,236,228,0.7); line-height: 1.8; }
+    
+    /* UPDATED: Clean, readable sub text */
+    .hero-sub { margin-top: 24px; max-width: 500px; font-size: 1.1rem; color: rgba(240,236,228,0.8); line-height: 1.8; }
 
     /* TIGHTER Z-PATTERN GRID LAYOUT */
     .service-row { 
@@ -71,7 +75,9 @@
     .service-content { padding: 50px; }
     .service-index { font-family: var(--font-mono); font-size: 0.7rem; color: var(--theme-color); letter-spacing: 0.2em; display: block; margin-bottom: 16px; transition: color 0.5s ease;}
     .service-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: 0.05em; margin-bottom: 20px; line-height: 1; }
-    .service-desc { font-size: 1.05rem; line-height: 1.7; color: rgba(240,236,228,0.7); font-style: italic; margin-bottom: 36px; }
+    
+    /* UPDATED: Clean, readable sub text */
+    .service-desc { font-size: 1.05rem; line-height: 1.7; color: rgba(240,236,228,0.8); margin-bottom: 36px; }
     
     /* 4:5 MEDIA CONTAINER FOR CANVAS */
     .service-media { 
@@ -88,7 +94,7 @@
       border-radius: 2px;
       background: #030305;
       box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
-      cursor: crosshair; /* Changes cursor slightly to encourage hovering */
+      cursor: crosshair; 
     }
 
     /* CONTACT BUTTON */
@@ -106,7 +112,6 @@
     /* MOBILE ADJUSTMENTS */
     @media(max-width: 900px) {
       .service-row { grid-template-columns: 1fr; gap: 30px; padding: 40px 5%; }
-      /* Force MEDIA (Canvas) to ALWAYS be above CONTENT (Text) on mobile */
       .service-row:nth-child(n) .service-media { order: 1; }
       .service-row:nth-child(n) .service-content { order: 2; }
       
@@ -228,7 +233,6 @@ document.querySelectorAll('a').forEach(el=>{
   el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
 });
 
-// Helper to get mouse coordinates localized to a specific canvas
 function getLocalMouse(c) {
   const rect = c.getBoundingClientRect();
   return {
@@ -272,24 +276,15 @@ function resize(c) {
   }
 }
 
-// S1: 3D HUMANOID POINT CLOUD (AI Models)
+// S1: 3D HUMANOID POINT CLOUD
 const c1 = document.getElementById('canvas-s1'); const ctx1 = c1.getContext('2d');
 let s1_pts = [];
-// Generate a mathematical silhouette of a human
 for(let i=0; i<600; i++) {
   let r = Math.random(), px, py, pz;
-  if (r < 0.12) { // Head
-      px = (Math.random()-0.5)*0.3; py = (Math.random()-0.5)*0.3 - 0.9; pz = (Math.random()-0.5)*0.3;
-  } else if (r < 0.50) { // Torso
-      px = (Math.random()-0.5)*0.6; py = (Math.random()-0.5)*1.0 - 0.2; pz = (Math.random()-0.5)*0.3;
-  } else if (r < 0.70) { // Arms
-      let side = Math.random()>0.5 ? 1 : -1;
-      px = side * (0.4 + Math.random()*0.2); py = (Math.random()-0.5)*1.0 - 0.1; pz = (Math.random()-0.5)*0.2;
-  } else { // Legs
-      let side = Math.random()>0.5 ? 1 : -1;
-      px = side * 0.2 + (Math.random()-0.5)*0.2; py = (Math.random()-0.5)*1.2 + 0.9; pz = (Math.random()-0.5)*0.2;
-  }
-  // Store original 3D pos, and offset properties for mouse interaction
+  if (r < 0.12) { px = (Math.random()-0.5)*0.3; py = (Math.random()-0.5)*0.3 - 0.9; pz = (Math.random()-0.5)*0.3; }
+  else if (r < 0.50) { px = (Math.random()-0.5)*0.6; py = (Math.random()-0.5)*1.0 - 0.2; pz = (Math.random()-0.5)*0.3; }
+  else if (r < 0.70) { let side = Math.random()>0.5 ? 1 : -1; px = side * (0.4 + Math.random()*0.2); py = (Math.random()-0.5)*1.0 - 0.1; pz = (Math.random()-0.5)*0.2; }
+  else { let side = Math.random()>0.5 ? 1 : -1; px = side * 0.2 + (Math.random()-0.5)*0.2; py = (Math.random()-0.5)*1.2 + 0.9; pz = (Math.random()-0.5)*0.2; }
   s1_pts.push({ x: px, y: py, z: pz, offX: 0, offY: 0 });
 }
 let s1_ang = 0;
@@ -302,38 +297,28 @@ function drawS1() {
   ctx1.fillStyle = '#ff2a6d';
 
   s1_pts.forEach(p => {
-    // 3D to 2D Projection
     const rotX = p.x * Math.cos(s1_ang) - p.z * Math.sin(s1_ang);
     const rotZ = p.z * Math.cos(s1_ang) + p.x * Math.sin(s1_ang);
     const scale = 2.5 / (2.5 - rotZ);
     const px2d = cx + rotX * rScale * scale;
     const py2d = cy + p.y * rScale * scale;
 
-    // Mouse Dispersion Forcefield
     let targetX = 0, targetY = 0;
     if(m.active) {
       let dx = px2d - m.x, dy = py2d - m.y;
       let dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < 100) { // Push radius
-        targetX = (dx/dist) * (100 - dist) * 0.5;
-        targetY = (dy/dist) * (100 - dist) * 0.5;
-      }
+      if(dist < 100) { targetX = (dx/dist) * (100 - dist) * 0.5; targetY = (dy/dist) * (100 - dist) * 0.5; }
     }
-    // Smooth transition back to 0
-    p.offX += (targetX - p.offX) * 0.1;
-    p.offY += (targetY - p.offY) * 0.1;
+    p.offX += (targetX - p.offX) * 0.1; p.offY += (targetY - p.offY) * 0.1;
 
     ctx1.globalAlpha = Math.max(0.1, (rotZ + 1.5) / 3);
     ctx1.fillRect(px2d + p.offX, py2d + p.offY, 2.5, 2.5);
   });
 }
 
-// S2: NEURAL NETWORK (AI Automation)
+// S2: NEURAL NETWORK
 const c2 = document.getElementById('canvas-s2'); const ctx2 = c2.getContext('2d');
-let s2_nodes = Array.from({length: 70}, () => ({
-  x: Math.random(), y: Math.random(), 
-  vx: (Math.random()-0.5)*0.003, vy: (Math.random()-0.5)*0.003
-}));
+let s2_nodes = Array.from({length: 70}, () => ({ x: Math.random(), y: Math.random(), vx: (Math.random()-0.5)*0.003, vy: (Math.random()-0.5)*0.003 }));
 
 function drawS2() {
   resize(c2); ctx2.clearRect(0,0,c2.width,c2.height);
@@ -341,39 +326,33 @@ function drawS2() {
   const m = getLocalMouse(c2);
 
   s2_nodes.forEach(n => {
-    // Dispersion
     if(m.active) {
       let dx = (n.x * c2.width) - m.x, dy = (n.y * c2.height) - m.y;
       let dist = Math.sqrt(dx*dx + dy*dy);
       if(dist < 120) { n.vx += (dx/dist)*0.001; n.vy += (dy/dist)*0.001; }
     }
-    // Friction & bounds
     n.vx *= 0.98; n.vy *= 0.98;
     n.x += n.vx; n.y += n.vy;
     if(n.x < 0 || n.x > 1) { n.vx *= -1; n.x = Math.max(0, Math.min(1, n.x)); }
     if(n.y < 0 || n.y > 1) { n.vy *= -1; n.y = Math.max(0, Math.min(1, n.y)); }
-    
     ctx2.beginPath(); ctx2.arc(n.x * c2.width, n.y * c2.height, 2, 0, Math.PI*2); ctx2.fill();
   });
 
-  // Connecting lines
   for(let i=0; i<s2_nodes.length; i++) {
     for(let j=i+1; j<s2_nodes.length; j++) {
       const dx = s2_nodes[i].x - s2_nodes[j].x, dy = s2_nodes[i].y - s2_nodes[j].y;
       const dist = Math.sqrt(dx*dx + dy*dy);
       if(dist < 0.15) {
         ctx2.globalAlpha = 1 - (dist / 0.15);
-        ctx2.beginPath(); 
-        ctx2.moveTo(s2_nodes[i].x * c2.width, s2_nodes[i].y * c2.height);
-        ctx2.lineTo(s2_nodes[j].x * c2.width, s2_nodes[j].y * c2.height); 
-        ctx2.stroke();
+        ctx2.beginPath(); ctx2.moveTo(s2_nodes[i].x * c2.width, s2_nodes[i].y * c2.height);
+        ctx2.lineTo(s2_nodes[j].x * c2.width, s2_nodes[j].y * c2.height); ctx2.stroke();
       }
     }
   }
   ctx2.globalAlpha = 1;
 }
 
-// S3: FALLING SOFTWARE CODE (Software Dev)
+// S3: FALLING SOFTWARE CODE
 const c3 = document.getElementById('canvas-s3'); const ctx3 = c3.getContext('2d');
 const codeSyntax = ['const','let','=>','{','}','function','await','();','if','||','&&','[0]','0','1'];
 let s3_drops = []; let s3_offsets = [];
@@ -393,8 +372,6 @@ function drawS3() {
   s3_drops.forEach((y, i) => {
     const char = codeSyntax[Math.floor(Math.random() * codeSyntax.length)];
     let baseX = i * colWidth;
-    
-    // Mouse push effect on the columns
     let targetOffset = 0;
     if(m.active) {
       let dx = baseX - m.x, dy = y - m.y;
@@ -402,14 +379,13 @@ function drawS3() {
       if(dist < 100) targetOffset = (dx/dist) * (100-dist);
     }
     s3_offsets[i] += (targetOffset - s3_offsets[i]) * 0.15;
-    
     ctx3.fillText(char, baseX + s3_offsets[i], y);
     if(y > c3.height && Math.random() > 0.95) s3_drops[i] = 0;
     s3_drops[i] += 12;
   });
 }
 
-// S4: PULSING PIXEL GRID (App Dev)
+// S4: PULSING PIXEL GRID
 const c4 = document.getElementById('canvas-s4'); const ctx4 = c4.getContext('2d');
 let s4_grid = []; let s4_cols = 0; let s4_rows = 0;
 
@@ -425,14 +401,12 @@ function drawS4() {
   const m = getLocalMouse(c4);
   
   s4_grid.forEach((val, i) => {
-    s4_grid[i] = Math.max(0, val - 0.02); // Fade out naturally
-    if(Math.random() > 0.99) s4_grid[i] = 1; // Flash new randomly
+    s4_grid[i] = Math.max(0, val - 0.02); 
+    if(Math.random() > 0.99) s4_grid[i] = 1; 
     
     const x = i % s4_cols; const y = Math.floor(i / s4_cols);
-    let cellX = offsetX + x * (size+pad);
-    let cellY = offsetY + y * (size+pad);
+    let cellX = offsetX + x * (size+pad); let cellY = offsetY + y * (size+pad);
     
-    // Mouse hover reveals the grid completely
     if(m.active) {
       let dist = Math.sqrt(Math.pow((cellX+size/2) - m.x, 2) + Math.pow((cellY+size/2) - m.y, 2));
       if(dist < 100) s4_grid[i] = Math.max(s4_grid[i], 1 - (dist/100));
@@ -443,7 +417,7 @@ function drawS4() {
   });
 }
 
-// S5: CYBERPUNK 3D TERRAIN GRID (Web Creation)
+// S5: CYBERPUNK 3D TERRAIN GRID
 const c5 = document.getElementById('canvas-s5'); const ctx5 = c5.getContext('2d');
 let s5_offset = 0;
 
@@ -454,7 +428,6 @@ function drawS5() {
   s5_offset = (s5_offset + 2) % 40;
   const m = getLocalMouse(c5);
   
-  // Perspective horizontal lines with Mouse Distortion
   for(let i=0; i<25; i++) {
     let baseY = cy + Math.pow(i, 1.8) + s5_offset * (i*0.05);
     if(baseY > cy && baseY < c5.height) {
@@ -472,20 +445,16 @@ function drawS5() {
       ctx5.stroke();
     }
   }
-  // Perspective vertical lines
   ctx5.globalAlpha = 0.5;
   for(let i=-20; i<20; i++) {
     let startX = cx + i * 20; let endX = cx + i * 100;
     ctx5.beginPath(); ctx5.moveTo(startX, cy); 
-    
-    // Distort vertical end points if mouse is near
     let targetX = endX;
     if(m.active) {
       let dx = endX - m.x, dy = c5.height - m.y;
       if(Math.sqrt(dx*dx + dy*dy) < 200) targetX += dx * 0.3;
     }
-    ctx5.lineTo(targetX, c5.height); 
-    ctx5.stroke();
+    ctx5.lineTo(targetX, c5.height); ctx5.stroke();
   }
   ctx5.globalAlpha = 1;
 }
@@ -537,19 +506,16 @@ function animate() {
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
   
-  // 1. Run 2D Canvas Animations (Only if visible on screen)
   if(activeCanvases.s1) drawS1();
   if(activeCanvases.s2) drawS2();
   if(activeCanvases.s3) drawS3();
   if(activeCanvases.s4) drawS4();
   if(activeCanvases.s5) drawS5();
 
-  // 2. Run 3D Background Logic
   currentLightColor.lerp(targetLightColor, delta * 2);
   pointLight.color.copy(currentLightColor);
   particlesMat.color.copy(currentLightColor);
   
-  // Convert center-based mouse for Three.js Parallax
   let tX = (glMouse.x - window.innerWidth / 2) * 0.001;
   let tY = (glMouse.y - window.innerHeight / 2) * 0.001;
   
