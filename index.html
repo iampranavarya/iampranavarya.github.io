@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pranav Arya | Select Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -13,15 +13,15 @@
       --tech-blue: #60aaff;
       --white: #f0ece4;
       --font-display: 'Bebas Neue', sans-serif;
-      --font-serif: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
       --font-mono: 'Space Mono', monospace;
     }
     
     body {
       background: var(--black);
       color: var(--white);
-      font-family: var(--font-serif);
-      overflow: hidden; /* Prevents scrolling on the gateway page */
+      font-family: var(--font-body);
+      overflow: hidden; 
     }
 
     .split-layout {
@@ -30,9 +30,8 @@
       height: 100vh;
     }
 
-    /* Common styles for both halves */
     .split {
-      flex: 1; /* Both sides take up exactly half the screen */
+      flex: 1; 
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -43,7 +42,6 @@
       cursor: pointer;
     }
 
-    /* The overlay that darkens the background */
     .split::before {
       content: '';
       position: absolute;
@@ -53,11 +51,10 @@
       z-index: 1;
     }
 
-    /* Hover effect: The side expands */
     .split:hover { flex: 1.35; }
     .split:hover::before { opacity: 0; }
 
-    /* FILM SIDE (Left) */
+    /* FILM SIDE */
     .film-side {
       background: radial-gradient(circle at center, #1a1508 0%, var(--black) 100%);
       border-right: 1px solid rgba(201,168,76,0.1);
@@ -65,14 +62,13 @@
     .film-side .sub-title { color: var(--gold); }
     .film-side:hover .title { transform: scale(1.05); text-shadow: 0 0 30px rgba(201,168,76,0.3); }
 
-    /* TECH SIDE (Right) */
+    /* TECH SIDE */
     .tech-side {
       background: radial-gradient(circle at center, #0a1118 0%, var(--black) 100%);
     }
     .tech-side .sub-title { color: var(--tech-blue); }
     .tech-side:hover .title { transform: scale(1.05); text-shadow: 0 0 30px rgba(96,170,255,0.3); }
 
-    /* Content Styling */
     .content {
       position: relative;
       z-index: 2;
@@ -98,7 +94,6 @@
       opacity: 0.8;
     }
 
-    /* Subtle grain overlay for the whole page */
     .grain {
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
@@ -110,7 +105,7 @@
     /* TYPEWRITER PROMPT BADGE */
     .choose-prompt {
       position: absolute;
-      top: 15%; /* DESKTOP: Placed neatly at the top */
+      top: 15%; 
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -118,39 +113,30 @@
       padding: 12px 24px;
       border: 1px solid rgba(240, 236, 228, 0.15);
       border-radius: 40px;
-      pointer-events: none; /* Prevents the badge from blocking clicks */
+      pointer-events: none; 
       backdrop-filter: blur(4px);
-      
-      /* Badge Fade In Animation */
       opacity: 0;
       animation: fadePill 0.6s 0.4s forwards;
-      
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* The actual typing text */
     .typewriter-text {
       font-family: var(--font-mono);
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: rgba(240, 236, 228, 0.9);
-      
-      /* Typewriter setup */
       overflow: hidden;
       white-space: nowrap;
-      border-right: 2px solid var(--gold); /* The blinking cursor */
+      border-right: 2px solid var(--gold); 
       width: 0;
-      
-      /* Typing starts at 1s, Cursor blinks infinitely */
       animation: 
         typing 1.8s steps(25, end) 1s forwards,
         blink 0.75s step-end infinite;
     }
 
-    /* Animations */
     @keyframes fadePill {
       from { opacity: 0; transform: translate(-50%, -20px); }
       to { opacity: 1; transform: translate(-50%, 0); }
@@ -158,7 +144,6 @@
 
     @keyframes typing {
       from { width: 0; }
-      /* 25 characters + accounting for the 0.2em letter spacing offset */
       to { width: calc(25.5ch + 5em); } 
     }
 
@@ -167,19 +152,11 @@
       50% { border-color: var(--gold); }
     }
 
-    /* MOBILE ADJUSTMENTS */
     @media (max-width: 800px) {
       .split-layout { flex-direction: column; }
       .film-side { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); }
       .split:hover { flex: 1.5; }
-
-      /* MOBILE: Center exactly on the border line */
-      .choose-prompt {
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      /* Adjust the slide-in animation specifically for mobile centering */
+      .choose-prompt { top: 50%; transform: translate(-50%, -50%); }
       @keyframes fadePill {
         from { opacity: 0; transform: translate(-50%, calc(-50% - 20px)); }
         to { opacity: 1; transform: translate(-50%, -50%); }
@@ -202,7 +179,6 @@
         <p class="sub-title">Cinematography & Photography</p>
       </div>
     </a>
-
     <a href="tech.html" class="split tech-side">
       <div class="content">
         <h1 class="title">TECHNICAL SERVICES</h1>
