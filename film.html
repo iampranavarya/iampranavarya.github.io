@@ -65,7 +65,7 @@
     .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards}
     .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s}
     .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
-    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s}
+    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color:0.3s,transform 0.2s}
     .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 
     /* CAMERA STAGE */
@@ -110,26 +110,25 @@
     .profile-image-container:hover .profile-backdrop { transform: translate(10px, -10px); }
     .profile-content { display: flex; flex-direction: column; }
 
-    /* FLAT MAP SECTION */
-    #flat-map-section { position: relative; z-index: 10; padding: 120px 52px; text-align: center; }
+    /* FLAT MAP SECTION WITH LEADER LINES */
+    #flat-map-section { position: relative; z-index: 10; padding: 120px 52px; text-align: center; overflow: hidden; }
     #flat-map-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
     
     .map-wrapper {
       position: relative;
       width: 100%;
       max-width: 1000px;
-      aspect-ratio: 2 / 1; /* Perfect equirectangular ratio */
+      aspect-ratio: 2 / 1; 
       margin: 60px auto 0 auto;
     }
     
     .map-background {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      /* High quality public domain equirectangular SVG */
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg');
       background-size: cover;
       background-position: center;
-      filter: invert(1) opacity(0.12); /* Turns the black SVG white and transparent */
+      filter: invert(1) opacity(0.12); 
       pointer-events: none;
     }
 
@@ -138,66 +137,92 @@
       transform: translate(-50%, -50%);
       z-index: 2;
     }
+    .map-marker-wrap.active { z-index: 10; }
 
     .map-dot {
+      position: absolute;
+      top: -3px; left: -3px; /* Center the 6px dot */
       width: 6px; height: 6px;
       background: var(--gold);
       border-radius: 50%;
       opacity: 0.3;
-      transition: opacity 0.5s, box-shadow 0.5s, transform 0.5s;
+      transition: all 0.4s ease;
     }
 
-    .map-label {
-      position: absolute;
-      top: 50%; left: 14px;
-      transform: translateY(-50%);
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--white);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    /* Active State (When Highlighted) */
     .map-marker-wrap.active .map-dot {
       opacity: 1;
       box-shadow: 0 0 12px var(--gold);
       transform: scale(1.5);
     }
 
-    /* Random Animation 1: Slide In */
-    .map-marker-wrap.active.anim-slide .map-label {
-      animation: mapSlide 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
-    /* Random Animation 2: Scale Up */
-    .map-marker-wrap.active.anim-scale .map-label {
-      animation: mapScale 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
-    /* Random Animation 3: Flicker / Tech */
-    .map-marker-wrap.active.anim-flicker .map-label {
-      animation: mapFlicker 0.8s ease forwards;
+    .map-line {
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; 
+      height: 1px;
+      background: rgba(201,168,76,0.6);
+      transform-origin: 0 0;
+      transform: rotate(var(--ang));
+      transition: width 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    @keyframes mapSlide {
-      from { opacity: 0; transform: translate(10px, -50%); }
-      to { opacity: 1; transform: translate(0, -50%); }
+    .map-marker-wrap.active .map-line {
+      width: var(--len);
     }
-    @keyframes mapScale {
-      from { opacity: 0; transform: translate(0, -50%) scale(0.8); }
-      to { opacity: 1; transform: translate(0, -50%) scale(1); }
+
+    .map-label-wrap {
+      position: absolute;
+      top: 0; left: 100%; /* Anchor to the end of the line */
+      display: flex;
+      align-items: center;
+      height: 0; /* Ensures vertical centering on the line end */
     }
-    @keyframes mapFlicker {
-      0% { opacity: 0; }
-      20% { opacity: 0.8; }
-      40% { opacity: 0.2; }
-      60% { opacity: 1; }
-      80% { opacity: 0.5; }
-      100% { opacity: 1; }
+
+    /* Counter-rotate the label so it is always horizontal and readable */
+    .align-right .map-label-wrap {
+      transform: rotate(calc(-1 * var(--ang)));
+      justify-content: flex-start;
+      padding-left: 8px; /* Space between line end and text */
     }
+
+    .align-left .map-label-wrap {
+      transform: rotate(calc(-1 * var(--ang))) translateX(-100%);
+      justify-content: flex-end;
+      padding-right: 8px; /* Space between text and line end */
+    }
+
+    .map-label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--white);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-shadow: 0 2px 4px rgba(0,0,0,1);
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .map-marker-wrap.active .map-label {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.4s; /* Text fades in after line draws */
+    }
+
+    /* EVENTS / CLIENTS TAGS SECTION */
+    #events { position: relative; z-index: 10; padding: 120px 52px; text-align: center; }
+    #events::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .events-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 50px; max-width: 900px; margin-inline: auto; }
+    .event-tag { 
+      font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--white); 
+      text-transform: uppercase; padding: 16px 32px; border: 1px solid rgba(201,168,76,0.25); 
+      border-radius: 2px; transition: background 0.4s, color 0.4s, border-color 0.4s, transform 0.4s; 
+      background: rgba(5,5,7,0.6); backdrop-filter: blur(4px); cursor: default;
+    }
+    .event-tag:hover { background: var(--gold); color: var(--black); border-color: var(--gold); transform: translateY(-3px); }
+    .event-tag.more-tag { border-color: transparent; color: var(--gold); background: transparent; }
+    .event-tag.more-tag:hover { background: transparent; transform: none; opacity: 0.7; }
 
     /* WORK */
     #work{position:relative;z-index:10;padding:120px 52px}
@@ -244,7 +269,7 @@
 
     /* MOBILE ADJUSTMENTS */
     @media(max-width:900px){
-      nav,#hero,#about,#about-me,#flat-map-section,#work,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#about,#about-me,#flat-map-section,#events,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
@@ -254,9 +279,10 @@
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
       
-      /* Make map fill vertical space better on phones */
       .map-wrapper { aspect-ratio: auto; height: 300px; }
       .map-background { background-size: contain; background-repeat: no-repeat; }
+      
+      .event-tag { font-size: 0.65rem; padding: 12px 20px; }
     }
     @media(max-width:560px){
       .work-grid{grid-template-columns:1fr}
@@ -344,6 +370,20 @@
   </div>
 </section>
 
+<section id="events">
+  <p class="section-label">Global Stages</p>
+  <h2 class="section-title">FEATURED <span style="color:var(--gold)">EVENTS</span></h2>
+  
+  <div class="events-list">
+    <div class="event-tag">F1 Budapest</div>
+    <div class="event-tag">Token 2049 Singapore</div>
+    <div class="event-tag">The ICE Saint Moritz</div>
+    <div class="event-tag">F1 Singapore</div>
+    <div class="event-tag">OMR Hamburg</div>
+    <div class="event-tag more-tag">...and more</div>
+  </div>
+</section>
+
 <section id="work">
   <div class="section-header">
     <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
@@ -413,7 +453,7 @@ document.body.classList.add('custom-cursor-active');
 
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
 (function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button').forEach(el=>{
+document.querySelectorAll('a,button, .event-tag').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
   el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
 });
@@ -441,75 +481,75 @@ document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*
 window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
 
 // ═══════════════════════════
-// FLAT MAP LOGIC
+// FLAT MAP LEADER LINES LOGIC
 // ═══════════════════════════
+// Custom angles and lengths to spread out crowded European countries
 const locations = [
-  {name: 'Germany', lat: 51.16, lon: 10.45},
-  {name: 'Singapore', lat: 1.35, lon: 103.81},
-  {name: 'India', lat: 20.59, lon: 78.96},
-  {name: 'USA', lat: 37.09, lon: -95.71},
-  {name: 'Canada', lat: 56.13, lon: -106.34},
-  {name: 'United Kingdom', lat: 55.37, lon: -3.43},
-  {name: 'Croatia', lat: 45.10, lon: 15.20},
-  {name: 'Monaco', lat: 43.73, lon: 7.42},
-  {name: 'France', lat: 46.22, lon: 2.21},
-  {name: 'Greece', lat: 39.07, lon: 21.82},
-  {name: 'Hungary', lat: 47.16, lon: 19.50},
-  {name: 'Russia', lat: 61.52, lon: 105.31},
-  {name: 'Italy', lat: 41.87, lon: 12.56},
-  {name: 'Switzerland', lat: 46.81, lon: 8.22},
-  {name: 'Spain', lat: 40.46, lon: -3.74}
+  {name: 'Germany', lat: 51.16, lon: 10.45, ang: -60, len: 45, align: 'right'},
+  {name: 'Singapore', lat: 1.35, lon: 103.81, ang: -45, len: 40, align: 'right'},
+  {name: 'India', lat: 20.59, lon: 78.96, ang: 90, len: 35, align: 'right'},
+  {name: 'USA', lat: 37.09, lon: -95.71, ang: -150, len: 50, align: 'left'},
+  {name: 'Canada', lat: 56.13, lon: -106.34, ang: -45, len: 50, align: 'right'},
+  {name: 'United Kingdom', lat: 55.37, lon: -3.43, ang: -135, len: 50, align: 'left'},
+  {name: 'Croatia', lat: 45.10, lon: 15.20, ang: 20, len: 55, align: 'right'},
+  {name: 'Monaco', lat: 43.73, lon: 7.42, ang: 120, len: 40, align: 'left'},
+  {name: 'France', lat: 46.22, lon: 2.21, ang: 160, len: 45, align: 'left'},
+  {name: 'Greece', lat: 39.07, lon: 21.82, ang: 45, len: 45, align: 'right'},
+  {name: 'Hungary', lat: 47.16, lon: 19.50, ang: -15, len: 60, align: 'right'},
+  {name: 'Russia', lat: 61.52, lon: 105.31, ang: -30, len: 50, align: 'right'},
+  {name: 'Italy', lat: 41.87, lon: 12.56, ang: 70, len: 55, align: 'right'},
+  {name: 'Switzerland', lat: 46.81, lon: 8.22, ang: -160, len: 50, align: 'left'},
+  {name: 'Spain', lat: 40.46, lon: -3.74, ang: 135, len: 50, align: 'left'}
 ];
 
 const mapContainer = document.getElementById('map-markers-container');
 const mapMarkers = [];
 
-// Convert Lat/Lon to exact percentages on an Equirectangular projection Map
 locations.forEach(loc => {
   const xPercent = (loc.lon + 180) / 3.6;
   const yPercent = (90 - loc.lat) / 1.8;
 
   const wrap = document.createElement('div');
-  wrap.className = 'map-marker-wrap';
+  wrap.className = `map-marker-wrap align-${loc.align}`;
   wrap.style.left = `${xPercent}%`;
   wrap.style.top = `${yPercent}%`;
+  wrap.style.setProperty('--ang', `${loc.ang}deg`);
+  wrap.style.setProperty('--len', `${loc.len}px`);
 
   const dot = document.createElement('div');
   dot.className = 'map-dot';
+
+  const line = document.createElement('div');
+  line.className = 'map-line';
+
+  const labelWrap = document.createElement('div');
+  labelWrap.className = 'map-label-wrap';
 
   const label = document.createElement('div');
   label.className = 'map-label';
   label.textContent = loc.name;
 
+  labelWrap.appendChild(label);
+  line.appendChild(labelWrap);
   wrap.appendChild(dot);
-  wrap.appendChild(label);
+  wrap.appendChild(line);
+  
   mapContainer.appendChild(wrap);
   mapMarkers.push(wrap);
 });
 
-// Randomly ping locations to keep the map alive without overlapping text
 function animateMap() {
-  // Clear previous active states
-  mapMarkers.forEach(m => {
-    m.classList.remove('active', 'anim-slide', 'anim-scale', 'anim-flicker');
-  });
+  mapMarkers.forEach(m => m.classList.remove('active'));
 
   // Pick 3 random locations to highlight
   const shuffled = mapMarkers.sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 3);
-  const animStyles = ['anim-slide', 'anim-scale', 'anim-flicker'];
 
-  selected.forEach(m => {
-    m.classList.add('active');
-    // Assign a random animation style to the text label
-    m.classList.add(animStyles[Math.floor(Math.random() * animStyles.length)]);
-  });
+  selected.forEach(m => m.classList.add('active'));
 }
 
-// Start Map Loop (Pings new locations every 2.5 seconds)
-setInterval(animateMap, 2500);
-animateMap(); // Trigger first ping immediately
-
+setInterval(animateMap, 3000);
+animateMap(); 
 
 // ═══════════════════════════
 // 3D CAMERA SCENE
@@ -797,7 +837,6 @@ function updateCounter(){
 // ═══════════════════════════
 const clock = new THREE.Clock();
 let t = 0;
-const tempV = new THREE.Vector3();
 
 function animate(){
   requestAnimationFrame(animate);
