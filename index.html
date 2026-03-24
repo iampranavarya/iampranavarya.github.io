@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pranav Arya Film Production</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --black:#050507;--deep:#0a0a0f;
+      --gold:#c9a84c;--gold-dim:#7a6228;
+      --white:#f0ece4;
+      --font-display:'Bebas Neue',sans-serif;
+      --font-serif:'Cormorant Garamond',serif;
+      --font-mono:'Space Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--black);
+      color:var(--white);
+      font-family:var(--font-serif);
+      overflow-x:hidden;
+      /* Fallback cursor, overridden by JS if custom cursor loads */
+      cursor: auto; 
+    }
+    body.custom-cursor-active { cursor: none; }
+
+    /* LOADER */
+    #loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease}
+    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-logo{font-family:var(--font-display);font-size:3.5rem;letter-spacing:0.3em;color:var(--gold);margin-bottom:36px;animation:loaderPulse 1.5s ease infinite alternate}
+    .loader-bar-wrap{width:260px;height:1px;background:rgba(201,168,76,0.15);position:relative;overflow:hidden}
+    .loader-bar{height:100%;background:var(--gold);width:0%;transition:width 0.05s linear}
+    .loader-label{margin-top:16px;font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.25em;color:rgba(201,168,76,0.5);text-transform:uppercase}
+    @keyframes loaderPulse{from{opacity:0.5}to{opacity:1}}
+
+    /* CURSOR */
+    .cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:0;transition:opacity 0.3s}
+    .cursor-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;opacity:0}
+    body.custom-cursor-active .cursor, body.custom-cursor-active .cursor-ring { opacity: 1; }
+
+    /* CANVAS */
+    #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:28px 52px}
+    nav::after{content:'';position:absolute;bottom:0;left:52px;right:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.35}
+    .nav-logo{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.25em;color:var(--gold);text-decoration:none}
+    .nav-links{display:flex;gap:40px;list-style:none}
+    .nav-links a{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;color:var(--white);text-decoration:none;opacity:0.6;text-transform:uppercase;transition:opacity 0.3s,color 0.3s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s}
+    .nav-links a:hover{opacity:1;color:var(--gold)}
+    .nav-links a:hover::after{width:100%}
+
+    /* HERO */
+    #hero{position:relative;z-index:10;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 52px}
+    .hero-left{display:flex;flex-direction:column}
+    .hero-eyebrow{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s 0.4s forwards}
+    .hero-title{font-family:var(--font-display);font-size:clamp(4rem,10vw,11rem);line-height:0.88;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
+    .hero-title .gold{color:var(--gold)}
+    .hero-title .outline{-webkit-text-stroke:1px rgba(240,236,228,0.22);color:transparent}
+    .hero-sub{margin-top:28px;max-width:380px;font-size:1.05rem;font-style:italic;color:rgba(240,236,228,0.5);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
+    .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards}
+    .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s}
+    .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
+    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+    /* CAMERA STAGE */
+    .hero-right{position:relative;display:flex;align-items:center;justify-content:center;height:100%;opacity:0;animation:fadeIn 1.2s 1.5s forwards}
+    #camera-canvas{width:100%;height:540px;cursor:crosshair;display:block}
+    .camera-hint{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.2em;color:rgba(201,168,76,0.5);text-transform:uppercase;white-space:nowrap;animation:blinkAnim 2s 3.5s infinite}
+    @keyframes blinkAnim{0%,100%{opacity:0.4}50%{opacity:1}}
+
+    /* SHUTTER FLASH */
+    #shutter-flash{position:fixed;inset:0;background:rgba(255,255,240,0);z-index:9000;pointer-events:none;transition:background 0.06s}
+    #shutter-flash.fire{background:rgba(255,255,230,0.6)}
+
+    /* SHOT COUNTER */
+    #shot-counter{position:fixed;top:88px;right:52px;z-index:200;font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.15em;color:var(--gold);text-align:right;opacity:0;transition:opacity 0.4s}
+    #shot-counter.visible{opacity:1}
+    #shot-counter .shots-num{font-size:2rem;font-family:var(--font-display);display:block;line-height:1}
+
+    /* SCROLL HINT */
+    .scroll-hint{position:absolute;left:52px;bottom:40px;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s 2.2s forwards}
+    .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
+    .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
+
+    /* ABOUT */
+    #about{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px;gap:80px}
+    #about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
+    .about-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+    .about-heading{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);line-height:1;letter-spacing:0.03em;margin-bottom:32px}
+    .about-body{font-size:1.1rem;font-style:italic;line-height:1.85;color:rgba(240,236,228,0.65);max-width:480px}
+    .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .stat-card{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);padding:36px 28px;transition:background 0.3s}
+    .stat-card:hover{background:rgba(201,168,76,0.09)}
+    .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1}
+    .stat-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;color:rgba(240,236,228,0.4);text-transform:uppercase;margin-top:8px}
+
+    /* WORK */
+    #work{position:relative;z-index:10;padding:120px 52px}
+    #work::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
+    .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px}
+    .section-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+    .section-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);line-height:1}
+    .view-all{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:4px;transition:opacity 0.3s}
+    .view-all:hover{opacity:0.7}
+    .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .work-item{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--deep);cursor:pointer}
+    .work-item-bg{width:100%;height:100%;transition:transform 0.6s;object-fit:cover;display:block}
+    .work-item:hover .work-item-bg{transform:scale(1.06)}
+    .work-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,7,0.9),transparent 50%);opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+    .work-item:hover .work-item-overlay{opacity:1}
+    .work-item-cat{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+    .work-item-title{font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.05em}
+
+    /* CONTACT */
+    #contact{position:relative;z-index:10;padding:140px 52px;text-align:center}
+    #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
+    .contact-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+    .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:40px}
+    .contact-email{font-family:var(--font-serif);font-size:1.1rem;font-style:italic;color:rgba(240,236,228,0.55);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:4px;transition:color 0.3s,border-color 0.3s}
+    .contact-email:hover{color:var(--gold);border-color:var(--gold)}
+
+    /* FOOTER */
+    footer{position:relative;z-index:10;padding:28px 52px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05)}
+    footer p{font-family:var(--font-mono);font-size:0.55rem;color:rgba(240,236,228,0.3);letter-spacing:0.12em}
+    .social-links{display:flex;gap:24px}
+    .social-links a{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.15em;color:rgba(240,236,228,0.3);text-decoration:none;text-transform:uppercase;transition:color 0.3s}
+    .social-links a:hover{color:var(--gold)}
+
+    .frame-counter{position:fixed;bottom:28px;left:52px;font-family:var(--font-mono);font-size:0.55rem;color:rgba(201,168,76,0.35);letter-spacing:0.12em;z-index:50}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scrollPulse{0%,100%{opacity:0.5}50%{opacity:1}}
+
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.028;pointer-events:none;z-index:9990}
+
+    @media(max-width:900px){
+      nav,#hero,#about,#work,#contact,footer{padding-left:24px;padding-right:24px}
+      nav::after{left:24px;right:24px}
+      #hero{grid-template-columns:1fr;height:auto;padding-top:100px;padding-bottom:60px}
+      .hero-right{height:360px}
+      #about{grid-template-columns:1fr;gap:52px}
+      .work-grid{grid-template-columns:1fr 1fr}
+      #shot-counter{right:24px}
+    }
+    @media(max-width:560px){.work-grid{grid-template-columns:1fr}.nav-links{display:none}}
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo">PAFP</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="loader-label" id="loader-label">Initializing...</div>
+</div>
+
+<div id="shutter-flash"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+<div id="shot-counter">
+  <span class="shots-num" id="shots-num">0</span>
+  SHOTS TAKEN
+</div>
+
+<nav>
+  <a class="nav-logo" href="#">PAFP</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Photography &amp; Filmmaking</p>
+    <h1 class="hero-title">PRANAV<br><span class="gold">ARYA</span><br><span class="outline">FILM</span></h1>
+    <p class="hero-sub">Crafting visual narratives that linger long after the screen fades to black.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <canvas id="camera-canvas"></canvas>
+    <div class="camera-hint">Click the camera to shoot</div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<section id="about">
+  <div>
+    <p class="about-label">The Vision</p>
+    <h2 class="about-heading">EVERY FRAME<br>TELLS A<br><span style="color:var(--gold)">STORY</span></h2>
+    <p class="about-body">Pranav Arya is a filmmaker and photographer obsessed with the liminal — the quiet spaces between moments where emotion lives. From intimate documentaries to cinematic commercial work, every project is built on the foundation of light, shadow, and truth.</p>
+  </div>
+  <div class="about-stats">
+    <div class="stat-card"><div class="stat-number">08+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-card"><div class="stat-number">60+</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-card"><div class="stat-number">12+</div><div class="stat-label">Awards Won</div></div>
+    <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Continents</div></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-header">
+    <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
+    <a href="#" class="view-all">View All Projects</a>
+  </div>
+  <div class="work-grid">
+    <div class="work-item"><canvas class="work-item-bg" id="c1"></canvas><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
+    <div class="work-item"><canvas class="work-item-bg" id="c2"></canvas><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">GOLDEN HOUR</p></div></div>
+    <div class="work-item"><canvas class="work-item-bg" id="c3"></canvas><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <p class="contact-label">Let's Collaborate</p>
+  <h2 class="contact-title">LET'S<br><span style="color:var(--gold)">TALK</span></h2>
+  <a href="mailto:hello@pranavaryafilms.com" class="contact-email">hello@pranavaryafilms.com</a>
+</section>
+
+<footer>
+  <p>© 2026 Pranav Arya Film Production. All rights reserved.</p>
+  <div class="social-links"><a href="#">Instagram</a><a href="#">Vimeo</a><a href="#">LinkedIn</a></div>
+</footer>
+
+<div class="frame-counter" id="frame-counter">00:00:01:00</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ═══════════════════════════
+// LOADER
+// ═══════════════════════════
+const loaderBar=document.getElementById('loader-bar');
+const loaderLabel=document.getElementById('loader-label');
+const loaderEl=document.getElementById('loader');
+const lbls=['Initializing...','Building scene...','Calibrating lens...','Loading frames...','Ready.'];
+let loadPct=0;
+const loaderInt=setInterval(()=>{
+  loadPct+=Math.random()*16+5;
+  if(loadPct>=100){loadPct=100;clearInterval(loaderInt);setTimeout(()=>loaderEl.classList.add('hide'),400);}
+  loaderBar.style.width=Math.min(loadPct,100)+'%';
+  loaderLabel.textContent=lbls[Math.min(Math.floor(loadPct/22),lbls.length-1)];
+},130);
+
+// ═══════════════════════════
+// CURSOR
+// ═══════════════════════════
+const cursorEl=document.getElementById('cursor');
+const ringEl=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+
+// Activate custom cursor only when JS runs properly
+document.body.classList.add('custom-cursor-active');
+
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
+  el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
+});
+
+// ═══════════════════════════
+// BG SCENE
+// ═══════════════════════════
+const bgC=document.getElementById('bg-canvas');
+const bgR=new THREE.WebGLRenderer({canvas:bgC,antialias:true,alpha:true});
+bgR.setPixelRatio(Math.min(window.devicePixelRatio,2));
+bgR.setSize(window.innerWidth,window.innerHeight);
+const bgS=new THREE.Scene();
+const bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
+bgCam.position.z=6;
+bgS.add(new THREE.AmbientLight(0x050510,1));
+const bL1=new THREE.PointLight(0xc9a84c,2,30);bL1.position.set(5,3,3);bgS.add(bL1);
+const bL2=new THREE.PointLight(0x3a2a08,1.5,20);bL2.position.set(-5,-3,2);bgS.add(bL2);
+const pPos=new Float32Array(200*3);
+for(let i=0;i<200;i++){pPos[i*3]=(Math.random()-.5)*28;pPos[i*3+1]=(Math.random()-.5)*18;pPos[i*3+2]=(Math.random()-.5)*14;}
+const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+bgS.add(new THREE.Points(pG,new THREE.PointsMaterial({color:0xc9a84c,size:0.04,transparent:true,opacity:0.25})));
+const bOct=new THREE.Mesh(new THREE.OctahedronGeometry(1.8,1),new THREE.MeshStandardMaterial({color:0x080810,emissive:0x0d0c02,metalness:0.95,roughness:0.3}));
+bOct.position.set(6,0,-3);bgS.add(bOct);
+const bWire=new THREE.Mesh(new THREE.OctahedronGeometry(1.82,1),new THREE.MeshBasicMaterial({color:0xc9a84c,wireframe:true,transparent:true,opacity:0.07}));
+bWire.position.copy(bOct.position);bgS.add(bWire);
+let bgMX=0,bgMY=0;
+document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*2;bgMY=(e.clientY/window.innerHeight-.5)*2;});
+window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
+
+// ═══════════════════════════
+// 3D CAMERA SCENE
+// ═══════════════════════════
+const camCanvas=document.getElementById('camera-canvas');
+const camR=new THREE.WebGLRenderer({canvas:camCanvas,antialias:true,alpha:true});
+camR.setPixelRatio(Math.min(window.devicePixelRatio,2));
+camR.shadowMap.enabled=true;
+const camS=new THREE.Scene();
+const camCam=new THREE.PerspectiveCamera(42,1,0.1,100);
+camCam.position.z=7;
+
+function resizeCam(){
+  const p=camCanvas.parentElement;
+  const w=p.offsetWidth;
+  const h=Math.min(560,window.innerHeight*0.65);
+  camCanvas.style.width=w+'px';camCanvas.style.height=h+'px';
+  camR.setSize(w,h,false);
+  camCam.aspect=w/h;camCam.updateProjectionMatrix();
+}
+resizeCam();
+window.addEventListener('resize',resizeCam);
+
+// Lights
+camS.add(new THREE.AmbientLight(0x0d0d18,3));
+const keyL=new THREE.SpotLight(0xfff5e0,5,30,Math.PI/5,0.35);keyL.position.set(4,5,6);keyL.castShadow=true;camS.add(keyL);
+const fillL=new THREE.PointLight(0xc9a84c,2,20);fillL.position.set(-4,2,3);camS.add(fillL);
+const rimL=new THREE.PointLight(0xc9a84c,3,15);rimL.position.set(0,-5,-3);camS.add(rimL);
+const glowL=new THREE.PointLight(0x60aaff,0,10);glowL.position.set(0,0,3.8);camS.add(glowL);
+
+// Materials
+const bodyM =new THREE.MeshStandardMaterial({color:0x111118,metalness:0.85,roughness:0.3});
+const blackM =new THREE.MeshStandardMaterial({color:0x070710,metalness:0.6,roughness:0.5});
+const goldM  =new THREE.MeshStandardMaterial({color:0xc9a84c,metalness:1,roughness:0.12,emissive:0x3a2800,emissiveIntensity:0.25});
+const silverM=new THREE.MeshStandardMaterial({color:0x909090,metalness:1,roughness:0.18});
+const glassM =new THREE.MeshStandardMaterial({color:0x0a1828,metalness:0.05,roughness:0,transparent:true,opacity:0.5});
+const lensM  =new THREE.MeshStandardMaterial({color:0x040410,metalness:0.4,roughness:0.08,transparent:true,opacity:0.88});
+const rubberM=new THREE.MeshStandardMaterial({color:0x0c0c12,metalness:0.1,roughness:0.9});
+const redM   =new THREE.MeshStandardMaterial({color:0xcc1100,metalness:0.2,roughness:0.5,emissive:0x440000,emissiveIntensity:0.5});
+
+const camGroup=new THREE.Group();
+camS.add(camGroup);
+
+// ── BODY ──
+const body=new THREE.Mesh(new THREE.BoxGeometry(3.2,2.0,1.6),bodyM);
+body.castShadow=true;
+body.receiveShadow=true; // FIX: Receive shadows for proper mapping
+camGroup.add(body);
+
+// viewfinder hump
+const hump=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,0.95),bodyM);
+hump.position.set(0.25,1.25,0);
+hump.receiveShadow=true; // FIX
+camGroup.add(hump);
+
+const penta=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.38,0.72),blackM);
+penta.position.set(0.25,1.52,0);
+camGroup.add(penta);
+
+// viewfinder eyepiece
+const eye=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.21,0.28,14),blackM);
+eye.rotation.x=Math.PI/2;
+eye.position.set(0.25,1.52,-0.63);
+camGroup.add(eye);
+
+// FIX: Proper Three.js assignment (No Object.assign onto THREE.Euler)
+const eyepieceGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.05,14), glassM);
+eyepieceGlass.position.set(0.25, 1.52, -0.79);
+eyepieceGlass.rotation.x = Math.PI / 2;
+camGroup.add(eyepieceGlass);
+
+// mode dial top left
+const dial=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.17,24),silverM);
+dial.position.set(-1.1,1.18,0);
+camGroup.add(dial);
+const dialTop=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.04,24),blackM);
+dialTop.position.set(-1.1,1.28,0);
+camGroup.add(dialTop);
+
+for(let i=0;i<8;i++){
+  const a=(i/8)*Math.PI*2;
+  const m=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.07,0.04),goldM);
+  m.position.set(-1.1+Math.sin(a)*0.27,1.31,Math.cos(a)*0.27);
+  camGroup.add(m);
+}
+
+// shutter button
+const shutBtn=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.09,16),silverM);
+shutBtn.position.set(1.02,1.1,0.55);
+camGroup.add(shutBtn);
+const shutTop=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.04,16),redM);
+shutTop.position.set(1.02,1.16,0.55);
+camGroup.add(shutTop);
+
+// front grip
+const grip=new THREE.Mesh(new THREE.BoxGeometry(0.48,2.0,0.42),rubberM);
+grip.position.set(1.62,0,1.0);
+grip.receiveShadow=true; // FIX
+camGroup.add(grip);
+
+for(let i=0;i<14;i++){
+  const gl=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.035,0.44),new THREE.MeshStandardMaterial({color:0x060610,metalness:0,roughness:1}));
+  gl.position.set(1.62,-0.9+i*0.135,1.0);
+  camGroup.add(gl);
+}
+
+// strap lugs
+[-1.57,1.57].forEach(x=>{
+  const lug=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.22,0.16),silverM);
+  lug.position.set(x,0.88,0);
+  camGroup.add(lug);
+  const hole=new THREE.Mesh(new THREE.TorusGeometry(0.055,0.022,6,12),blackM);
+  hole.rotation.z=Math.PI/2;
+  hole.position.set(x,0.88,0);
+  camGroup.add(hole);
+});
+
+// brand badge (gold)
+const badge=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.02),goldM);
+badge.position.set(-0.5,-0.58,0.81);
+camGroup.add(badge);
+
+// bottom plate
+const bot=new THREE.Mesh(new THREE.BoxGeometry(3.22,0.07,1.62),silverM);
+bot.position.set(0,-1.04,0);
+bot.receiveShadow=true; // FIX
+camGroup.add(bot);
+const tripod=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.1,12),silverM);
+tripod.position.set(0.3,-1.09,0.2);
+camGroup.add(tripod);
+
+// memory card door
+const door=new THREE.Mesh(new THREE.BoxGeometry(0.048,0.68,0.52),new THREE.MeshStandardMaterial({color:0x0d0d14,metalness:0.7,roughness:0.4}));
+door.position.set(-1.63,-0.3,0.18);
+camGroup.add(door);
+const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM);
+doorLine.position.set(-1.635,0.05,0.18);
+camGroup.add(doorLine);
+
+// AF/MF switch
+const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM);
+swBase.position.set(-0.58,0.54,0.82);
+camGroup.add(swBase);
+const swSlide=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.09,0.13),silverM);
+swSlide.position.set(-0.58,0.57,0.72);
+camGroup.add(swSlide);
+
+// ── LENS BARREL ──
+const lensGroup=new THREE.Group();
+lensGroup.position.set(-0.18,0,0.85);
+lensGroup.receiveShadow=true; // FIX
+camGroup.add(lensGroup);
+
+// mount ring
+const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM);
+mountR.rotation.x=Math.PI/2;
+lensGroup.add(mountR);
+
+// barrel segments
+[{r:0.86,h:0.44,m:blackM,z:0.22},{r:0.79,h:0.54,m:new THREE.MeshStandardMaterial({color:0x161620,metalness:0.75,roughness:0.25}),z:0.72},{r:0.73,h:0.44,m:blackM,z:1.17}].forEach(b=>{
+  const bm=new THREE.Mesh(new THREE.CylinderGeometry(b.r,b.r,b.h,40),b.m);
+  bm.rotation.x=Math.PI/2;
+  bm.position.z=b.z;
+  lensGroup.add(bm);
+});
+
+// focus ring gold band
+const focusR=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.038,6,40),goldM);
+focusR.rotation.x=Math.PI/2;
+focusR.position.z=0.68;
+lensGroup.add(focusR);
+
+// ridges
+for(let i=0;i<32;i++){
+  const a=(i/32)*Math.PI*2;
+  const rg=new THREE.Mesh(new THREE.BoxGeometry(0.028,0.2,0.028),new THREE.MeshStandardMaterial({color:0x8a6820,metalness:0.9,roughness:0.2}));
+  rg.position.set(Math.sin(a)*0.81,Math.cos(a)*0.81,0.68);
+  rg.lookAt(new THREE.Vector3(0,0,0.68));
+  lensGroup.add(rg);
+}
+
+// aperture ring
+const aptR=new THREE.Mesh(new THREE.TorusGeometry(0.74,0.022,6,40),goldM);
+aptR.rotation.x=Math.PI/2;
+aptR.position.z=1.13;
+lensGroup.add(aptR);
+
+// front glass
+const frontG=new THREE.Mesh(new THREE.CircleGeometry(0.63,48),glassM);
+frontG.position.z=1.46;
+lensGroup.add(frontG);
+
+// inner reflection rings
+for(let i=0;i<5;i++){
+  const rr=new THREE.Mesh(new THREE.TorusGeometry(0.54-i*0.1,0.007,4,32),new THREE.MeshBasicMaterial({color:0x1a2a45,transparent:true,opacity:0.45-i*0.06}));
+  rr.position.z=1.47;
+  lensGroup.add(rr);
+}
+
+// cap ring
+const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM);
+capR.rotation.x=Math.PI/2;
+capR.position.z=1.46;
+lensGroup.add(capR);
+
+// inner barrel dark
+const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM);
+innerB.rotation.x=Math.PI/2;
+innerB.position.z=1.3;
+lensGroup.add(innerB);
+
+// ── APERTURE BLADES ──
+const bladeGroup=new THREE.Group();
+bladeGroup.position.set(-0.18,0,2.4);
+camS.add(bladeGroup);
+const blades=[];
+for(let i=0;i<8;i++){
+  const a=(i/8)*Math.PI*2;
+  const bl=new THREE.Mesh(new THREE.CircleGeometry(0.26,3),new THREE.MeshStandardMaterial({color:0x0e0e18,metalness:0.92,roughness:0.2,side:THREE.DoubleSide}));
+  bl.rotation.z=a+Math.PI/8;
+  bl.position.set(Math.sin(a)*0.21,Math.cos(a)*0.21,0);
+  bladeGroup.add(bl);
+  blades.push({mesh:bl,a,bx:Math.sin(a)*0.21,by:Math.cos(a)*0.21});
+}
+
+// ── LENS FLARES ──
+const flareGroup=new THREE.Group();
+flareGroup.position.set(-0.18,0,2.6);
+camS.add(flareGroup);
+const flareDefs=[{r:0.55,c:0x88bbff,o:0},{r:0.22,c:0xc9a84c,o:0},{r:0.14,c:0xffffff,o:0},{r:0.08,c:0x6688ff,o:0},{r:0.05,c:0xc9a84c,o:0}];
+const flares=flareDefs.map((fd,i)=>{
+  const f=new THREE.Mesh(new THREE.CircleGeometry(fd.r,24),new THREE.MeshBasicMaterial({color:fd.c,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));
+  f.position.set((Math.random()-.5)*0.25,(Math.random()-.5)*0.25,(i-2)*0.18);
+  flareGroup.add(f);return f;
+});
+
+// ── INTERACTION STATE ──
+let shotCount=0,isShuttering=false,shutT=0;
+let flareTarget=0,flareVal=0;
+let camMX=0,camMY=0;
+
+function fireShutter(){
+  if(isShuttering)return;
+  isShuttering=true; shutT=0; shotCount++;
+  document.getElementById('shots-num').textContent=shotCount;
+  document.getElementById('shot-counter').classList.add('visible');
+  const flash=document.getElementById('shutter-flash');
+  flash.classList.add('fire');
+  setTimeout(()=>flash.classList.remove('fire'),90);
+  flareTarget=1; 
+  glowL.intensity=6;
+  setTimeout(()=>{isShuttering=false;flareTarget=0;glowL.intensity=0;},700);
+}
+
+camCanvas.addEventListener('click',fireShutter);
+camCanvas.addEventListener('mousemove',e=>{
+  const r=camCanvas.getBoundingClientRect();
+  camMX=((e.clientX-r.left)/r.width-.5)*2;
+  camMY=((e.clientY-r.top)/r.height-.5)*2;
+});
+camCanvas.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(2.5)';ringEl.style.borderColor='rgba(201,168,76,0.9)';});
+camCanvas.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';ringEl.style.borderColor='rgba(201,168,76,0.5)';});
+
+let scrollY=0;
+window.addEventListener('scroll',()=>scrollY=window.scrollY);
+
+// ═══════════════════════════
+// WORK CARD CANVASES
+// ═══════════════════════════
+function drawCard(id,p){
+  const c=document.getElementById(id);
+  c.width=c.offsetWidth*2||600;c.height=c.offsetHeight*2||800;
+  const ctx=c.getContext('2d'),w=c.width,h=c.height;
+  const g=ctx.createLinearGradient(0,0,w,h);
+  p.forEach((s,i)=>g.addColorStop(i/(p.length-1),s));
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='rgba(201,168,76,0.07)';ctx.lineWidth=1;
+  for(let x=0;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+  for(let i=0;i<30;i++){const x=Math.random()*w,y=Math.random()*h,r=Math.random()*1.5+0.3;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${Math.random()*0.28+0.04})`;ctx.fill();}
+}
+
+// FIX: Wait for window load so widths/heights are properly computed
+window.addEventListener('load', () => {
+  drawCard('c1',['#050510','#0d0c1a','#1a1508']);
+  drawCard('c2',['#0a0805','#1a1105','#0a0a0f']);
+  drawCard('c3',['#040808','#080d10','#050510']);
+});
+
+// ═══════════════════════════
+// FRAME COUNTER
+// ═══════════════════════════
+let frame=0;
+function updateCounter(){
+  frame++;
+  const f=frame%24,s=Math.floor(frame/24)%60,m=Math.floor(frame/1440)%60,h=Math.floor(frame/86400);
+  const p=n=>String(n).padStart(2,'0');
+  document.getElementById('frame-counter').textContent=`${p(h)}:${p(m)}:${p(s)}:${p(f)}`;
+}
+
+// ═══════════════════════════
+// RENDER LOOP
+// ═══════════════════════════
+// FIX: Framerate-independent animation using THREE.Clock
+const clock = new THREE.Clock();
+let t = 0;
+
+function animate(){
+  requestAnimationFrame(animate);
+  
+  // Calculate delta time
+  const delta = clock.getDelta();
+  // Adjust base speed to match the original feel (~60fps standard)
+  t += delta * 0.6; 
+
+  // BG
+  bgCam.position.x += (bgMX * 0.4 - bgCam.position.x) * (delta * 1.8);
+  bgCam.position.y += (-bgMY * 0.25 - bgCam.position.y) * (delta * 1.8);
+  bgCam.lookAt(0,0,0);
+  
+  bOct.rotation.y = t * 0.22;
+  bOct.rotation.x = Math.sin(t * 0.15) * 0.25;
+  bWire.rotation.copy(bOct.rotation);
+  bL1.intensity = 2.5 + Math.sin(t * 1.2) * 0.4;
+  
+  bgR.render(bgS,bgCam);
+
+  // CAMERA 3D
+  const targetRotY = Math.sin(t * 0.55) * 0.1 + camMX * 0.16;
+  const targetRotX = Math.cos(t * 0.42) * 0.06 - camMY * 0.1;
+  const scrollTilt = Math.min(scrollY / 700, 1) * 0.28;
+  
+  camGroup.rotation.y += (targetRotY - camGroup.rotation.y) * (delta * 3.3);
+  camGroup.rotation.x += (targetRotX + scrollTilt - camGroup.rotation.x) * (delta * 3.3);
+  camGroup.position.y = Math.sin(t * 0.52) * 0.13;
+
+  // Animate focus ring & dial
+  focusR.rotation.z = t * 0.45;
+  dial.rotation.y = t * 0.3;
+
+  // Shutter / aperture animation (Framerate fixed)
+  if(isShuttering){
+    shutT += delta * 4.2; // Equivalent to the old 0.07 per frame at 60fps
+    const phase = Math.sin(shutT * Math.PI);
+    const open = phase < 0.5 ? phase * 2 : (2 - phase * 2);
+    blades.forEach(b => {
+      const pull = open * 0.35;
+      b.mesh.position.set(b.bx * (1 - pull), b.by * (1 - pull), 0);
+    });
+    bladeGroup.rotation.z = open * 0.6;
+  }
+
+  // Lens flare fade in/out
+  flareVal += (flareTarget - flareVal) * (delta * 6);
+  flares.forEach((f, i) => { f.material.opacity = flareVal * (0.65 - i * 0.1); });
+  flareGroup.rotation.z = t * 0.35;
+  flareGroup.rotation.x = Math.sin(t * 0.7) * 0.05;
+
+  // Key light subtle pulse
+  keyL.intensity = 5 + Math.sin(t * 0.9) * 0.4;
+  fillL.intensity = 2 + Math.sin(t * 1.1 + 1) * 0.3;
+
+  camR.render(camS,camCam);
+  updateCounter();
+}
+animate();
+</script>
+</body>
+</html>
