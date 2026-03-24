@@ -75,23 +75,22 @@
     .service-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: 0.05em; margin-bottom: 20px; line-height: 1; }
     .service-desc { font-size: 1.05rem; line-height: 1.7; color: rgba(240,236,228,0.7); font-style: italic; margin-bottom: 36px; }
     
-    /* 4:5 MEDIA CONTAINER */
+    /* 4:5 MEDIA CONTAINER FOR CANVAS */
     .service-media { 
-      padding: 12px; /* Creates a glass frame around the media */
+      padding: 12px; 
       aspect-ratio: 4/5; 
       width: 100%; 
       max-width: 500px; 
       margin: 0 auto;
       display: flex;
+      position: relative;
     }
-    .media-element { 
+    .service-canvas { 
       width: 100%; height: 100%; 
-      object-fit: cover; /* Ensures image fills the 4:5 box without stretching */
       border-radius: 2px;
-      filter: grayscale(80%) contrast(1.1);
-      transition: filter 0.5s ease;
+      background: #030305; /* Deep black background for the animations */
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
     }
-    .service-media:hover .media-element { filter: grayscale(0%) contrast(1); }
 
     /* CONTACT BUTTON */
     .btn-glow {
@@ -108,9 +107,10 @@
     /* MOBILE ADJUSTMENTS */
     @media(max-width: 900px) {
       .service-row { grid-template-columns: 1fr; gap: 30px; padding: 40px 5%; }
-      /* Reset the alternating order on mobile so text is always above image */
-      .service-row:nth-child(even) .service-content, .service-row:nth-child(odd) .service-content { order: 1; }
-      .service-row:nth-child(even) .service-media, .service-row:nth-child(odd) .service-media { order: 2; }
+      /* Force MEDIA (Canvas) to ALWAYS be above CONTENT (Text) on mobile */
+      .service-row:nth-child(n) .service-media { order: 1; }
+      .service-row:nth-child(n) .service-content { order: 2; }
+      
       .service-content { padding: 30px 24px; }
       .service-media { max-width: 100%; }
       #hero { min-height: 60vh; padding-top: 120px; }
@@ -143,7 +143,7 @@
       <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: AI Model Generation" class="btn-glow">Contact Us</a>
     </div>
     <div class="service-media glass-panel">
-      <img src="placeholder-ai.jpg" alt="Hyper Realistic AI" class="media-element" />
+      <canvas id="canvas-s1" class="service-canvas"></canvas>
     </div>
   </section>
 
@@ -155,7 +155,7 @@
       <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: AI Automation" class="btn-glow">Contact Us</a>
     </div>
     <div class="service-media glass-panel">
-      <img src="placeholder-auto.jpg" alt="AI Automation" class="media-element" />
+      <canvas id="canvas-s2" class="service-canvas"></canvas>
     </div>
   </section>
 
@@ -167,7 +167,7 @@
       <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: Software Development" class="btn-glow">Contact Us</a>
     </div>
     <div class="service-media glass-panel">
-      <img src="software_development.jpg" alt="Software Development" class="media-element" />
+      <canvas id="canvas-s3" class="service-canvas"></canvas>
     </div>
   </section>
 
@@ -179,7 +179,7 @@
       <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: App Development" class="btn-glow">Contact Us</a>
     </div>
     <div class="service-media glass-panel">
-      <img src="placeholder-app.jpg" alt="App Development" class="media-element" />
+      <canvas id="canvas-s4" class="service-canvas"></canvas>
     </div>
   </section>
 
@@ -191,7 +191,7 @@
       <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: Website Creation" class="btn-glow">Contact Us</a>
     </div>
     <div class="service-media glass-panel">
-      <img src="placeholder-web.jpg" alt="Website Creation" class="media-element" />
+      <canvas id="canvas-s5" class="service-canvas"></canvas>
     </div>
   </section>
 </main>
@@ -221,31 +221,156 @@ document.querySelectorAll('a').forEach(el=>{
 // ═══════════════════════════
 const sections = document.querySelectorAll('.service-row, #hero');
 const root = document.documentElement;
+const activeCanvases = { s1: false, s2: false, s3: false, s4: false, s5: false };
 
-// Trigger animations and color shifts when scrolling
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
-      // Fade in the row
       entry.target.classList.add('visible');
-
-      // Change CSS Theme Color
       const color = entry.target.getAttribute('data-color') || '#60aaff';
       root.style.setProperty('--theme-color', color);
-      
-      // Update 3D Light target
       targetLightColor.set(color);
     }
+    
+    // Optimize performance: Only animate canvases that are currently visible
+    if(entry.target.hasAttribute('data-color')) {
+      const id = entry.target.querySelector('canvas').id.replace('canvas-', '');
+      activeCanvases[id] = entry.isIntersecting;
+    }
   });
-}, { threshold: 0.35 });
+}, { threshold: 0.2 });
 
 sections.forEach(sec => observer.observe(sec));
 
 // ═══════════════════════════
-// 3D BACKGROUND
+// 2D CANVAS PIXEL ALGORITHMS
 // ═══════════════════════════
-const canvas = document.getElementById('bg-canvas');
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+function resize(c) {
+  const p = c.parentElement;
+  if(c.width !== p.clientWidth || c.height !== p.clientHeight) {
+    c.width = p.clientWidth; c.height = p.clientHeight;
+  }
+}
+
+// Service 1: 3D Point Cloud Sphere (AI Models)
+const c1 = document.getElementById('canvas-s1'); const ctx1 = c1.getContext('2d');
+let s1_pts = [];
+for(let i=0; i<400; i++) {
+  const theta = Math.random() * 2 * Math.PI; const phi = Math.acos((Math.random() * 2) - 1);
+  s1_pts.push({ x: Math.sin(phi)*Math.cos(theta), y: Math.sin(phi)*Math.sin(theta), z: Math.cos(phi) });
+}
+let s1_ang = 0;
+function drawS1() {
+  resize(c1); ctx1.clearRect(0,0,c1.width,c1.height);
+  const cx = c1.width/2, cy = c1.height/2, r = Math.min(cx, cy) * 0.7;
+  s1_ang += 0.01;
+  ctx1.fillStyle = '#ff2a6d';
+  s1_pts.forEach(p => {
+    const rotX = p.x * Math.cos(s1_ang) - p.z * Math.sin(s1_ang);
+    const rotZ = p.z * Math.cos(s1_ang) + p.x * Math.sin(s1_ang);
+    const scale = 300 / (300 - rotZ * 100);
+    const px = cx + rotX * r * scale; const py = cy + p.y * r * scale;
+    ctx1.globalAlpha = Math.max(0.1, (rotZ + 1) / 2);
+    ctx1.fillRect(px, py, 2.5, 2.5);
+  });
+}
+
+// Service 2: Neural Network (AI Automation)
+const c2 = document.getElementById('canvas-s2'); const ctx2 = c2.getContext('2d');
+let s2_nodes = Array.from({length: 60}, () => ({
+  x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5)*0.005, vy: (Math.random() - 0.5)*0.005
+}));
+function drawS2() {
+  resize(c2); ctx2.clearRect(0,0,c2.width,c2.height);
+  ctx2.fillStyle = '#05d9e8'; ctx2.strokeStyle = '#05d9e8';
+  s2_nodes.forEach(n => {
+    n.x += n.vx; n.y += n.vy;
+    if(n.x < 0 || n.x > 1) n.vx *= -1; if(n.y < 0 || n.y > 1) n.vy *= -1;
+    ctx2.beginPath(); ctx2.arc(n.x * c2.width, n.y * c2.height, 2, 0, Math.PI*2); ctx2.fill();
+  });
+  for(let i=0; i<s2_nodes.length; i++) {
+    for(let j=i+1; j<s2_nodes.length; j++) {
+      const dx = s2_nodes[i].x - s2_nodes[j].x, dy = s2_nodes[i].y - s2_nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 0.15) {
+        ctx2.globalAlpha = 1 - (dist / 0.15);
+        ctx2.beginPath(); ctx2.moveTo(s2_nodes[i].x * c2.width, s2_nodes[i].y * c2.height);
+        ctx2.lineTo(s2_nodes[j].x * c2.width, s2_nodes[j].y * c2.height); ctx2.stroke();
+      }
+    }
+  }
+  ctx2.globalAlpha = 1;
+}
+
+// Service 3: Matrix Data Stream (Software Dev)
+const c3 = document.getElementById('canvas-s3'); const ctx3 = c3.getContext('2d');
+let s3_drops = [];
+function drawS3() {
+  resize(c3); 
+  ctx3.fillStyle = 'rgba(3, 3, 5, 0.15)'; ctx3.fillRect(0,0,c3.width,c3.height); // Trail effect
+  if(s3_drops.length === 0) s3_drops = Array.from({length: Math.floor(c3.width/15)}, () => Math.random() * c3.height);
+  ctx3.fillStyle = '#01ffc3'; ctx3.font = '14px monospace';
+  s3_drops.forEach((y, i) => {
+    const char = String.fromCharCode(0x30A0 + Math.random() * 96);
+    ctx3.fillText(char, i * 15, y);
+    if(y > c3.height && Math.random() > 0.975) s3_drops[i] = 0;
+    s3_drops[i] += 15;
+  });
+}
+
+// Service 4: Pulsing Pixel Grid (App Dev)
+const c4 = document.getElementById('canvas-s4'); const ctx4 = c4.getContext('2d');
+let s4_grid = []; let s4_cols = 0; let s4_rows = 0;
+function drawS4() {
+  resize(c4);
+  const size = 20; const pad = 4;
+  s4_cols = Math.floor(c4.width / (size+pad)); s4_rows = Math.floor(c4.height / (size+pad));
+  if(s4_grid.length !== s4_cols * s4_rows) s4_grid = Array.from({length: s4_cols * s4_rows}, () => Math.random());
+  
+  ctx4.clearRect(0,0,c4.width,c4.height);
+  const offsetX = (c4.width - (s4_cols * (size+pad))) / 2;
+  const offsetY = (c4.height - (s4_rows * (size+pad))) / 2;
+  
+  s4_grid.forEach((val, i) => {
+    s4_grid[i] = Math.max(0, val - 0.02); // Fade out
+    if(Math.random() > 0.99) s4_grid[i] = 1; // Flash new
+    
+    const x = i % s4_cols; const y = Math.floor(i / s4_cols);
+    ctx4.fillStyle = `rgba(179, 0, 255, ${s4_grid[i] * 0.8 + 0.1})`;
+    ctx4.fillRect(offsetX + x * (size+pad), offsetY + y * (size+pad), size, size);
+  });
+}
+
+// Service 5: Cyberpunk 3D Terrain Grid (Web Creation)
+const c5 = document.getElementById('canvas-s5'); const ctx5 = c5.getContext('2d');
+let s5_offset = 0;
+function drawS5() {
+  resize(c5); ctx5.clearRect(0,0,c5.width,c5.height);
+  ctx5.strokeStyle = '#f1c40f'; ctx5.lineWidth = 1.5;
+  const cx = c5.width/2, cy = c5.height * 0.3; // Horizon line
+  s5_offset = (s5_offset + 2) % 40; // Forward movement speed
+  
+  // Perspective horizontal lines
+  for(let i=0; i<25; i++) {
+    const y = cy + Math.pow(i, 1.8) + s5_offset * (i*0.05);
+    if(y > cy && y < c5.height) {
+      ctx5.globalAlpha = Math.min(1, (y - cy) / 150);
+      ctx5.beginPath(); ctx5.moveTo(0, y); ctx5.lineTo(c5.width, y); ctx5.stroke();
+    }
+  }
+  // Perspective vertical lines
+  ctx5.globalAlpha = 0.5;
+  for(let i=-15; i<15; i++) {
+    ctx5.beginPath(); ctx5.moveTo(cx, cy); ctx5.lineTo(cx + i * 80, c5.height); ctx5.stroke();
+  }
+  ctx5.globalAlpha = 1;
+}
+
+// ═══════════════════════════
+// 3D BACKGROUND (THREE.JS)
+// ═══════════════════════════
+const bgCanvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({canvas: bgCanvas, antialias:true, alpha:true});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -255,34 +380,21 @@ scene.fog = new THREE.FogExp2(0x030305, 0.035);
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 150);
 camera.position.z = 15;
 
-// The Particle Network
 const particlesGeom = new THREE.BufferGeometry();
 const particleCount = 1200;
 const posArray = new Float32Array(particleCount * 3);
-for(let i = 0; i < particleCount * 3; i++) {
-  posArray[i] = (Math.random() - 0.5) * 40;
-}
+for(let i = 0; i < particleCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 40; }
 particlesGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-const particlesMat = new THREE.PointsMaterial({
-  size: 0.08, color: 0xffffff, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending
-});
+const particlesMat = new THREE.PointsMaterial({ size: 0.08, color: 0xffffff, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
 const particleSystem = new THREE.Points(particlesGeom, particlesMat);
 scene.add(particleSystem);
 
-// Abstract Geometric Core
 const coreGeom = new THREE.IcosahedronGeometry(3, 1);
-const coreMat = new THREE.MeshPhysicalMaterial({ 
-  color: 0x111115, metalness: 0.9, roughness: 0.1, 
-  wireframe: true, transparent: true, opacity: 0.3
-});
+const coreMat = new THREE.MeshPhysicalMaterial({ color: 0x111115, metalness: 0.9, roughness: 0.1, wireframe: true, transparent: true, opacity: 0.3 });
 const coreMesh = new THREE.Mesh(coreGeom, coreMat);
 scene.add(coreMesh);
 
-// Dynamic Lighting
-const ambientLight = new THREE.AmbientLight(0x0a0a10, 2);
-scene.add(ambientLight);
-
+scene.add(new THREE.AmbientLight(0x0a0a10, 2));
 const pointLight = new THREE.PointLight(0x60aaff, 10, 40);
 pointLight.position.set(0, 0, 5);
 scene.add(pointLight);
@@ -290,21 +402,15 @@ scene.add(pointLight);
 let currentLightColor = new THREE.Color(0x60aaff);
 let targetLightColor = new THREE.Color(0x60aaff);
 
-// Mouse & Scroll Tracking
-let mouseX = 0; let mouseY = 0;
-const target = new THREE.Vector2();
+let mouseX = 0; let mouseY = 0; const targetPos = new THREE.Vector2();
 document.addEventListener('mousemove', (event) => {
   mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
   mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
 });
-
-let scrollY = 0;
-window.addEventListener('scroll', () => { scrollY = window.scrollY; });
-
+let scrollY = 0; window.addEventListener('scroll', () => { scrollY = window.scrollY; });
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
 });
 
 const clock = new THREE.Clock();
@@ -312,26 +418,28 @@ const clock = new THREE.Clock();
 function animate() {
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
-  const time = clock.getElapsedTime();
+  
+  // 1. Run 2D Canvas Animations (Only if visible on screen)
+  if(activeCanvases.s1) drawS1();
+  if(activeCanvases.s2) drawS2();
+  if(activeCanvases.s3) drawS3();
+  if(activeCanvases.s4) drawS4();
+  if(activeCanvases.s5) drawS5();
 
-  // Smooth Color Interpolation
+  // 2. Run 3D Background Logic
   currentLightColor.lerp(targetLightColor, delta * 2);
   pointLight.color.copy(currentLightColor);
   particlesMat.color.copy(currentLightColor);
   
-  // Parallax
-  target.x = mouseX;
-  target.y = mouseY;
-  camera.position.x += (target.x * 4 - camera.position.x) * delta * 2;
-  const targetCamY = -target.y * 4 - (scrollY * 0.005);
+  targetPos.x = mouseX; targetPos.y = mouseY;
+  camera.position.x += (targetPos.x * 4 - camera.position.x) * delta * 2;
+  const targetCamY = -targetPos.y * 4 - (scrollY * 0.005);
   camera.position.y += (targetCamY - camera.position.y) * delta * 2;
   camera.lookAt(scene.position);
 
-  // Rotation
-  coreMesh.rotation.x += 0.1 * delta;
-  coreMesh.rotation.y += 0.15 * delta;
-  particleSystem.rotation.y = time * 0.03;
-  particleSystem.rotation.z = time * 0.01;
+  coreMesh.rotation.x += 0.1 * delta; coreMesh.rotation.y += 0.15 * delta;
+  particleSystem.rotation.y = clock.getElapsedTime() * 0.03;
+  particleSystem.rotation.z = clock.getElapsedTime() * 0.01;
 
   renderer.render(scene, camera);
 }
