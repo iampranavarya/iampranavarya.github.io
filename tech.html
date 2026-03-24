@@ -7,195 +7,224 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    
     :root{
-      --black:#050507; --deep:#0a0a0f;
-      --gold:#c9a84c;
-      --tech-blue:#60aaff; --tech-blue-dim:#1a3a5f;
+      --black:#030305; 
       --white:#f0ece4;
+      /* Dynamic Theme Color - Controlled by JS on scroll */
+      --theme-color: #60aaff; 
       --font-display:'Bebas Neue',sans-serif;
       --font-serif:'Cormorant Garamond',serif;
       --font-mono:'Space Mono',monospace;
     }
-    html{scroll-behavior:smooth}
-    body{
-      background:var(--black); color:var(--white);
-      font-family:var(--font-serif); overflow-x:hidden; cursor:auto;
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black); color: var(--white);
+      font-family: var(--font-serif); overflow-x: hidden; cursor: auto;
     }
     body.custom-cursor-active { cursor: none; }
 
-    /* LOADER */
-    #loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease}
-    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
-    .loader-logo{font-family:var(--font-display);font-size:3.5rem;letter-spacing:0.3em;color:var(--tech-blue);margin-bottom:36px;animation:loaderPulse 1.5s ease infinite alternate}
-    .loader-bar-wrap{width:260px;height:1px;background:rgba(96,170,255,0.15);position:relative;overflow:hidden}
-    .loader-bar{height:100%;background:var(--tech-blue);width:0%;transition:width 0.05s linear}
-    .loader-label{margin-top:16px;font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.25em;color:rgba(96,170,255,0.5);text-transform:uppercase}
-    @keyframes loaderPulse{from{opacity:0.5}to{opacity:1}}
-
-    /* CURSOR */
-    .cursor{position:fixed;width:10px;height:10px;background:var(--tech-blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:0;transition:opacity 0.3s}
-    .cursor-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(96,170,255,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;opacity:0}
+    /* CUSTOM CURSOR */
+    .cursor{position:fixed;width:8px;height:8px;background:var(--theme-color);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background 0.5s ease;}
+    .cursor-ring{position:fixed;width:40px;height:40px;border:1px solid var(--theme-color);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:top 0.15s ease, left 0.15s ease, border-color 0.5s ease, transform 0.2s;}
     body.custom-cursor-active .cursor, body.custom-cursor-active .cursor-ring { opacity: 1; }
 
-    /* CANVAS */
-    #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0; pointer-events:none;}
+    /* 3D CANVAS BACKGROUND */
+    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    /* CSS NOISE TEXTURE */
+    .noise { position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 1; }
 
     /* NAV */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:28px 52px}
-    nav::after{content:'';position:absolute;bottom:0;left:52px;right:52px;height:1px;background:linear-gradient(90deg,transparent,var(--tech-blue-dim),transparent);opacity:0.5}
-    .nav-logo{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.1em;color:var(--tech-blue);text-decoration:none; transition: opacity 0.3s;}
-    .nav-logo:hover{opacity: 0.7;}
-    .nav-links{display:flex;gap:40px;list-style:none}
-    .nav-links a{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;color:var(--white);text-decoration:none;opacity:0.6;text-transform:uppercase;transition:opacity 0.3s,color 0.3s;position:relative}
-    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--tech-blue);transition:width 0.3s}
-    .nav-links a:hover{opacity:1;color:var(--tech-blue)}
-    .nav-links a:hover::after{width:100%}
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 52px; background: linear-gradient(to bottom, rgba(3,3,5,0.8), transparent); backdrop-filter: blur(4px); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.1em; color: var(--theme-color); text-decoration: none; transition: color 0.5s ease; }
+    
+    /* HERO SECTION */
+    #hero { position: relative; z-index: 10; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; }
+    .hero-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.4em; color: var(--theme-color); text-transform: uppercase; margin-bottom: 20px; transition: color 0.5s ease; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(4rem, 10vw, 9rem); line-height: 0.85; letter-spacing: 0.02em; }
+    .hero-title span { color: var(--theme-color); transition: color 0.5s ease; }
+    .hero-sub { margin-top: 30px; max-width: 500px; font-size: 1.2rem; font-style: italic; color: rgba(240,236,228,0.7); line-height: 1.8; }
 
-    /* HERO */
-    #hero{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 52px; max-width: 800px;}
-    .hero-eyebrow{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.3em;color:var(--tech-blue);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s 0.4s forwards}
-    .hero-title{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,8rem);line-height:0.9;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
-    .hero-title .blue{color:var(--tech-blue)}
-    .hero-sub{margin-top:28px;max-width:480px;font-size:1.1rem;font-style:italic;color:rgba(240,236,228,0.6);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
-    
-    /* SERVICES */
-    #services{position:relative;z-index:10;padding:120px 52px}
-    .section-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--tech-blue);text-transform:uppercase;margin-bottom:12px}
-    .section-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);line-height:1; margin-bottom: 60px;}
-    
-    .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-    .service-card{background:rgba(96,170,255,0.03);border:1px solid rgba(96,170,255,0.1);padding:48px 40px;transition:background 0.3s, transform 0.3s; position: relative; overflow: hidden;}
-    .service-card:hover{background:rgba(96,170,255,0.08); transform: translateY(-5px);}
-    .service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--tech-blue);transition:height 0.4s ease;}
-    .service-card:hover::before{height:100%;}
-    
-    .service-icon{font-family:var(--font-mono);font-size:1.2rem;color:var(--tech-blue);margin-bottom:24px; display:block;}
-    .service-name{font-family:var(--font-display);font-size:2.5rem;letter-spacing:0.05em;margin-bottom:16px;}
-    .service-desc{font-size:1.05rem;line-height:1.7;color:rgba(240,236,228,0.6);font-style:italic;}
-    .service-tags{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
-    .tag{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(240,236,228,0.2);color:rgba(240,236,228,0.5);}
+    /* SERVICES LAYOUT */
+    .service-section { position: relative; z-index: 10; min-height: 100vh; display: flex; align-items: center; padding: 80px 10%; }
+    .align-right { justify-content: flex-end; }
+    .align-left { justify-content: flex-start; }
 
-    /* CONTACT */
-    #contact{position:relative;z-index:10;padding:140px 52px;text-align:center}
-    .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,8rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:40px}
-    .btn-primary{display:inline-block;font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--tech-blue);padding:16px 40px;text-decoration:none;transition:background 0.3s,transform 0.2s}
-    .btn-primary:hover{background:#8cbdff;transform:translateY(-2px)}
+    /* HYPER-REALISTIC GLASSMORPHISM CARD */
+    .glass-card {
+      background: rgba(10, 12, 16, 0.4);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      border-right: 1px solid rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255,255,255,0.02);
+      border-radius: 2px; /* Sharp tech edges */
+      padding: 60px;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+      transform: translateY(50px);
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .glass-card.visible { opacity: 1; transform: translateY(0); }
+    
+    /* Card internal styling */
+    .service-index { font-family: var(--font-mono); font-size: 0.7rem; color: var(--theme-color); letter-spacing: 0.2em; display: block; margin-bottom: 20px; transition: color 0.5s ease;}
+    .service-title { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.5rem); letter-spacing: 0.05em; margin-bottom: 20px; line-height: 1; }
+    .service-desc { font-size: 1.15rem; line-height: 1.8; color: rgba(240,236,228,0.7); font-style: italic; margin-bottom: 40px; }
+    
+    /* CONTACT BUTTON */
+    .btn-glow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 36px;
+      background: transparent;
+      border: 1px solid var(--theme-color);
+      position: relative;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    .btn-glow::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--theme-color); z-index: -1; opacity: 0; transition: opacity 0.4s ease;
+    }
+    .btn-glow:hover { color: var(--black); box-shadow: 0 0 30px var(--theme-color); border-color: transparent;}
+    .btn-glow:hover::before { opacity: 1; }
 
     /* FOOTER */
-    footer{position:relative;z-index:10;padding:28px 52px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05)}
-    footer p{font-family:var(--font-mono);font-size:0.55rem;color:rgba(240,236,228,0.3);letter-spacing:0.12em}
-    .social-links{display:flex;gap:24px}
-    .social-links a{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.15em;color:rgba(240,236,228,0.3);text-decoration:none;text-transform:uppercase;transition:color 0.3s}
-    .social-links a:hover{color:var(--tech-blue)}
+    footer { position: relative; z-index: 10; padding: 40px 10%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px;}
+    footer p { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(240,236,228,0.3); letter-spacing: 0.12em; }
 
-    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-
-    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.028;pointer-events:none;z-index:9990}
-
-    @media(max-width:900px){
-      nav,#hero,#services,#contact,footer{padding-left:24px;padding-right:24px}
-      nav::after{left:24px;right:24px}
-      .services-grid{grid-template-columns:1fr}
-      #hero{padding-top:140px; min-height:80vh;}
+    @media(max-width: 900px) {
+      .service-section { padding: 40px 5%; justify-content: center; }
+      .glass-card { padding: 40px 30px; }
+      #hero { padding: 0 5%; }
+      nav { padding: 20px 5%; }
     }
-    @media(max-width:560px){.nav-links{display:none}}
   </style>
 </head>
 <body>
 
-<div id="loader">
-  <div class="loader-logo">SYS_INIT</div>
-  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
-  <div class="loader-label" id="loader-label">Compiling data...</div>
-</div>
-
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 <canvas id="bg-canvas"></canvas>
+<div class="noise"></div>
 
 <nav>
   <a class="nav-logo" href="index.html">← Back to main page</a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Initialize</a></li>
-  </ul>
 </nav>
 
-<section id="hero">
-  <p class="hero-eyebrow">System Architecture & AI</p>
-  <h1 class="hero-title">ENGINEERING<br><span class="blue">DIGITAL</span><br>REALITIES</h1>
-  <p class="hero-sub">Merging minimalist design with advanced computational logic. I build high-performance web applications and integrate custom Artificial Intelligence solutions to elevate your digital presence.</p>
-</section>
+<main>
+  <section id="hero">
+    <p class="hero-eyebrow">Advanced Engineering & AI</p>
+    <h1 class="hero-title">DIGITAL<br><span>REALITIES</span></h1>
+    <p class="hero-sub">We merge minimalist design with advanced computational logic. Select a service below to initiate deployment.</p>
+  </section>
 
-<section id="services">
-  <p class="section-label">Capabilities</p>
-  <h2 class="section-title">THE STACK</h2>
-  
-  <div class="services-grid">
-    <div class="service-card">
-      <span class="service-icon">&lt;/&gt;</span>
-      <h3 class="service-name">WEB DEVELOPMENT</h3>
-      <p class="service-desc">From cinematic portfolio sites to complex, data-driven web applications. Built from the ground up with a focus on raw performance, flawless responsive design, and cutting-edge 3D integrations.</p>
-      <div class="service-tags">
-        <span class="tag">HTML/CSS/JS</span>
-        <span class="tag">Three.js</span>
-        <span class="tag">React</span>
-      </div>
+  <section class="service-section align-right" data-color="#ff2a6d" data-theme="ai-models">
+    <div class="glass-card">
+      <span class="service-index">01 // VISUAL SYNTHESIS</span>
+      <h2 class="service-title">HYPER-REALISTIC<br>AI MODELS</h2>
+      <p class="service-desc">For brands, we create hyper-realistic AI models capable of anything your business envisions. We seamlessly integrate your products with superhuman digital avatars, producing flawless content for social media, high-end commercial advertisements, and beyond. Step into the future of digital modeling.</p>
+      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: AI Model Generation" class="btn-glow">Contact Us</a>
     </div>
-    
-    <div class="service-card">
-      <span class="service-icon">[AI]</span>
-      <h3 class="service-name">AI INTEGRATION</h3>
-      <p class="service-desc">Deploying intelligent systems to automate workflows, analyze data, and create interactive experiences. Bridging the gap between complex machine learning models and user-friendly interfaces.</p>
-      <div class="service-tags">
-        <span class="tag">Prompt Engineering</span>
-        <span class="tag">LLM Integration</span>
-        <span class="tag">Automation</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact">
-  <p class="section-label">Deploy a Project</p>
-  <h2 class="contact-title">START<br><span style="color:var(--tech-blue)">SYSTEM</span></h2>
-  <a href="mailto:tech@pranavaryafilms.com" class="btn-primary">Initialize Contact</a>
-</section>
+  <section class="service-section align-left" data-color="#05d9e8" data-theme="ai-auto">
+    <div class="glass-card">
+      <span class="service-index">02 // NEURAL LOGIC</span>
+      <h2 class="service-title">AI AUTOMATION<br>SETUPS</h2>
+      <p class="service-desc">We architect and deploy custom AI automation protocols to streamline your entire company's workflow. Eliminate redundant tasks, accelerate decision-making, and unlock unprecedented operational efficiency with intelligent systems working flawlessly 24/7.</p>
+      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: AI Automation" class="btn-glow">Contact Us</a>
+    </div>
+  </section>
+
+  <section class="service-section align-right" data-color="#01ffc3" data-theme="software">
+    <div class="glass-card">
+      <span class="service-index">03 // CORE ARCHITECTURE</span>
+      <h2 class="service-title">SOFTWARE<br>DEVELOPMENT</h2>
+      <p class="service-desc">True software development goes beyond writing code—it's about engineering scalable, fault-tolerant ecosystems. We build robust enterprise-grade software characterized by immaculate architecture, rigorous security protocols, and zero-latency performance. Future-proof your business with code that scales.</p>
+      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: Software Development" class="btn-glow">Contact Us</a>
+    </div>
+  </section>
+
+  <section class="service-section align-left" data-color="#b300ff" data-theme="app">
+    <div class="glass-card">
+      <span class="service-index">04 // MOBILE ECOSYSTEMS</span>
+      <h2 class="service-title">APP<br>DEVELOPMENT</h2>
+      <p class="service-desc">Transform your vision into a native mobile experience. We engineer professional, secure, and lightning-fast applications for both iOS (Apple) and Android. Utilizing sleek UI/UX design and highly optimized codebases, we deliver apps that dominate the app stores and captivate users.</p>
+      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: App Development" class="btn-glow">Contact Us</a>
+    </div>
+  </section>
+
+  <section class="service-section align-right" data-color="#f1c40f" data-theme="web">
+    <div class="glass-card">
+      <span class="service-index">05 // DIGITAL PRESENCE</span>
+      <h2 class="service-title">WEBSITE<br>CREATION</h2>
+      <p class="service-desc">Your digital storefront demands perfection. We forge professional, ultra-secure, and blazing-fast websites tailored for absolute conversion. From breathtaking 3D web experiences to complex e-commerce platforms, we ensure your site is a masterclass in modern web architecture.</p>
+      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: Website Creation" class="btn-glow">Contact Us</a>
+    </div>
+  </section>
+</main>
 
 <footer>
   <p>© 2026 Pranav Arya Technical Services.</p>
-  <div class="social-links"><a href="#">GitHub</a><a href="#">LinkedIn</a></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// LOADER
-const loaderBar=document.getElementById('loader-bar');
-const loaderLabel=document.getElementById('loader-label');
-const loaderEl=document.getElementById('loader');
-const lbls=['Compiling data...','Loading dependencies...','Rendering topology...','System ready.'];
-let loadPct=0;
-const loaderInt=setInterval(()=>{
-  loadPct+=Math.random()*18+4;
-  if(loadPct>=100){loadPct=100;clearInterval(loaderInt);setTimeout(()=>loaderEl.classList.add('hide'),400);}
-  loaderBar.style.width=Math.min(loadPct,100)+'%';
-  loaderLabel.textContent=lbls[Math.min(Math.floor(loadPct/25),lbls.length-1)];
-},120);
-
-// CURSOR
+// ═══════════════════════════
+// CUSTOM CURSOR LOGIC
+// ═══════════════════════════
 const cursorEl=document.getElementById('cursor');
 const ringEl=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.body.classList.add('custom-cursor-active');
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
 (function animRing(){rx+=(mx-rx)*0.15;ry+=(my-ry)*0.15;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button').forEach(el=>{
+document.querySelectorAll('a').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
   el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
 });
 
 // ═══════════════════════════
-// 3D ABSTRACT DATA CORE
+// DYNAMIC THEME & SCROLL ANIMATION
+// ═══════════════════════════
+const sections = document.querySelectorAll('.service-section, #hero');
+const root = document.documentElement;
+
+// Function to check which section is currently on screen
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      // Fade in the glass card
+      const card = entry.target.querySelector('.glass-card');
+      if(card) card.classList.add('visible');
+
+      // Change the CSS Theme Color
+      const color = entry.target.getAttribute('data-color') || '#60aaff';
+      root.style.setProperty('--theme-color', color);
+      
+      // Tell Three.js to transition to this color
+      targetLightColor.set(color);
+    }
+  });
+}, { threshold: 0.4 }); // Triggers when 40% of the section is visible
+
+sections.forEach(sec => observer.observe(sec));
+
+// ═══════════════════════════
+// 3D BACKGROUND (THE "LIVING NETWORK")
 // ═══════════════════════════
 const canvas = document.getElementById('bg-canvas');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
@@ -203,76 +232,69 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x050507, 0.04);
+scene.fog = new THREE.FogExp2(0x030305, 0.035);
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
-camera.position.z = 12;
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 150);
+camera.position.z = 15;
 
-// Track mouse position for parallax
-let mouseX = 0;
-let mouseY = 0;
-const target = new THREE.Vector2();
-const windowHalfX = window.innerWidth / 2;
-const windowHalfY = window.innerHeight / 2;
-
-document.addEventListener('mousemove', (event) => {
-  mouseX = (event.clientX - windowHalfX);
-  mouseY = (event.clientY - windowHalfY);
-});
-
-// Create the Data Core Group
-const coreGroup = new THREE.Group();
-// Shift the core to the right side of the screen on desktop
-coreGroup.position.set(window.innerWidth > 900 ? 5 : 0, 0, 0);
-scene.add(coreGroup);
-
-// 1. Outer Wireframe (Icosahedron)
-const outerGeo = new THREE.IcosahedronGeometry(4, 1);
-const outerMat = new THREE.MeshBasicMaterial({ color: 0x60aaff, wireframe: true, transparent: true, opacity: 0.15 });
-const outerMesh = new THREE.Mesh(outerGeo, outerMat);
-coreGroup.add(outerMesh);
-
-// 2. Inner Solid Core (Octahedron)
-const innerGeo = new THREE.OctahedronGeometry(2.5, 0);
-const innerMat = new THREE.MeshPhysicalMaterial({ 
-  color: 0x05050a, metalness: 0.9, roughness: 0.1, 
-  clearcoat: 1.0, wireframe: false,
-  emissive: 0x1a3a5f, emissiveIntensity: 0.5
-});
-const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-coreGroup.add(innerMesh);
-
-// 3. Floating Data Particles
-const particleGeo = new THREE.BufferGeometry();
-const particleCount = 400;
+// The Particle Network
+const particlesGeom = new THREE.BufferGeometry();
+const particleCount = 1200;
 const posArray = new Float32Array(particleCount * 3);
 
 for(let i = 0; i < particleCount * 3; i++) {
-  // Spread particles in a wide area
-  posArray[i] = (Math.random() - 0.5) * 30;
+  posArray[i] = (Math.random() - 0.5) * 40;
 }
-particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-const particleMat = new THREE.PointsMaterial({
-  size: 0.05,
-  color: 0x60aaff,
+particlesGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+// Material
+const particlesMat = new THREE.PointsMaterial({
+  size: 0.08,
+  color: 0xffffff,
   transparent: true,
-  opacity: 0.6,
+  opacity: 0.8,
   blending: THREE.AdditiveBlending
 });
-const particleMesh = new THREE.Points(particleGeo, particleMat);
-scene.add(particleMesh);
+const particleSystem = new THREE.Points(particlesGeom, particlesMat);
+scene.add(particleSystem);
 
-// Lighting for the inner core
-const pointLight = new THREE.PointLight(0x60aaff, 5, 20);
-pointLight.position.set(5, 5, 5);
+// Abstract Geometric Core
+const coreGeom = new THREE.IcosahedronGeometry(3, 1);
+const coreMat = new THREE.MeshPhysicalMaterial({ 
+  color: 0x111115, metalness: 0.9, roughness: 0.1, 
+  wireframe: true, transparent: true, opacity: 0.3
+});
+const coreMesh = new THREE.Mesh(coreGeom, coreMat);
+scene.add(coreMesh);
+
+// Dynamic Lighting
+const ambientLight = new THREE.AmbientLight(0x0a0a10, 2);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0x60aaff, 10, 40);
+pointLight.position.set(0, 0, 5);
 scene.add(pointLight);
-scene.add(new THREE.AmbientLight(0x111122, 1));
+
+// Color Interpolation targets
+let currentLightColor = new THREE.Color(0x60aaff);
+let targetLightColor = new THREE.Color(0x60aaff);
+
+// Mouse Parallax
+let mouseX = 0; let mouseY = 0;
+const target = new THREE.Vector2();
+document.addEventListener('mousemove', (event) => {
+  mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
+  mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
+});
+
+// Scroll Parallax
+let scrollY = 0;
+window.addEventListener('scroll', () => { scrollY = window.scrollY; });
 
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  coreGroup.position.set(window.innerWidth > 900 ? 5 : 0, 0, 0);
 });
 
 const clock = new THREE.Clock();
@@ -282,27 +304,27 @@ function animate() {
   const delta = clock.getDelta();
   const time = clock.getElapsedTime();
 
-  // Smooth mouse follow
-  target.x = (mouseX * 0.001);
-  target.y = (mouseY * 0.001);
+  // 1. Smoothly interpolate colors based on scroll section
+  currentLightColor.lerp(targetLightColor, delta * 2);
+  pointLight.color.copy(currentLightColor);
+  particlesMat.color.copy(currentLightColor);
   
-  // Parallax camera movement
-  camera.position.x += (target.x * 3 - camera.position.x) * 2 * delta;
-  camera.position.y += (-target.y * 3 - camera.position.y) * 2 * delta;
+  // 2. Parallax Camera Movement
+  target.x = mouseX;
+  target.y = mouseY;
+  camera.position.x += (target.x * 4 - camera.position.x) * delta * 2;
+  // Move camera slightly down as we scroll to simulate flying through space
+  const targetCamY = -target.y * 4 - (scrollY * 0.005);
+  camera.position.y += (targetCamY - camera.position.y) * delta * 2;
   camera.lookAt(scene.position);
 
-  // Rotate Core Elements
-  outerMesh.rotation.x += 0.2 * delta;
-  outerMesh.rotation.y += 0.3 * delta;
+  // 3. Rotate Elements
+  coreMesh.rotation.x += 0.1 * delta;
+  coreMesh.rotation.y += 0.15 * delta;
   
-  innerMesh.rotation.x -= 0.1 * delta;
-  innerMesh.rotation.y -= 0.15 * delta;
-
-  // Gentle floating motion for the core
-  coreGroup.position.y = Math.sin(time * 0.5) * 0.5;
-
-  // Rotate background particles slowly
-  particleMesh.rotation.y = time * 0.05;
+  // Entire particle system rotates slowly
+  particleSystem.rotation.y = time * 0.03;
+  particleSystem.rotation.z = time * 0.01;
 
   renderer.render(scene, camera);
 }
