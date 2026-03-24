@@ -21,7 +21,6 @@
       color:var(--white);
       font-family:var(--font-serif);
       overflow-x:hidden;
-      /* Fallback cursor, overridden by JS if custom cursor loads */
       cursor: auto; 
     }
     body.custom-cursor-active { cursor: none; }
@@ -99,6 +98,32 @@
     .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1}
     .stat-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;color:rgba(240,236,228,0.4);text-transform:uppercase;margin-top:8px}
 
+    /* ABOUT ME */
+    #about-me {
+      position: relative; z-index: 10;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; padding: 120px 52px; gap: 80px;
+    }
+    #about-me::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3;
+    }
+    .profile-image-container { position: relative; aspect-ratio: 3/4; max-width: 420px; width: 100%; margin: 0 auto; }
+    .profile-img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(100%) contrast(1.1);
+      transition: filter 0.5s ease; position: relative; z-index: 2;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+    .profile-img:hover { filter: grayscale(0%); }
+    .profile-backdrop {
+      position: absolute; top: 20px; left: -20px;
+      width: 100%; height: 100%; border: 1px solid var(--gold);
+      z-index: 1; opacity: 0.5; transition: transform 0.5s ease;
+    }
+    .profile-image-container:hover .profile-backdrop { transform: translate(10px, -10px); }
+    .profile-content { display: flex; flex-direction: column; }
+
     /* WORK */
     #work{position:relative;z-index:10;padding:120px 52px}
     #work::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
@@ -139,19 +164,17 @@
 
     body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.028;pointer-events:none;z-index:9990}
 
+    /* MOBILE ADJUSTMENTS */
     @media(max-width:900px){
-      nav,#hero,#about,#work,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#about,#about-me,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
-      /* Added gap to push the camera down, and increased top padding */
       #hero{grid-template-columns:1fr;height:auto;padding-top:140px;padding-bottom:60px; gap: 80px;}
-      /* Ensured the buttons stay physically on top of the camera canvas */
       .hero-left{position: relative; z-index: 20;}
       .hero-right{height:360px}
-      #about{grid-template-columns:1fr;gap:52px}
+      #about, #about-me {grid-template-columns:1fr;gap:52px}
       .work-grid{grid-template-columns:1fr 1fr}
       #shot-counter{right:24px}
     }
-    
     @media(max-width:560px){.work-grid{grid-template-columns:1fr}.nav-links{display:none}}
   </style>
 </head>
@@ -213,6 +236,18 @@
   </div>
 </section>
 
+<section id="about-me">
+  <div class="profile-image-container">
+    <img src="your-photo.jpg" alt="Pranav Arya" class="profile-img" />
+    <div class="profile-backdrop"></div>
+  </div>
+  <div class="profile-content">
+    <p class="section-label">The Director</p>
+    <h2 class="section-title">ABOUT <span style="color:var(--gold)">ME</span></h2>
+    <p class="about-body">Here is where you can write your personal paragraph. Talk about your journey, your passion for visual storytelling, and what drives you as a filmmaker and photographer. Write about your background, your unique style, and the types of projects that excite you the most.</p>
+  </div>
+</section>
+
 <section id="work">
   <div class="section-header">
     <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
@@ -262,7 +297,6 @@ const cursorEl=document.getElementById('cursor');
 const ringEl=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 
-// Activate custom cursor only when JS runs properly
 document.body.classList.add('custom-cursor-active');
 
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
@@ -319,22 +353,21 @@ function resizeCam(){
 resizeCam();
 window.addEventListener('resize',resizeCam);
 
-// Lights (Upgraded for a moody, high-end studio look)
+// Lights
 camS.add(new THREE.AmbientLight(0x0d0d18, 4));
 const keyL=new THREE.SpotLight(0xfff5e0, 8, 30, Math.PI/5, 0.4);
 keyL.position.set(4, 6, 6); keyL.castShadow=true; 
-keyL.shadow.bias = -0.001; // Prevents shadow artifacts
+keyL.shadow.bias = -0.001;
 camS.add(keyL);
 const fillL=new THREE.PointLight(0xc9a84c, 3, 20); fillL.position.set(-4, 2, 3); camS.add(fillL);
 const rimL=new THREE.PointLight(0xc9a84c, 5, 15); rimL.position.set(0, -5, -3); camS.add(rimL);
 const glowL=new THREE.PointLight(0x60aaff, 0, 10); glowL.position.set(0, 0, 3.8); camS.add(glowL);
 
-// Materials (Upgraded to MeshPhysicalMaterial for premium real-world physics)
+// Materials 
 const bodyM = new THREE.MeshPhysicalMaterial({color: 0x111115, metalness: 0.7, roughness: 0.4, clearcoat: 0.3, clearcoatRoughness: 0.2});
 const blackM = new THREE.MeshPhysicalMaterial({color: 0x050508, metalness: 0.8, roughness: 0.5, clearcoat: 0.1});
 const goldM = new THREE.MeshPhysicalMaterial({color: 0xd4af37, metalness: 1.0, roughness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.1});
 const silverM = new THREE.MeshPhysicalMaterial({color: 0xaaaaaa, metalness: 1.0, roughness: 0.2, clearcoat: 0.5});
-// Real glass transmission
 const glassM = new THREE.MeshPhysicalMaterial({color: 0x112233, metalness: 0.1, roughness: 0.05, transmission: 0.95, thickness: 0.5, transparent: true});
 const lensM = new THREE.MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
 const rubberM = new THREE.MeshStandardMaterial({color: 0x08080a, metalness: 0.1, roughness: 0.9});
@@ -346,32 +379,28 @@ camS.add(camGroup);
 // ── BODY ──
 const body=new THREE.Mesh(new THREE.BoxGeometry(3.2,2.0,1.6),bodyM);
 body.castShadow=true;
-body.receiveShadow=true; // FIX: Receive shadows for proper mapping
+body.receiveShadow=true;
 camGroup.add(body);
 
-// viewfinder hump
 const hump=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,0.95),bodyM);
 hump.position.set(0.25,1.25,0);
-hump.receiveShadow=true; // FIX
+hump.receiveShadow=true;
 camGroup.add(hump);
 
 const penta=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.38,0.72),blackM);
 penta.position.set(0.25,1.52,0);
 camGroup.add(penta);
 
-// viewfinder eyepiece
 const eye=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.21,0.28,14),blackM);
 eye.rotation.x=Math.PI/2;
 eye.position.set(0.25,1.52,-0.63);
 camGroup.add(eye);
 
-// FIX: Proper Three.js assignment (No Object.assign onto THREE.Euler)
 const eyepieceGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.05,14), glassM);
 eyepieceGlass.position.set(0.25, 1.52, -0.79);
 eyepieceGlass.rotation.x = Math.PI / 2;
 camGroup.add(eyepieceGlass);
 
-// mode dial top left
 const dial=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.17,24),silverM);
 dial.position.set(-1.1,1.18,0);
 camGroup.add(dial);
@@ -386,7 +415,6 @@ for(let i=0;i<8;i++){
   camGroup.add(m);
 }
 
-// shutter button
 const shutBtn=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.09,16),silverM);
 shutBtn.position.set(1.02,1.1,0.55);
 camGroup.add(shutBtn);
@@ -394,10 +422,9 @@ const shutTop=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.04,16),redM)
 shutTop.position.set(1.02,1.16,0.55);
 camGroup.add(shutTop);
 
-// front grip
 const grip=new THREE.Mesh(new THREE.BoxGeometry(0.48,2.0,0.42),rubberM);
 grip.position.set(1.62,0,1.0);
-grip.receiveShadow=true; // FIX
+grip.receiveShadow=true;
 camGroup.add(grip);
 
 for(let i=0;i<14;i++){
@@ -406,7 +433,6 @@ for(let i=0;i<14;i++){
   camGroup.add(gl);
 }
 
-// strap lugs
 [-1.57,1.57].forEach(x=>{
   const lug=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.22,0.16),silverM);
   lug.position.set(x,0.88,0);
@@ -417,21 +443,18 @@ for(let i=0;i<14;i++){
   camGroup.add(hole);
 });
 
-// brand badge (gold)
 const badge=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.02),goldM);
 badge.position.set(-0.5,-0.58,0.81);
 camGroup.add(badge);
 
-// bottom plate
 const bot=new THREE.Mesh(new THREE.BoxGeometry(3.22,0.07,1.62),silverM);
 bot.position.set(0,-1.04,0);
-bot.receiveShadow=true; // FIX
+bot.receiveShadow=true;
 camGroup.add(bot);
 const tripod=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.1,12),silverM);
 tripod.position.set(0.3,-1.09,0.2);
 camGroup.add(tripod);
 
-// memory card door
 const door=new THREE.Mesh(new THREE.BoxGeometry(0.048,0.68,0.52),new THREE.MeshStandardMaterial({color:0x0d0d14,metalness:0.7,roughness:0.4}));
 door.position.set(-1.63,-0.3,0.18);
 camGroup.add(door);
@@ -439,7 +462,6 @@ const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM);
 doorLine.position.set(-1.635,0.05,0.18);
 camGroup.add(doorLine);
 
-// AF/MF switch
 const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM);
 swBase.position.set(-0.58,0.54,0.82);
 camGroup.add(swBase);
@@ -450,15 +472,13 @@ camGroup.add(swSlide);
 // ── LENS BARREL ──
 const lensGroup=new THREE.Group();
 lensGroup.position.set(-0.18,0,0.85);
-lensGroup.receiveShadow=true; // FIX
+lensGroup.receiveShadow=true;
 camGroup.add(lensGroup);
 
-// mount ring
 const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM);
 mountR.rotation.x=Math.PI/2;
 lensGroup.add(mountR);
 
-// barrel segments
 [{r:0.86,h:0.44,m:blackM,z:0.22},{r:0.79,h:0.54,m:new THREE.MeshStandardMaterial({color:0x161620,metalness:0.75,roughness:0.25}),z:0.72},{r:0.73,h:0.44,m:blackM,z:1.17}].forEach(b=>{
   const bm=new THREE.Mesh(new THREE.CylinderGeometry(b.r,b.r,b.h,40),b.m);
   bm.rotation.x=Math.PI/2;
@@ -466,13 +486,11 @@ lensGroup.add(mountR);
   lensGroup.add(bm);
 });
 
-// focus ring gold band
 const focusR=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.038,6,40),goldM);
 focusR.rotation.x=Math.PI/2;
 focusR.position.z=0.68;
 lensGroup.add(focusR);
 
-// ridges
 for(let i=0;i<32;i++){
   const a=(i/32)*Math.PI*2;
   const rg=new THREE.Mesh(new THREE.BoxGeometry(0.028,0.2,0.028),new THREE.MeshStandardMaterial({color:0x8a6820,metalness:0.9,roughness:0.2}));
@@ -481,31 +499,26 @@ for(let i=0;i<32;i++){
   lensGroup.add(rg);
 }
 
-// aperture ring
 const aptR=new THREE.Mesh(new THREE.TorusGeometry(0.74,0.022,6,40),goldM);
 aptR.rotation.x=Math.PI/2;
 aptR.position.z=1.13;
 lensGroup.add(aptR);
 
-// front glass
 const frontG=new THREE.Mesh(new THREE.CircleGeometry(0.63,48),glassM);
 frontG.position.z=1.46;
 lensGroup.add(frontG);
 
-// inner reflection rings
 for(let i=0;i<5;i++){
   const rr=new THREE.Mesh(new THREE.TorusGeometry(0.54-i*0.1,0.007,4,32),new THREE.MeshBasicMaterial({color:0x1a2a45,transparent:true,opacity:0.45-i*0.06}));
   rr.position.z=1.47;
   lensGroup.add(rr);
 }
 
-// cap ring
 const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM);
 capR.rotation.x=Math.PI/2;
 capR.position.z=1.46;
 lensGroup.add(capR);
 
-// inner barrel dark
 const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM);
 innerB.rotation.x=Math.PI/2;
 innerB.position.z=1.3;
@@ -582,7 +595,6 @@ function drawCard(id,p){
   for(let i=0;i<30;i++){const x=Math.random()*w,y=Math.random()*h,r=Math.random()*1.5+0.3;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${Math.random()*0.28+0.04})`;ctx.fill();}
 }
 
-// FIX: Wait for window load so widths/heights are properly computed
 window.addEventListener('load', () => {
   drawCard('c1',['#050510','#0d0c1a','#1a1508']);
   drawCard('c2',['#0a0805','#1a1105','#0a0a0f']);
@@ -603,16 +615,13 @@ function updateCounter(){
 // ═══════════════════════════
 // RENDER LOOP
 // ═══════════════════════════
-// FIX: Framerate-independent animation using THREE.Clock
 const clock = new THREE.Clock();
 let t = 0;
 
 function animate(){
   requestAnimationFrame(animate);
   
-  // Calculate delta time
   const delta = clock.getDelta();
-  // Adjust base speed to match the original feel (~60fps standard)
   t += delta * 0.6; 
 
   // BG
@@ -640,9 +649,9 @@ function animate(){
   focusR.rotation.z = t * 0.45;
   dial.rotation.y = t * 0.3;
 
-  // Shutter / aperture animation (Framerate fixed)
+  // Shutter / aperture animation
   if(isShuttering){
-    shutT += delta * 4.2; // Equivalent to the old 0.07 per frame at 60fps
+    shutT += delta * 4.2;
     const phase = Math.sin(shutT * Math.PI);
     const open = phase < 0.5 ? phase * 2 : (2 - phase * 2);
     blades.forEach(b => {
