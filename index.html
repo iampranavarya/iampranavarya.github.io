@@ -142,12 +142,16 @@
     @media(max-width:900px){
       nav,#hero,#about,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
-      #hero{grid-template-columns:1fr;height:auto;padding-top:100px;padding-bottom:60px}
+      /* Added gap to push the camera down, and increased top padding */
+      #hero{grid-template-columns:1fr;height:auto;padding-top:140px;padding-bottom:60px; gap: 80px;}
+      /* Ensured the buttons stay physically on top of the camera canvas */
+      .hero-left{position: relative; z-index: 20;}
       .hero-right{height:360px}
       #about{grid-template-columns:1fr;gap:52px}
       .work-grid{grid-template-columns:1fr 1fr}
       #shot-counter{right:24px}
     }
+    
     @media(max-width:560px){.work-grid{grid-template-columns:1fr}.nav-links{display:none}}
   </style>
 </head>
