@@ -117,7 +117,7 @@
     .service-list-item:hover::after { width: 100%; }
 
     /* ABOUT */
-    #about{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px;gap:80px}
+    #about{position:relative;z-index:10;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px;gap:80px}
     #about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .about-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
     .about-heading{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);line-height:1;letter-spacing:0.03em;margin-bottom:32px}
@@ -357,8 +357,8 @@
     <div class="service-list-item">Travel</div>
     <div class="service-list-item">Fashion</div>
     <div class="service-list-item">Lifestyle</div>
-    <div class="service-list-item">Product Reviews</div>
     <div class="service-list-item">Product Shoots</div>
+    <div class="service-list-item">Video & Photo Edits</div>
     <div class="service-list-item" style="font-size: 1.3rem;">Hyper Realistic AI Model Generation</div>
     <div class="service-list-item" style="font-size: 1.3rem;">Full Scale Social Media Management</div>
   </div>
@@ -368,25 +368,23 @@
   <div>
     <p class="about-label">The Vision</p>
     <h2 class="about-heading">EVERY FRAME<br>TELLS A<br><span style="color:var(--gold)">STORY</span></h2>
-    <p class="about-body">Pranav Arya is a filmmaker and photographer obsessed with the liminal — the quiet spaces between moments where emotion lives. From intimate documentaries to cinematic commercial work, every project is built on the foundation of light, shadow, and truth.</p>
+    <p class="about-body">In today’s digital landscape, your visual identity is often the first interaction a client has with your brand. High-quality photography and cinematic video are no longer just aesthetic choices; they are essential tools for building trust, commanding attention, and driving conversion. A carefully crafted visual narrative doesn't just show what you do—it makes your audience feel the value of your brand before they even read a single word.</p>
   </div>
   <div class="about-stats">
-    <div class="stat-card"><div class="stat-number">08+</div><div class="stat-label">Years of Experience</div></div>
-    <div class="stat-card"><div class="stat-number">60+</div><div class="stat-label">Projects Completed</div></div>
-    <div class="stat-card"><div class="stat-number">12+</div><div class="stat-label">Awards Won</div></div>
-    <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Continents</div></div>
+    <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-card"><div class="stat-number">1000+</div><div class="stat-label">Projects Completed</div></div>
   </div>
 </section>
 
-<section id="about-me">
-  <div class="profile-image-container">
-    <img src="pranavarya.jpg" alt="Pranav Arya" class="profile-img" />
-    <div class="profile-backdrop"></div>
+<section id="work">
+  <div class="section-header">
+    <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
+    <a href="#" class="view-all">View All Projects</a>
   </div>
-  <div class="profile-content">
-    <p class="section-label">The Director</p>
-    <h2 class="section-title">ABOUT <span style="color:var(--gold)">ME</span></h2>
-    <p class="about-body">With over 10 years of professional experience in filmmaking and photography, I specialize in creating high-end visual content that elevates brands and tells compelling stories. From directing cinematic commercials to capturing striking editorial photography, my decade in the industry has taught me how to perfectly balance technical precision with raw creative vision. I approach every project with a cinematic eye, working closely with my clients to build visuals that linger long after the screen fades to black.</p>
+  <div class="work-grid">
+    <div class="work-item"><canvas class="work-item-bg" id="c1"></canvas><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
+    <div class="work-item"><canvas class="work-item-bg" id="c2"></canvas><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">GOLDEN HOUR</p></div></div>
+    <div class="work-item"><canvas class="work-item-bg" id="c3"></canvas><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
   </div>
 </section>
 
@@ -414,15 +412,15 @@
   </div>
 </section>
 
-<section id="work">
-  <div class="section-header">
-    <div><p class="section-label">Selected Work</p><h2 class="section-title">THE REEL</h2></div>
-    <a href="#" class="view-all">View All Projects</a>
+<section id="about-me">
+  <div class="profile-image-container">
+    <img src="pranavarya.jpg" alt="Pranav Arya" class="profile-img" />
+    <div class="profile-backdrop"></div>
   </div>
-  <div class="work-grid">
-    <div class="work-item"><canvas class="work-item-bg" id="c1"></canvas><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
-    <div class="work-item"><canvas class="work-item-bg" id="c2"></canvas><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">GOLDEN HOUR</p></div></div>
-    <div class="work-item"><canvas class="work-item-bg" id="c3"></canvas><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
+  <div class="profile-content">
+    <p class="section-label">The Director</p>
+    <h2 class="section-title">ABOUT <span style="color:var(--gold)">ME</span></h2>
+    <p class="about-body">With over 10 years of professional experience in filmmaking and photography, I specialize in creating high-end visual content that elevates brands and tells compelling stories. From directing cinematic commercials to capturing striking editorial photography, my decade in the industry has taught me how to perfectly balance technical precision with raw creative vision. I approach every project with a cinematic eye, working closely with my clients to build visuals that linger long after the screen fades to black.</p>
   </div>
 </section>
 
