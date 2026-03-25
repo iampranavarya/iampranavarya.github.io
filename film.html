@@ -88,25 +88,27 @@
     .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
     .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
 
-    /* 1. INFINITE SCROLLING WORK SECTION */
-    #work{position:relative;z-index:10;padding:120px 0; margin-top: 40px; overflow: hidden;}
+    /* 1. DRAG-TO-SCROLL WORK SECTION */
+    #work { position:relative; z-index:10; padding:120px 0; margin-top:40px; overflow:hidden;}
     .work-header-wrap { padding: 0 52px; margin-bottom: 40px; }
     
-    .marquee-container { width: 100%; position: relative; overflow: hidden; }
-    .marquee-track { display: flex; width: max-content; animation: marqueeScroll 45s linear infinite; will-change: transform; }
-    .marquee-track:hover { animation-play-state: paused; }
-    .marquee-content { display: flex; gap: 16px; padding-right: 16px; }
+    .work-carousel {
+      display: flex; gap: 16px; padding: 0 52px 20px 52px;
+      overflow-x: auto; scroll-behavior: smooth;
+      -ms-overflow-style: none; scrollbar-width: none; 
+      cursor: grab; will-change: transform;
+    }
+    .work-carousel::-webkit-scrollbar { display: none; }
+    .work-carousel:active { cursor: grabbing; }
     
-    .work-item { flex: 0 0 320px; aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--deep); cursor: pointer; border-radius: 2px;}
+    .work-item { flex: 0 0 320px; aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--deep); border-radius: 2px; user-select: none;}
     .work-video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;}
     .work-item:hover .work-video { transform: scale(1.08); }
     
-    .work-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,7,0.95),transparent 60%);opacity:0.8;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:28px; z-index: 3;}
+    .work-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,7,0.95),transparent 60%);opacity:0.8;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:28px; z-index: 3; pointer-events: none;}
     .work-item:hover .work-item-overlay{opacity:1;}
     .work-item-cat{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
     .work-item-title{font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.05em; line-height: 1;}
-
-    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* 2. CLIENT LOGOS / EVENTS */
     #events { position: relative; z-index: 10; padding: 80px 52px; text-align: center; background: rgba(5,5,7,0.5); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03);}
@@ -139,24 +141,31 @@
     .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1; display:flex;}
     .stat-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;color:rgba(240,236,228,0.4);text-transform:uppercase;margin-top:8px}
 
-    /* 5. FLAT MAP SECTION (PRECISE STATIC LABELS & PIXEL OVERLAY) */
-    #flat-map-section { position: relative; z-index: 10; padding: 120px 52px; text-align: center; overflow: hidden; }
-    #flat-map-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    /* 5. NEW GLOBAL ROSTER SECTION */
+    #global-roster { position: relative; z-index: 10; padding: 120px 52px; overflow: hidden; }
+    #global-roster::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
     
-    .map-wrapper { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 2 / 1; margin: 60px auto 0 auto; }
-    .map-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg'); background-size: cover; background-position: center; filter: invert(1) opacity(0.12); pointer-events: none; }
-    
-    .map-pixel-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+    .radar-bg {
+      position: absolute; top: 50%; left: 50%; width: 900px; height: 900px; 
+      transform: translate(-50%, -50%); border-radius: 50%; 
+      border: 1px dashed rgba(201,168,76,0.1); pointer-events: none; z-index: -1; 
+    }
+    .radar-sweep {
+      position: absolute; top: 0; left: 50%; width: 50%; height: 50%;
+      background: linear-gradient(90deg, rgba(201,168,76,0.05), transparent);
+      transform-origin: 0% 100%; animation: radarSpin 8s linear infinite;
+    }
+    @keyframes radarSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .map-marker-wrap { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
-    .map-marker-wrap.active { z-index: 10; }
-    .map-dot { position: absolute; top: -3px; left: -3px; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); opacity: 1; }
+    .roster-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 60px; }
+    .roster-item { padding: 24px; border: 1px solid rgba(255,255,255,0.03); background: rgba(5,5,7,0.6); backdrop-filter: blur(4px); transition: all 0.4s ease; position: relative; }
+    .roster-item:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); transform: translateY(-4px); }
+    .roster-item::before { content: ''; position: absolute; top: 12px; left: 12px; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; opacity: 0; transition: opacity 0.4s; }
+    .roster-item:hover::before { opacity: 1; box-shadow: 0 0 8px var(--gold); }
     
-    .map-line { position: absolute; top: 0; left: 0; height: 1px; background: rgba(201,168,76,0.5); transform-origin: 0 0; transform: rotate(var(--ang)); width: var(--len); }
-    .map-label-wrap { position: absolute; top: 0; left: 100%; display: flex; align-items: center; height: 0; }
-    .align-right .map-label-wrap { transform: rotate(calc(-1 * var(--ang))); justify-content: flex-start; padding-left: 6px; }
-    .align-left .map-label-wrap { transform: rotate(calc(-1 * var(--ang))) translateX(-100%); justify-content: flex-end; padding-right: 6px; }
-    .map-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--white); letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap; opacity: 1; }
+    .roster-country { font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 0.05em; color: var(--white); transition: color 0.4s; }
+    .roster-item:hover .roster-country { color: var(--gold); }
+    .roster-coords { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(240,236,228,0.5); letter-spacing: 0.15em; margin-top: 8px; }
 
     /* 6. SCROLLING TESTIMONIALS SECTION */
     #testimonials { position: relative; z-index: 10; padding: 120px 0; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.02), transparent); overflow: hidden;}
@@ -175,7 +184,7 @@
     @keyframes testScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* 7. ABOUT ME */
-    #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px; gap: 80px; }
+    #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px 60px 52px; gap: 80px; }
     #about-me::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
     .profile-image-container { position: relative; aspect-ratio: 3/4; max-width: 420px; width: 100%; margin: 0 auto; }
     .profile-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.5s ease; position: relative; z-index: 2; border: 1px solid rgba(201,168,76,0.2); }
@@ -223,7 +232,7 @@
 
     /* MOBILE ADJUSTMENTS */
     @media(max-width:900px){
-      nav,#hero,#services-offered,#about,#about-me,#flat-map-section,#events,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#services-offered,#about,#about-me,#global-roster,#events,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
@@ -231,16 +240,17 @@
       .services-list { grid-template-columns: 1fr 1fr; }
       #about, #about-me {grid-template-columns:1fr;gap:52px}
       .work-header-wrap, .test-header-wrap { padding: 0 24px; }
+      .work-carousel { padding: 0 24px 20px 24px; }
       .work-item { flex: 0 0 260px; }
       .test-card { flex: 0 0 300px; padding: 30px 20px;}
+      .roster-grid { grid-template-columns: 1fr 1fr; }
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
-      /* Lock map coordinates on mobile */
-      .map-wrapper { height: auto; }
       .sticky-cta { bottom: 20px; right: 20px; padding: 12px 16px;}
     }
     @media(max-width:560px){
       .services-list { grid-template-columns: 1fr; }
+      .roster-grid { grid-template-columns: 1fr; }
       .nav-links{display:none}
     }
   </style>
@@ -273,7 +283,7 @@
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services-offered">Services</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#about-me">About</a></li>
   </ul>
 </nav>
 
@@ -297,35 +307,22 @@
 <section id="work">
   <div class="section-header work-header-wrap">
     <div><p class="section-label">The Proof</p><h2 class="section-title">SELECTED <span style="color:var(--gold)">WORK</span></h2></div>
-    </div>
+  </div>
   
-  <div class="marquee-container">
-    <div class="marquee-track">
-      <div class="marquee-content">
-        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
-        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
-        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
-        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
-        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
-        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
-        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
-        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
-        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
-        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
-      </div>
-      <div class="marquee-content" aria-hidden="true">
-        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
-        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
-        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
-        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
-        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
-        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
-        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
-        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
-        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
-        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
-      </div>
-    </div>
+  <div class="work-carousel" id="work-carousel">
+    <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
+    <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
+    <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
+    <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
+    <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
+    <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
+    <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
+    <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
+    <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
+    <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
+    <div class="work-item"><video src="preview11.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Editorial</p><p class="work-item-title">THE ARCHIVE</p></div></div>
+    <div class="work-item"><video src="preview12.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Sports</p><p class="work-item-title">APEX RACING</p></div></div>
+    <div class="work-item"><video src="preview13.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">WILD PLACES</p></div></div>
   </div>
 </section>
 
@@ -371,14 +368,30 @@
   </div>
 </section>
 
-<section id="flat-map-section">
-  <h2 class="section-title">GLOBAL <span style="color:var(--gold)">FOOTPRINT</span></h2>
-  <p class="section-label" style="margin-top: 10px;">Countries worked in</p>
+<section id="global-roster">
+  <div class="radar-bg">
+    <div class="radar-sweep"></div>
+  </div>
   
-  <div class="map-wrapper">
-    <div class="map-background"></div>
-    <canvas id="map-pixel-canvas" class="map-pixel-canvas"></canvas>
-    <div id="map-markers-container"></div>
+  <p class="section-label">Countries worked in</p>
+  <h2 class="section-title">GLOBAL <span style="color:var(--gold)">FOOTPRINT</span></h2>
+  
+  <div class="roster-grid">
+    <div class="roster-item"><div class="roster-country">Germany</div><div class="roster-coords">LAT 51.16° N / LON 10.45° E</div></div>
+    <div class="roster-item"><div class="roster-country">Singapore</div><div class="roster-coords">LAT 1.35° N / LON 103.81° E</div></div>
+    <div class="roster-item"><div class="roster-country">India</div><div class="roster-coords">LAT 20.59° N / LON 78.96° E</div></div>
+    <div class="roster-item"><div class="roster-country">USA</div><div class="roster-coords">LAT 37.09° N / LON 95.71° W</div></div>
+    <div class="roster-item"><div class="roster-country">Canada</div><div class="roster-coords">LAT 56.13° N / LON 106.34° W</div></div>
+    <div class="roster-item"><div class="roster-country">United Kingdom</div><div class="roster-coords">LAT 55.37° N / LON 3.43° W</div></div>
+    <div class="roster-item"><div class="roster-country">Croatia</div><div class="roster-coords">LAT 45.10° N / LON 15.20° E</div></div>
+    <div class="roster-item"><div class="roster-country">Monaco</div><div class="roster-coords">LAT 43.73° N / LON 7.42° E</div></div>
+    <div class="roster-item"><div class="roster-country">France</div><div class="roster-coords">LAT 46.22° N / LON 2.21° E</div></div>
+    <div class="roster-item"><div class="roster-country">Greece</div><div class="roster-coords">LAT 39.07° N / LON 21.82° E</div></div>
+    <div class="roster-item"><div class="roster-country">Hungary</div><div class="roster-coords">LAT 47.16° N / LON 19.50° E</div></div>
+    <div class="roster-item"><div class="roster-country">Russia</div><div class="roster-coords">LAT 61.52° N / LON 105.31° E</div></div>
+    <div class="roster-item"><div class="roster-country">Italy</div><div class="roster-coords">LAT 41.87° N / LON 12.56° E</div></div>
+    <div class="roster-item"><div class="roster-country">Switzerland</div><div class="roster-coords">LAT 46.81° N / LON 8.22° E</div></div>
+    <div class="roster-item"><div class="roster-country">Spain</div><div class="roster-coords">LAT 40.46° N / LON 3.74° W</div></div>
   </div>
 </section>
 
@@ -470,7 +483,7 @@ const counterObserver = new IntersectionObserver((entries, obs) => {
       const el = entry.target;
       const target = +el.getAttribute('data-target');
       let count = 0;
-      const increment = target / 100; // Animation speed
+      const increment = target / 80; 
       const update = () => {
         count += increment;
         if (count < target) {
@@ -486,6 +499,30 @@ const counterObserver = new IntersectionObserver((entries, obs) => {
   });
 }, { threshold: 0.5 });
 counters.forEach(c => counterObserver.observe(c));
+
+// ═══════════════════════════
+// DRAG-TO-SCROLL REEL LOGIC
+// ═══════════════════════════
+const slider = document.getElementById('work-carousel');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+slider.addEventListener('mousedown', (e) => {
+  isDown = true;
+  slider.style.cursor = 'grabbing';
+  startX = e.pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;
+});
+slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
+slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+slider.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - slider.offsetLeft;
+  const walk = (x - startX) * 2; 
+  slider.scrollLeft = scrollLeft - walk;
+});
 
 // ═══════════════════════════
 // LOADER
@@ -539,115 +576,6 @@ document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*
 window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
 
 // ═══════════════════════════
-// FLAT MAP LEADER LINES & PIXEL RADAR LOGIC
-// ═══════════════════════════
-const locations = [
-  {name: 'Germany', lat: 51.16, lon: 10.45, ang: -60, len: 40, align: 'right'},
-  {name: 'Singapore', lat: 1.35, lon: 103.81, ang: -45, len: 35, align: 'right'},
-  {name: 'India', lat: 20.59, lon: 78.96, ang: 90, len: 30, align: 'right'},
-  {name: 'USA', lat: 37.09, lon: -95.71, ang: -140, len: 45, align: 'left'},
-  {name: 'Canada', lat: 56.13, lon: -106.34, ang: -45, len: 45, align: 'right'},
-  {name: 'United Kingdom', lat: 55.37, lon: -3.43, ang: -135, len: 35, align: 'left'},
-  {name: 'Croatia', lat: 45.10, lon: 15.20, ang: 15, len: 50, align: 'right'},
-  {name: 'Monaco', lat: 43.73, lon: 7.42, ang: 110, len: 35, align: 'left'},
-  {name: 'France', lat: 46.22, lon: 2.21, ang: 160, len: 40, align: 'left'},
-  {name: 'Greece', lat: 39.07, lon: 21.82, ang: 45, len: 40, align: 'right'},
-  {name: 'Hungary', lat: 47.16, lon: 19.50, ang: -15, len: 55, align: 'right'},
-  {name: 'Russia', lat: 61.52, lon: 105.31, ang: -30, len: 45, align: 'right'},
-  {name: 'Italy', lat: 41.87, lon: 12.56, ang: 70, len: 50, align: 'right'},
-  {name: 'Switzerland', lat: 46.81, lon: 8.22, ang: -160, len: 45, align: 'left'},
-  {name: 'Spain', lat: 40.46, lon: -3.74, ang: 135, len: 45, align: 'left'}
-];
-
-const mapContainer = document.getElementById('map-markers-container');
-
-locations.forEach(loc => {
-  // Equirectangular mapping math for precise plotting
-  const xPercent = (loc.lon + 180) / 3.6;
-  const yPercent = (90 - loc.lat) / 1.8;
-
-  const wrap = document.createElement('div');
-  // Add 'active' class so they are all immediately visible without animation
-  wrap.className = `map-marker-wrap active align-${loc.align}`; 
-  wrap.style.left = `${xPercent}%`;
-  wrap.style.top = `${yPercent}%`;
-  wrap.style.setProperty('--ang', `${loc.ang}deg`);
-  wrap.style.setProperty('--len', `${loc.len}px`);
-
-  const dot = document.createElement('div');
-  dot.className = 'map-dot';
-
-  const line = document.createElement('div');
-  line.className = 'map-line';
-
-  const labelWrap = document.createElement('div');
-  labelWrap.className = 'map-label-wrap';
-
-  const label = document.createElement('div');
-  label.className = 'map-label';
-  label.textContent = loc.name;
-
-  labelWrap.appendChild(label);
-  line.appendChild(labelWrap);
-  wrap.appendChild(dot);
-  wrap.appendChild(line);
-  
-  mapContainer.appendChild(wrap);
-});
-
-// Subtle Pixel Animation for Map
-const mapPixCanvas = document.getElementById('map-pixel-canvas');
-const mpCtx = mapPixCanvas.getContext('2d');
-let mpW, mpH;
-const mapParticles = [];
-
-function resizeMapCanvas() {
-  mpW = mapPixCanvas.width = mapPixCanvas.offsetWidth;
-  mpH = mapPixCanvas.height = mapPixCanvas.offsetHeight;
-}
-window.addEventListener('resize', resizeMapCanvas);
-resizeMapCanvas();
-
-for(let i=0; i<40; i++) {
-  mapParticles.push({
-    x: Math.random() * mpW, y: Math.random() * mpH,
-    vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
-  });
-}
-
-function animateMapPixels() {
-  mpCtx.clearRect(0,0,mpW,mpH);
-  mpCtx.fillStyle = 'rgba(201, 168, 76, 0.4)';
-  mpCtx.strokeStyle = 'rgba(201, 168, 76, 0.15)';
-  
-  mapParticles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < 0 || p.x > mpW) p.vx *= -1;
-    if(p.y < 0 || p.y > mpH) p.vy *= -1;
-    mpCtx.beginPath();
-    mpCtx.arc(p.x, p.y, 1, 0, Math.PI*2);
-    mpCtx.fill();
-  });
-  
-  // Connect near particles
-  for(let i=0; i<mapParticles.length; i++) {
-    for(let j=i+1; j<mapParticles.length; j++) {
-      const dx = mapParticles[i].x - mapParticles[j].x;
-      const dy = mapParticles[i].y - mapParticles[j].y;
-      if(dx*dx + dy*dy < 2500) {
-        mpCtx.beginPath();
-        mpCtx.moveTo(mapParticles[i].x, mapParticles[i].y);
-        mpCtx.lineTo(mapParticles[j].x, mapParticles[j].y);
-        mpCtx.stroke();
-      }
-    }
-  }
-  requestAnimationFrame(animateMapPixels);
-}
-animateMapPixels();
-
-
-// ═══════════════════════════
 // 3D CAMERA SCENE
 // ═══════════════════════════
 const camCanvas=document.getElementById('camera-canvas');
@@ -691,75 +619,49 @@ const redM = new THREE.MeshPhysicalMaterial({color: 0xcc1100, metalness: 0.3, ro
 const camGroup=new THREE.Group();
 camS.add(camGroup);
 
-// ── BODY ──
-const body=new THREE.Mesh(new THREE.BoxGeometry(3.2,2.0,1.6),bodyM);
-body.castShadow=true; body.receiveShadow=true; camGroup.add(body);
-const hump=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,0.95),bodyM);
-hump.position.set(0.25,1.25,0); hump.receiveShadow=true; camGroup.add(hump);
-const penta=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.38,0.72),blackM);
-penta.position.set(0.25,1.52,0); camGroup.add(penta);
-const eye=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.21,0.28,14),blackM);
-eye.rotation.x=Math.PI/2; eye.position.set(0.25,1.52,-0.63); camGroup.add(eye);
-const eyepieceGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.05,14), glassM);
-eyepieceGlass.position.set(0.25, 1.52, -0.79); eyepieceGlass.rotation.x = Math.PI / 2; camGroup.add(eyepieceGlass);
-const dial=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.17,24),silverM);
-dial.position.set(-1.1,1.18,0); camGroup.add(dial);
-const dialTop=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.04,24),blackM);
-dialTop.position.set(-1.1,1.28,0); camGroup.add(dialTop);
+const body=new THREE.Mesh(new THREE.BoxGeometry(3.2,2.0,1.6),bodyM); body.castShadow=true; body.receiveShadow=true; camGroup.add(body);
+const hump=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,0.95),bodyM); hump.position.set(0.25,1.25,0); hump.receiveShadow=true; camGroup.add(hump);
+const penta=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.38,0.72),blackM); penta.position.set(0.25,1.52,0); camGroup.add(penta);
+const eye=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.21,0.28,14),blackM); eye.rotation.x=Math.PI/2; eye.position.set(0.25,1.52,-0.63); camGroup.add(eye);
+const eyepieceGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.05,14), glassM); eyepieceGlass.position.set(0.25, 1.52, -0.79); eyepieceGlass.rotation.x = Math.PI / 2; camGroup.add(eyepieceGlass);
+const dial=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.17,24),silverM); dial.position.set(-1.1,1.18,0); camGroup.add(dial);
+const dialTop=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.04,24),blackM); dialTop.position.set(-1.1,1.28,0); camGroup.add(dialTop);
 
 for(let i=0;i<8;i++){
   const a=(i/8)*Math.PI*2;
-  const m=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.07,0.04),goldM);
-  m.position.set(-1.1+Math.sin(a)*0.27,1.31,Math.cos(a)*0.27); camGroup.add(m);
+  const m=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.07,0.04),goldM); m.position.set(-1.1+Math.sin(a)*0.27,1.31,Math.cos(a)*0.27); camGroup.add(m);
 }
 
-const shutBtn=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.09,16),silverM);
-shutBtn.position.set(1.02,1.1,0.55); camGroup.add(shutBtn);
-const shutTop=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.04,16),redM);
-shutTop.position.set(1.02,1.16,0.55); camGroup.add(shutTop);
-const grip=new THREE.Mesh(new THREE.BoxGeometry(0.48,2.0,0.42),rubberM);
-grip.position.set(1.62,0,1.0); grip.receiveShadow=true; camGroup.add(grip);
+const shutBtn=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.09,16),silverM); shutBtn.position.set(1.02,1.1,0.55); camGroup.add(shutBtn);
+const shutTop=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.04,16),redM); shutTop.position.set(1.02,1.16,0.55); camGroup.add(shutTop);
+const grip=new THREE.Mesh(new THREE.BoxGeometry(0.48,2.0,0.42),rubberM); grip.position.set(1.62,0,1.0); grip.receiveShadow=true; camGroup.add(grip);
 
 for(let i=0;i<14;i++){
-  const gl=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.035,0.44),new THREE.MeshStandardMaterial({color:0x060610,metalness:0,roughness:1}));
-  gl.position.set(1.62,-0.9+i*0.135,1.0); camGroup.add(gl);
+  const gl=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.035,0.44),new THREE.MeshStandardMaterial({color:0x060610,metalness:0,roughness:1})); gl.position.set(1.62,-0.9+i*0.135,1.0); camGroup.add(gl);
 }
 
 [-1.57,1.57].forEach(x=>{
-  const lug=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.22,0.16),silverM);
-  lug.position.set(x,0.88,0); camGroup.add(lug);
-  const hole=new THREE.Mesh(new THREE.TorusGeometry(0.055,0.022,6,12),blackM);
-  hole.rotation.z=Math.PI/2; hole.position.set(x,0.88,0); camGroup.add(hole);
+  const lug=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.22,0.16),silverM); lug.position.set(x,0.88,0); camGroup.add(lug);
+  const hole=new THREE.Mesh(new THREE.TorusGeometry(0.055,0.022,6,12),blackM); hole.rotation.z=Math.PI/2; hole.position.set(x,0.88,0); camGroup.add(hole);
 });
 
-const badge=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.02),goldM);
-badge.position.set(-0.5,-0.58,0.81); camGroup.add(badge);
-const bot=new THREE.Mesh(new THREE.BoxGeometry(3.22,0.07,1.62),silverM);
-bot.position.set(0,-1.04,0); bot.receiveShadow=true; camGroup.add(bot);
-const tripod=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.1,12),silverM);
-tripod.position.set(0.3,-1.09,0.2); camGroup.add(tripod);
-const door=new THREE.Mesh(new THREE.BoxGeometry(0.048,0.68,0.52),new THREE.MeshStandardMaterial({color:0x0d0d14,metalness:0.7,roughness:0.4}));
-door.position.set(-1.63,-0.3,0.18); camGroup.add(door);
-const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM);
-doorLine.position.set(-1.635,0.05,0.18); camGroup.add(doorLine);
-const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM);
-swBase.position.set(-0.58,0.54,0.82); camGroup.add(swBase);
-const swSlide=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.09,0.13),silverM);
-swSlide.position.set(-0.58,0.57,0.72); camGroup.add(swSlide);
+const badge=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.02),goldM); badge.position.set(-0.5,-0.58,0.81); camGroup.add(badge);
+const bot=new THREE.Mesh(new THREE.BoxGeometry(3.22,0.07,1.62),silverM); bot.position.set(0,-1.04,0); bot.receiveShadow=true; camGroup.add(bot);
+const tripod=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.1,12),silverM); tripod.position.set(0.3,-1.09,0.2); camGroup.add(tripod);
+const door=new THREE.Mesh(new THREE.BoxGeometry(0.048,0.68,0.52),new THREE.MeshStandardMaterial({color:0x0d0d14,metalness:0.7,roughness:0.4})); door.position.set(-1.63,-0.3,0.18); camGroup.add(door);
+const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM); doorLine.position.set(-1.635,0.05,0.18); camGroup.add(doorLine);
+const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM); swBase.position.set(-0.58,0.54,0.82); camGroup.add(swBase);
+const swSlide=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.09,0.13),silverM); swSlide.position.set(-0.58,0.57,0.72); camGroup.add(swSlide);
 
 // ── LENS BARREL ──
-const lensGroup=new THREE.Group();
-lensGroup.position.set(-0.18,0,0.85); lensGroup.receiveShadow=true; camGroup.add(lensGroup);
-const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM);
-mountR.rotation.x=Math.PI/2; lensGroup.add(mountR);
+const lensGroup=new THREE.Group(); lensGroup.position.set(-0.18,0,0.85); lensGroup.receiveShadow=true; camGroup.add(lensGroup);
+const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM); mountR.rotation.x=Math.PI/2; lensGroup.add(mountR);
 
 [{r:0.86,h:0.44,m:blackM,z:0.22},{r:0.79,h:0.54,m:new THREE.MeshStandardMaterial({color:0x161620,metalness:0.75,roughness:0.25}),z:0.72},{r:0.73,h:0.44,m:blackM,z:1.17}].forEach(b=>{
-  const bm=new THREE.Mesh(new THREE.CylinderGeometry(b.r,b.r,b.h,40),b.m);
-  bm.rotation.x=Math.PI/2; bm.position.z=b.z; lensGroup.add(bm);
+  const bm=new THREE.Mesh(new THREE.CylinderGeometry(b.r,b.r,b.h,40),b.m); bm.rotation.x=Math.PI/2; bm.position.z=b.z; lensGroup.add(bm);
 });
 
-const focusR=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.038,6,40),goldM);
-focusR.rotation.x=Math.PI/2; focusR.position.z=0.68; lensGroup.add(focusR);
+const focusR=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.038,6,40),goldM); focusR.rotation.x=Math.PI/2; focusR.position.z=0.68; lensGroup.add(focusR);
 
 for(let i=0;i<32;i++){
   const a=(i/32)*Math.PI*2;
@@ -767,24 +669,19 @@ for(let i=0;i<32;i++){
   rg.position.set(Math.sin(a)*0.81,Math.cos(a)*0.81,0.68); rg.lookAt(new THREE.Vector3(0,0,0.68)); lensGroup.add(rg);
 }
 
-const aptR=new THREE.Mesh(new THREE.TorusGeometry(0.74,0.022,6,40),goldM);
-aptR.rotation.x=Math.PI/2; aptR.position.z=1.13; lensGroup.add(aptR);
-const frontG=new THREE.Mesh(new THREE.CircleGeometry(0.63,48),glassM);
-frontG.position.z=1.46; lensGroup.add(frontG);
+const aptR=new THREE.Mesh(new THREE.TorusGeometry(0.74,0.022,6,40),goldM); aptR.rotation.x=Math.PI/2; aptR.position.z=1.13; lensGroup.add(aptR);
+const frontG=new THREE.Mesh(new THREE.CircleGeometry(0.63,48),glassM); frontG.position.z=1.46; lensGroup.add(frontG);
 
 for(let i=0;i<5;i++){
   const rr=new THREE.Mesh(new THREE.TorusGeometry(0.54-i*0.1,0.007,4,32),new THREE.MeshBasicMaterial({color:0x1a2a45,transparent:true,opacity:0.45-i*0.06}));
   rr.position.z=1.47; lensGroup.add(rr);
 }
 
-const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM);
-capR.rotation.x=Math.PI/2; capR.position.z=1.46; lensGroup.add(capR);
-const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM);
-innerB.rotation.x=Math.PI/2; innerB.position.z=1.3; lensGroup.add(innerB);
+const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM); capR.rotation.x=Math.PI/2; capR.position.z=1.46; lensGroup.add(capR);
+const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM); innerB.rotation.x=Math.PI/2; innerB.position.z=1.3; lensGroup.add(innerB);
 
 // ── APERTURE BLADES ──
-const bladeGroup=new THREE.Group();
-bladeGroup.position.set(-0.18,0,2.4); camS.add(bladeGroup);
+const bladeGroup=new THREE.Group(); bladeGroup.position.set(-0.18,0,2.4); camS.add(bladeGroup);
 const blades=[];
 for(let i=0;i<8;i++){
   const a=(i/8)*Math.PI*2;
@@ -794,13 +691,11 @@ for(let i=0;i<8;i++){
 }
 
 // ── LENS FLARES ──
-const flareGroup=new THREE.Group();
-flareGroup.position.set(-0.18,0,2.6); camS.add(flareGroup);
+const flareGroup=new THREE.Group(); flareGroup.position.set(-0.18,0,2.6); camS.add(flareGroup);
 const flareDefs=[{r:0.55,c:0x88bbff,o:0},{r:0.22,c:0xc9a84c,o:0},{r:0.14,c:0xffffff,o:0},{r:0.08,c:0x6688ff,o:0},{r:0.05,c:0xc9a84c,o:0}];
 const flares=flareDefs.map((fd,i)=>{
   const f=new THREE.Mesh(new THREE.CircleGeometry(fd.r,24),new THREE.MeshBasicMaterial({color:fd.c,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));
-  f.position.set((Math.random()-.5)*0.25,(Math.random()-.5)*0.25,(i-2)*0.18);
-  flareGroup.add(f);return f;
+  f.position.set((Math.random()-.5)*0.25,(Math.random()-.5)*0.25,(i-2)*0.18); flareGroup.add(f);return f;
 });
 
 // ── INTERACTION STATE ──
@@ -822,8 +717,7 @@ function fireShutter(){
 camCanvas.addEventListener('click',fireShutter);
 camCanvas.addEventListener('mousemove',e=>{
   const r=camCanvas.getBoundingClientRect();
-  camMX=((e.clientX-r.left)/r.width-.5)*2;
-  camMY=((e.clientY-r.top)/r.height-.5)*2;
+  camMX=((e.clientX-r.left)/r.width-.5)*2; camMY=((e.clientY-r.top)/r.height-.5)*2;
 });
 camCanvas.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(2.5)';ringEl.style.borderColor='rgba(201,168,76,0.9)';});
 camCanvas.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';ringEl.style.borderColor='rgba(201,168,76,0.5)';});
@@ -867,8 +761,7 @@ function animate(){
   camGroup.rotation.x += (targetRotX + scrollTilt - camGroup.rotation.x) * (delta * 3.3);
   camGroup.position.y = Math.sin(t * 0.52) * 0.13;
 
-  focusR.rotation.z = t * 0.45;
-  dial.rotation.y = t * 0.3;
+  focusR.rotation.z = t * 0.45; dial.rotation.y = t * 0.3;
 
   if(isShuttering){
     shutT += delta * 4.2;
@@ -883,8 +776,7 @@ function animate(){
 
   flareVal += (flareTarget - flareVal) * (delta * 6);
   flares.forEach((f, i) => { f.material.opacity = flareVal * (0.65 - i * 0.1); });
-  flareGroup.rotation.z = t * 0.35;
-  flareGroup.rotation.x = Math.sin(t * 0.7) * 0.05;
+  flareGroup.rotation.z = t * 0.35; flareGroup.rotation.x = Math.sin(t * 0.7) * 0.05;
 
   keyL.intensity = 5 + Math.sin(t * 0.9) * 0.4;
   fillL.intensity = 2 + Math.sin(t * 1.1 + 1) * 0.3;
