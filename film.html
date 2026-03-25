@@ -68,7 +68,8 @@
     .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards; flex-wrap: wrap;}
     .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s; border: 1px solid var(--gold);}
     .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
-    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s}
+    
+    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s; cursor:pointer; background:transparent;}
     .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 
     /* CAMERA STAGE */
@@ -92,7 +93,7 @@
     .work-header-wrap { padding: 0 52px; margin-bottom: 40px; }
     
     .marquee-container { width: 100%; position: relative; overflow: hidden; }
-    .marquee-track { display: flex; width: max-content; animation: marqueeScroll 45s linear infinite; }
+    .marquee-track { display: flex; width: max-content; animation: marqueeScroll 45s linear infinite; will-change: transform; }
     .marquee-track:hover { animation-play-state: paused; }
     .marquee-content { display: flex; gap: 16px; padding-right: 16px; }
     
@@ -105,15 +106,11 @@
     .work-item-cat{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
     .work-item-title{font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.05em; line-height: 1;}
 
-    @keyframes marqueeScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* 2. CLIENT LOGOS / EVENTS */
     #events { position: relative; z-index: 10; padding: 80px 52px; text-align: center; background: rgba(5,5,7,0.5); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03);}
     .events-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 60px; margin-top: 30px; max-width: 1100px; margin-inline: auto; opacity: 0.6; }
-    
     .logo-sim { color: var(--white); text-transform: uppercase; transition: color 0.4s, opacity 0.4s; opacity: 0.5; cursor: default; }
     .logo-sim:hover { opacity: 1; color: var(--gold); }
     .logo-1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; }
@@ -125,7 +122,6 @@
     /* 3. SERVICES OFFERED */
     #services-offered { position:relative; z-index:10; padding:120px 52px; }
     #services-offered::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold-dim),transparent); opacity:0.3; }
-    .services-sub { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-top: 16px; opacity: 0.9; }
     .services-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
     .service-list-item { padding: 32px 24px; background: rgba(201, 168, 76, 0.02); border: 1px solid rgba(201, 168, 76, 0.08); font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); transition: all 0.4s ease; position: relative; display: flex; align-items: center; cursor: default; }
     .service-list-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: var(--gold); transition: width 0.4s ease; }
@@ -140,37 +136,46 @@
     .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
     .stat-card{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);padding:36px 28px;transition:background 0.3s}
     .stat-card:hover{background:rgba(201,168,76,0.09)}
-    .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1}
+    .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1; display:flex;}
     .stat-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;color:rgba(240,236,228,0.4);text-transform:uppercase;margin-top:8px}
 
-    /* 5. FLAT MAP SECTION */
+    /* 5. FLAT MAP SECTION (PRECISE STATIC LABELS & PIXEL OVERLAY) */
     #flat-map-section { position: relative; z-index: 10; padding: 120px 52px; text-align: center; overflow: hidden; }
     #flat-map-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    
     .map-wrapper { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 2 / 1; margin: 60px auto 0 auto; }
     .map-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg'); background-size: cover; background-position: center; filter: invert(1) opacity(0.12); pointer-events: none; }
+    
+    .map-pixel-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
     .map-marker-wrap { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
     .map-marker-wrap.active { z-index: 10; }
-    .map-dot { position: absolute; top: -3px; left: -3px; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; opacity: 0.3; transition: all 0.4s ease; }
-    .map-marker-wrap.active .map-dot { opacity: 1; box-shadow: 0 0 12px var(--gold); transform: scale(1.5); }
-    .map-line { position: absolute; top: 0; left: 0; width: 0; height: 1px; background: rgba(201,168,76,0.6); transform-origin: 0 0; transform: rotate(var(--ang)); transition: width 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
-    .map-marker-wrap.active .map-line { width: var(--len); }
+    .map-dot { position: absolute; top: -3px; left: -3px; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); opacity: 1; }
+    
+    .map-line { position: absolute; top: 0; left: 0; height: 1px; background: rgba(201,168,76,0.5); transform-origin: 0 0; transform: rotate(var(--ang)); width: var(--len); }
     .map-label-wrap { position: absolute; top: 0; left: 100%; display: flex; align-items: center; height: 0; }
-    .align-right .map-label-wrap { transform: rotate(calc(-1 * var(--ang))); justify-content: flex-start; padding-left: 8px; }
-    .align-left .map-label-wrap { transform: rotate(calc(-1 * var(--ang))) translateX(-100%); justify-content: flex-end; padding-right: 8px; }
-    .map-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--white); letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,1); opacity: 0; transform: translateY(5px); transition: opacity 0.3s ease, transform 0.3s ease; }
-    .map-marker-wrap.active .map-label { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+    .align-right .map-label-wrap { transform: rotate(calc(-1 * var(--ang))); justify-content: flex-start; padding-left: 6px; }
+    .align-left .map-label-wrap { transform: rotate(calc(-1 * var(--ang))) translateX(-100%); justify-content: flex-end; padding-right: 6px; }
+    .map-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--white); letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap; opacity: 1; }
 
-    /* 6. TESTIMONIALS SECTION */
-    #testimonials { position: relative; z-index: 10; padding: 120px 52px; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.02), transparent); }
-    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
-    .test-card { padding: 40px 30px; border: 1px solid rgba(255,255,255,0.05); background: rgba(5,5,7,0.5); position: relative; }
-    .test-card::before { content: '"'; position: absolute; top: 20px; left: 24px; font-family: var(--font-serif); font-size: 5rem; color: rgba(201,168,76,0.1); line-height: 0; }
+    /* 6. SCROLLING TESTIMONIALS SECTION */
+    #testimonials { position: relative; z-index: 10; padding: 120px 0; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.02), transparent); overflow: hidden;}
+    .test-header-wrap { padding: 0 52px; margin-bottom: 40px; }
+    
+    .test-marquee-container { width: 100%; position: relative; overflow: hidden; }
+    .test-marquee-track { display: flex; width: max-content; animation: testScroll 60s linear infinite; will-change: transform; }
+    .test-marquee-track:hover { animation-play-state: paused; }
+    .test-marquee-content { display: flex; gap: 24px; padding-right: 24px; }
+    
+    .test-card { flex: 0 0 380px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.05); background: rgba(5,5,7,0.5); position: relative; white-space: normal; display: flex; flex-direction: column; justify-content: space-between;}
+    .test-card::before { content: '"'; position: absolute; top: 20px; left: 24px; font-family: var(--font-serif); font-size: 5rem; color: rgba(201,168,76,0.1); line-height: 0; pointer-events: none;}
     .test-quote { font-size: 1.05rem; font-style: italic; color: rgba(240,236,228,0.9); line-height: 1.7; margin-bottom: 24px; position: relative; z-index: 2; }
     .test-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; }
-    .test-company { display: block; color: rgba(240,236,228,0.4); margin-top: 4px; }
+
+    @keyframes testScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* 7. ABOUT ME */
-    #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px 60px 52px; gap: 80px; }
+    #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px; gap: 80px; }
     #about-me::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
     .profile-image-container { position: relative; aspect-ratio: 3/4; max-width: 420px; width: 100%; margin: 0 auto; }
     .profile-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.5s ease; position: relative; z-index: 2; border: 1px solid rgba(201,168,76,0.2); }
@@ -181,6 +186,7 @@
 
     /* 8. CONTACT */
     #contact{position:relative;z-index:10;padding:60px 52px 140px 52px;text-align:center}
+    #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:50px}
     .contact-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 10px; }
     .contact-item { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 300; color: rgba(240,236,228,0.8); text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
@@ -217,20 +223,20 @@
 
     /* MOBILE ADJUSTMENTS */
     @media(max-width:900px){
-      nav,#hero,#services-offered,#about,#about-me,#flat-map-section,#events,#testimonials,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#services-offered,#about,#about-me,#flat-map-section,#events,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
       .hero-right{height:360px}
       .services-list { grid-template-columns: 1fr 1fr; }
       #about, #about-me {grid-template-columns:1fr;gap:52px}
-      .work-header-wrap { padding: 0 24px; }
+      .work-header-wrap, .test-header-wrap { padding: 0 24px; }
       .work-item { flex: 0 0 260px; }
-      .test-grid {grid-template-columns:1fr;}
+      .test-card { flex: 0 0 300px; padding: 30px 20px;}
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
-      .map-wrapper { aspect-ratio: auto; height: 300px; }
-      .map-background { background-size: contain; background-repeat: no-repeat; }
+      /* Lock map coordinates on mobile */
+      .map-wrapper { height: auto; }
       .sticky-cta { bottom: 20px; right: 20px; padding: 12px 16px;}
     }
     @media(max-width:560px){
@@ -267,7 +273,7 @@
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services-offered">Services</a></li>
-    <li><a href="#about-me">About</a></li>
+    <li><a href="#about">About</a></li>
   </ul>
 </nav>
 
@@ -291,34 +297,33 @@
 <section id="work">
   <div class="section-header work-header-wrap">
     <div><p class="section-label">The Proof</p><h2 class="section-title">SELECTED <span style="color:var(--gold)">WORK</span></h2></div>
-    <a href="#" class="view-all">View All Projects</a>
-  </div>
+    </div>
   
   <div class="marquee-container">
     <div class="marquee-track">
       <div class="marquee-content">
-        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
-        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
-        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
-        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
-        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
-        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
-        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
-        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
-        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
-        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
+        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
+        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
+        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
+        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
+        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
+        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
+        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
+        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
+        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
+        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
       </div>
       <div class="marquee-content" aria-hidden="true">
-        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
-        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
-        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
-        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
-        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
-        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
-        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
-        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
-        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
-        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
+        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Documentary</p><p class="work-item-title">SILENT MONSOON</p></div></div>
+        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Automotive</p><p class="work-item-title">THE ICE ST. MORITZ</p></div></div>
+        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">NEON CITY</p></div></div>
+        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Fashion</p><p class="work-item-title">VOGUE EDITORIAL</p></div></div>
+        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Gastronomy</p><p class="work-item-title">MICHELIN TASTING</p></div></div>
+        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Travel</p><p class="work-item-title">NORDIC ESCAPE</p></div></div>
+        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Lifestyle</p><p class="work-item-title">URBAN ECHO</p></div></div>
+        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Events</p><p class="work-item-title">TOKEN 2049</p></div></div>
+        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Photography</p><p class="work-item-title">MIDNIGHT SUN</p></div></div>
+        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video><div class="work-item-overlay"><p class="work-item-cat">Commercial</p><p class="work-item-title">PROJECT ZERO</p></div></div>
       </div>
     </div>
   </div>
@@ -337,17 +342,16 @@
 
 <section id="services-offered">
   <div style="margin-bottom: 20px;">
-    <p class="section-label">The Value</p>
+    <p class="section-label">Photo & Video</p>
     <h2 class="section-title">SERVICES <span style="color:var(--gold)">OFFERED</span></h2>
-    <p class="services-sub">* All services include both video and photo production</p>
   </div>
   
   <div class="services-list">
-    <div class="service-list-item">Events</div>
+    <div class="service-list-item" style="font-size: 1.15rem; line-height: 1.3;">EVENTS - Business, Sports, Parties, Weddings</div>
     <div class="service-list-item">Gastronomy</div>
     <div class="service-list-item">Travel</div>
     <div class="service-list-item">Fashion</div>
-    <div class="service-list-item">Lifestyle</div>
+    <div class="service-list-item" style="font-size: 1.3rem;">Podcast shoot, edit & setup</div>
     <div class="service-list-item">Product Shoots</div>
     <div class="service-list-item">Video & Photo Edits</div>
     <div class="service-list-item" style="font-size: 1.3rem;">Hyper Realistic AI Model Generation</div>
@@ -362,46 +366,25 @@
     <p class="about-body">In today’s digital landscape, your visual identity is often the first interaction a client has with your brand. High-quality photography and cinematic video are no longer just aesthetic choices; they are essential tools for building trust, commanding attention, and driving conversion. A carefully crafted visual narrative doesn't just show what you do—it makes your audience feel the value of your brand before they even read a single word.</p>
   </div>
   <div class="about-stats">
-    <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label">Years of Experience</div></div>
-    <div class="stat-card"><div class="stat-number">1000+</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="10">0</span>+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="1000">0</span>+</div><div class="stat-label">Projects Completed</div></div>
   </div>
 </section>
 
 <section id="flat-map-section">
-  <p class="section-label">The Scale</p>
   <h2 class="section-title">GLOBAL <span style="color:var(--gold)">FOOTPRINT</span></h2>
+  <p class="section-label" style="margin-top: 10px;">Countries worked in</p>
+  
   <div class="map-wrapper">
     <div class="map-background"></div>
+    <canvas id="map-pixel-canvas" class="map-pixel-canvas"></canvas>
     <div id="map-markers-container"></div>
-  </div>
-</section>
-
-<section id="testimonials">
-  <p class="section-label">Client Feedback</p>
-  <h2 class="section-title">THE <span style="color:var(--gold)">IMPACT</span></h2>
-  
-  <div class="test-grid">
-    <div class="test-card">
-      <p class="test-quote">"Pranav doesn't just capture an event; he captures the absolute energy of the room. The fastest turnaround and highest cinematic quality we've seen."</p>
-      <span class="test-author">Event Director</span>
-      <span class="test-company">Token 2049</span>
-    </div>
-    <div class="test-card">
-      <p class="test-quote">"Our brand identity was completely transformed. The blend of high-end automotive photography with raw, moody storytelling gave us exactly the edge we needed."</p>
-      <span class="test-author">Marketing Head</span>
-      <span class="test-company">Luxury Automotive Client</span>
-    </div>
-    <div class="test-card">
-      <p class="test-quote">"Unmatched technical precision. Working with Pranav is seamless—he understands exactly what a commercial brand needs to convert viewers into buyers."</p>
-      <span class="test-author">Creative Director</span>
-      <span class="test-company">International Fashion Brand</span>
-    </div>
   </div>
 </section>
 
 <section id="about-me">
   <div class="profile-image-container">
-    <img src="pranavarya.jpg" alt="Pranav Arya" class="profile-img" onerror="this.style.display='none'"/>
+    <img src="pranavarya.jpg" alt="Pranav Arya" class="profile-img" loading="lazy" onerror="this.style.display='none'"/>
     <div class="profile-backdrop"></div>
   </div>
   <div class="profile-content">
@@ -411,9 +394,44 @@
   </div>
 </section>
 
+<section id="testimonials">
+  <div class="test-header-wrap">
+    <p class="section-label">Client Feedback</p>
+    <h2 class="section-title">THE <span style="color:var(--gold)">IMPACT</span></h2>
+  </div>
+  
+  <div class="test-marquee-container">
+    <div class="test-marquee-track">
+      <div class="test-marquee-content">
+        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
+        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant’s visual campaign was transformative. He didn’t just photograph food—he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O’Connor</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
+        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it—everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It’s almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
+        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav’s attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav doesn’t just create content—he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav filmed our wedding, and the result was deeply emotional and cinematic. He captured moments we didn’t even realize were happening. Watching the film felt like reliving the entire day with even more beauty."</p><span class="test-author">Aisha Khan</span></div>
+        <div class="test-card"><p class="test-quote">"Collaborating with Pranav on lifestyle travel content was seamless. He brings both technical mastery and creative intuition, ensuring every shot aligns with the narrative while still feeling spontaneous and authentic."</p><span class="test-author">Lucas Ferreira</span></div>
+      </div>
+      <div class="test-marquee-content" aria-hidden="true">
+        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
+        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant’s visual campaign was transformative. He didn’t just photograph food—he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O’Connor</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
+        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it—everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It’s almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
+        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav’s attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav doesn’t just create content—he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav filmed our wedding, and the result was deeply emotional and cinematic. He captured moments we didn’t even realize were happening. Watching the film felt like reliving the entire day with even more beauty."</p><span class="test-author">Aisha Khan</span></div>
+        <div class="test-card"><p class="test-quote">"Collaborating with Pranav on lifestyle travel content was seamless. He brings both technical mastery and creative intuition, ensuring every shot aligns with the narrative while still feeling spontaneous and authentic."</p><span class="test-author">Lucas Ferreira</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="contact">
-  <p class="contact-label">Let's Collaborate</p>
-  <h2 class="contact-title">LET'S<br><span style="color:var(--gold)">TALK</span></h2>
+  <h2 class="contact-title">LET'S WORK<br><span style="color:var(--gold)">TOGETHER</span></h2>
   
   <div class="contact-links">
     <a href="mailto:Info@pranavarya.com" class="contact-item">
@@ -426,7 +444,7 @@
       9999999999
     </a>
     
-    <a href="https://www.instagram.com/iampranavarya/" target="_blank" class="contact-item">
+    <a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer" class="contact-item">
       <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       @iampranavarya
     </a>
@@ -435,13 +453,40 @@
 
 <footer>
   <p>© 2026 Pranav Arya Film Production. All rights reserved.</p>
-  <div class="social-links"><a href="#">Instagram</a><a href="#">Vimeo</a><a href="#">LinkedIn</a></div>
+  <div class="social-links"><a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer">Instagram</a></div>
 </footer>
 
 <div class="frame-counter" id="frame-counter">00:00:01:00</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+// ═══════════════════════════
+// ANIMATED NUMBER COUNTERS
+// ═══════════════════════════
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = +el.getAttribute('data-target');
+      let count = 0;
+      const increment = target / 100; // Animation speed
+      const update = () => {
+        count += increment;
+        if (count < target) {
+          el.innerText = Math.ceil(count);
+          requestAnimationFrame(update);
+        } else {
+          el.innerText = target;
+        }
+      };
+      update();
+      obs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
 // ═══════════════════════════
 // LOADER
 // ═══════════════════════════
@@ -463,9 +508,7 @@ const loaderInt=setInterval(()=>{
 const cursorEl=document.getElementById('cursor');
 const ringEl=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
-
 document.body.classList.add('custom-cursor-active');
-
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
 (function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
 document.querySelectorAll('a, button, .work-item').forEach(el=>{
@@ -496,35 +539,36 @@ document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*
 window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
 
 // ═══════════════════════════
-// FLAT MAP LEADER LINES LOGIC
+// FLAT MAP LEADER LINES & PIXEL RADAR LOGIC
 // ═══════════════════════════
 const locations = [
-  {name: 'Germany', lat: 51.16, lon: 10.45, ang: -60, len: 45, align: 'right'},
-  {name: 'Singapore', lat: 1.35, lon: 103.81, ang: -45, len: 40, align: 'right'},
-  {name: 'India', lat: 20.59, lon: 78.96, ang: 90, len: 35, align: 'right'},
-  {name: 'USA', lat: 37.09, lon: -95.71, ang: -150, len: 50, align: 'left'},
-  {name: 'Canada', lat: 56.13, lon: -106.34, ang: -45, len: 50, align: 'right'},
-  {name: 'United Kingdom', lat: 55.37, lon: -3.43, ang: -135, len: 50, align: 'left'},
-  {name: 'Croatia', lat: 45.10, lon: 15.20, ang: 20, len: 55, align: 'right'},
-  {name: 'Monaco', lat: 43.73, lon: 7.42, ang: 120, len: 40, align: 'left'},
-  {name: 'France', lat: 46.22, lon: 2.21, ang: 160, len: 45, align: 'left'},
-  {name: 'Greece', lat: 39.07, lon: 21.82, ang: 45, len: 45, align: 'right'},
-  {name: 'Hungary', lat: 47.16, lon: 19.50, ang: -15, len: 60, align: 'right'},
-  {name: 'Russia', lat: 61.52, lon: 105.31, ang: -30, len: 50, align: 'right'},
-  {name: 'Italy', lat: 41.87, lon: 12.56, ang: 70, len: 55, align: 'right'},
-  {name: 'Switzerland', lat: 46.81, lon: 8.22, ang: -160, len: 50, align: 'left'},
-  {name: 'Spain', lat: 40.46, lon: -3.74, ang: 135, len: 50, align: 'left'}
+  {name: 'Germany', lat: 51.16, lon: 10.45, ang: -60, len: 40, align: 'right'},
+  {name: 'Singapore', lat: 1.35, lon: 103.81, ang: -45, len: 35, align: 'right'},
+  {name: 'India', lat: 20.59, lon: 78.96, ang: 90, len: 30, align: 'right'},
+  {name: 'USA', lat: 37.09, lon: -95.71, ang: -140, len: 45, align: 'left'},
+  {name: 'Canada', lat: 56.13, lon: -106.34, ang: -45, len: 45, align: 'right'},
+  {name: 'United Kingdom', lat: 55.37, lon: -3.43, ang: -135, len: 35, align: 'left'},
+  {name: 'Croatia', lat: 45.10, lon: 15.20, ang: 15, len: 50, align: 'right'},
+  {name: 'Monaco', lat: 43.73, lon: 7.42, ang: 110, len: 35, align: 'left'},
+  {name: 'France', lat: 46.22, lon: 2.21, ang: 160, len: 40, align: 'left'},
+  {name: 'Greece', lat: 39.07, lon: 21.82, ang: 45, len: 40, align: 'right'},
+  {name: 'Hungary', lat: 47.16, lon: 19.50, ang: -15, len: 55, align: 'right'},
+  {name: 'Russia', lat: 61.52, lon: 105.31, ang: -30, len: 45, align: 'right'},
+  {name: 'Italy', lat: 41.87, lon: 12.56, ang: 70, len: 50, align: 'right'},
+  {name: 'Switzerland', lat: 46.81, lon: 8.22, ang: -160, len: 45, align: 'left'},
+  {name: 'Spain', lat: 40.46, lon: -3.74, ang: 135, len: 45, align: 'left'}
 ];
 
 const mapContainer = document.getElementById('map-markers-container');
-const mapMarkers = [];
 
 locations.forEach(loc => {
+  // Equirectangular mapping math for precise plotting
   const xPercent = (loc.lon + 180) / 3.6;
   const yPercent = (90 - loc.lat) / 1.8;
 
   const wrap = document.createElement('div');
-  wrap.className = `map-marker-wrap align-${loc.align}`;
+  // Add 'active' class so they are all immediately visible without animation
+  wrap.className = `map-marker-wrap active align-${loc.align}`; 
   wrap.style.left = `${xPercent}%`;
   wrap.style.top = `${yPercent}%`;
   wrap.style.setProperty('--ang', `${loc.ang}deg`);
@@ -549,18 +593,59 @@ locations.forEach(loc => {
   wrap.appendChild(line);
   
   mapContainer.appendChild(wrap);
-  mapMarkers.push(wrap);
 });
 
-function animateMap() {
-  mapMarkers.forEach(m => m.classList.remove('active'));
-  const shuffled = mapMarkers.sort(() => 0.5 - Math.random());
-  const selected = shuffled.slice(0, 3);
-  selected.forEach(m => m.classList.add('active'));
+// Subtle Pixel Animation for Map
+const mapPixCanvas = document.getElementById('map-pixel-canvas');
+const mpCtx = mapPixCanvas.getContext('2d');
+let mpW, mpH;
+const mapParticles = [];
+
+function resizeMapCanvas() {
+  mpW = mapPixCanvas.width = mapPixCanvas.offsetWidth;
+  mpH = mapPixCanvas.height = mapPixCanvas.offsetHeight;
+}
+window.addEventListener('resize', resizeMapCanvas);
+resizeMapCanvas();
+
+for(let i=0; i<40; i++) {
+  mapParticles.push({
+    x: Math.random() * mpW, y: Math.random() * mpH,
+    vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
+  });
 }
 
-setInterval(animateMap, 3000);
-animateMap(); 
+function animateMapPixels() {
+  mpCtx.clearRect(0,0,mpW,mpH);
+  mpCtx.fillStyle = 'rgba(201, 168, 76, 0.4)';
+  mpCtx.strokeStyle = 'rgba(201, 168, 76, 0.15)';
+  
+  mapParticles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x < 0 || p.x > mpW) p.vx *= -1;
+    if(p.y < 0 || p.y > mpH) p.vy *= -1;
+    mpCtx.beginPath();
+    mpCtx.arc(p.x, p.y, 1, 0, Math.PI*2);
+    mpCtx.fill();
+  });
+  
+  // Connect near particles
+  for(let i=0; i<mapParticles.length; i++) {
+    for(let j=i+1; j<mapParticles.length; j++) {
+      const dx = mapParticles[i].x - mapParticles[j].x;
+      const dy = mapParticles[i].y - mapParticles[j].y;
+      if(dx*dx + dy*dy < 2500) {
+        mpCtx.beginPath();
+        mpCtx.moveTo(mapParticles[i].x, mapParticles[i].y);
+        mpCtx.lineTo(mapParticles[j].x, mapParticles[j].y);
+        mpCtx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateMapPixels);
+}
+animateMapPixels();
+
 
 // ═══════════════════════════
 // 3D CAMERA SCENE
@@ -587,8 +672,7 @@ window.addEventListener('resize',resizeCam);
 // Lights
 camS.add(new THREE.AmbientLight(0x0d0d18, 4));
 const keyL=new THREE.SpotLight(0xfff5e0, 8, 30, Math.PI/5, 0.4);
-keyL.position.set(4, 6, 6); keyL.castShadow=true; 
-keyL.shadow.bias = -0.001;
+keyL.position.set(4, 6, 6); keyL.castShadow=true; keyL.shadow.bias = -0.001;
 camS.add(keyL);
 const fillL=new THREE.PointLight(0xc9a84c, 3, 20); fillL.position.set(-4, 2, 3); camS.add(fillL);
 const rimL=new THREE.PointLight(0xc9a84c, 5, 15); rimL.position.set(0, -5, -3); camS.add(rimL);
@@ -609,170 +693,109 @@ camS.add(camGroup);
 
 // ── BODY ──
 const body=new THREE.Mesh(new THREE.BoxGeometry(3.2,2.0,1.6),bodyM);
-body.castShadow=true;
-body.receiveShadow=true;
-camGroup.add(body);
-
+body.castShadow=true; body.receiveShadow=true; camGroup.add(body);
 const hump=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,0.95),bodyM);
-hump.position.set(0.25,1.25,0);
-hump.receiveShadow=true;
-camGroup.add(hump);
-
+hump.position.set(0.25,1.25,0); hump.receiveShadow=true; camGroup.add(hump);
 const penta=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.38,0.72),blackM);
-penta.position.set(0.25,1.52,0);
-camGroup.add(penta);
-
+penta.position.set(0.25,1.52,0); camGroup.add(penta);
 const eye=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.21,0.28,14),blackM);
-eye.rotation.x=Math.PI/2;
-eye.position.set(0.25,1.52,-0.63);
-camGroup.add(eye);
-
+eye.rotation.x=Math.PI/2; eye.position.set(0.25,1.52,-0.63); camGroup.add(eye);
 const eyepieceGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.05,14), glassM);
-eyepieceGlass.position.set(0.25, 1.52, -0.79);
-eyepieceGlass.rotation.x = Math.PI / 2;
-camGroup.add(eyepieceGlass);
-
+eyepieceGlass.position.set(0.25, 1.52, -0.79); eyepieceGlass.rotation.x = Math.PI / 2; camGroup.add(eyepieceGlass);
 const dial=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.17,24),silverM);
-dial.position.set(-1.1,1.18,0);
-camGroup.add(dial);
+dial.position.set(-1.1,1.18,0); camGroup.add(dial);
 const dialTop=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.04,24),blackM);
-dialTop.position.set(-1.1,1.28,0);
-camGroup.add(dialTop);
+dialTop.position.set(-1.1,1.28,0); camGroup.add(dialTop);
 
 for(let i=0;i<8;i++){
   const a=(i/8)*Math.PI*2;
   const m=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.07,0.04),goldM);
-  m.position.set(-1.1+Math.sin(a)*0.27,1.31,Math.cos(a)*0.27);
-  camGroup.add(m);
+  m.position.set(-1.1+Math.sin(a)*0.27,1.31,Math.cos(a)*0.27); camGroup.add(m);
 }
 
 const shutBtn=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.09,16),silverM);
-shutBtn.position.set(1.02,1.1,0.55);
-camGroup.add(shutBtn);
+shutBtn.position.set(1.02,1.1,0.55); camGroup.add(shutBtn);
 const shutTop=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.04,16),redM);
-shutTop.position.set(1.02,1.16,0.55);
-camGroup.add(shutTop);
-
+shutTop.position.set(1.02,1.16,0.55); camGroup.add(shutTop);
 const grip=new THREE.Mesh(new THREE.BoxGeometry(0.48,2.0,0.42),rubberM);
-grip.position.set(1.62,0,1.0);
-grip.receiveShadow=true;
-camGroup.add(grip);
+grip.position.set(1.62,0,1.0); grip.receiveShadow=true; camGroup.add(grip);
 
 for(let i=0;i<14;i++){
   const gl=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.035,0.44),new THREE.MeshStandardMaterial({color:0x060610,metalness:0,roughness:1}));
-  gl.position.set(1.62,-0.9+i*0.135,1.0);
-  camGroup.add(gl);
+  gl.position.set(1.62,-0.9+i*0.135,1.0); camGroup.add(gl);
 }
 
 [-1.57,1.57].forEach(x=>{
   const lug=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.22,0.16),silverM);
-  lug.position.set(x,0.88,0);
-  camGroup.add(lug);
+  lug.position.set(x,0.88,0); camGroup.add(lug);
   const hole=new THREE.Mesh(new THREE.TorusGeometry(0.055,0.022,6,12),blackM);
-  hole.rotation.z=Math.PI/2;
-  hole.position.set(x,0.88,0);
-  camGroup.add(hole);
+  hole.rotation.z=Math.PI/2; hole.position.set(x,0.88,0); camGroup.add(hole);
 });
 
 const badge=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.02),goldM);
-badge.position.set(-0.5,-0.58,0.81);
-camGroup.add(badge);
-
+badge.position.set(-0.5,-0.58,0.81); camGroup.add(badge);
 const bot=new THREE.Mesh(new THREE.BoxGeometry(3.22,0.07,1.62),silverM);
-bot.position.set(0,-1.04,0);
-bot.receiveShadow=true;
-camGroup.add(bot);
+bot.position.set(0,-1.04,0); bot.receiveShadow=true; camGroup.add(bot);
 const tripod=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.1,12),silverM);
-tripod.position.set(0.3,-1.09,0.2);
-camGroup.add(tripod);
-
+tripod.position.set(0.3,-1.09,0.2); camGroup.add(tripod);
 const door=new THREE.Mesh(new THREE.BoxGeometry(0.048,0.68,0.52),new THREE.MeshStandardMaterial({color:0x0d0d14,metalness:0.7,roughness:0.4}));
-door.position.set(-1.63,-0.3,0.18);
-camGroup.add(door);
+door.position.set(-1.63,-0.3,0.18); camGroup.add(door);
 const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM);
-doorLine.position.set(-1.635,0.05,0.18);
-camGroup.add(doorLine);
-
+doorLine.position.set(-1.635,0.05,0.18); camGroup.add(doorLine);
 const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM);
-swBase.position.set(-0.58,0.54,0.82);
-camGroup.add(swBase);
+swBase.position.set(-0.58,0.54,0.82); camGroup.add(swBase);
 const swSlide=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.09,0.13),silverM);
-swSlide.position.set(-0.58,0.57,0.72);
-camGroup.add(swSlide);
+swSlide.position.set(-0.58,0.57,0.72); camGroup.add(swSlide);
 
 // ── LENS BARREL ──
 const lensGroup=new THREE.Group();
-lensGroup.position.set(-0.18,0,0.85);
-lensGroup.receiveShadow=true;
-camGroup.add(lensGroup);
-
+lensGroup.position.set(-0.18,0,0.85); lensGroup.receiveShadow=true; camGroup.add(lensGroup);
 const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM);
-mountR.rotation.x=Math.PI/2;
-lensGroup.add(mountR);
+mountR.rotation.x=Math.PI/2; lensGroup.add(mountR);
 
 [{r:0.86,h:0.44,m:blackM,z:0.22},{r:0.79,h:0.54,m:new THREE.MeshStandardMaterial({color:0x161620,metalness:0.75,roughness:0.25}),z:0.72},{r:0.73,h:0.44,m:blackM,z:1.17}].forEach(b=>{
   const bm=new THREE.Mesh(new THREE.CylinderGeometry(b.r,b.r,b.h,40),b.m);
-  bm.rotation.x=Math.PI/2;
-  bm.position.z=b.z;
-  lensGroup.add(bm);
+  bm.rotation.x=Math.PI/2; bm.position.z=b.z; lensGroup.add(bm);
 });
 
 const focusR=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.038,6,40),goldM);
-focusR.rotation.x=Math.PI/2;
-focusR.position.z=0.68;
-lensGroup.add(focusR);
+focusR.rotation.x=Math.PI/2; focusR.position.z=0.68; lensGroup.add(focusR);
 
 for(let i=0;i<32;i++){
   const a=(i/32)*Math.PI*2;
   const rg=new THREE.Mesh(new THREE.BoxGeometry(0.028,0.2,0.028),new THREE.MeshStandardMaterial({color:0x8a6820,metalness:0.9,roughness:0.2}));
-  rg.position.set(Math.sin(a)*0.81,Math.cos(a)*0.81,0.68);
-  rg.lookAt(new THREE.Vector3(0,0,0.68));
-  lensGroup.add(rg);
+  rg.position.set(Math.sin(a)*0.81,Math.cos(a)*0.81,0.68); rg.lookAt(new THREE.Vector3(0,0,0.68)); lensGroup.add(rg);
 }
 
 const aptR=new THREE.Mesh(new THREE.TorusGeometry(0.74,0.022,6,40),goldM);
-aptR.rotation.x=Math.PI/2;
-aptR.position.z=1.13;
-lensGroup.add(aptR);
-
+aptR.rotation.x=Math.PI/2; aptR.position.z=1.13; lensGroup.add(aptR);
 const frontG=new THREE.Mesh(new THREE.CircleGeometry(0.63,48),glassM);
-frontG.position.z=1.46;
-lensGroup.add(frontG);
+frontG.position.z=1.46; lensGroup.add(frontG);
 
 for(let i=0;i<5;i++){
   const rr=new THREE.Mesh(new THREE.TorusGeometry(0.54-i*0.1,0.007,4,32),new THREE.MeshBasicMaterial({color:0x1a2a45,transparent:true,opacity:0.45-i*0.06}));
-  rr.position.z=1.47;
-  lensGroup.add(rr);
+  rr.position.z=1.47; lensGroup.add(rr);
 }
 
 const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM);
-capR.rotation.x=Math.PI/2;
-capR.position.z=1.46;
-lensGroup.add(capR);
-
+capR.rotation.x=Math.PI/2; capR.position.z=1.46; lensGroup.add(capR);
 const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM);
-innerB.rotation.x=Math.PI/2;
-innerB.position.z=1.3;
-lensGroup.add(innerB);
+innerB.rotation.x=Math.PI/2; innerB.position.z=1.3; lensGroup.add(innerB);
 
 // ── APERTURE BLADES ──
 const bladeGroup=new THREE.Group();
-bladeGroup.position.set(-0.18,0,2.4);
-camS.add(bladeGroup);
+bladeGroup.position.set(-0.18,0,2.4); camS.add(bladeGroup);
 const blades=[];
 for(let i=0;i<8;i++){
   const a=(i/8)*Math.PI*2;
   const bl=new THREE.Mesh(new THREE.CircleGeometry(0.26,3),new THREE.MeshStandardMaterial({color:0x0e0e18,metalness:0.92,roughness:0.2,side:THREE.DoubleSide}));
-  bl.rotation.z=a+Math.PI/8;
-  bl.position.set(Math.sin(a)*0.21,Math.cos(a)*0.21,0);
-  bladeGroup.add(bl);
-  blades.push({mesh:bl,a,bx:Math.sin(a)*0.21,by:Math.cos(a)*0.21});
+  bl.rotation.z=a+Math.PI/8; bl.position.set(Math.sin(a)*0.21,Math.cos(a)*0.21,0);
+  bladeGroup.add(bl); blades.push({mesh:bl,a,bx:Math.sin(a)*0.21,by:Math.cos(a)*0.21});
 }
 
 // ── LENS FLARES ──
 const flareGroup=new THREE.Group();
-flareGroup.position.set(-0.18,0,2.6);
-camS.add(flareGroup);
+flareGroup.position.set(-0.18,0,2.6); camS.add(flareGroup);
 const flareDefs=[{r:0.55,c:0x88bbff,o:0},{r:0.22,c:0xc9a84c,o:0},{r:0.14,c:0xffffff,o:0},{r:0.08,c:0x6688ff,o:0},{r:0.05,c:0xc9a84c,o:0}];
 const flares=flareDefs.map((fd,i)=>{
   const f=new THREE.Mesh(new THREE.CircleGeometry(fd.r,24),new THREE.MeshBasicMaterial({color:fd.c,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));
@@ -782,8 +805,7 @@ const flares=flareDefs.map((fd,i)=>{
 
 // ── INTERACTION STATE ──
 let shotCount=0,isShuttering=false,shutT=0;
-let flareTarget=0,flareVal=0;
-let camMX=0,camMY=0;
+let flareTarget=0,flareVal=0,camMX=0,camMY=0;
 
 function fireShutter(){
   if(isShuttering)return;
@@ -793,8 +815,7 @@ function fireShutter(){
   const flash=document.getElementById('shutter-flash');
   flash.classList.add('fire');
   setTimeout(()=>flash.classList.remove('fire'),90);
-  flareTarget=1; 
-  glowL.intensity=6;
+  flareTarget=1; glowL.intensity=6;
   setTimeout(()=>{isShuttering=false;flareTarget=0;glowL.intensity=0;},700);
 }
 
@@ -808,7 +829,7 @@ camCanvas.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-
 camCanvas.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';ringEl.style.borderColor='rgba(201,168,76,0.5)';});
 
 let scrollY=0;
-window.addEventListener('scroll',()=>scrollY=window.scrollY);
+window.addEventListener('scroll',()=>scrollY=window.scrollY, {passive: true});
 
 // ═══════════════════════════
 // FRAME COUNTER
@@ -826,20 +847,16 @@ function updateCounter(){
 // ═══════════════════════════
 const clock = new THREE.Clock();
 let t = 0;
-const tempV = new THREE.Vector3();
 
 function animate(){
   requestAnimationFrame(animate);
-  
   const delta = clock.getDelta();
   t += delta * 0.6; 
 
   bgCam.position.x += (bgMX * 0.4 - bgCam.position.x) * (delta * 1.8);
   bgCam.position.y += (-bgMY * 0.25 - bgCam.position.y) * (delta * 1.8);
   bgCam.lookAt(0,0,0);
-  
   bL1.intensity = 2.5 + Math.sin(t * 1.2) * 0.4;
-  
   bgR.render(bgS,bgCam);
 
   const targetRotY = Math.sin(t * 0.55) * 0.1 + camMX * 0.16;
