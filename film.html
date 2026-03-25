@@ -267,7 +267,7 @@
 </div>
 
 <nav>
-  <a class="nav-logo" href="index.html">← Back to main page</a>
+  <a class="nav-logo" href="film"/">← Back to main page</a>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services-offered">Services</a></li>
@@ -889,6 +889,36 @@ function animate(){
   updateCounter();
 }
 animate();
+
+// ═══════════════════════════
+// GHOST ANCHOR ROUTING (CLEAN URLs)
+// ═══════════════════════════
+// 1. Prevent the URL from changing when clicking the navigation menu
+document.querySelectorAll('.nav-links a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    
+    // Only intercept if it's an on-page link starting with '#'
+    if (targetId.startsWith('#')) {
+      e.preventDefault(); // Stops the URL bar from updating
+      const targetSection = document.querySelector(targetId);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+});
+
+// 2. Clear the hash if someone loads the page via a direct link (e.g., from the homepage)
+window.addEventListener('load', () => {
+  if(window.location.hash) {
+    // Wait a split second for the browser to finish its native jump, then erase the hash
+    setTimeout(() => {
+      history.replaceState(null, null, window.location.pathname);
+    }, 100);
+  }
+});
+  
 </script>
 </body>
 </html>
