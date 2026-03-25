@@ -88,25 +88,26 @@
     .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
     .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
 
-    /* 1. INFINITE SCROLLING WORK SECTION (13 Videos) */
+    /* 1. INTERACTIVE DRAG & AUTO-SCROLL WORK SECTION */
     #work { position:relative; z-index:10; padding:120px 0; margin-top:40px; overflow:hidden;}
     .work-header-wrap { padding: 0 52px; margin-bottom: 40px; }
     
-    .marquee-container { width: 100%; position: relative; overflow: hidden; }
-    .marquee-track { display: flex; width: max-content; animation: marqueeScroll 60s linear infinite; will-change: transform; }
-    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
+    .marquee-track { 
+      display: flex; width: max-content; 
+      cursor: grab; will-change: transform; 
+    }
+    .marquee-track:active { cursor: grabbing; }
     .marquee-content { display: flex; gap: 16px; padding-right: 16px; }
     
-    .work-item { flex: 0 0 320px; aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--deep); border-radius: 2px; }
+    .work-item { flex: 0 0 320px; aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--deep); border-radius: 2px; user-select: none; -webkit-user-drag: none;}
     .work-video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;}
     .work-item:hover .work-video { transform: scale(1.05); }
-
-    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* 2. CLIENT LOGOS / EVENTS */
     #events { position: relative; z-index: 10; padding: 80px 52px; text-align: center; background: rgba(5,5,7,0.5); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03);}
     .events-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 60px; margin-top: 30px; max-width: 1100px; margin-inline: auto; opacity: 0.6; }
-    .logo-sim { color: var(--white); text-transform: uppercase; transition: color 0.4s, opacity 0.4s; opacity: 0.5; cursor: default; }
+    .logo-sim { color: var(--white); text-transform: uppercase; transition: color 0.4s, opacity 0.4s; opacity: 0.5; cursor: default; user-select: none;}
     .logo-sim:hover { opacity: 1; color: var(--gold); }
     .logo-1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; }
     .logo-2 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
@@ -155,21 +156,19 @@
     .scanner-country { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.1em; color: var(--white); line-height: 1; transition: opacity 0.3s ease; }
     .scanner-coords { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(240,236,228,0.5); letter-spacing: 0.2em; margin-top: 8px; transition: opacity 0.3s ease;}
 
-    /* 6. SCROLLING TESTIMONIALS SECTION */
+    /* 6. INTERACTIVE TESTIMONIALS SECTION */
     #testimonials { position: relative; z-index: 10; padding: 120px 0; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.02), transparent); overflow: hidden;}
     .test-header-wrap { padding: 0 52px; margin-bottom: 40px; }
     
-    .test-marquee-container { width: 100%; position: relative; overflow: hidden; }
-    .test-marquee-track { display: flex; width: max-content; animation: testScroll 60s linear infinite; will-change: transform; }
-    .test-marquee-track:hover { animation-play-state: paused; }
+    .test-marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
+    .test-marquee-track { display: flex; width: max-content; cursor: grab; will-change: transform; }
+    .test-marquee-track:active { cursor: grabbing; }
     .test-marquee-content { display: flex; gap: 24px; padding-right: 24px; }
     
-    .test-card { flex: 0 0 380px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.05); background: rgba(5,5,7,0.5); position: relative; white-space: normal; display: flex; flex-direction: column; justify-content: space-between;}
+    .test-card { flex: 0 0 380px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.05); background: rgba(5,5,7,0.5); position: relative; white-space: normal; display: flex; flex-direction: column; justify-content: space-between; user-select: none;}
     .test-card::before { content: '"'; position: absolute; top: 20px; left: 24px; font-family: var(--font-serif); font-size: 5rem; color: rgba(201,168,76,0.1); line-height: 0; pointer-events: none;}
-    .test-quote { font-size: 1.05rem; font-style: italic; color: rgba(240,236,228,0.9); line-height: 1.7; margin-bottom: 24px; position: relative; z-index: 2; }
-    .test-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; }
-
-    @keyframes testScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .test-quote { font-size: 1.05rem; font-style: italic; color: rgba(240,236,228,0.9); line-height: 1.7; margin-bottom: 24px; position: relative; z-index: 2; pointer-events: none;}
+    .test-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; pointer-events: none;}
 
     /* 7. ABOUT ME */
     #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px 60px 52px; gap: 80px; }
@@ -233,7 +232,6 @@
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
       
-      /* Scale map scanner for mobile */
       .map-wrapper { height: 200px; aspect-ratio: auto; margin-top: 20px;}
       .map-background { background-size: contain; background-repeat: no-repeat; }
       
@@ -299,7 +297,7 @@
     <div><p class="section-label">The Proof</p><h2 class="section-title">SELECTED <span style="color:var(--gold)">WORK</span></h2></div>
   </div>
   
-  <div class="marquee-container">
+  <div class="marquee-container" id="work-carousel">
     <div class="marquee-track">
       <div class="marquee-content">
         <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
@@ -411,7 +409,7 @@
     <h2 class="section-title">THE <span style="color:var(--gold)">IMPACT</span></h2>
   </div>
   
-  <div class="test-marquee-container">
+  <div class="test-marquee-container" id="test-carousel">
     <div class="test-marquee-track">
       <div class="test-marquee-content">
         <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
@@ -494,6 +492,73 @@ const counterObserver = new IntersectionObserver((entries, obs) => {
 counters.forEach(c => counterObserver.observe(c));
 
 // ═══════════════════════════
+// DRAG & AUTO-SCROLL LOGIC FOR ALL MARQUEES
+// ═══════════════════════════
+function initInteractiveMarquee(selector, speedVal) {
+  const container = document.querySelector(selector);
+  if(!container) return;
+  const track = container.querySelector('.marquee-track') || container.querySelector('.test-marquee-track');
+  const content = container.querySelector('.marquee-content') || container.querySelector('.test-marquee-content');
+  
+  let isDragging = false;
+  let startPos = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationId;
+  let isHovered = false;
+
+  function render() {
+    if (!isDragging && !isHovered) { currentTranslate -= speedVal; }
+    
+    const singleWidth = content.offsetWidth;
+    
+    if (currentTranslate <= -singleWidth) { currentTranslate += singleWidth; } 
+    else if (currentTranslate > 0) { currentTranslate -= singleWidth; }
+
+    track.style.transform = `translateX(${currentTranslate}px)`;
+    animationId = requestAnimationFrame(render);
+  }
+
+  function getPositionX(e) { return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX; }
+
+  function dragStart(e) {
+    isDragging = true;
+    startPos = getPositionX(e);
+    prevTranslate = currentTranslate;
+    track.style.cursor = 'grabbing';
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    const currentPosition = getPositionX(e);
+    const walk = currentPosition - startPos;
+    currentTranslate = prevTranslate + walk;
+  }
+
+  function dragEnd() {
+    isDragging = false;
+    track.style.cursor = 'grab';
+  }
+
+  track.addEventListener('mousedown', dragStart);
+  track.addEventListener('touchstart', dragStart, {passive: true});
+  window.addEventListener('mouseup', dragEnd);
+  window.addEventListener('touchend', dragEnd);
+  window.addEventListener('mousemove', drag);
+  window.addEventListener('touchmove', drag, {passive: true});
+
+  track.addEventListener('mouseenter', () => isHovered = true);
+  track.addEventListener('mouseleave', () => isHovered = false);
+
+  render();
+}
+
+// Initialize both sliders with different speeds
+initInteractiveMarquee('#work-carousel', 1);
+initInteractiveMarquee('#test-carousel', 0.8);
+
+
+// ═══════════════════════════
 // LOADER
 // ═══════════════════════════
 const loaderBar=document.getElementById('loader-bar');
@@ -517,7 +582,7 @@ let mx=0,my=0,rx=0,ry=0;
 document.body.classList.add('custom-cursor-active');
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
 (function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a, button, .work-item').forEach(el=>{
+document.querySelectorAll('a, button, .work-item, .marquee-track, .test-marquee-track').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
   el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
 });
@@ -651,7 +716,7 @@ const blackM = new THREE.MeshPhysicalMaterial({color: 0x050508, metalness: 0.8, 
 const goldM = new THREE.MeshPhysicalMaterial({color: 0xd4af37, metalness: 1.0, roughness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.1});
 const silverM = new THREE.MeshPhysicalMaterial({color: 0xaaaaaa, metalness: 1.0, roughness: 0.2, clearcoat: 0.5});
 const glassM = new THREE.MeshPhysicalMaterial({color: 0x112233, metalness: 0.1, roughness: 0.05, transmission: 0.95, thickness: 0.5, transparent: true});
-const lensM = new THREE.MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
+const lensM = new MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
 const rubberM = new THREE.MeshStandardMaterial({color: 0x08080a, metalness: 0.1, roughness: 0.9});
 const redM = new THREE.MeshPhysicalMaterial({color: 0xcc1100, metalness: 0.3, roughness: 0.2, clearcoat: 1.0});
 
