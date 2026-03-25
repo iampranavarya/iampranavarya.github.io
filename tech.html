@@ -3,563 +3,916 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pranav Arya | Technical Services</title>
+  <title>Pranav Arya Film Production</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    
     :root{
-      --black:#030305; 
+      --black:#050507;--deep:#0a0a0f;
+      --gold:#c9a84c;--gold-dim:#7a6228;
       --white:#f0ece4;
-      --theme-color: #60aaff; 
       --font-display:'Bebas Neue',sans-serif;
       --font-body:'Inter',sans-serif;
       --font-mono:'Space Mono',monospace;
     }
-
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--black); color: var(--white);
-      font-family: var(--font-body); 
-      font-weight: 300;
-      overflow-x: hidden; cursor: auto;
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--black); color:var(--white);
+      font-family:var(--font-body); font-weight: 300;
+      overflow-x:hidden; cursor: auto; 
     }
     body.custom-cursor-active { cursor: none; }
 
-    /* CUSTOM CURSOR */
-    .cursor{position:fixed;width:8px;height:8px;background:var(--theme-color);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background 0.5s ease;}
-    .cursor-ring{position:fixed;width:40px;height:40px;border:1px solid var(--theme-color);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:top 0.15s ease, left 0.15s ease, border-color 0.5s ease, transform 0.2s;}
+    /* LOADER */
+    #loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease}
+    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-logo{font-family:var(--font-display);font-size:3.5rem;letter-spacing:0.3em;color:var(--gold);margin-bottom:36px;animation:loaderPulse 1.5s ease infinite alternate}
+    .loader-bar-wrap{width:260px;height:1px;background:rgba(201,168,76,0.15);position:relative;overflow:hidden}
+    .loader-bar{height:100%;background:var(--gold);width:0%;transition:width 0.05s linear}
+    .loader-label{margin-top:16px;font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.25em;color:rgba(201,168,76,0.5);text-transform:uppercase}
+    @keyframes loaderPulse{from{opacity:0.5}to{opacity:1}}
+
+    /* CURSOR */
+    .cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:0;transition:opacity 0.3s}
+    .cursor-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;opacity:0}
     body.custom-cursor-active .cursor, body.custom-cursor-active .cursor-ring { opacity: 1; }
 
-    /* 3D CANVAS BACKGROUND */
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    .noise { position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 1; }
+    /* CANVAS */
+    #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 5%; background: linear-gradient(to bottom, rgba(3,3,5,0.9), transparent); backdrop-filter: blur(4px); }
-    .nav-logo { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.1em; color: var(--theme-color); text-decoration: none; transition: color 0.5s ease; }
-    
-    /* HERO SECTION */
-    #hero { position: relative; z-index: 10; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 5% 0 5%; max-width: 1400px; margin: 0 auto; }
-    .hero-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.4em; color: var(--theme-color); text-transform: uppercase; margin-bottom: 20px; transition: color 0.5s ease; }
-    .hero-title { font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 8rem); line-height: 0.9; letter-spacing: 0.02em; }
-    .hero-title span { color: var(--theme-color); transition: color 0.5s ease; }
-    
-    /* UPDATED: Clean, readable sub text */
-    .hero-sub { margin-top: 24px; max-width: 500px; font-size: 1.1rem; color: rgba(240,236,228,0.8); line-height: 1.8; }
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:28px 52px}
+    nav::after{content:'';position:absolute;bottom:0;left:52px;right:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.35}
+    .nav-logo{font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.1em;color:var(--gold);text-decoration:none;transition:opacity 0.3s;}
+    .nav-logo:hover{opacity:0.7;}
+    .nav-links{display:flex;gap:40px;list-style:none}
+    .nav-links a{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;color:var(--white);text-decoration:none;opacity:0.6;text-transform:uppercase;transition:opacity 0.3s,color 0.3s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s}
+    .nav-links a:hover{opacity:1;color:var(--gold)}
+    .nav-links a:hover::after{width:100%}
 
-    /* TIGHTER Z-PATTERN GRID LAYOUT */
-    .service-row { 
-      position: relative; z-index: 10; 
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; 
-      align-items: center; padding: 60px 5%; max-width: 1400px; margin: 0 auto;
-    }
-    .service-row:nth-child(even) .service-content { order: 2; }
-    .service-row:nth-child(even) .service-media { order: 1; }
+    /* COMMON HEADERS */
+    .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px}
+    .section-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+    .section-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);line-height:1}
 
-    /* GLASSMORPHISM PANELS */
-    .glass-panel {
-      background: rgba(10, 12, 16, 0.4);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-      border-right: 1px solid rgba(0, 0, 0, 0.5);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255,255,255,0.02);
-      border-radius: 4px;
-      transform: translateY(30px); opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .service-row.visible .glass-panel { opacity: 1; transform: translateY(0); }
+    /* HERO */
+    #hero{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:140px 52px 60px 52px;}
+    .hero-left{display:flex;flex-direction:column}
+    .hero-eyebrow{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s 0.4s forwards}
+    .hero-title{font-family:var(--font-display);font-size:clamp(4rem,10vw,11rem);line-height:0.88;letter-spacing:0.02em;opacity:0;animation:fadeUp 1s 0.7s forwards}
+    .hero-title .gold{color:var(--gold)}
+    .hero-title .outline{-webkit-text-stroke:1px rgba(240,236,228,0.22);color:transparent}
+    .hero-sub{margin-top:28px;max-width:380px;font-size:1.05rem;font-weight:300;color:rgba(240,236,228,0.8);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
     
-    /* TEXT CONTENT */
-    .service-content { padding: 50px; }
-    .service-index { font-family: var(--font-mono); font-size: 0.7rem; color: var(--theme-color); letter-spacing: 0.2em; display: block; margin-bottom: 16px; transition: color 0.5s ease;}
-    .service-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: 0.05em; margin-bottom: 20px; line-height: 1; }
+    .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards; flex-wrap: wrap;}
+    .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s; border: 1px solid var(--gold);}
+    .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
     
-    /* UPDATED: Clean, readable sub text */
-    .service-desc { font-size: 1.05rem; line-height: 1.7; color: rgba(240,236,228,0.8); margin-bottom: 36px; }
-    
-    /* 4:5 MEDIA CONTAINER FOR CANVAS */
-    .service-media { 
-      padding: 12px; 
-      aspect-ratio: 4/5; 
-      width: 100%; 
-      max-width: 500px; 
-      margin: 0 auto;
-      display: flex;
-      position: relative;
-    }
-    .service-canvas { 
-      width: 100%; height: 100%; 
-      border-radius: 2px;
-      background: #030305;
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
-      cursor: crosshair; 
-    }
+    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s; cursor:pointer; background:transparent;}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 
-    /* CONTACT BUTTON */
-    .btn-glow {
-      display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); text-decoration: none; padding: 14px 32px; background: transparent; border: 1px solid var(--theme-color); position: relative; transition: all 0.4s ease; overflow: hidden;
+    /* CAMERA STAGE */
+    .hero-right{position:relative;display:flex;align-items:center;justify-content:center;height:100%;opacity:0;animation:fadeIn 1.2s 1.5s forwards}
+    #camera-canvas{width:100%;height:540px;cursor:crosshair;display:block}
+    .camera-hint{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.2em;color:rgba(201,168,76,0.5);text-transform:uppercase;white-space:nowrap;animation:blinkAnim 2s 3.5s infinite}
+    @keyframes blinkAnim{0%,100%{opacity:0.4}50%{opacity:1}}
+
+    /* SHUTTER FLASH & COUNTER */
+    #shutter-flash{position:fixed;inset:0;background:rgba(255,255,240,0);z-index:9000;pointer-events:none;transition:background 0.06s}
+    #shutter-flash.fire{background:rgba(255,255,230,0.6)}
+    #shot-counter{position:fixed;top:88px;right:52px;z-index:200;font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.15em;color:var(--gold);text-align:right;opacity:0;transition:opacity 0.4s}
+    #shot-counter.visible{opacity:1}
+    #shot-counter .shots-num{font-size:2rem;font-family:var(--font-display);display:block;line-height:1}
+    .scroll-hint{position:absolute;left:52px;bottom:40px;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s 2.2s forwards}
+    .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
+    .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
+
+    /* 1. DRAG & AUTO-SCROLL WORK SECTION (13 Videos) */
+    #work { position:relative; z-index:10; padding:120px 0; margin-top:40px; overflow:hidden;}
+    .work-header-wrap { padding: 0 52px; margin-bottom: 40px; }
+    
+    .marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
+    .marquee-track { display: flex; width: max-content; cursor: grab; will-change: transform; }
+    .marquee-track:active { cursor: grabbing; }
+    .marquee-content { display: flex; gap: 16px; padding-right: 16px; }
+    
+    .work-item { flex: 0 0 320px; aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--deep); border-radius: 2px; user-select: none; -webkit-user-drag: none;}
+    .work-video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;}
+    .work-item:hover .work-video { transform: scale(1.05); }
+
+    /* 2. CLIENT LOGOS / EVENTS */
+    #events { position: relative; z-index: 10; padding: 80px 52px; text-align: center; background: rgba(5,5,7,0.5); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03);}
+    .events-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 60px; margin-top: 30px; max-width: 1100px; margin-inline: auto; opacity: 0.6; }
+    .logo-sim { color: var(--white); text-transform: uppercase; transition: color 0.4s, opacity 0.4s; opacity: 0.5; cursor: default; user-select: none;}
+    .logo-sim:hover { opacity: 1; color: var(--gold); }
+    .logo-1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; }
+    .logo-2 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
+    .logo-3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.8rem; }
+    .logo-4 { font-family: 'Space Mono', monospace; font-size: 1rem; letter-spacing: 4px; }
+    .logo-5 { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 6px; }
+
+    /* 3. SERVICES OFFERED */
+    #services-offered { position:relative; z-index:10; padding:120px 52px; }
+    #services-offered::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold-dim),transparent); opacity:0.3; }
+    .services-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .service-list-item { padding: 32px 24px; background: rgba(201, 168, 76, 0.02); border: 1px solid rgba(201, 168, 76, 0.08); font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); transition: all 0.4s ease; position: relative; display: flex; align-items: center; cursor: default; }
+    .service-list-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: var(--gold); transition: width 0.4s ease; }
+    .service-list-item:hover { background: rgba(201, 168, 76, 0.06); transform: translateY(-4px); color: var(--gold); }
+    .service-list-item:hover::after { width: 100%; }
+
+    /* 4. THE VISION & STATS */
+    #about{position:relative;z-index:10;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px;gap:80px}
+    #about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
+    .about-heading{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);line-height:1;letter-spacing:0.03em;margin-bottom:32px}
+    .about-body{font-size:1.1rem;font-weight:300;line-height:1.85;color:rgba(240,236,228,0.85);max-width:480px}
+    .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .stat-card{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);padding:36px 28px;transition:background 0.3s}
+    .stat-card:hover{background:rgba(201,168,76,0.09)}
+    .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1; display:flex;}
+    .stat-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;color:rgba(240,236,228,0.4);text-transform:uppercase;margin-top:8px}
+
+    /* 5. GLOBAL TARGETING SCANNER SECTION */
+    #global-roster { position: relative; z-index: 10; padding: 120px 52px; overflow: hidden; text-align: center; }
+    #global-roster::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    
+    .map-wrapper { position: relative; width: 100%; max-width: 900px; aspect-ratio: 2 / 1; margin: 40px auto 0 auto; }
+    .map-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg'); background-size: cover; background-position: center; filter: invert(1) opacity(0.15); pointer-events: none; }
+    
+    .map-marker-wrap { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
+    .map-marker-wrap.active { z-index: 10; }
+    .map-dot { width: 4px; height: 4px; background: rgba(201,168,76,0.3); border-radius: 50%; transition: all 0.4s ease; }
+    .map-marker-wrap.active .map-dot { background: var(--gold); box-shadow: 0 0 15px 4px rgba(201,168,76,0.6); transform: scale(1.8); }
+    
+    .map-marker-wrap::before { content: ''; position: absolute; top: 50%; left: 50%; width: 24px; height: 24px; border: 1px solid var(--gold); border-radius: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none;}
+    .map-marker-wrap.active::before { animation: radarPulse 2s infinite cubic-bezier(0.21, 0.53, 0.56, 1); }
+    @keyframes radarPulse { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+
+    .map-scanner-display { margin-top: 30px; text-align: center; height: 90px; }
+    .scanner-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--gold); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 8px;}
+    .scanner-country { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.1em; color: var(--white); line-height: 1; transition: opacity 0.3s ease; }
+    .scanner-coords { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(240,236,228,0.5); letter-spacing: 0.2em; margin-top: 8px; transition: opacity 0.3s ease;}
+
+    /* 6. INTERACTIVE TESTIMONIALS SECTION */
+    #testimonials { position: relative; z-index: 10; padding: 120px 0; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.02), transparent); overflow: hidden;}
+    .test-header-wrap { padding: 0 52px; margin-bottom: 40px; }
+    
+    .test-marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
+    .test-marquee-track { display: flex; width: max-content; cursor: grab; will-change: transform; }
+    .test-marquee-track:active { cursor: grabbing; }
+    .test-marquee-content { display: flex; gap: 24px; padding-right: 24px; }
+    
+    .test-card { flex: 0 0 380px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.05); background: rgba(5,5,7,0.5); position: relative; white-space: normal; display: flex; flex-direction: column; justify-content: space-between; user-select: none;}
+    .test-card::before { content: '"'; position: absolute; top: 20px; left: 24px; font-family: var(--font-serif); font-size: 5rem; color: rgba(201,168,76,0.1); line-height: 0; pointer-events: none;}
+    .test-quote { font-size: 1.05rem; font-style: italic; color: rgba(240,236,228,0.9); line-height: 1.7; margin-bottom: 24px; position: relative; z-index: 2; pointer-events: none;}
+    .test-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; pointer-events: none;}
+
+    /* 7. ABOUT ME */
+    #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px 60px 52px; gap: 80px; }
+    #about-me::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .profile-image-container { position: relative; aspect-ratio: 3/4; max-width: 420px; width: 100%; margin: 0 auto; }
+    .profile-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.5s ease; position: relative; z-index: 2; border: 1px solid rgba(201,168,76,0.2); }
+    .profile-img:hover { filter: grayscale(0%); }
+    .profile-backdrop { position: absolute; top: 20px; left: -20px; width: 100%; height: 100%; border: 1px solid var(--gold); z-index: 1; opacity: 0.5; transition: transform 0.5s ease; }
+    .profile-image-container:hover .profile-backdrop { transform: translate(10px, -10px); }
+    .profile-content { display: flex; flex-direction: column; }
+
+    /* 8. CONTACT */
+    #contact{position:relative;z-index:10;padding:60px 52px 140px 52px;text-align:center}
+    #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
+    .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:50px}
+    .contact-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 10px; }
+    .contact-item { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 300; color: rgba(240,236,228,0.8); text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
+    .contact-item:hover { color: var(--gold); border-color: var(--gold); }
+    .contact-icon { width: 22px; height: 22px; }
+
+    /* STICKY "BOOK NOW" CTA */
+    .sticky-cta {
+      position: fixed; bottom: 30px; right: 30px; z-index: 990;
+      background: var(--gold); color: var(--black);
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+      padding: 14px 24px; border-radius: 2px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s, background 0.3s;
+      animation: fadeIn 1s 2s forwards; opacity: 0;
     }
-    .btn-glow::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--theme-color); z-index: -1; opacity: 0; transition: opacity 0.4s ease; }
-    .btn-glow:hover { color: var(--black); box-shadow: 0 0 30px var(--theme-color); border-color: transparent;}
-    .btn-glow:hover::before { opacity: 1; }
+    .sticky-cta:hover { transform: translateY(-4px); background: #e8c76e; }
+    .sticky-cta svg { width: 14px; height: 14px; }
 
     /* FOOTER */
-    footer { position: relative; z-index: 10; padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; max-width: 1400px; margin-inline: auto;}
-    footer p { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(240,236,228,0.3); letter-spacing: 0.12em; }
+    footer{position:relative;z-index:10;padding:28px 52px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05)}
+    footer p{font-family:var(--font-mono);font-size:0.55rem;color:rgba(240,236,228,0.3);letter-spacing:0.12em}
+    .social-links{display:flex;gap:24px}
+    .social-links a{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.15em;color:rgba(240,236,228,0.3);text-decoration:none;text-transform:uppercase;transition:color 0.3s}
+    .social-links a:hover{color:var(--gold)}
+
+    .frame-counter{position:fixed;bottom:28px;left:52px;font-family:var(--font-mono);font-size:0.55rem;color:rgba(201,168,76,0.35);letter-spacing:0.12em;z-index:50}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scrollPulse{0%,100%{opacity:0.5}50%{opacity:1}}
+
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.028;pointer-events:none;z-index:9990}
 
     /* MOBILE ADJUSTMENTS */
-    @media(max-width: 900px) {
-      .service-row { grid-template-columns: 1fr; gap: 30px; padding: 40px 5%; }
-      .service-row:nth-child(n) .service-media { order: 1; }
-      .service-row:nth-child(n) .service-content { order: 2; }
+    @media(max-width:900px){
+      nav,#hero,#services-offered,#about,#about-me,#global-roster,#events,#contact,footer{padding-left:24px;padding-right:24px}
+      nav::after{left:24px;right:24px}
+      #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
+      .hero-left{position: relative; z-index: 20;}
+      .hero-right{height:360px}
+      .services-list { grid-template-columns: 1fr 1fr; }
+      #about, #about-me {grid-template-columns:1fr;gap:52px}
+      .work-header-wrap, .test-header-wrap { padding: 0 24px; }
+      .work-item { flex: 0 0 260px; }
+      .test-card { flex: 0 0 300px; padding: 30px 20px;}
+      #shot-counter{right:24px}
+      .contact-links { flex-direction: column; gap: 24px; align-items: center; }
       
-      .service-content { padding: 30px 24px; }
-      .service-media { max-width: 100%; }
-      #hero { min-height: 60vh; padding-top: 120px; }
+      /* Scale map scanner for mobile */
+      .map-wrapper { height: 200px; aspect-ratio: auto; margin-top: 20px;}
+      .map-background { background-size: contain; background-repeat: no-repeat; }
+      
+      .sticky-cta { bottom: 20px; right: 20px; padding: 12px 16px;}
+    }
+    @media(max-width:560px){
+      .services-list { grid-template-columns: 1fr; }
+      .nav-links{display:none}
     }
   </style>
 </head>
 <body>
 
+<a href="#contact" class="sticky-cta">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+  Book a Shoot
+</a>
+
+<div id="loader">
+  <div class="loader-logo">PAFP</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="loader-label" id="loader-label">Initializing...</div>
+</div>
+
+<div id="shutter-flash"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 <canvas id="bg-canvas"></canvas>
-<div class="noise"></div>
+
+<div id="shot-counter">
+  <span class="shots-num" id="shots-num">0</span>
+  SHOTS TAKEN
+</div>
 
 <nav>
-<a class="nav-logo" href="tech">← Back to main page</a></nav>
+  <a class="nav-logo" href="index.html">← Back to main page</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services-offered">Services</a></li>
+    <li><a href="#about-me">About</a></li>
+  </ul>
+</nav>
 
-<main>
-  <section id="hero">
-    <p class="hero-eyebrow">Advanced Engineering & AI</p>
-    <h1 class="hero-title">DIGITAL<br><span>REALITIES</span></h1>
-    <p class="hero-sub">Merging minimalist design with advanced computational logic. Review our technical capabilities and initiate deployment.</p>
-  </section>
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Photography &amp; Filmmaking</p>
+    <h1 class="hero-title">PRANAV<br><span class="gold">ARYA</span><br><span class="outline">FILM</span></h1>
+    <p class="hero-sub">Crafting visual narratives that linger long after the screen fades to black.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-ghost">Contact Us</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <canvas id="camera-canvas"></canvas>
+    <div class="camera-hint">Click the camera to shoot</div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
 
-  <section class="service-row" data-color="#ff2a6d">
-    <div class="service-content glass-panel">
-      <span class="service-index">01 // VISUAL SYNTHESIS</span>
-      <h2 class="service-title">HYPER-REALISTIC<br>AI MODELS</h2>
-      <p class="service-desc">For brands, we create hyper-realistic AI models capable of anything your business envisions. We seamlessly integrate your products with superhuman digital avatars, producing flawless content for social media, high-end commercial advertisements, and beyond. Step into the future of digital modeling.</p>
-      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: AI Model Generation" class="btn-glow">Contact Us</a>
+<section id="work">
+  <div class="section-header work-header-wrap">
+    <div><p class="section-label">The Proof</p><h2 class="section-title">SELECTED <span style="color:var(--gold)">WORK</span></h2></div>
+  </div>
+  
+  <div class="marquee-container" id="work-carousel">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview11.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview12.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview13.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <div class="work-item"><video src="preview1.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview2.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview3.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview4.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview5.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview6.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview7.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview8.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview9.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview10.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview11.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview12.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+        <div class="work-item"><video src="preview13.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+      </div>
     </div>
-    <div class="service-media glass-panel">
-      <canvas id="canvas-s1" class="service-canvas"></canvas>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section class="service-row" data-color="#05d9e8">
-    <div class="service-content glass-panel">
-      <span class="service-index">02 // NEURAL LOGIC</span>
-      <h2 class="service-title">AI AUTOMATION<br>SETUPS</h2>
-      <p class="service-desc">We architect and deploy custom AI automation protocols to streamline your entire company's workflow. Eliminate redundant tasks, accelerate decision-making, and unlock unprecedented operational efficiency with intelligent systems working flawlessly 24/7.</p>
-      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: AI Automation" class="btn-glow">Contact Us</a>
-    </div>
-    <div class="service-media glass-panel">
-      <canvas id="canvas-s2" class="service-canvas"></canvas>
-    </div>
-  </section>
+<section id="events">
+  <p class="section-label">Trusted By Global Stages</p>
+  <div class="events-list">
+    <span class="logo-sim logo-1">F1 Budapest</span>
+    <span class="logo-sim logo-2">TOKEN 2049 SINGAPORE</span>
+    <span class="logo-sim logo-3">The I.C.E. St. Moritz</span>
+    <span class="logo-sim logo-4">F1 SINGAPORE</span>
+    <span class="logo-sim logo-5">OMR HAMBURG</span>
+  </div>
+</section>
 
-  <section class="service-row" data-color="#01ffc3">
-    <div class="service-content glass-panel">
-      <span class="service-index">03 // CORE ARCHITECTURE</span>
-      <h2 class="service-title">SOFTWARE<br>DEVELOPMENT</h2>
-      <p class="service-desc">True software development goes beyond writing code—it's about engineering scalable, fault-tolerant ecosystems. We build robust enterprise-grade software characterized by immaculate architecture, rigorous security protocols, and zero-latency performance. Future-proof your business with code that scales.</p>
-      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: Software Development" class="btn-glow">Contact Us</a>
-    </div>
-    <div class="service-media glass-panel">
-      <canvas id="canvas-s3" class="service-canvas"></canvas>
-    </div>
-  </section>
+<section id="services-offered">
+  <div style="margin-bottom: 20px;">
+    <p class="section-label">Photo & Video</p>
+    <h2 class="section-title">SERVICES <span style="color:var(--gold)">OFFERED</span></h2>
+  </div>
+  
+  <div class="services-list">
+    <div class="service-list-item" style="font-size: 1.15rem; line-height: 1.3;">EVENTS - Business, Sports, Parties, Weddings</div>
+    <div class="service-list-item">Gastronomy</div>
+    <div class="service-list-item">Travel</div>
+    <div class="service-list-item">Fashion</div>
+    <div class="service-list-item" style="font-size: 1.3rem;">Podcast shoot, edit & setup</div>
+    <div class="service-list-item">Product Shoots</div>
+    <div class="service-list-item">Video & Photo Edits</div>
+    <div class="service-list-item" style="font-size: 1.3rem;">Hyper Realistic AI Model Generation</div>
+    <div class="service-list-item" style="font-size: 1.3rem;">Full Scale Social Media Management</div>
+  </div>
+</section>
 
-  <section class="service-row" data-color="#b300ff">
-    <div class="service-content glass-panel">
-      <span class="service-index">04 // MOBILE ECOSYSTEMS</span>
-      <h2 class="service-title">APP<br>DEVELOPMENT</h2>
-      <p class="service-desc">Transform your vision into a native mobile experience. We engineer professional, secure, and lightning-fast applications for both iOS (Apple) and Android. Utilizing sleek UI/UX design and highly optimized codebases, we deliver apps that dominate the app stores and captivate users.</p>
-      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: App Development" class="btn-glow">Contact Us</a>
-    </div>
-    <div class="service-media glass-panel">
-      <canvas id="canvas-s4" class="service-canvas"></canvas>
-    </div>
-  </section>
+<section id="about">
+  <div>
+    <p class="about-label">The ROI</p>
+    <h2 class="about-heading">EVERY FRAME<br>TELLS A<br><span style="color:var(--gold)">STORY</span></h2>
+    <p class="about-body">In today’s digital landscape, your visual identity is often the first interaction a client has with your brand. High-quality photography and cinematic video are no longer just aesthetic choices; they are essential tools for building trust, commanding attention, and driving conversion. A carefully crafted visual narrative doesn't just show what you do—it makes your audience feel the value of your brand before they even read a single word.</p>
+  </div>
+  <div class="about-stats">
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="10">0</span>+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="1000">0</span>+</div><div class="stat-label">Projects Completed</div></div>
+  </div>
+</section>
 
-  <section class="service-row" data-color="#f1c40f">
-    <div class="service-content glass-panel">
-      <span class="service-index">05 // DIGITAL PRESENCE</span>
-      <h2 class="service-title">WEBSITE<br>CREATION</h2>
-      <p class="service-desc">Your digital storefront demands perfection. We forge professional, ultra-secure, and blazing-fast websites tailored for absolute conversion. From breathtaking 3D web experiences to complex e-commerce platforms, we ensure your site is a masterclass in modern web architecture.</p>
-      <a href="mailto:tech@pranavaryafilms.com?subject=Inquiry: Website Creation" class="btn-glow">Contact Us</a>
+<section id="global-roster">
+  <h2 class="section-title">GLOBAL <span style="color:var(--gold)">FOOTPRINT</span></h2>
+  <p class="section-label" style="margin-top: 10px;">Countries worked in</p>
+  
+  <div class="map-wrapper">
+    <div class="map-background"></div>
+    <div id="map-markers-container"></div>
+  </div>
+
+  <div class="map-scanner-display">
+    <div class="scanner-label">Location Match</div>
+    <div class="scanner-country" id="scanner-country">INITIALIZING...</div>
+    <div class="scanner-coords" id="scanner-coords">AWAITING SIGNAL</div>
+  </div>
+</section>
+
+<section id="about-me">
+  <div class="profile-image-container">
+    <img src="pranavarya.jpg" alt="Pranav Arya" class="profile-img" loading="lazy" onerror="this.style.display='none'"/>
+    <div class="profile-backdrop"></div>
+  </div>
+  <div class="profile-content">
+    <p class="section-label">The Director</p>
+    <h2 class="section-title">ABOUT <span style="color:var(--gold)">ME</span></h2>
+    <p class="about-body">With over 10 years of professional experience in filmmaking and photography, I specialize in creating high-end visual content that elevates brands and tells compelling stories. From directing cinematic commercials to capturing striking editorial photography, my decade in the industry has taught me how to perfectly balance technical precision with raw creative vision. I approach every project with a cinematic eye, working closely with my clients to build visuals that linger long after the screen fades to black.</p>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="test-header-wrap">
+    <p class="section-label">Client Feedback</p>
+    <h2 class="section-title">THE <span style="color:var(--gold)">IMPACT</span></h2>
+  </div>
+  
+  <div class="test-marquee-container" id="test-carousel">
+    <div class="test-marquee-track">
+      <div class="test-marquee-content">
+        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
+        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant’s visual campaign was transformative. He didn’t just photograph food—he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O’Connor</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
+        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it—everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It’s almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
+        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav’s attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav doesn’t just create content—he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav filmed our wedding, and the result was deeply emotional and cinematic. He captured moments we didn’t even realize were happening. Watching the film felt like reliving the entire day with even more beauty."</p><span class="test-author">Aisha Khan</span></div>
+        <div class="test-card"><p class="test-quote">"Collaborating with Pranav on lifestyle travel content was seamless. He brings both technical mastery and creative intuition, ensuring every shot aligns with the narrative while still feeling spontaneous and authentic."</p><span class="test-author">Lucas Ferreira</span></div>
+      </div>
+      <div class="test-marquee-content" aria-hidden="true">
+        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
+        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant’s visual campaign was transformative. He didn’t just photograph food—he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O’Connor</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
+        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it—everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav’s work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It’s almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
+        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav’s attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav doesn’t just create content—he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav filmed our wedding, and the result was deeply emotional and cinematic. He captured moments we didn’t even realize were happening. Watching the film felt like reliving the entire day with even more beauty."</p><span class="test-author">Aisha Khan</span></div>
+        <div class="test-card"><p class="test-quote">"Collaborating with Pranav on lifestyle travel content was seamless. He brings both technical mastery and creative intuition, ensuring every shot aligns with the narrative while still feeling spontaneous and authentic."</p><span class="test-author">Lucas Ferreira</span></div>
+      </div>
     </div>
-    <div class="service-media glass-panel">
-      <canvas id="canvas-s5" class="service-canvas"></canvas>
-    </div>
-  </section>
-</main>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="contact-title">LET'S WORK<br><span style="color:var(--gold)">TOGETHER</span></h2>
+  
+  <div class="contact-links">
+    <a href="mailto:collab.pranavarya@gmail.com" class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      collab.pranavarya@gmail.com
+    </a>
+    
+    <a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer" class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      @iampranavarya
+    </a>
+  </div>
+</section>
 
 <footer>
-  <p>© 2026 Pranav Arya Technical Services.</p>
+  <p>© 2026 Pranav Arya Film Production. All rights reserved.</p>
+  <div class="social-links"><a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer">Instagram</a></div>
 </footer>
+
+<div class="frame-counter" id="frame-counter">00:00:01:00</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 // ═══════════════════════════
-// GLOBAL MOUSE & CURSOR TRACKING
+// ANIMATED NUMBER COUNTERS
 // ═══════════════════════════
-let glMouse = {x: -1000, y: -1000};
-const cursorEl = document.getElementById('cursor');
-const ringEl = document.getElementById('cursor-ring');
-let rx=0, ry=0;
-
-document.body.classList.add('custom-cursor-active');
-window.addEventListener('mousemove', e => { 
-  glMouse.x = e.clientX; 
-  glMouse.y = e.clientY; 
-  cursorEl.style.left = glMouse.x + 'px'; 
-  cursorEl.style.top = glMouse.y + 'px'; 
-});
-
-(function animRing(){
-  rx += (glMouse.x - rx) * 0.15; ry += (glMouse.y - ry) * 0.15;
-  ringEl.style.left = rx + 'px'; ringEl.style.top = ry + 'px';
-  requestAnimationFrame(animRing);
-})();
-
-document.querySelectorAll('a').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
-  el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
-});
-
-function getLocalMouse(c) {
-  const rect = c.getBoundingClientRect();
-  return {
-    x: glMouse.x - rect.left,
-    y: glMouse.y - rect.top,
-    active: (glMouse.x >= rect.left && glMouse.x <= rect.right && glMouse.y >= rect.top && glMouse.y <= rect.bottom)
-  };
-}
-
-// ═══════════════════════════
-// DYNAMIC THEME & SCROLL ANIMATION
-// ═══════════════════════════
-const sections = document.querySelectorAll('.service-row, #hero');
-const root = document.documentElement;
-const activeCanvases = { s1: false, s2: false, s3: false, s4: false, s5: false };
-
-const observer = new IntersectionObserver((entries) => {
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries, obs) => {
   entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      const color = entry.target.getAttribute('data-color') || '#60aaff';
-      root.style.setProperty('--theme-color', color);
-      targetLightColor.set(color);
-    }
-    if(entry.target.hasAttribute('data-color')) {
-      const id = entry.target.querySelector('canvas').id.replace('canvas-', '');
-      activeCanvases[id] = entry.isIntersecting;
-    }
-  });
-}, { threshold: 0.2 });
-
-sections.forEach(sec => observer.observe(sec));
-
-// ═══════════════════════════
-// 2D CANVAS PIXEL ALGORITHMS (WITH DISPERSION)
-// ═══════════════════════════
-function resize(c) {
-  const p = c.parentElement;
-  if(c.width !== p.clientWidth || c.height !== p.clientHeight) {
-    c.width = p.clientWidth; c.height = p.clientHeight;
-  }
-}
-
-// S1: 3D HUMANOID POINT CLOUD
-const c1 = document.getElementById('canvas-s1'); const ctx1 = c1.getContext('2d');
-let s1_pts = [];
-for(let i=0; i<600; i++) {
-  let r = Math.random(), px, py, pz;
-  if (r < 0.12) { px = (Math.random()-0.5)*0.3; py = (Math.random()-0.5)*0.3 - 0.9; pz = (Math.random()-0.5)*0.3; }
-  else if (r < 0.50) { px = (Math.random()-0.5)*0.6; py = (Math.random()-0.5)*1.0 - 0.2; pz = (Math.random()-0.5)*0.3; }
-  else if (r < 0.70) { let side = Math.random()>0.5 ? 1 : -1; px = side * (0.4 + Math.random()*0.2); py = (Math.random()-0.5)*1.0 - 0.1; pz = (Math.random()-0.5)*0.2; }
-  else { let side = Math.random()>0.5 ? 1 : -1; px = side * 0.2 + (Math.random()-0.5)*0.2; py = (Math.random()-0.5)*1.2 + 0.9; pz = (Math.random()-0.5)*0.2; }
-  s1_pts.push({ x: px, y: py, z: pz, offX: 0, offY: 0 });
-}
-let s1_ang = 0;
-
-function drawS1() {
-  resize(c1); ctx1.clearRect(0,0,c1.width,c1.height);
-  const cx = c1.width/2, cy = c1.height/2, rScale = Math.min(cx, cy) * 0.65;
-  const m = getLocalMouse(c1);
-  s1_ang += 0.01;
-  ctx1.fillStyle = '#ff2a6d';
-
-  s1_pts.forEach(p => {
-    const rotX = p.x * Math.cos(s1_ang) - p.z * Math.sin(s1_ang);
-    const rotZ = p.z * Math.cos(s1_ang) + p.x * Math.sin(s1_ang);
-    const scale = 2.5 / (2.5 - rotZ);
-    const px2d = cx + rotX * rScale * scale;
-    const py2d = cy + p.y * rScale * scale;
-
-    let targetX = 0, targetY = 0;
-    if(m.active) {
-      let dx = px2d - m.x, dy = py2d - m.y;
-      let dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < 100) { targetX = (dx/dist) * (100 - dist) * 0.5; targetY = (dy/dist) * (100 - dist) * 0.5; }
-    }
-    p.offX += (targetX - p.offX) * 0.1; p.offY += (targetY - p.offY) * 0.1;
-
-    ctx1.globalAlpha = Math.max(0.1, (rotZ + 1.5) / 3);
-    ctx1.fillRect(px2d + p.offX, py2d + p.offY, 2.5, 2.5);
-  });
-}
-
-// S2: NEURAL NETWORK
-const c2 = document.getElementById('canvas-s2'); const ctx2 = c2.getContext('2d');
-let s2_nodes = Array.from({length: 70}, () => ({ x: Math.random(), y: Math.random(), vx: (Math.random()-0.5)*0.003, vy: (Math.random()-0.5)*0.003 }));
-
-function drawS2() {
-  resize(c2); ctx2.clearRect(0,0,c2.width,c2.height);
-  ctx2.fillStyle = '#05d9e8'; ctx2.strokeStyle = '#05d9e8';
-  const m = getLocalMouse(c2);
-
-  s2_nodes.forEach(n => {
-    if(m.active) {
-      let dx = (n.x * c2.width) - m.x, dy = (n.y * c2.height) - m.y;
-      let dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < 120) { n.vx += (dx/dist)*0.001; n.vy += (dy/dist)*0.001; }
-    }
-    n.vx *= 0.98; n.vy *= 0.98;
-    n.x += n.vx; n.y += n.vy;
-    if(n.x < 0 || n.x > 1) { n.vx *= -1; n.x = Math.max(0, Math.min(1, n.x)); }
-    if(n.y < 0 || n.y > 1) { n.vy *= -1; n.y = Math.max(0, Math.min(1, n.y)); }
-    ctx2.beginPath(); ctx2.arc(n.x * c2.width, n.y * c2.height, 2, 0, Math.PI*2); ctx2.fill();
-  });
-
-  for(let i=0; i<s2_nodes.length; i++) {
-    for(let j=i+1; j<s2_nodes.length; j++) {
-      const dx = s2_nodes[i].x - s2_nodes[j].x, dy = s2_nodes[i].y - s2_nodes[j].y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < 0.15) {
-        ctx2.globalAlpha = 1 - (dist / 0.15);
-        ctx2.beginPath(); ctx2.moveTo(s2_nodes[i].x * c2.width, s2_nodes[i].y * c2.height);
-        ctx2.lineTo(s2_nodes[j].x * c2.width, s2_nodes[j].y * c2.height); ctx2.stroke();
-      }
-    }
-  }
-  ctx2.globalAlpha = 1;
-}
-
-// S3: FALLING SOFTWARE CODE
-const c3 = document.getElementById('canvas-s3'); const ctx3 = c3.getContext('2d');
-const codeSyntax = ['const','let','=>','{','}','function','await','();','if','||','&&','[0]','0','1'];
-let s3_drops = []; let s3_offsets = [];
-
-function drawS3() {
-  resize(c3); 
-  ctx3.fillStyle = 'rgba(3, 3, 5, 0.15)'; ctx3.fillRect(0,0,c3.width,c3.height);
-  const m = getLocalMouse(c3);
-  
-  const colWidth = 20;
-  if(s3_drops.length !== Math.floor(c3.width/colWidth)) {
-    s3_drops = Array.from({length: Math.floor(c3.width/colWidth)}, () => Math.random() * c3.height);
-    s3_offsets = Array.from({length: Math.floor(c3.width/colWidth)}, () => 0);
-  }
-
-  ctx3.fillStyle = '#01ffc3'; ctx3.font = '14px monospace';
-  s3_drops.forEach((y, i) => {
-    const char = codeSyntax[Math.floor(Math.random() * codeSyntax.length)];
-    let baseX = i * colWidth;
-    let targetOffset = 0;
-    if(m.active) {
-      let dx = baseX - m.x, dy = y - m.y;
-      let dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < 100) targetOffset = (dx/dist) * (100-dist);
-    }
-    s3_offsets[i] += (targetOffset - s3_offsets[i]) * 0.15;
-    ctx3.fillText(char, baseX + s3_offsets[i], y);
-    if(y > c3.height && Math.random() > 0.95) s3_drops[i] = 0;
-    s3_drops[i] += 12;
-  });
-}
-
-// S4: PULSING PIXEL GRID
-const c4 = document.getElementById('canvas-s4'); const ctx4 = c4.getContext('2d');
-let s4_grid = []; let s4_cols = 0; let s4_rows = 0;
-
-function drawS4() {
-  resize(c4);
-  const size = 18; const pad = 4;
-  s4_cols = Math.floor(c4.width / (size+pad)); s4_rows = Math.floor(c4.height / (size+pad));
-  if(s4_grid.length !== s4_cols * s4_rows) s4_grid = Array.from({length: s4_cols * s4_rows}, () => Math.random());
-  
-  ctx4.clearRect(0,0,c4.width,c4.height);
-  const offsetX = (c4.width - (s4_cols * (size+pad))) / 2;
-  const offsetY = (c4.height - (s4_rows * (size+pad))) / 2;
-  const m = getLocalMouse(c4);
-  
-  s4_grid.forEach((val, i) => {
-    s4_grid[i] = Math.max(0, val - 0.02); 
-    if(Math.random() > 0.99) s4_grid[i] = 1; 
-    
-    const x = i % s4_cols; const y = Math.floor(i / s4_cols);
-    let cellX = offsetX + x * (size+pad); let cellY = offsetY + y * (size+pad);
-    
-    if(m.active) {
-      let dist = Math.sqrt(Math.pow((cellX+size/2) - m.x, 2) + Math.pow((cellY+size/2) - m.y, 2));
-      if(dist < 100) s4_grid[i] = Math.max(s4_grid[i], 1 - (dist/100));
-    }
-    
-    ctx4.fillStyle = `rgba(179, 0, 255, ${s4_grid[i] * 0.8 + 0.1})`;
-    ctx4.fillRect(cellX, cellY, size, size);
-  });
-}
-
-// S5: CYBERPUNK 3D TERRAIN GRID
-const c5 = document.getElementById('canvas-s5'); const ctx5 = c5.getContext('2d');
-let s5_offset = 0;
-
-function drawS5() {
-  resize(c5); ctx5.clearRect(0,0,c5.width,c5.height);
-  ctx5.strokeStyle = '#f1c40f'; ctx5.lineWidth = 1.5;
-  const cx = c5.width/2, cy = c5.height * 0.3;
-  s5_offset = (s5_offset + 2) % 40;
-  const m = getLocalMouse(c5);
-  
-  for(let i=0; i<25; i++) {
-    let baseY = cy + Math.pow(i, 1.8) + s5_offset * (i*0.05);
-    if(baseY > cy && baseY < c5.height) {
-      ctx5.globalAlpha = Math.min(1, (baseY - cy) / 150);
-      ctx5.beginPath();
-      for(let x=0; x<=c5.width; x+=20) {
-        let yDistort = 0;
-        if(m.active) {
-          let dist = Math.sqrt(Math.pow(x - m.x, 2) + Math.pow(baseY - m.y, 2));
-          if(dist < 120) yDistort = Math.sin(dist*0.1) * (120-dist)*0.2;
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = +el.getAttribute('data-target');
+      let count = 0;
+      const increment = target / 80; 
+      const update = () => {
+        count += increment;
+        if (count < target) {
+          el.innerText = Math.ceil(count);
+          requestAnimationFrame(update);
+        } else {
+          el.innerText = target;
         }
-        if(x===0) ctx5.moveTo(x, baseY + yDistort);
-        else ctx5.lineTo(x, baseY + yDistort);
-      }
-      ctx5.stroke();
+      };
+      update();
+      obs.unobserve(el);
     }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+// ═══════════════════════════
+// DRAG & AUTO-SCROLL LOGIC FOR ALL MARQUEES
+// ═══════════════════════════
+function initInteractiveMarquee(selector, speedVal) {
+  const container = document.querySelector(selector);
+  if(!container) return;
+  const track = container.querySelector('.marquee-track') || container.querySelector('.test-marquee-track');
+  const content = container.querySelector('.marquee-content') || container.querySelector('.test-marquee-content');
+  
+  let isDragging = false;
+  let startPos = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationId;
+  let isHovered = false;
+
+  function render() {
+    if (!isDragging && !isHovered) { currentTranslate -= speedVal; }
+    
+    const singleWidth = content.offsetWidth;
+    
+    if (currentTranslate <= -singleWidth) { currentTranslate += singleWidth; } 
+    else if (currentTranslate > 0) { currentTranslate -= singleWidth; }
+
+    track.style.transform = `translateX(${currentTranslate}px)`;
+    animationId = requestAnimationFrame(render);
   }
-  ctx5.globalAlpha = 0.5;
-  for(let i=-20; i<20; i++) {
-    let startX = cx + i * 20; let endX = cx + i * 100;
-    ctx5.beginPath(); ctx5.moveTo(startX, cy); 
-    let targetX = endX;
-    if(m.active) {
-      let dx = endX - m.x, dy = c5.height - m.y;
-      if(Math.sqrt(dx*dx + dy*dy) < 200) targetX += dx * 0.3;
-    }
-    ctx5.lineTo(targetX, c5.height); ctx5.stroke();
+
+  function getPositionX(e) { return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX; }
+
+  function dragStart(e) {
+    isDragging = true;
+    startPos = getPositionX(e);
+    prevTranslate = currentTranslate;
+    track.style.cursor = 'grabbing';
   }
-  ctx5.globalAlpha = 1;
+
+  function drag(e) {
+    if (!isDragging) return;
+    const currentPosition = getPositionX(e);
+    const walk = currentPosition - startPos;
+    currentTranslate = prevTranslate + walk;
+  }
+
+  function dragEnd() {
+    isDragging = false;
+    track.style.cursor = 'grab';
+  }
+
+  track.addEventListener('mousedown', dragStart);
+  track.addEventListener('touchstart', dragStart, {passive: true});
+  window.addEventListener('mouseup', dragEnd);
+  window.addEventListener('touchend', dragEnd);
+  window.addEventListener('mousemove', drag);
+  window.addEventListener('touchmove', drag, {passive: true});
+
+  track.addEventListener('mouseenter', () => isHovered = true);
+  track.addEventListener('mouseleave', () => isHovered = false);
+
+  render();
 }
 
-// ═══════════════════════════
-// 3D BACKGROUND (THREE.JS)
-// ═══════════════════════════
-const bgCanvas = document.getElementById('bg-canvas');
-const renderer = new THREE.WebGLRenderer({canvas: bgCanvas, antialias:true, alpha:true});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(window.innerWidth, window.innerHeight);
-
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x030305, 0.035);
-
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 150);
-camera.position.z = 15;
-
-const particlesGeom = new THREE.BufferGeometry();
-const particleCount = 1200;
-const posArray = new Float32Array(particleCount * 3);
-for(let i = 0; i < particleCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 40; }
-particlesGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-const particlesMat = new THREE.PointsMaterial({ size: 0.08, color: 0xffffff, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
-const particleSystem = new THREE.Points(particlesGeom, particlesMat);
-scene.add(particleSystem);
-
-const coreGeom = new THREE.IcosahedronGeometry(3, 1);
-const coreMat = new THREE.MeshPhysicalMaterial({ color: 0x111115, metalness: 0.9, roughness: 0.1, wireframe: true, transparent: true, opacity: 0.3 });
-const coreMesh = new THREE.Mesh(coreGeom, coreMat);
-scene.add(coreMesh);
-
-scene.add(new THREE.AmbientLight(0x0a0a10, 2));
-const pointLight = new THREE.PointLight(0x60aaff, 10, 40);
-pointLight.position.set(0, 0, 5);
-scene.add(pointLight);
-
-let currentLightColor = new THREE.Color(0x60aaff);
-let targetLightColor = new THREE.Color(0x60aaff);
-
-window.addEventListener('resize', () => {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
-});
-
-const clock = new THREE.Clock();
-
-function animate() {
-  requestAnimationFrame(animate);
-  const delta = clock.getDelta();
-  
-  if(activeCanvases.s1) drawS1();
-  if(activeCanvases.s2) drawS2();
-  if(activeCanvases.s3) drawS3();
-  if(activeCanvases.s4) drawS4();
-  if(activeCanvases.s5) drawS5();
-
-  currentLightColor.lerp(targetLightColor, delta * 2);
-  pointLight.color.copy(currentLightColor);
-  particlesMat.color.copy(currentLightColor);
-  
-  let tX = (glMouse.x - window.innerWidth / 2) * 0.001;
-  let tY = (glMouse.y - window.innerHeight / 2) * 0.001;
-  
-  camera.position.x += (tX * 4 - camera.position.x) * delta * 2;
-  const targetCamY = -tY * 4 - (window.scrollY * 0.005);
-  camera.position.y += (targetCamY - camera.position.y) * delta * 2;
-  camera.lookAt(scene.position);
-
-  coreMesh.rotation.x += 0.1 * delta; coreMesh.rotation.y += 0.15 * delta;
-  particleSystem.rotation.y = clock.getElapsedTime() * 0.03;
-  particleSystem.rotation.z = clock.getElapsedTime() * 0.01;
-
-  renderer.render(scene, camera);
-}
-animate();
+// Initialize both sliders with different speeds
+initInteractiveMarquee('#work-carousel', 1.5);
+initInteractiveMarquee('#test-carousel', 0.8);
 
 // ═══════════════════════════
-// GHOST ANCHOR ROUTING (CLEAN URLs)
+// GHOST ANCHOR ROUTING (SMART VERSION)
 // ═══════════════════════════
-// 1. Prevent the URL from changing when clicking the navigation menu
-document.querySelectorAll('.nav-links a').forEach(anchor => {
+document.querySelectorAll('nav a').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     const targetId = this.getAttribute('href');
     
-    // Only intercept if it's an on-page link starting with '#'
-    if (targetId.startsWith('#')) {
-      e.preventDefault(); // Stops the URL bar from updating
+    if (targetId && targetId.startsWith('#')) {
+      e.preventDefault(); 
       const targetSection = document.querySelector(targetId);
       if (targetSection) {
         targetSection.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, null, window.location.pathname);
       }
     }
   });
 });
 
-// 2. Clear the hash if someone loads the page via a direct link (e.g., from the homepage)
 window.addEventListener('load', () => {
   if(window.location.hash) {
-    // Wait a split second for the browser to finish its native jump, then erase the hash
     setTimeout(() => {
       history.replaceState(null, null, window.location.pathname);
     }, 100);
   }
 });
+
+
+// ═══════════════════════════
+// LOADER
+// ═══════════════════════════
+const loaderBar=document.getElementById('loader-bar');
+const loaderLabel=document.getElementById('loader-label');
+const loaderEl=document.getElementById('loader');
+const lbls=['Initializing...','Building scene...','Calibrating lens...','Loading frames...','Ready.'];
+let loadPct=0;
+const loaderInt=setInterval(()=>{
+  loadPct+=Math.random()*16+5;
+  if(loadPct>=100){loadPct=100;clearInterval(loaderInt);setTimeout(()=>loaderEl.classList.add('hide'),400);}
+  loaderBar.style.width=Math.min(loadPct,100)+'%';
+  loaderLabel.textContent=lbls[Math.min(Math.floor(loadPct/22),lbls.length-1)];
+},130);
+
+// ═══════════════════════════
+// CURSOR
+// ═══════════════════════════
+const cursorEl=document.getElementById('cursor');
+const ringEl=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.body.classList.add('custom-cursor-active');
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a, button, .work-item, .marquee-track, .test-marquee-track').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
+  el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
+});
+
+// ═══════════════════════════
+// BG SCENE
+// ═══════════════════════════
+const bgC=document.getElementById('bg-canvas');
+const bgR=new THREE.WebGLRenderer({canvas:bgC,antialias:true,alpha:true});
+bgR.setPixelRatio(Math.min(window.devicePixelRatio,2));
+bgR.setSize(window.innerWidth,window.innerHeight);
+const bgS=new THREE.Scene();
+const bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
+bgCam.position.z=6;
+bgS.add(new THREE.AmbientLight(0x050510,1));
+const bL1=new THREE.PointLight(0xc9a84c,2,30);bL1.position.set(5,3,3);bgS.add(bL1);
+const bL2=new THREE.PointLight(0x3a2a08,1.5,20);bL2.position.set(-5,-3,2);bgS.add(bL2);
+const pPos=new Float32Array(200*3);
+for(let i=0;i<200;i++){pPos[i*3]=(Math.random()-.5)*28;pPos[i*3+1]=(Math.random()-.5)*18;pPos[i*3+2]=(Math.random()-.5)*14;}
+const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+bgS.add(new THREE.Points(pG,new THREE.PointsMaterial({color:0xc9a84c,size:0.04,transparent:true,opacity:0.25})));
+
+let bgMX=0,bgMY=0;
+document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*2;bgMY=(e.clientY/window.innerHeight-.5)*2;});
+window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
+
+// ═══════════════════════════
+// GLOBAL TARGETING SCANNER LOGIC
+// ═══════════════════════════
+const locations = [
+  {name: 'Germany', lat: 51.16, lon: 10.45},
+  {name: 'Singapore', lat: 1.35, lon: 103.81},
+  {name: 'India', lat: 20.59, lon: 78.96},
+  {name: 'USA', lat: 37.09, lon: -95.71},
+  {name: 'Canada', lat: 56.13, lon: -106.34},
+  {name: 'United Kingdom', lat: 55.37, lon: -3.43},
+  {name: 'Croatia', lat: 45.10, lon: 15.20},
+  {name: 'Monaco', lat: 43.73, lon: 7.42},
+  {name: 'France', lat: 46.22, lon: 2.21},
+  {name: 'Greece', lat: 39.07, lon: 21.82},
+  {name: 'Hungary', lat: 47.16, lon: 19.50},
+  {name: 'Russia', lat: 61.52, lon: 105.31},
+  {name: 'Italy', lat: 41.87, lon: 12.56},
+  {name: 'Switzerland', lat: 46.81, lon: 8.22},
+  {name: 'Spain', lat: 40.46, lon: -3.74}
+];
+
+const mapContainer = document.getElementById('map-markers-container');
+const scannerCountry = document.getElementById('scanner-country');
+const scannerCoords = document.getElementById('scanner-coords');
+const mapMarkers = [];
+
+locations.forEach(loc => {
+  const xPercent = (loc.lon + 180) / 3.6;
+  const yPercent = (90 - loc.lat) / 1.8;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'map-marker-wrap';
+  wrap.style.left = `${xPercent}%`;
+  wrap.style.top = `${yPercent}%`;
+
+  const dot = document.createElement('div');
+  dot.className = 'map-dot';
+
+  wrap.appendChild(dot);
+  mapContainer.appendChild(wrap);
+  mapMarkers.push({wrap, loc});
+});
+
+let currentScanIndex = 0;
+
+function runMapScanner() {
+  mapMarkers.forEach(m => m.wrap.classList.remove('active'));
   
+  const current = mapMarkers[currentScanIndex];
+  current.wrap.classList.add('active');
+  
+  scannerCountry.style.opacity = 0;
+  scannerCoords.style.opacity = 0;
+  
+  setTimeout(() => {
+    scannerCountry.textContent = current.loc.name;
+    const ns = current.loc.lat >= 0 ? 'N' : 'S';
+    const ew = current.loc.lon >= 0 ? 'E' : 'W';
+    scannerCoords.textContent = `LAT ${Math.abs(current.loc.lat)}° ${ns} / LON ${Math.abs(current.loc.lon)}° ${ew}`;
+    
+    scannerCountry.style.opacity = 1;
+    scannerCoords.style.opacity = 1;
+  }, 300);
+
+  currentScanIndex = (currentScanIndex + 1) % mapMarkers.length;
+}
+
+setInterval(runMapScanner, 2500);
+runMapScanner();
+
+// ═══════════════════════════
+// 3D CAMERA SCENE
+// ═══════════════════════════
+const camCanvas=document.getElementById('camera-canvas');
+const camR=new THREE.WebGLRenderer({canvas:camCanvas,antialias:true,alpha:true});
+camR.setPixelRatio(Math.min(window.devicePixelRatio,2));
+camR.shadowMap.enabled=true;
+const camS=new THREE.Scene();
+const camCam=new THREE.PerspectiveCamera(42,1,0.1,100);
+camCam.position.z=7;
+
+function resizeCam(){
+  const p=camCanvas.parentElement;
+  const w=p.offsetWidth;
+  const h=Math.min(560,window.innerHeight*0.65);
+  camCanvas.style.width=w+'px';camCanvas.style.height=h+'px';
+  camR.setSize(w,h,false);
+  camCam.aspect=w/h;camCam.updateProjectionMatrix();
+}
+resizeCam();
+window.addEventListener('resize',resizeCam);
+
+// Lights
+camS.add(new THREE.AmbientLight(0x0d0d18, 4));
+const keyL=new THREE.SpotLight(0xfff5e0, 8, 30, Math.PI/5, 0.4);
+keyL.position.set(4, 6, 6); keyL.castShadow=true; keyL.shadow.bias = -0.001;
+camS.add(keyL);
+const fillL=new THREE.PointLight(0xc9a84c, 3, 20); fillL.position.set(-4, 2, 3); camS.add(fillL);
+const rimL=new THREE.PointLight(0xc9a84c, 5, 15); rimL.position.set(0, -5, -3); camS.add(rimL);
+const glowL=new THREE.PointLight(0x60aaff, 0, 10); glowL.position.set(0, 0, 3.8); camS.add(glowL);
+
+// Materials 
+const bodyM = new THREE.MeshPhysicalMaterial({color: 0x111115, metalness: 0.7, roughness: 0.4, clearcoat: 0.3, clearcoatRoughness: 0.2});
+const blackM = new THREE.MeshPhysicalMaterial({color: 0x050508, metalness: 0.8, roughness: 0.5, clearcoat: 0.1});
+const goldM = new THREE.MeshPhysicalMaterial({color: 0xd4af37, metalness: 1.0, roughness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.1});
+const silverM = new THREE.MeshPhysicalMaterial({color: 0xaaaaaa, metalness: 1.0, roughness: 0.2, clearcoat: 0.5});
+const glassM = new THREE.MeshPhysicalMaterial({color: 0x112233, metalness: 0.1, roughness: 0.05, transmission: 0.95, thickness: 0.5, transparent: true});
+const lensM = new THREE.MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
+const rubberM = new THREE.MeshStandardMaterial({color: 0x08080a, metalness: 0.1, roughness: 0.9});
+const redM = new THREE.MeshPhysicalMaterial({color: 0xcc1100, metalness: 0.3, roughness: 0.2, clearcoat: 1.0});
+
+const camGroup=new THREE.Group();
+camS.add(camGroup);
+
+const body=new THREE.Mesh(new THREE.BoxGeometry(3.2,2.0,1.6),bodyM); body.castShadow=true; body.receiveShadow=true; camGroup.add(body);
+const hump=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,0.95),bodyM); hump.position.set(0.25,1.25,0); hump.receiveShadow=true; camGroup.add(hump);
+const penta=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.38,0.72),blackM); penta.position.set(0.25,1.52,0); camGroup.add(penta);
+const eye=new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.21,0.28,14),blackM); eye.rotation.x=Math.PI/2; eye.position.set(0.25,1.52,-0.63); camGroup.add(eye);
+const eyepieceGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.05,14), glassM); eyepieceGlass.position.set(0.25, 1.52, -0.79); eyepieceGlass.rotation.x = Math.PI / 2; camGroup.add(eyepieceGlass);
+const dial=new THREE.Mesh(new THREE.CylinderGeometry(0.36,0.36,0.17,24),silverM); dial.position.set(-1.1,1.18,0); camGroup.add(dial);
+const dialTop=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.04,24),blackM); dialTop.position.set(-1.1,1.28,0); camGroup.add(dialTop);
+
+for(let i=0;i<8;i++){
+  const a=(i/8)*Math.PI*2;
+  const m=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.07,0.04),goldM); m.position.set(-1.1+Math.sin(a)*0.27,1.31,Math.cos(a)*0.27); camGroup.add(m);
+}
+
+const shutBtn=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.09,16),silverM); shutBtn.position.set(1.02,1.1,0.55); camGroup.add(shutBtn);
+const shutTop=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.04,16),redM); shutTop.position.set(1.02,1.16,0.55); camGroup.add(shutTop);
+const grip=new THREE.Mesh(new THREE.BoxGeometry(0.48,2.0,0.42),rubberM); grip.position.set(1.62,0,1.0); grip.receiveShadow=true; camGroup.add(grip);
+
+for(let i=0;i<14;i++){
+  const gl=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.035,0.44),new THREE.MeshStandardMaterial({color:0x060610,metalness:0,roughness:1})); gl.position.set(1.62,-0.9+i*0.135,1.0); camGroup.add(gl);
+}
+
+[-1.57,1.57].forEach(x=>{
+  const lug=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.22,0.16),silverM); lug.position.set(x,0.88,0); camGroup.add(lug);
+  const hole=new THREE.Mesh(new THREE.TorusGeometry(0.055,0.022,6,12),blackM); hole.rotation.z=Math.PI/2; hole.position.set(x,0.88,0); camGroup.add(hole);
+});
+
+const badge=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.02),goldM); badge.position.set(-0.5,-0.58,0.81); camGroup.add(badge);
+const bot=new THREE.Mesh(new THREE.BoxGeometry(3.22,0.07,1.62),silverM); bot.position.set(0,-1.04,0); bot.receiveShadow=true; camGroup.add(bot);
+const tripod=new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.075,0.1,12),silverM); tripod.position.set(0.3,-1.09,0.2); camGroup.add(tripod);
+const door=new THREE.Mesh(new THREE.BoxGeometry(0.048,0.68,0.52),new THREE.MeshStandardMaterial({color:0x0d0d14,metalness:0.7,roughness:0.4})); door.position.set(-1.63,-0.3,0.18); camGroup.add(door);
+const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM); doorLine.position.set(-1.635,0.05,0.18); camGroup.add(doorLine);
+const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM); swBase.position.set(-0.58,0.54,0.82); camGroup.add(swBase);
+const swSlide=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.09,0.13),silverM); swSlide.position.set(-0.58,0.57,0.72); camGroup.add(swSlide);
+
+// ── LENS BARREL ──
+const lensGroup=new THREE.Group(); lensGroup.position.set(-0.18,0,0.85); lensGroup.receiveShadow=true; camGroup.add(lensGroup);
+const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM); mountR.rotation.x=Math.PI/2; lensGroup.add(mountR);
+
+[{r:0.86,h:0.44,m:blackM,z:0.22},{r:0.79,h:0.54,m:new THREE.MeshStandardMaterial({color:0x161620,metalness:0.75,roughness:0.25}),z:0.72},{r:0.73,h:0.44,m:blackM,z:1.17}].forEach(b=>{
+  const bm=new THREE.Mesh(new THREE.CylinderGeometry(b.r,b.r,b.h,40),b.m); bm.rotation.x=Math.PI/2; bm.position.z=b.z; lensGroup.add(bm);
+});
+
+const focusR=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.038,6,40),goldM); focusR.rotation.x=Math.PI/2; focusR.position.z=0.68; lensGroup.add(focusR);
+
+for(let i=0;i<32;i++){
+  const a=(i/32)*Math.PI*2;
+  const rg=new THREE.Mesh(new THREE.BoxGeometry(0.028,0.2,0.028),new THREE.MeshStandardMaterial({color:0x8a6820,metalness:0.9,roughness:0.2}));
+  rg.position.set(Math.sin(a)*0.81,Math.cos(a)*0.81,0.68); rg.lookAt(new THREE.Vector3(0,0,0.68)); lensGroup.add(rg);
+}
+
+const aptR=new THREE.Mesh(new THREE.TorusGeometry(0.74,0.022,6,40),goldM); aptR.rotation.x=Math.PI/2; aptR.position.z=1.13; lensGroup.add(aptR);
+const frontG=new THREE.Mesh(new THREE.CircleGeometry(0.63,48),glassM); frontG.position.z=1.46; lensGroup.add(frontG);
+
+for(let i=0;i<5;i++){
+  const rr=new THREE.Mesh(new THREE.TorusGeometry(0.54-i*0.1,0.007,4,32),new THREE.MeshBasicMaterial({color:0x1a2a45,transparent:true,opacity:0.45-i*0.06}));
+  rr.position.z=1.47; lensGroup.add(rr);
+}
+
+const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM); capR.rotation.x=Math.PI/2; capR.position.z=1.46; lensGroup.add(capR);
+const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM); innerB.rotation.x=Math.PI/2; innerB.position.z=1.3; lensGroup.add(innerB);
+
+// ── APERTURE BLADES ──
+const bladeGroup=new THREE.Group(); bladeGroup.position.set(-0.18,0,2.4); camS.add(bladeGroup);
+const blades=[];
+for(let i=0;i<8;i++){
+  const a=(i/8)*Math.PI*2;
+  const bl=new THREE.Mesh(new THREE.CircleGeometry(0.26,3),new THREE.MeshStandardMaterial({color:0x0e0e18,metalness:0.92,roughness:0.2,side:THREE.DoubleSide}));
+  bl.rotation.z=a+Math.PI/8; bl.position.set(Math.sin(a)*0.21,Math.cos(a)*0.21,0);
+  bladeGroup.add(bl); blades.push({mesh:bl,a,bx:Math.sin(a)*0.21,by:Math.cos(a)*0.21});
+}
+
+// ── LENS FLARES ──
+const flareGroup=new THREE.Group(); flareGroup.position.set(-0.18,0,2.6); camS.add(flareGroup);
+const flareDefs=[{r:0.55,c:0x88bbff,o:0},{r:0.22,c:0xc9a84c,o:0},{r:0.14,c:0xffffff,o:0},{r:0.08,c:0x6688ff,o:0},{r:0.05,c:0xc9a84c,o:0}];
+const flares=flareDefs.map((fd,i)=>{
+  const f=new THREE.Mesh(new THREE.CircleGeometry(fd.r,24),new THREE.MeshBasicMaterial({color:fd.c,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide}));
+  f.position.set((Math.random()-.5)*0.25,(Math.random()-.5)*0.25,(i-2)*0.18); flareGroup.add(f);return f;
+});
+
+// ── INTERACTION STATE ──
+let shotCount=0,isShuttering=false,shutT=0;
+let flareTarget=0,flareVal=0,camMX=0,camMY=0;
+
+function fireShutter(){
+  if(isShuttering)return;
+  isShuttering=true; shutT=0; shotCount++;
+  document.getElementById('shots-num').textContent=shotCount;
+  document.getElementById('shot-counter').classList.add('visible');
+  const flash=document.getElementById('shutter-flash');
+  flash.classList.add('fire');
+  setTimeout(()=>flash.classList.remove('fire'),90);
+  flareTarget=1; glowL.intensity=6;
+  setTimeout(()=>{isShuttering=false;flareTarget=0;glowL.intensity=0;},700);
+}
+
+camCanvas.addEventListener('click',fireShutter);
+camCanvas.addEventListener('mousemove',e=>{
+  const r=camCanvas.getBoundingClientRect();
+  camMX=((e.clientX-r.left)/r.width-.5)*2; camMY=((e.clientY-r.top)/r.height-.5)*2;
+});
+camCanvas.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(2.5)';ringEl.style.borderColor='rgba(201,168,76,0.9)';});
+camCanvas.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';ringEl.style.borderColor='rgba(201,168,76,0.5)';});
+
+let scrollY=0;
+window.addEventListener('scroll',()=>scrollY=window.scrollY, {passive: true});
+
+// ═══════════════════════════
+// FRAME COUNTER
+// ═══════════════════════════
+let frame=0;
+function updateCounter(){
+  frame++;
+  const f=frame%24,s=Math.floor(frame/24)%60,m=Math.floor(frame/1440)%60,h=Math.floor(frame/86400);
+  const p=n=>String(n).padStart(2,'0');
+  document.getElementById('frame-counter').textContent=`${p(h)}:${p(m)}:${p(s)}:${p(f)}`;
+}
+
+// ═══════════════════════════
+// RENDER LOOP
+// ═══════════════════════════
+const clock = new THREE.Clock();
+let t = 0;
+
+function animate(){
+  requestAnimationFrame(animate);
+  const delta = clock.getDelta();
+  t += delta * 0.6; 
+
+  bgCam.position.x += (bgMX * 0.4 - bgCam.position.x) * (delta * 1.8);
+  bgCam.position.y += (-bgMY * 0.25 - bgCam.position.y) * (delta * 1.8);
+  bgCam.lookAt(0,0,0);
+  bL1.intensity = 2.5 + Math.sin(t * 1.2) * 0.4;
+  bgR.render(bgS,bgCam);
+
+  const targetRotY = Math.sin(t * 0.55) * 0.1 + camMX * 0.16;
+  const targetRotX = Math.cos(t * 0.42) * 0.06 - camMY * 0.1;
+  const scrollTilt = Math.min(scrollY / 700, 1) * 0.28;
+  
+  camGroup.rotation.y += (targetRotY - camGroup.rotation.y) * (delta * 3.3);
+  camGroup.rotation.x += (targetRotX + scrollTilt - camGroup.rotation.x) * (delta * 3.3);
+  camGroup.position.y = Math.sin(t * 0.52) * 0.13;
+
+  focusR.rotation.z = t * 0.45; dial.rotation.y = t * 0.3;
+
+  if(isShuttering){
+    shutT += delta * 4.2;
+    const phase = Math.sin(shutT * Math.PI);
+    const open = phase < 0.5 ? phase * 2 : (2 - phase * 2);
+    blades.forEach(b => {
+      const pull = open * 0.35;
+      b.mesh.position.set(b.bx * (1 - pull), b.by * (1 - pull), 0);
+    });
+    bladeGroup.rotation.z = open * 0.6;
+  }
+
+  flareVal += (flareTarget - flareVal) * (delta * 6);
+  flares.forEach((f, i) => { f.material.opacity = flareVal * (0.65 - i * 0.1); });
+  flareGroup.rotation.z = t * 0.35; flareGroup.rotation.x = Math.sin(t * 0.7) * 0.05;
+
+  keyL.intensity = 5 + Math.sin(t * 0.9) * 0.4;
+  fillL.intensity = 2 + Math.sin(t * 1.1 + 1) * 0.3;
+
+  camR.render(camS,camCam);
+  updateCounter();
+}
+animate();
 </script>
 </body>
 </html>
