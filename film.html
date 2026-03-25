@@ -88,15 +88,12 @@
     .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
     .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
 
-    /* 1. INTERACTIVE DRAG & AUTO-SCROLL WORK SECTION */
+    /* 1. DRAG & AUTO-SCROLL WORK SECTION */
     #work { position:relative; z-index:10; padding:120px 0; margin-top:40px; overflow:hidden;}
     .work-header-wrap { padding: 0 52px; margin-bottom: 40px; }
     
     .marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
-    .marquee-track { 
-      display: flex; width: max-content; 
-      cursor: grab; will-change: transform; 
-    }
+    .marquee-track { display: flex; width: max-content; cursor: grab; will-change: transform; }
     .marquee-track:active { cursor: grabbing; }
     .marquee-content { display: flex; gap: 16px; padding-right: 16px; }
     
@@ -232,6 +229,7 @@
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
       
+      /* Scale map scanner for mobile */
       .map-wrapper { height: 200px; aspect-ratio: auto; margin-top: 20px;}
       .map-background { background-size: contain; background-repeat: no-repeat; }
       
@@ -267,7 +265,7 @@
 </div>
 
 <nav>
-  <a class="nav-logo" href="film"/">← Back to main page</a>
+  <a class="nav-logo" href="/">← Back to main page</a>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services-offered">Services</a></li>
@@ -557,6 +555,31 @@ function initInteractiveMarquee(selector, speedVal) {
 initInteractiveMarquee('#work-carousel', 1);
 initInteractiveMarquee('#test-carousel', 0.8);
 
+// ═══════════════════════════
+// GHOST ANCHOR ROUTING (CLEAN URLs)
+// ═══════════════════════════
+document.querySelectorAll('.nav-links a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId.startsWith('#')) {
+      e.preventDefault();
+      const targetSection = document.querySelector(targetId);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, null, window.location.pathname);
+      }
+    }
+  });
+});
+
+window.addEventListener('load', () => {
+  if(window.location.hash) {
+    setTimeout(() => {
+      history.replaceState(null, null, window.location.pathname);
+    }, 100);
+  }
+});
+
 
 // ═══════════════════════════
 // LOADER
@@ -716,7 +739,7 @@ const blackM = new THREE.MeshPhysicalMaterial({color: 0x050508, metalness: 0.8, 
 const goldM = new THREE.MeshPhysicalMaterial({color: 0xd4af37, metalness: 1.0, roughness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.1});
 const silverM = new THREE.MeshPhysicalMaterial({color: 0xaaaaaa, metalness: 1.0, roughness: 0.2, clearcoat: 0.5});
 const glassM = new THREE.MeshPhysicalMaterial({color: 0x112233, metalness: 0.1, roughness: 0.05, transmission: 0.95, thickness: 0.5, transparent: true});
-const lensM = new MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
+const lensM = new THREE.MeshPhysicalMaterial({color: 0x040408, metalness: 0.5, roughness: 0.1, clearcoat: 1.0});
 const rubberM = new THREE.MeshStandardMaterial({color: 0x08080a, metalness: 0.1, roughness: 0.9});
 const redM = new THREE.MeshPhysicalMaterial({color: 0xcc1100, metalness: 0.3, roughness: 0.2, clearcoat: 1.0});
 
@@ -889,36 +912,6 @@ function animate(){
   updateCounter();
 }
 animate();
-
-// ═══════════════════════════
-// GHOST ANCHOR ROUTING (CLEAN URLs)
-// ═══════════════════════════
-// 1. Prevent the URL from changing when clicking the navigation menu
-document.querySelectorAll('.nav-links a').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const targetId = this.getAttribute('href');
-    
-    // Only intercept if it's an on-page link starting with '#'
-    if (targetId.startsWith('#')) {
-      e.preventDefault(); // Stops the URL bar from updating
-      const targetSection = document.querySelector(targetId);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  });
-});
-
-// 2. Clear the hash if someone loads the page via a direct link (e.g., from the homepage)
-window.addEventListener('load', () => {
-  if(window.location.hash) {
-    // Wait a split second for the browser to finish its native jump, then erase the hash
-    setTimeout(() => {
-      history.replaceState(null, null, window.location.pathname);
-    }, 100);
-  }
-});
-  
 </script>
 </body>
 </html>
