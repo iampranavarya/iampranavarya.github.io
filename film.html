@@ -65,7 +65,7 @@
     .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards}
     .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s}
     .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
-    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color:0.3s,transform 0.2s}
+    .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s}
     .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 
     /* CAMERA STAGE */
@@ -87,6 +87,34 @@
     .scroll-hint{position:absolute;left:52px;bottom:40px;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s 2.2s forwards}
     .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
     .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
+
+    /* SERVICES OFFERED */
+    #services-offered { position:relative; z-index:10; padding:120px 52px; }
+    #services-offered::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold-dim),transparent); opacity:0.3; }
+    .services-sub { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-top: 16px; opacity: 0.9; }
+    
+    .services-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .service-list-item {
+      padding: 32px 24px;
+      background: rgba(201, 168, 76, 0.02);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      transition: all 0.4s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: default;
+    }
+    .service-list-item::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; width: 0%; height: 2px;
+      background: var(--gold); transition: width 0.4s ease;
+    }
+    .service-list-item:hover { background: rgba(201, 168, 76, 0.06); transform: translateY(-4px); color: var(--gold); }
+    .service-list-item:hover::after { width: 100%; }
 
     /* ABOUT */
     #about{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px;gap:80px}
@@ -141,7 +169,7 @@
 
     .map-dot {
       position: absolute;
-      top: -3px; left: -3px; /* Center the 6px dot */
+      top: -3px; left: -3px; 
       width: 6px; height: 6px;
       background: var(--gold);
       border-radius: 50%;
@@ -166,49 +194,26 @@
       transition: width 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    .map-marker-wrap.active .map-line {
-      width: var(--len);
-    }
+    .map-marker-wrap.active .map-line { width: var(--len); }
 
     .map-label-wrap {
       position: absolute;
-      top: 0; left: 100%; /* Anchor to the end of the line */
+      top: 0; left: 100%; 
       display: flex;
       align-items: center;
-      height: 0; /* Ensures vertical centering on the line end */
+      height: 0; 
     }
 
-    /* Counter-rotate the label so it is always horizontal and readable */
-    .align-right .map-label-wrap {
-      transform: rotate(calc(-1 * var(--ang)));
-      justify-content: flex-start;
-      padding-left: 8px; /* Space between line end and text */
-    }
-
-    .align-left .map-label-wrap {
-      transform: rotate(calc(-1 * var(--ang))) translateX(-100%);
-      justify-content: flex-end;
-      padding-right: 8px; /* Space between text and line end */
-    }
+    .align-right .map-label-wrap { transform: rotate(calc(-1 * var(--ang))); justify-content: flex-start; padding-left: 8px; }
+    .align-left .map-label-wrap { transform: rotate(calc(-1 * var(--ang))) translateX(-100%); justify-content: flex-end; padding-right: 8px; }
 
     .map-label {
-      font-family: var(--font-mono);
-      font-size: 0.55rem;
-      color: var(--white);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      text-shadow: 0 2px 4px rgba(0,0,0,1);
-      opacity: 0;
-      transform: translateY(5px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-family: var(--font-mono); font-size: 0.55rem; color: var(--white); letter-spacing: 0.15em;
+      text-transform: uppercase; white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,1);
+      opacity: 0; transform: translateY(5px); transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .map-marker-wrap.active .map-label {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.4s; /* Text fades in after line draws */
-    }
+    .map-marker-wrap.active .map-label { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
 
     /* EVENTS / CLIENTS TAGS SECTION */
     #events { position: relative; z-index: 10; padding: 120px 52px; text-align: center; }
@@ -224,12 +229,14 @@
     .event-tag.more-tag { border-color: transparent; color: var(--gold); background: transparent; }
     .event-tag.more-tag:hover { background: transparent; transform: none; opacity: 0.7; }
 
-    /* WORK */
-    #work{position:relative;z-index:10;padding:120px 52px}
-    #work::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
+    /* COMMON HEADERS FOR SECTIONS */
     .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px}
     .section-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
     .section-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);line-height:1}
+
+    /* WORK */
+    #work{position:relative;z-index:10;padding:120px 52px}
+    #work::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .view-all{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:4px;transition:opacity 0.3s}
     .view-all:hover{opacity:0.7}
     .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -244,7 +251,6 @@
     /* CONTACT */
     #contact{position:relative;z-index:10;padding:140px 52px;text-align:center}
     #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
-    .contact-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
     .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:50px}
     
     .contact-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 10px; }
@@ -269,11 +275,14 @@
 
     /* MOBILE ADJUSTMENTS */
     @media(max-width:900px){
-      nav,#hero,#about,#about-me,#flat-map-section,#events,#work,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#services-offered,#about,#about-me,#flat-map-section,#events,#work,#contact,footer{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
       .hero-right{height:360px}
+      
+      .services-list { grid-template-columns: 1fr 1fr; }
+      
       #about, #about-me {grid-template-columns:1fr;gap:52px}
       .work-grid{grid-template-columns:1fr 1fr}
       #shot-counter{right:24px}
@@ -285,6 +294,7 @@
       .event-tag { font-size: 0.65rem; padding: 12px 20px; }
     }
     @media(max-width:560px){
+      .services-list { grid-template-columns: 1fr; }
       .work-grid{grid-template-columns:1fr}
       .nav-links{display:none}
     }
@@ -332,6 +342,26 @@
     <div class="camera-hint">Click the camera to shoot</div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<section id="services-offered">
+  <div style="margin-bottom: 20px;">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">SERVICES <span style="color:var(--gold)">OFFERED</span></h2>
+    <p class="services-sub">* All services include both video and photo production</p>
+  </div>
+  
+  <div class="services-list">
+    <div class="service-list-item">Events</div>
+    <div class="service-list-item">Gastronomy</div>
+    <div class="service-list-item">Travel</div>
+    <div class="service-list-item">Fashion</div>
+    <div class="service-list-item">Lifestyle</div>
+    <div class="service-list-item">Product Reviews</div>
+    <div class="service-list-item">Product Shoots</div>
+    <div class="service-list-item" style="font-size: 1.3rem;">Hyper Realistic AI Model Generation</div>
+    <div class="service-list-item" style="font-size: 1.3rem;">Full Scale Social Media Management</div>
+  </div>
 </section>
 
 <section id="about">
@@ -483,7 +513,6 @@ window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.inner
 // ═══════════════════════════
 // FLAT MAP LEADER LINES LOGIC
 // ═══════════════════════════
-// Custom angles and lengths to spread out crowded European countries
 const locations = [
   {name: 'Germany', lat: 51.16, lon: 10.45, ang: -60, len: 45, align: 'right'},
   {name: 'Singapore', lat: 1.35, lon: 103.81, ang: -45, len: 40, align: 'right'},
@@ -540,11 +569,8 @@ locations.forEach(loc => {
 
 function animateMap() {
   mapMarkers.forEach(m => m.classList.remove('active'));
-
-  // Pick 3 random locations to highlight
   const shuffled = mapMarkers.sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 3);
-
   selected.forEach(m => m.classList.add('active'));
 }
 
@@ -837,6 +863,7 @@ function updateCounter(){
 // ═══════════════════════════
 const clock = new THREE.Clock();
 let t = 0;
+const tempV = new THREE.Vector3();
 
 function animate(){
   requestAnimationFrame(animate);
