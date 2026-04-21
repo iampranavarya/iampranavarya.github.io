@@ -19,7 +19,7 @@
     body{
       background:var(--black); color:var(--white);
       font-family:var(--font-body); font-weight: 300;
-      overflow-x:hidden; cursor: auto; 
+      overflow-x:hidden; cursor: auto;
     }
     body.custom-cursor-active { cursor: none; }
 
@@ -64,11 +64,9 @@
     .hero-title .gold{color:var(--gold)}
     .hero-title .outline{-webkit-text-stroke:1px rgba(240,236,228,0.22);color:transparent}
     .hero-sub{margin-top:28px;max-width:380px;font-size:1.05rem;font-weight:300;color:rgba(240,236,228,0.8);line-height:1.75;opacity:0;animation:fadeUp 1s 1s forwards}
-    
     .hero-ctas{margin-top:40px;display:flex;gap:18px;align-items:center;opacity:0;animation:fadeUp 1s 1.3s forwards; flex-wrap: wrap;}
     .btn-primary{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;transition:background 0.3s,transform 0.2s; border: 1px solid var(--gold);}
     .btn-primary:hover{background:#e8c76e;transform:translateY(-2px)}
-    
     .btn-ghost{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(240,236,228,0.3);padding:14px 32px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s; cursor:pointer; background:transparent;}
     .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 
@@ -88,40 +86,77 @@
     .scroll-hint span{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.25em;color:rgba(240,236,228,0.35);writing-mode:vertical-rl;text-transform:uppercase}
     .scroll-line{width:1px;height:60px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s 2s infinite}
 
-    /* 1. DRAG & AUTO-SCROLL WORK SECTION */
+    /* WORK SECTION */
     #work { position:relative; z-index:10; padding:120px 0; margin-top:40px; overflow:hidden;}
     .work-header-wrap { padding: 0 52px; margin-bottom: 40px; }
-    
     .marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
     .marquee-track { display: flex; width: max-content; cursor: grab; will-change: transform; }
     .marquee-track:active { cursor: grabbing; }
     .marquee-content { display: flex; gap: 16px; padding-right: 16px; }
-    
     .work-item { flex: 0 0 320px; aspect-ratio: 4/5; position: relative; overflow: hidden; background: var(--deep); border-radius: 2px; user-select: none; -webkit-user-drag: none;}
     .work-video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;}
     .work-item:hover .work-video { transform: scale(1.05); }
 
-    /* 2. CLIENT LOGOS / EVENTS */
+    /* EVENTS / GLOBAL STAGES */
     #events { position: relative; z-index: 10; padding: 80px 52px; text-align: center; background: rgba(5,5,7,0.5); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03);}
     .events-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 60px; margin-top: 30px; max-width: 1100px; margin-inline: auto; opacity: 0.6; }
     .logo-sim { color: var(--white); text-transform: uppercase; transition: color 0.4s, opacity 0.4s; opacity: 0.5; cursor: default; user-select: none;}
     .logo-sim:hover { opacity: 1; color: var(--gold); }
     .logo-1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; }
     .logo-2 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
-    .logo-3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.8rem; }
-    .logo-4 { font-family: 'Space Mono', monospace; font-size: 1rem; letter-spacing: 4px; }
+    .logo-3 { font-family: 'Space Mono', monospace; font-size: 1rem; letter-spacing: 4px; }
+    .logo-4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; }
     .logo-5 { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 6px; }
+    .logo-featured { opacity: 1 !important; color: var(--gold) !important; text-shadow: 0 0 24px rgba(201,168,76,0.35); border: 1px solid rgba(201,168,76,0.2); padding: 10px 22px; background: rgba(201,168,76,0.04); transition: all 0.4s ease; }
+    .logo-featured:hover { background: rgba(201,168,76,0.1) !important; text-shadow: 0 0 40px rgba(201,168,76,0.6) !important; transform: translateY(-2px); }
 
-    /* 3. SERVICES OFFERED */
+    /* SERVICES OFFERED */
     #services-offered { position:relative; z-index:10; padding:120px 52px; }
     #services-offered::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold-dim),transparent); opacity:0.3; }
     .services-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
-    .service-list-item { padding: 32px 24px; background: rgba(201, 168, 76, 0.02); border: 1px solid rgba(201, 168, 76, 0.08); font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); transition: all 0.4s ease; position: relative; display: flex; align-items: center; cursor: default; }
+    .service-list-item { padding: 32px 24px; background: rgba(201, 168, 76, 0.02); border: 1px solid rgba(201, 168, 76, 0.08); transition: all 0.4s ease; position: relative; display: flex; flex-direction: column; justify-content: flex-start; cursor: default; }
     .service-list-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: var(--gold); transition: width 0.4s ease; }
-    .service-list-item:hover { background: rgba(201, 168, 76, 0.06); transform: translateY(-4px); color: var(--gold); }
+    .service-list-item:hover { background: rgba(201, 168, 76, 0.06); transform: translateY(-4px); }
     .service-list-item:hover::after { width: 100%; }
+    .service-title { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 10px; line-height: 1.15; transition: color 0.3s; }
+    .service-list-item:hover .service-title { color: var(--gold); }
+    .service-desc { font-size: 0.88rem; font-weight: 300; color: rgba(240,236,228,0.5); line-height: 1.65; }
 
-    /* 4. THE VISION & STATS */
+    /* AI / MOVING WITH TECHNOLOGY SECTION */
+    #ai-tech { position: relative; z-index: 10; padding: 120px 52px; background: rgba(5,5,7,0.6); }
+    #ai-tech::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .ai-intro { max-width: 680px; margin-bottom: 72px; }
+    .ai-intro p { font-size: 1.1rem; font-weight: 300; color: rgba(240,236,228,0.8); line-height: 1.85; margin-top: 20px; }
+    .ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .ai-card { padding: 40px 32px; background: rgba(201,168,76,0.02); border: 1px solid rgba(201,168,76,0.07); transition: all 0.4s ease; position: relative; overflow: hidden; }
+    .ai-card::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--gold); transition: height 0.4s ease; }
+    .ai-card:hover { background: rgba(201,168,76,0.05); transform: translateY(-4px); }
+    .ai-card:hover::before { height: 100%; }
+    .ai-card-icon { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+    .ai-card-title { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 16px; line-height: 1.1; }
+    .ai-card-desc { font-size: 0.95rem; font-weight: 300; color: rgba(240,236,228,0.6); line-height: 1.7; }
+
+    /* CLIENTS SECTION */
+    #clients { position: relative; z-index: 10; padding: 120px 52px; }
+    #clients::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .clients-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 56px; }
+    .client-card { padding: 28px 24px; border: 1px solid rgba(255,255,255,0.04); background: rgba(5,5,7,0.4); display: flex; flex-direction: column; gap: 10px; text-decoration: none; transition: all 0.35s ease; position: relative; overflow: hidden; }
+    .client-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.4s ease; }
+    .client-card:hover { background: rgba(201,168,76,0.05); transform: translateY(-3px); }
+    .client-card:hover::after { width: 100%; }
+    .client-name { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.06em; color: var(--white); transition: color 0.3s; line-height: 1.1; }
+    .client-card:hover .client-name { color: var(--gold); }
+    .client-category { font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.2em; color: rgba(240,236,228,0.35); text-transform: uppercase; }
+    .client-handle { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em; color: rgba(201,168,76,0.5); text-transform: lowercase; margin-top: auto; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+    .client-card:hover .client-handle { color: var(--gold); }
+    .client-handle svg { width: 10px; height: 10px; flex-shrink: 0; }
+    .client-card-featured { border-color: rgba(201,168,76,0.35) !important; background: rgba(201,168,76,0.05) !important; }
+    .client-card-featured .client-name { color: var(--gold); }
+    .client-card-featured .client-category { color: rgba(201,168,76,0.6); }
+    .client-card-featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+    .client-card-featured:hover { background: rgba(201,168,76,0.1) !important; }
+
+    /* STATS / VISION */
     #about{position:relative;z-index:10;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 52px;gap:80px}
     #about::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .about-heading{font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);line-height:1;letter-spacing:0.03em;margin-bottom:32px}
@@ -132,42 +167,36 @@
     .stat-number{font-family:var(--font-display);font-size:3.5rem;color:var(--gold);line-height:1; display:flex;}
     .stat-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.2em;color:rgba(240,236,228,0.4);text-transform:uppercase;margin-top:8px}
 
-    /* 5. GLOBAL TARGETING SCANNER SECTION */
+    /* GLOBAL TARGETING SCANNER SECTION */
     #global-roster { position: relative; z-index: 10; padding: 120px 52px; overflow: hidden; text-align: center; }
     #global-roster::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
-    
     .map-wrapper { position: relative; width: 100%; max-width: 900px; aspect-ratio: 2 / 1; margin: 40px auto 0 auto; }
     .map-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg'); background-size: cover; background-position: center; filter: invert(1) opacity(0.15); pointer-events: none; }
-    
     .map-marker-wrap { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
     .map-marker-wrap.active { z-index: 10; }
     .map-dot { width: 4px; height: 4px; background: rgba(201,168,76,0.3); border-radius: 50%; transition: all 0.4s ease; }
     .map-marker-wrap.active .map-dot { background: var(--gold); box-shadow: 0 0 15px 4px rgba(201,168,76,0.6); transform: scale(1.8); }
-    
     .map-marker-wrap::before { content: ''; position: absolute; top: 50%; left: 50%; width: 24px; height: 24px; border: 1px solid var(--gold); border-radius: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none;}
     .map-marker-wrap.active::before { animation: radarPulse 2s infinite cubic-bezier(0.21, 0.53, 0.56, 1); }
     @keyframes radarPulse { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
-
     .map-scanner-display { margin-top: 30px; text-align: center; height: 90px; }
     .scanner-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--gold); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 8px;}
     .scanner-country { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.1em; color: var(--white); line-height: 1; transition: opacity 0.3s ease; }
     .scanner-coords { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(240,236,228,0.5); letter-spacing: 0.2em; margin-top: 8px; transition: opacity 0.3s ease;}
 
-    /* 6. INTERACTIVE TESTIMONIALS SECTION */
+    /* TESTIMONIALS SECTION */
     #testimonials { position: relative; z-index: 10; padding: 120px 0; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.02), transparent); overflow: hidden;}
     .test-header-wrap { padding: 0 52px; margin-bottom: 40px; }
-    
     .test-marquee-container { width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
     .test-marquee-track { display: flex; width: max-content; cursor: grab; will-change: transform; }
     .test-marquee-track:active { cursor: grabbing; }
     .test-marquee-content { display: flex; gap: 24px; padding-right: 24px; }
-    
     .test-card { flex: 0 0 380px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.05); background: rgba(5,5,7,0.5); position: relative; white-space: normal; display: flex; flex-direction: column; justify-content: space-between; user-select: none;}
-    .test-card::before { content: '"'; position: absolute; top: 20px; left: 24px; font-family: var(--font-serif); font-size: 5rem; color: rgba(201,168,76,0.1); line-height: 0; pointer-events: none;}
+    .test-card::before { content: '"'; position: absolute; top: 20px; left: 24px; font-family: var(--font-display); font-size: 5rem; color: rgba(201,168,76,0.1); line-height: 0; pointer-events: none;}
     .test-quote { font-size: 1.05rem; font-style: italic; color: rgba(240,236,228,0.9); line-height: 1.7; margin-bottom: 24px; position: relative; z-index: 2; pointer-events: none;}
     .test-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; pointer-events: none;}
 
-    /* 7. ABOUT ME */
+    /* ABOUT ME */
     #about-me { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 52px 60px 52px; gap: 80px; }
     #about-me::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
     .profile-image-container { position: relative; aspect-ratio: 3/4; max-width: 420px; width: 100%; margin: 0 auto; }
@@ -177,7 +206,53 @@
     .profile-image-container:hover .profile-backdrop { transform: translate(10px, -10px); }
     .profile-content { display: flex; flex-direction: column; }
 
-    /* 8. CONTACT */
+    /* WHY WORK WITH ME */
+    #why-work { position: relative; z-index: 10; padding: 120px 52px; background: rgba(5,5,7,0.5); }
+    #why-work::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 56px; }
+    .why-card { padding: 48px 40px; border: 1px solid rgba(201,168,76,0.07); background: rgba(201,168,76,0.02); position: relative; transition: all 0.4s ease; }
+    .why-card:hover { background: rgba(201,168,76,0.06); transform: translateY(-4px); }
+    .why-number { font-family: var(--font-display); font-size: 5rem; color: rgba(201,168,76,0.08); line-height: 1; position: absolute; top: 24px; right: 32px; transition: color 0.4s; }
+    .why-card:hover .why-number { color: rgba(201,168,76,0.15); }
+    .why-title { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 16px; transition: color 0.3s; }
+    .why-card:hover .why-title { color: var(--gold); }
+    .why-desc { font-size: 0.98rem; font-weight: 300; color: rgba(240,236,228,0.65); line-height: 1.8; max-width: 420px; }
+
+    /* COLLABORATION / PRICING */
+    #collaboration { position: relative; z-index: 10; padding: 120px 52px; }
+    #collaboration::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .collab-note { font-size: 0.95rem; font-weight: 300; color: rgba(240,236,228,0.5); margin-top: 16px; max-width: 560px; line-height: 1.7; }
+    .collab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 56px; }
+    .collab-card { padding: 40px 28px; border: 1px solid rgba(201,168,76,0.08); background: rgba(201,168,76,0.02); display: flex; flex-direction: column; gap: 0; transition: all 0.4s ease; position: relative; overflow: hidden; }
+    .collab-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+    .collab-card:hover { background: rgba(201,168,76,0.06); transform: translateY(-4px); }
+    .collab-card:hover::before { transform: scaleX(1); }
+    .collab-type { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 8px; transition: color 0.3s; }
+    .collab-card:hover .collab-type { color: var(--gold); }
+    .collab-rate { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em; color: rgba(201,168,76,0.6); text-transform: uppercase; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .collab-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .collab-features li { font-size: 0.92rem; font-weight: 300; color: rgba(240,236,228,0.65); line-height: 1.5; padding-left: 16px; position: relative; }
+    .collab-features li::before { content: '—'; position: absolute; left: 0; color: var(--gold); opacity: 0.5; }
+
+    /* INSTAGRAM BANNER */
+    #instagram-banner { position: relative; z-index: 10; padding: 100px 52px; text-align: center; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.03), transparent); }
+    #instagram-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); opacity: 0.3; }
+    .ig-banner-inner { border: 1px solid rgba(201,168,76,0.12); background: rgba(201,168,76,0.02); padding: 72px 52px; max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; }
+    .ig-banner-inner::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(201,168,76,0.04) 0%, transparent 70%); pointer-events: none; }
+    .ig-verified { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.7); text-transform: uppercase; margin-bottom: 24px; }
+    .ig-verified svg { width: 14px; height: 14px; fill: #60aaff; }
+    .ig-handle { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem); letter-spacing: 0.03em; color: var(--white); line-height: 1; margin-bottom: 16px; }
+    .ig-handle span { color: var(--gold); }
+    .ig-tagline { font-size: 1rem; font-weight: 300; color: rgba(240,236,228,0.55); letter-spacing: 0.05em; margin-bottom: 52px; }
+    .ig-stats-row { display: flex; justify-content: center; gap: 0; margin-bottom: 52px; }
+    .ig-stat { padding: 24px 48px; border: 1px solid rgba(201,168,76,0.1); }
+    .ig-stat-number { font-family: var(--font-display); font-size: 2.6rem; color: var(--gold); line-height: 1; display: block; }
+    .ig-stat-label { font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.25em; color: rgba(240,236,228,0.35); text-transform: uppercase; margin-top: 6px; display: block; }
+    .ig-cta { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 16px 40px; text-decoration: none; transition: background 0.3s, transform 0.2s; }
+    .ig-cta:hover { background: #e8c76e; transform: translateY(-2px); }
+    .ig-cta svg { width: 16px; height: 16px; }
+
+    /* CONTACT */
     #contact{position:relative;z-index:10;padding:60px 52px 140px 52px;text-align:center}
     #contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0.3}
     .contact-title{font-family:var(--font-display);font-size:clamp(4rem,9vw,10rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:50px}
@@ -186,7 +261,7 @@
     .contact-item:hover { color: var(--gold); border-color: var(--gold); }
     .contact-icon { width: 22px; height: 22px; }
 
-    /* STICKY "BOOK NOW" CTA */
+    /* STICKY CTA */
     .sticky-cta {
       position: fixed; bottom: 30px; right: 30px; z-index: 990;
       background: var(--gold); color: var(--black);
@@ -214,9 +289,9 @@
 
     body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.028;pointer-events:none;z-index:9990}
 
-    /* MOBILE ADJUSTMENTS */
+    /* MOBILE */
     @media(max-width:900px){
-      nav,#hero,#services-offered,#about,#about-me,#global-roster,#events,#contact,footer{padding-left:24px;padding-right:24px}
+      nav,#hero,#services-offered,#about,#about-me,#global-roster,#events,#contact,footer,#ai-tech,#clients,#why-work,#collaboration,#instagram-banner{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
@@ -228,16 +303,23 @@
       .test-card { flex: 0 0 300px; padding: 30px 20px;}
       #shot-counter{right:24px}
       .contact-links { flex-direction: column; gap: 24px; align-items: center; }
-      
-      /* Scale map scanner for mobile */
       .map-wrapper { height: 200px; aspect-ratio: auto; margin-top: 20px;}
       .map-background { background-size: contain; background-repeat: no-repeat; }
-      
       .sticky-cta { bottom: 20px; right: 20px; padding: 12px 16px;}
+      .ai-grid { grid-template-columns: 1fr 1fr; }
+      .clients-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .collab-grid { grid-template-columns: repeat(2, 1fr); }
+      .ig-stats-row { flex-wrap: wrap; }
+      .ig-stat { padding: 20px 28px; }
+      .ig-banner-inner { padding: 48px 24px; }
     }
     @media(max-width:560px){
       .services-list { grid-template-columns: 1fr; }
       .nav-links{display:none}
+      .ai-grid { grid-template-columns: 1fr; }
+      .clients-grid { grid-template-columns: 1fr 1fr; }
+      .collab-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -265,14 +347,18 @@
 </div>
 
 <nav>
-  <a class="nav-logo" href="/">← Back to main page</a>
+  <a class="nav-logo" href="/">PAFP</a>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services-offered">Services</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#collaboration">Collaborate</a></li>
     <li><a href="#about-me">About</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
+<!-- ═══ HERO ═══ -->
 <section id="hero">
   <div class="hero-left">
     <p class="hero-eyebrow">Photography &amp; Filmmaking</p>
@@ -280,7 +366,7 @@
     <p class="hero-sub">Crafting visual narratives that linger long after the screen fades to black.</p>
     <div class="hero-ctas">
       <a href="#work" class="btn-primary">View Work</a>
-      <a href="#contact" class="btn-ghost">Contact Us</a>
+      <a href="#contact" class="btn-ghost">Contact Me</a>
     </div>
   </div>
   <div class="hero-right">
@@ -290,11 +376,11 @@
   <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
+<!-- ═══ SELECTED WORK ═══ -->
 <section id="work">
   <div class="section-header work-header-wrap">
     <div><p class="section-label">The Proof</p><h2 class="section-title">SELECTED <span style="color:var(--gold)">WORK</span></h2></div>
   </div>
-  
   <div class="marquee-container" id="work-carousel">
     <div class="marquee-track">
       <div class="marquee-content">
@@ -331,57 +417,177 @@
   </div>
 </section>
 
-<section id="events">
-  <p class="section-label">Trusted By Global Stages</p>
-  <div class="events-list">
-    <span class="logo-sim logo-1">F1 Budapest</span>
-    <span class="logo-sim logo-2">TOKEN 2049 SINGAPORE</span>
-    <span class="logo-sim logo-3">The I.C.E. St. Moritz</span>
-    <span class="logo-sim logo-4">F1 SINGAPORE</span>
-    <span class="logo-sim logo-5">OMR HAMBURG</span>
+<!-- ═══ CLIENTS ═══ -->
+<section id="clients">
+  <p class="section-label">Worldwide Partnerships</p>
+  <h2 class="section-title">SOME OF MY <span style="color:var(--gold)">CLIENTS</span></h2>
+  <div class="clients-grid">
+    <a href="https://www.instagram.com/f1/" target="_blank" rel="noopener noreferrer" class="client-card client-card-featured">
+      <div class="client-name">F1 Budapest</div>
+      <div class="client-category">Motorsport</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@f1</div>
+    </a>
+    <a href="https://www.instagram.com/f1/" target="_blank" rel="noopener noreferrer" class="client-card client-card-featured">
+      <div class="client-name">F1 Singapore</div>
+      <div class="client-category">Motorsport</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@f1</div>
+    </a>
+    <a href="https://www.instagram.com/token2049/" target="_blank" rel="noopener noreferrer" class="client-card client-card-featured">
+      <div class="client-name">TOKEN 2049 Singapore</div>
+      <div class="client-category">Blockchain / Finance</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@token2049</div>
+    </a>
+    <a href="https://www.instagram.com/the_ice_experience/" target="_blank" rel="noopener noreferrer" class="client-card client-card-featured">
+      <div class="client-name">The I.C.E. St. Moritz</div>
+      <div class="client-category">Luxury / Hospitality</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@the_ice_experience</div>
+    </a>
+    <a href="https://www.instagram.com/officially_omr/" target="_blank" rel="noopener noreferrer" class="client-card client-card-featured">
+      <div class="client-name">OMR Hamburg</div>
+      <div class="client-category">Marketing / Tech</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@officially_omr</div>
+    </a>
+    <a href="https://www.instagram.com/superteamde/?hl=en" target="_blank" rel="noopener noreferrer" class="client-card client-card-featured">
+      <div class="client-name">Solana Summit Germany</div>
+      <div class="client-category">Web3 / Crypto</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@superteamde</div>
+    </a>
+    <a href="https://www.instagram.com/darkmatterberlin/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Dark Matter Berlin</div>
+      <div class="client-category">Art / Immersive</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@darkmatterberlin</div>
+    </a>
+    <a href="https://www.instagram.com/berlinfashionwe/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Berlin Fashion Week</div>
+      <div class="client-category">Fashion</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@berlinfashionwe</div>
+    </a>
+    <a href="https://www.instagram.com/victorinox/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Victorinox</div>
+      <div class="client-category">Lifestyle Brand</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@victorinox</div>
+    </a>
+    <a href="https://www.instagram.com/sternburg.brauerei/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Sternburg Brauerei</div>
+      <div class="client-category">Beverage Brand</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@sternburg.brauerei</div>
+    </a>
+    <a href="https://www.instagram.com/fomoberlin247/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">FOMO Berlin</div>
+      <div class="client-category">Tech / Events</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@fomoberlin247</div>
+    </a>
+    <a href="https://www.instagram.com/the_code_berlin/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">The Code Berlin</div>
+      <div class="client-category">Fashion / Nightlife</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@the_code_berlin</div>
+    </a>
+    <a href="https://www.instagram.com/join.raw/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">RAW Series</div>
+      <div class="client-category">Venue / Events</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@join.raw</div>
+    </a>
+    <a href="https://www.instagram.com/luckypunch.berlin/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Luckypunch Berlin</div>
+      <div class="client-category">Nightlife / Events</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@luckypunch.berlin</div>
+    </a>
+    <a href="https://www.instagram.com/rosenthaler_grill/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Rosenthaler Grill</div>
+      <div class="client-category">Gastronomy</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@rosenthaler_grill</div>
+    </a>
+    <a href="https://www.instagram.com/restaurant_jolesch/" target="_blank" rel="noopener noreferrer" class="client-card">
+      <div class="client-name">Restaurant Jolesch</div>
+      <div class="client-category">Gastronomy / Culture</div>
+      <div class="client-handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@restaurant_jolesch</div>
+    </a>
   </div>
 </section>
 
+<!-- ═══ SERVICES OFFERED ═══ -->
 <section id="services-offered">
   <div style="margin-bottom: 20px;">
     <p class="section-label">Photo & Video</p>
     <h2 class="section-title">SERVICES <span style="color:var(--gold)">OFFERED</span></h2>
   </div>
-  
   <div class="services-list">
-    <div class="service-list-item" style="font-size: 1.15rem; line-height: 1.3;">EVENTS - Business, Sports, Parties, Weddings</div>
-    <div class="service-list-item">Gastronomy</div>
-    <div class="service-list-item">Travel</div>
-    <div class="service-list-item">Fashion</div>
-    <div class="service-list-item" style="font-size: 1.3rem;">Podcast shoot, edit & setup</div>
-    <div class="service-list-item">Product Shoots</div>
-    <div class="service-list-item">Video & Photo Edits</div>
-    <div class="service-list-item" style="font-size: 1.3rem;">Hyper Realistic AI Model Generation</div>
-    <div class="service-list-item" style="font-size: 1.3rem;">Full Scale Social Media Management</div>
+    <div class="service-list-item"><div><div class="service-title">EVENTS — Business, Sports, Parties, Weddings</div><p class="service-desc">Full event coverage from corporate conferences and live sports to intimate weddings — cinematic storytelling for every occasion.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Gastronomy</div><p class="service-desc">Food, atmosphere, and people — captured to make your restaurant or brand irresistible on every platform.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Travel</div><p class="service-desc">Destination films and travel content that transport viewers and inspire real bookings and engagement.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Fashion</div><p class="service-desc">Editorial and campaign photography and film with a strong visual language — built for runways, lookbooks, and social media.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Podcast Shoot, Edit &amp; Setup</div><p class="service-desc">End-to-end podcast production including multi-camera studio setup, professional editing, and platform-ready delivery.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Product Shoots</div><p class="service-desc">High-end product photography and video that elevates your brand and drives conversion across e-commerce and advertising.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Video &amp; Photo Editing</div><p class="service-desc">Send your raw footage or images — I'll apply cinematic colour grades, sound design, and precision editing to make them shine.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Hyper Realistic AI Model Generation</div><p class="service-desc">Photorealistic AI human models for fashion, lifestyle, and brand campaigns — fully customisable, no physical shoot required.</p></div></div>
+    <div class="service-list-item"><div><div class="service-title">Full Scale Social Media Management</div><p class="service-desc">Strategy, content creation, scheduling, and community management — a complete creative system for your online presence.</p></div></div>
   </div>
 </section>
 
+<!-- ═══ MOVING WITH TECHNOLOGY ═══ -->
+<section id="ai-tech">
+  <div class="ai-intro">
+    <p class="section-label">Next Generation</p>
+    <h2 class="section-title">MOVING WITH <span style="color:var(--gold)">TECHNOLOGY</span></h2>
+    <p>Beyond traditional filmmaking, I work at the cutting edge of AI-powered content creation — combining creative vision with generative tools to produce content faster, smarter, and at greater scale.</p>
+  </div>
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-card-icon">01 — Photography</div>
+      <div class="ai-card-title">AI Product Photography</div>
+      <p class="ai-card-desc">Photorealistic product visuals without a physical shoot — perfect for e-commerce and ads.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">02 — Models</div>
+      <div class="ai-card-title">AI Model Generation</div>
+      <p class="ai-card-desc">Hyper-realistic AI human models for fashion, lifestyle and brand campaigns. Fully customisable.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">03 — Content</div>
+      <div class="ai-card-title">UGC-Style AI Videos</div>
+      <p class="ai-card-desc">AI-generated user content that feels authentic — for product demos and platform ads that convert.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">04 — Avatars</div>
+      <div class="ai-card-title">AI Avatar Videos</div>
+      <p class="ai-card-desc">Branded spokesperson videos with AI avatars, realistic voice and movement for marketing content.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">05 — Automation</div>
+      <div class="ai-card-title">Automated Content Pipelines</div>
+      <p class="ai-card-desc">End-to-end automated video and image systems — scripting, voiceover, edit, schedule. Hands-free.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">06 — Enhancement</div>
+      <div class="ai-card-title">AI Video Enhancement</div>
+      <p class="ai-card-desc">Upscale, restore and enhance existing footage — better resolution, stabilisation, colour grade.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS / VISION ═══ -->
 <section id="about">
   <div>
-    <p class="about-label">The ROI</p>
+    <p class="section-label" style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">The ROI</p>
     <h2 class="about-heading">EVERY FRAME<br>TELLS A<br><span style="color:var(--gold)">STORY</span></h2>
-    <p class="about-body">In today’s digital landscape, your visual identity is often the first interaction a client has with your brand. High-quality photography and cinematic video are no longer just aesthetic choices; they are essential tools for building trust, commanding attention, and driving conversion. A carefully crafted visual narrative doesn't just show what you do—it makes your audience feel the value of your brand before they even read a single word.</p>
+    <p class="about-body">In today's digital landscape, your visual identity is often the first interaction a client has with your brand. High-quality photography and cinematic video are no longer just aesthetic choices; they are essential tools for building trust, commanding attention, and driving conversion. A carefully crafted visual narrative doesn't just show what you do — it makes your audience feel the value of your brand before they even read a single word.</p>
   </div>
   <div class="about-stats">
     <div class="stat-card"><div class="stat-number"><span class="counter" data-target="10">0</span>+</div><div class="stat-label">Years of Experience</div></div>
-    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="1000">0</span>+</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="20">0</span>+</div><div class="stat-label">Clients Served</div></div>
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="5">0</span></div><div class="stat-label">Continents</div></div>
+    <div class="stat-card"><div class="stat-number"><span class="counter" data-target="100">0</span>%</div><div class="stat-label">Client Satisfaction</div></div>
   </div>
 </section>
 
+<!-- ═══ GLOBAL FOOTPRINT ═══ -->
 <section id="global-roster">
   <h2 class="section-title">GLOBAL <span style="color:var(--gold)">FOOTPRINT</span></h2>
-  <p class="section-label" style="margin-top: 10px;">Countries worked in</p>
-  
+  <p class="section-label" style="margin-top: 10px;">11 Countries · 5 Continents</p>
   <div class="map-wrapper">
     <div class="map-background"></div>
     <div id="map-markers-container"></div>
   </div>
-
   <div class="map-scanner-display">
     <div class="scanner-label">Location Match</div>
     <div class="scanner-country" id="scanner-country">INITIALIZING...</div>
@@ -389,6 +595,39 @@
   </div>
 </section>
 
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="testimonials">
+  <div class="test-header-wrap">
+    <p class="section-label">Client Feedback</p>
+    <h2 class="section-title">THE <span style="color:var(--gold)">IMPACT</span></h2>
+  </div>
+  <div class="test-marquee-container" id="test-carousel">
+    <div class="test-marquee-track">
+      <div class="test-marquee-content">
+        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment — from keynote speeches to candid networking shots — was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
+        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant's visual campaign was transformative. He didn't just photograph food — he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav's travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O'Connor</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
+        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it — everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav's work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It's almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
+        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav's attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav doesn't just create content — he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
+      </div>
+      <div class="test-marquee-content" aria-hidden="true">
+        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment — from keynote speeches to candid networking shots — was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
+        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant's visual campaign was transformative. He didn't just photograph food — he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav's travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O'Connor</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
+        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it — everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav's work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It's almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
+        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav's attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
+        <div class="test-card"><p class="test-quote">"Pranav doesn't just create content — he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ME ═══ -->
 <section id="about-me">
   <div class="profile-image-container">
     <img src="pranavarya.jpg" alt="Pranav Arya" class="profile-img" loading="lazy" onerror="this.style.display='none'"/>
@@ -397,55 +636,137 @@
   <div class="profile-content">
     <p class="section-label">The Director</p>
     <h2 class="section-title">ABOUT <span style="color:var(--gold)">ME</span></h2>
-    <p class="about-body">With over 10 years of professional experience in filmmaking and photography, I specialize in creating high-end visual content that elevates brands and tells compelling stories. From directing cinematic commercials to capturing striking editorial photography, my decade in the industry has taught me how to perfectly balance technical precision with raw creative vision. I approach every project with a cinematic eye, working closely with my clients to build visuals that linger long after the screen fades to black.</p>
+    <p class="about-body">With over 10 years of professional experience in filmmaking and photography, I specialize in creating high-end visual content that elevates brands and tells compelling stories. From directing cinematic commercials to capturing striking editorial photography, my decade in the industry has taught me how to perfectly balance technical precision with raw creative vision. From Formula 1 races and luxury summits to AI-powered content pipelines — I bring every tool at my disposal to every project, from concept to final cut.</p>
   </div>
 </section>
 
-<section id="testimonials">
-  <div class="test-header-wrap">
-    <p class="section-label">Client Feedback</p>
-    <h2 class="section-title">THE <span style="color:var(--gold)">IMPACT</span></h2>
-  </div>
-  
-  <div class="test-marquee-container" id="test-carousel">
-    <div class="test-marquee-track">
-      <div class="test-marquee-content">
-        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
-        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant’s visual campaign was transformative. He didn’t just photograph food—he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav’s travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O’Connor</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
-        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it—everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav’s work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It’s almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
-        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav’s attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav doesn’t just create content—he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav filmed our wedding, and the result was deeply emotional and cinematic. He captured moments we didn’t even realize were happening. Watching the film felt like reliving the entire day with even more beauty."</p><span class="test-author">Aisha Khan</span></div>
-        <div class="test-card"><p class="test-quote">"Collaborating with Pranav on lifestyle travel content was seamless. He brings both technical mastery and creative intuition, ensuring every shot aligns with the narrative while still feeling spontaneous and authentic."</p><span class="test-author">Lucas Ferreira</span></div>
-      </div>
-      <div class="test-marquee-content" aria-hidden="true">
-        <div class="test-card"><p class="test-quote">"Pranav Arya captured our corporate event with an exceptional eye for detail. Every key moment—from keynote speeches to candid networking shots—was documented with cinematic precision. His ability to anticipate moments rather than just react to them truly sets him apart."</p><span class="test-author">Daniel Weber</span></div>
-        <div class="test-card"><p class="test-quote">"Working with Pranav on our restaurant’s visual campaign was transformative. He didn’t just photograph food—he told a story through textures, lighting, and composition. The dishes looked as exquisite on screen as they do in real life."</p><span class="test-author">Sofia Martinez</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav’s travel filmmaking is nothing short of breathtaking. He has a rare ability to blend landscapes, culture, and emotion into a seamless narrative. Watching his work feels like being transported into the destination itself."</p><span class="test-author">Liam O’Connor</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav understands fashion beyond the lens. His shoots carry a strong editorial sensibility, combining movement, mood, and styling into striking visuals. Every frame feels like it belongs in a high-end magazine."</p><span class="test-author">Amélie Laurent</span></div>
-        <div class="test-card"><p class="test-quote">"The post-production quality Pranav delivers is outstanding. His edits are clean, dynamic, and perfectly paced. He knows exactly how to enhance raw footage without overprocessing it—everything feels intentional and refined."</p><span class="test-author">Ethan Brooks</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav’s work in AI-generated models is incredibly advanced. The realism, lighting consistency, and facial detailing are on another level. It’s almost impossible to distinguish his AI creations from real-life shoots."</p><span class="test-author">Kenji Tanaka</span></div>
-        <div class="test-card"><p class="test-quote">"Our product line has never looked better. Pranav’s attention to detail, especially in lighting and composition, made even simple items appear premium. His visuals directly improved our brand perception."</p><span class="test-author">Olivia Bennett</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav doesn’t just create content—he builds a cohesive digital presence. From strategy to execution, his understanding of visual storytelling and audience engagement helped elevate our entire social media performance."</p><span class="test-author">Marcus Klein</span></div>
-        <div class="test-card"><p class="test-quote">"Pranav filmed our wedding, and the result was deeply emotional and cinematic. He captured moments we didn’t even realize were happening. Watching the film felt like reliving the entire day with even more beauty."</p><span class="test-author">Aisha Khan</span></div>
-        <div class="test-card"><p class="test-quote">"Collaborating with Pranav on lifestyle travel content was seamless. He brings both technical mastery and creative intuition, ensuring every shot aligns with the narrative while still feeling spontaneous and authentic."</p><span class="test-author">Lucas Ferreira</span></div>
-      </div>
+<!-- ═══ WHY WORK WITH ME ═══ -->
+<section id="why-work">
+  <p class="section-label">The Difference</p>
+  <h2 class="section-title">WHY WORK <span style="color:var(--gold)">WITH ME</span></h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-number">01</div>
+      <div class="why-title">10+ Years, Global Stages</div>
+      <p class="why-desc">Formula 1, luxury summits, blockchain conferences, fashion weeks — delivered at the highest level worldwide across 5 continents and 11 countries.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-number">02</div>
+      <div class="why-title">End-to-End Production</div>
+      <p class="why-desc">Concept, shoot, edit, colour, delivery — everything professionally in one place. No hand-offs, no gaps. One creative vision from start to finish.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-number">03</div>
+      <div class="why-title">AI-Powered Capabilities</div>
+      <p class="why-desc">Hyper-realistic AI models, AI avatars, automated content pipelines — next-generation tools combined with cinematic expertise, available now.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-number">04</div>
+      <div class="why-title">Always On Time</div>
+      <p class="why-desc">Professional delivery within agreed timelines. Reliability is non-negotiable on every project — 100% client satisfaction across 1000+ projects worldwide.</p>
     </div>
   </div>
 </section>
 
+<!-- ═══ COLLABORATION OPTIONS ═══ -->
+<section id="collaboration">
+  <p class="section-label">Let's Create</p>
+  <h2 class="section-title">COLLABORATION <span style="color:var(--gold)">OPTIONS</span></h2>
+  <p class="collab-note">All pricing is tailored to the project — scope, deliverables, timeline, and usage rights. No fixed rate cards. Get in touch for a personalised quote.</p>
+  <div class="collab-grid">
+    <div class="collab-card">
+      <div class="collab-type">Event Coverage</div>
+      <div class="collab-rate">Day / half-day rate</div>
+      <ul class="collab-features">
+        <li>On-location filming</li>
+        <li>Events, sports &amp; parties</li>
+        <li>2–5 edited deliverables</li>
+        <li>Turnaround within 72h</li>
+        <li>Optional same-day teaser</li>
+      </ul>
+    </div>
+    <div class="collab-card">
+      <div class="collab-type">Brand Campaign</div>
+      <div class="collab-rate">Custom project quote</div>
+      <ul class="collab-features">
+        <li>Concept to final delivery</li>
+        <li>Multi-day shooting</li>
+        <li>Full post-production</li>
+        <li>Social cut-downs included</li>
+        <li>Content strategy support</li>
+      </ul>
+    </div>
+    <div class="collab-card">
+      <div class="collab-type">Monthly Retainer</div>
+      <div class="collab-rate">Ongoing partnership</div>
+      <ul class="collab-features">
+        <li>Regular content creation</li>
+        <li>Shoots, reels &amp; edits</li>
+        <li>Social media management</li>
+        <li>Priority scheduling</li>
+        <li>Dedicated creative support</li>
+      </ul>
+    </div>
+    <div class="collab-card">
+      <div class="collab-type">Edit-Only Package</div>
+      <div class="collab-rate">Per-deliverable rate</div>
+      <ul class="collab-features">
+        <li>Send your raw footage</li>
+        <li>Cinematic colour grade</li>
+        <li>Music &amp; sound design</li>
+        <li>Motion graphics</li>
+        <li>48–72h turnaround</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSTAGRAM BANNER ═══ -->
+<section id="instagram-banner">
+  <div class="ig-banner-inner">
+    <div class="ig-verified">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
+      Verified Instagram Profile
+    </div>
+    <div class="ig-handle"><span style="color:var(--gold)">@</span>iampranavarya</div>
+    <div class="ig-tagline">Filmmaking · Photography · Events · Travel · AI Content</div>
+    <div class="ig-stats-row">
+      <div class="ig-stat">
+        <span class="ig-stat-number">120K</span>
+        <span class="ig-stat-label">Followers</span>
+      </div>
+      <div class="ig-stat">
+        <span class="ig-stat-number">3.2%</span>
+        <span class="ig-stat-label">Engagement Rate</span>
+      </div>
+      <div class="ig-stat">
+        <span class="ig-stat-number">1.2M</span>
+        <span class="ig-stat-label">Monthly Reach</span>
+      </div>
+      <div class="ig-stat">
+        <span class="ig-stat-number">2,400</span>
+        <span class="ig-stat-label">Avg. Likes</span>
+      </div>
+    </div>
+    <a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer" class="ig-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Follow on Instagram
+    </a>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
 <section id="contact">
   <h2 class="contact-title">LET'S WORK<br><span style="color:var(--gold)">TOGETHER</span></h2>
-  
   <div class="contact-links">
     <a href="mailto:collab.pranavarya@gmail.com" class="contact-item">
       <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
       collab.pranavarya@gmail.com
     </a>
-    
+    <a href="tel:+4917442577111" class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      +49 174 4257711
+    </a>
     <a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer" class="contact-item">
       <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       @iampranavarya
@@ -454,8 +775,11 @@
 </section>
 
 <footer>
-  <p>© 2026 Pranav Arya Film Production. All rights reserved.</p>
-  <div class="social-links"><a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer">Instagram</a></div>
+  <p>© 2026 Pranav Arya Film Production. All rights reserved. · Berlin, Germany</p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/iampranavarya/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="mailto:collab.pranavarya@gmail.com">Email</a>
+  </div>
 </footer>
 
 <div class="frame-counter" id="frame-counter">00:00:01:00</div>
@@ -472,7 +796,7 @@ const counterObserver = new IntersectionObserver((entries, obs) => {
       const el = entry.target;
       const target = +el.getAttribute('data-target');
       let count = 0;
-      const increment = target / 80; 
+      const increment = target / 80;
       const update = () => {
         count += increment;
         if (count < target) {
@@ -497,7 +821,7 @@ function initInteractiveMarquee(selector, speedVal) {
   if(!container) return;
   const track = container.querySelector('.marquee-track') || container.querySelector('.test-marquee-track');
   const content = container.querySelector('.marquee-content') || container.querySelector('.test-marquee-content');
-  
+
   let isDragging = false;
   let startPos = 0;
   let currentTranslate = 0;
@@ -507,12 +831,9 @@ function initInteractiveMarquee(selector, speedVal) {
 
   function render() {
     if (!isDragging && !isHovered) { currentTranslate -= speedVal; }
-    
     const singleWidth = content.offsetWidth;
-    
-    if (currentTranslate <= -singleWidth) { currentTranslate += singleWidth; } 
+    if (currentTranslate <= -singleWidth) { currentTranslate += singleWidth; }
     else if (currentTranslate > 0) { currentTranslate -= singleWidth; }
-
     track.style.transform = `translateX(${currentTranslate}px)`;
     animationId = requestAnimationFrame(render);
   }
@@ -544,19 +865,16 @@ function initInteractiveMarquee(selector, speedVal) {
   window.addEventListener('touchend', dragEnd);
   window.addEventListener('mousemove', drag);
   window.addEventListener('touchmove', drag, {passive: true});
-
   track.addEventListener('mouseenter', () => isHovered = true);
   track.addEventListener('mouseleave', () => isHovered = false);
-
   render();
 }
 
-// Initialize both sliders with different speeds
 initInteractiveMarquee('#work-carousel', 1);
 initInteractiveMarquee('#test-carousel', 0.8);
 
 // ═══════════════════════════
-// GHOST ANCHOR ROUTING (CLEAN URLs)
+// SMOOTH SCROLL NAV
 // ═══════════════════════════
 document.querySelectorAll('.nav-links a').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
@@ -574,12 +892,9 @@ document.querySelectorAll('.nav-links a').forEach(anchor => {
 
 window.addEventListener('load', () => {
   if(window.location.hash) {
-    setTimeout(() => {
-      history.replaceState(null, null, window.location.pathname);
-    }, 100);
+    setTimeout(() => { history.replaceState(null, null, window.location.pathname); }, 100);
   }
 });
-
 
 // ═══════════════════════════
 // LOADER
@@ -605,7 +920,7 @@ let mx=0,my=0,rx=0,ry=0;
 document.body.classList.add('custom-cursor-active');
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px';});
 (function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a, button, .work-item, .marquee-track, .test-marquee-track').forEach(el=>{
+document.querySelectorAll('a, button, .work-item, .marquee-track, .test-marquee-track, .client-card, .collab-card, .ai-card, .why-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1.8)';});
   el.addEventListener('mouseleave',()=>{ringEl.style.transform='translate(-50%,-50%) scale(1)';});
 });
@@ -627,13 +942,12 @@ const pPos=new Float32Array(200*3);
 for(let i=0;i<200;i++){pPos[i*3]=(Math.random()-.5)*28;pPos[i*3+1]=(Math.random()-.5)*18;pPos[i*3+2]=(Math.random()-.5)*14;}
 const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(pPos,3));
 bgS.add(new THREE.Points(pG,new THREE.PointsMaterial({color:0xc9a84c,size:0.04,transparent:true,opacity:0.25})));
-
 let bgMX=0,bgMY=0;
 document.addEventListener('mousemove',e=>{bgMX=(e.clientX/window.innerWidth-.5)*2;bgMY=(e.clientY/window.innerHeight-.5)*2;});
 window.addEventListener('resize',()=>{bgR.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();});
 
 // ═══════════════════════════
-// GLOBAL TARGETING SCANNER LOGIC
+// GLOBAL TARGETING SCANNER
 // ═══════════════════════════
 const locations = [
   {name: 'Germany', lat: 51.16, lon: 10.45},
@@ -641,16 +955,12 @@ const locations = [
   {name: 'India', lat: 20.59, lon: 78.96},
   {name: 'USA', lat: 37.09, lon: -95.71},
   {name: 'Canada', lat: 56.13, lon: -106.34},
-  {name: 'United Kingdom', lat: 55.37, lon: -3.43},
   {name: 'Croatia', lat: 45.10, lon: 15.20},
-  {name: 'Monaco', lat: 43.73, lon: 7.42},
   {name: 'France', lat: 46.22, lon: 2.21},
   {name: 'Greece', lat: 39.07, lon: 21.82},
   {name: 'Hungary', lat: 47.16, lon: 19.50},
-  {name: 'Russia', lat: 61.52, lon: 105.31},
-  {name: 'Italy', lat: 41.87, lon: 12.56},
   {name: 'Switzerland', lat: 46.81, lon: 8.22},
-  {name: 'Spain', lat: 40.46, lon: -3.74}
+  {name: 'Poland', lat: 51.92, lon: 19.15}
 ];
 
 const mapContainer = document.getElementById('map-markers-container');
@@ -661,44 +971,34 @@ const mapMarkers = [];
 locations.forEach(loc => {
   const xPercent = (loc.lon + 180) / 3.6;
   const yPercent = (90 - loc.lat) / 1.8;
-
   const wrap = document.createElement('div');
   wrap.className = 'map-marker-wrap';
   wrap.style.left = `${xPercent}%`;
   wrap.style.top = `${yPercent}%`;
-
   const dot = document.createElement('div');
   dot.className = 'map-dot';
-
   wrap.appendChild(dot);
   mapContainer.appendChild(wrap);
   mapMarkers.push({wrap, loc});
 });
 
 let currentScanIndex = 0;
-
 function runMapScanner() {
   mapMarkers.forEach(m => m.wrap.classList.remove('active'));
-  
   const current = mapMarkers[currentScanIndex];
   current.wrap.classList.add('active');
-  
   scannerCountry.style.opacity = 0;
   scannerCoords.style.opacity = 0;
-  
   setTimeout(() => {
     scannerCountry.textContent = current.loc.name;
     const ns = current.loc.lat >= 0 ? 'N' : 'S';
     const ew = current.loc.lon >= 0 ? 'E' : 'W';
     scannerCoords.textContent = `LAT ${Math.abs(current.loc.lat)}° ${ns} / LON ${Math.abs(current.loc.lon)}° ${ew}`;
-    
     scannerCountry.style.opacity = 1;
     scannerCoords.style.opacity = 1;
   }, 300);
-
   currentScanIndex = (currentScanIndex + 1) % mapMarkers.length;
 }
-
 setInterval(runMapScanner, 2500);
 runMapScanner();
 
@@ -724,7 +1024,6 @@ function resizeCam(){
 resizeCam();
 window.addEventListener('resize',resizeCam);
 
-// Lights
 camS.add(new THREE.AmbientLight(0x0d0d18, 4));
 const keyL=new THREE.SpotLight(0xfff5e0, 8, 30, Math.PI/5, 0.4);
 keyL.position.set(4, 6, 6); keyL.castShadow=true; keyL.shadow.bias = -0.001;
@@ -733,7 +1032,6 @@ const fillL=new THREE.PointLight(0xc9a84c, 3, 20); fillL.position.set(-4, 2, 3);
 const rimL=new THREE.PointLight(0xc9a84c, 5, 15); rimL.position.set(0, -5, -3); camS.add(rimL);
 const glowL=new THREE.PointLight(0x60aaff, 0, 10); glowL.position.set(0, 0, 3.8); camS.add(glowL);
 
-// Materials 
 const bodyM = new THREE.MeshPhysicalMaterial({color: 0x111115, metalness: 0.7, roughness: 0.4, clearcoat: 0.3, clearcoatRoughness: 0.2});
 const blackM = new THREE.MeshPhysicalMaterial({color: 0x050508, metalness: 0.8, roughness: 0.5, clearcoat: 0.1});
 const goldM = new THREE.MeshPhysicalMaterial({color: 0xd4af37, metalness: 1.0, roughness: 0.15, clearcoat: 0.8, clearcoatRoughness: 0.1});
@@ -780,7 +1078,6 @@ const doorLine=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.018,0.48),goldM); doo
 const swBase=new THREE.Mesh(new THREE.BoxGeometry(0.17,0.055,0.34),blackM); swBase.position.set(-0.58,0.54,0.82); camGroup.add(swBase);
 const swSlide=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.09,0.13),silverM); swSlide.position.set(-0.58,0.57,0.72); camGroup.add(swSlide);
 
-// ── LENS BARREL ──
 const lensGroup=new THREE.Group(); lensGroup.position.set(-0.18,0,0.85); lensGroup.receiveShadow=true; camGroup.add(lensGroup);
 const mountR=new THREE.Mesh(new THREE.TorusGeometry(0.88,0.058,8,40),silverM); mountR.rotation.x=Math.PI/2; lensGroup.add(mountR);
 
@@ -807,7 +1104,6 @@ for(let i=0;i<5;i++){
 const capR=new THREE.Mesh(new THREE.TorusGeometry(0.66,0.028,6,48),silverM); capR.rotation.x=Math.PI/2; capR.position.z=1.46; lensGroup.add(capR);
 const innerB=new THREE.Mesh(new THREE.CylinderGeometry(0.61,0.61,0.28,40),lensM); innerB.rotation.x=Math.PI/2; innerB.position.z=1.3; lensGroup.add(innerB);
 
-// ── APERTURE BLADES ──
 const bladeGroup=new THREE.Group(); bladeGroup.position.set(-0.18,0,2.4); camS.add(bladeGroup);
 const blades=[];
 for(let i=0;i<8;i++){
@@ -817,7 +1113,6 @@ for(let i=0;i<8;i++){
   bladeGroup.add(bl); blades.push({mesh:bl,a,bx:Math.sin(a)*0.21,by:Math.cos(a)*0.21});
 }
 
-// ── LENS FLARES ──
 const flareGroup=new THREE.Group(); flareGroup.position.set(-0.18,0,2.6); camS.add(flareGroup);
 const flareDefs=[{r:0.55,c:0x88bbff,o:0},{r:0.22,c:0xc9a84c,o:0},{r:0.14,c:0xffffff,o:0},{r:0.08,c:0x6688ff,o:0},{r:0.05,c:0xc9a84c,o:0}];
 const flares=flareDefs.map((fd,i)=>{
@@ -825,7 +1120,6 @@ const flares=flareDefs.map((fd,i)=>{
   f.position.set((Math.random()-.5)*0.25,(Math.random()-.5)*0.25,(i-2)*0.18); flareGroup.add(f);return f;
 });
 
-// ── INTERACTION STATE ──
 let shotCount=0,isShuttering=false,shutT=0;
 let flareTarget=0,flareVal=0,camMX=0,camMY=0;
 
@@ -872,7 +1166,7 @@ let t = 0;
 function animate(){
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
-  t += delta * 0.6; 
+  t += delta * 0.6;
 
   bgCam.position.x += (bgMX * 0.4 - bgCam.position.x) * (delta * 1.8);
   bgCam.position.y += (-bgMY * 0.25 - bgCam.position.y) * (delta * 1.8);
@@ -883,7 +1177,7 @@ function animate(){
   const targetRotY = Math.sin(t * 0.55) * 0.1 + camMX * 0.16;
   const targetRotX = Math.cos(t * 0.42) * 0.06 - camMY * 0.1;
   const scrollTilt = Math.min(scrollY / 700, 1) * 0.28;
-  
+
   camGroup.rotation.y += (targetRotY - camGroup.rotation.y) * (delta * 3.3);
   camGroup.rotation.x += (targetRotX + scrollTilt - camGroup.rotation.x) * (delta * 3.3);
   camGroup.position.y = Math.sin(t * 0.52) * 0.13;
