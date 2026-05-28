@@ -97,6 +97,57 @@
     .work-video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;}
     .work-item:hover .work-video { transform: scale(1.05); }
 
+    /* ── FEATURED AI WORK ── */
+    #ai-work {
+      position: relative; z-index: 10;
+      padding: 80px 52px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .ai-work-header { margin-bottom: 48px; }
+    .ai-work-videos {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .ai-work-card {
+      position: relative;
+      width: 320px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.1);
+      transition: border-color 0.4s ease, transform 0.4s ease;
+    }
+    .ai-work-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-4px);
+    }
+    .ai-work-card video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .ai-work-card-meta {
+      padding: 14px 14px 16px;
+      background: rgba(5,5,7,0.9);
+      border-top: 1px solid rgba(201,168,76,0.06);
+    }
+    .ai-work-card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.45rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .ai-work-card-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
     /* EVENTS / GLOBAL STAGES */
     #events { position: relative; z-index: 10; padding: 80px 52px; text-align: center; background: rgba(5,5,7,0.5); border-top: 1px solid rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.03);}
     .events-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 60px; margin-top: 30px; max-width: 1100px; margin-inline: auto; opacity: 0.6; }
@@ -300,7 +351,7 @@
 
     /* MOBILE */
     @media(max-width:900px){
-      nav,#hero,#services-offered,#about,#about-me,#global-roster,#events,#contact,footer,#ai-tech,#clients,#why-work,#collaboration,#instagram-banner{padding-left:24px;padding-right:24px}
+      nav,#hero,#services-offered,#about,#about-me,#global-roster,#events,#contact,footer,#ai-tech,#clients,#why-work,#collaboration,#instagram-banner,#ai-work{padding-left:24px;padding-right:24px}
       nav::after{left:24px;right:24px}
       #hero{grid-template-columns:1fr;height:auto;padding-top:160px;padding-bottom:60px; gap: 80px;}
       .hero-left{position: relative; z-index: 20;}
@@ -322,6 +373,9 @@
       .ig-stats-row { flex-wrap: wrap; }
       .ig-stat { padding: 20px 28px; }
       .ig-banner-inner { padding: 48px 24px; }
+      .ai-work-videos { flex-wrap: wrap; }
+      .ai-work-card { width: 100%; }
+      .ai-work-videos { flex-direction: column; }
     }
     @media(max-width:560px){
       .services-list { grid-template-columns: 1fr; }
@@ -427,6 +481,30 @@
         <div class="work-item"><video src="preview11.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
         <div class="work-item"><video src="preview12.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
         <div class="work-item"><video src="preview13.mp4" class="work-video" autoplay loop muted playsinline loading="lazy"></video></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED AI WORK ═══ -->
+<section id="ai-work">
+  <div class="ai-work-header">
+    <p class="section-label">Next-Gen Content</p>
+    <h2 class="section-title">FEATURED AI WORK ON <span style="color:var(--gold)">GLOBAL PLATFORMS</span></h2>
+  </div>
+  <div class="ai-work-videos">
+    <div class="ai-work-card">
+      <video src="ai video 1.mp4" autoplay loop muted playsinline></video>
+      <div class="ai-work-card-meta">
+        <div class="ai-work-card-tag">AI Generated · 2024</div>
+        <div class="ai-work-card-title">Video for SOLROUTER</div>
+      </div>
+    </div>
+    <div class="ai-work-card">
+      <video src="ai video 2.mp4" autoplay loop muted playsinline></video>
+      <div class="ai-work-card-meta">
+        <div class="ai-work-card-tag">AI Generated · 2024</div>
+        <div class="ai-work-card-title">Video for Superteam Germany Hackathon</div>
       </div>
     </div>
   </div>
