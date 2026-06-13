@@ -14,8 +14,8 @@
   --font-body:'Space Grotesk',sans-serif;
   --font-mono:'Space Mono',monospace;
 }
-html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;max-width:100vw}
 .xhair-h{position:fixed;width:28px;height:1px;background:var(--red);pointer-events:none;z-index:9999;transform:translateY(-50%);transition:width 0.15s}
 .xhair-v{position:fixed;width:1px;height:28px;background:var(--red);pointer-events:none;z-index:9999;transform:translateX(-50%);transition:height 0.15s}
 .xhair-dot{position:fixed;width:4px;height:4px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
@@ -203,15 +203,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ink);border
 .ccard-items li{font-size:0.8rem;font-weight:300;color:rgba(242,240,235,0.5);line-height:1.5;padding-left:13px;position:relative}
 .ccard-items li::before{content:'—';position:absolute;left:0;color:var(--red)}
 
-#ai-work{position:relative;z-index:10;padding:80px 52px;border-top:1px solid rgba(255,255,255,0.05)}
-.ai-work-videos{display:flex;gap:20px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
-.ai-work-videos::-webkit-scrollbar{display:none}
-.ai-work-card{position:relative;width:320px;flex-shrink:0;overflow:hidden;border:1px solid rgba(201,168,76,0.1);transition:border-color 0.4s,transform 0.4s}
-.ai-work-card:hover{border-color:rgba(230,58,30,0.4);transform:translateY(-4px)}
-.ai-work-card video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.ai-work-card-meta{padding:14px 14px 16px;background:rgba(12,11,10,0.9);border-top:1px solid rgba(255,255,255,0.05)}
-.ai-work-card-tag{font-family:var(--font-mono);font-size:0.45rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:4px}
-.ai-work-card-title{font-family:var(--font-head);font-size:1rem;letter-spacing:0.06em;color:var(--paper);line-height:1.1}
+.ai-meta{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(12,11,10,0.88));display:flex;align-items:flex-end;justify-content:space-between;opacity:0;transition:opacity 0.3s}
+.work-item:hover .ai-meta{opacity:1}
+.ai-meta-tag{font-family:var(--font-mono);font-size:0.4rem;letter-spacing:0.2em;color:var(--red);text-transform:uppercase}
+.ai-meta-title{font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--paper)}
 
 #instagram-banner{position:relative;z-index:10;padding:96px 52px}
 .ig-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(255,255,255,0.07)}
@@ -250,7 +245,16 @@ footer p{font-family:var(--font-mono);font-size:0.44rem;color:rgba(242,240,235,0
 .sbtn-wa{background:#25D366;color:#fff}
 .sbtn-tg{background:#229ED9;color:#fff}
 
-.frame-tc{position:fixed;bottom:18px;left:52px;font-family:var(--font-mono);font-size:0.44rem;letter-spacing:0.1em;color:rgba(255,255,255,0.18);z-index:50}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;padding:0 20px;cursor:pointer;background:none;border:none;height:100%;justify-content:center;margin-left:auto}
+.nav-hamburger span{display:block;width:22px;height:1px;background:var(--paper);transition:transform 0.3s,opacity 0.3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+#mobile-menu{position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--ink);z-index:99;display:flex;flex-direction:column;padding:40px 24px;gap:0;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);border-top:1px solid rgba(255,255,255,0.06)}
+#mobile-menu.open{transform:translateX(0)}
+.mob-link{font-family:var(--font-head);font-size:3rem;font-weight:900;letter-spacing:0.04em;text-transform:uppercase;color:var(--paper);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;transition:color 0.2s}
+.mob-link:hover{color:var(--red)}
+.mob-link::after{content:'→';font-size:1.5rem;color:var(--red);opacity:0.5}
 
 /* SCROLL PROGRESS */
 #scroll-progress{position:fixed;top:56px;left:0;right:0;height:2px;z-index:99;background:rgba(255,255,255,0.04)}
@@ -299,6 +303,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .ig-right{grid-template-columns:1fr 1fr}
   .about-img-wrap{max-width:100%;aspect-ratio:4/3}
   .nav-links,.nav-tc-block{display:none}
+  .nav-hamburger{display:flex}
 }
 @media(max-width:560px){.svc-grid,.collab-cards{grid-template-columns:1fr}.clients-grid{grid-template-columns:1fr 1fr}}
 </style>
@@ -353,8 +358,21 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <a href="#collaboration">Collab</a>
       <a href="#contact">Contact</a>
     </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div id="mobile-menu">
+  <a href="#work" class="mob-link">Work</a>
+  <a href="#clients" class="mob-link">Clients</a>
+  <a href="#services-offered" class="mob-link">Services</a>
+  <a href="#ai-tech" class="mob-link">AI Work</a>
+  <a href="#about" class="mob-link">About</a>
+  <a href="#collaboration" class="mob-link">Collab</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
 
 <section id="hero">
   <div class="hero-left">
@@ -445,11 +463,39 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   </div>
 </section>
 
+<section id="ai-work">
+  <div class="work-hdr" style="padding:0 52px;margin-bottom:52px">
+    <div>
+      <div class="eyebrow rv rv-l">Next-Gen Content</div>
+      <h2 class="heading rv rv-l d1">FEATURED AI WORK ON <span class="dim">GLOBAL PLATFORMS</span></h2>
+    </div>
+    <div class="work-ct rv rv-r">6</div>
+  </div>
+  <div class="mq-outer" id="ai-carousel">
+    <div class="mq-track">
+      <div class="mq-set">
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 1.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 2.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Superteam Germany</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 6.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Solana Summit Trading Cup</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 3.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 4.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Bench Markets</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 5.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
+      </div>
+      <div class="mq-set" aria-hidden="true">
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 1.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 2.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Superteam Germany</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 6.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Solana Summit Trading Cup</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 3.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 4.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Bench Markets</span></div></div>
+        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 5.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="filmstrip">
   <div class="fs-inner"><span class="fs-text" style="animation-direction:reverse;color:rgba(255,255,255,0.11)">&nbsp;AI VIDEO PRODUCTION&nbsp;·&nbsp;<span class="fs-red">HIGGSFIELD</span>&nbsp;·&nbsp;NANO BANANA PRO&nbsp;·&nbsp;<span class="fs-red">KLING 3.0</span>&nbsp;·&nbsp;SOLROUTER&nbsp;·&nbsp;SUPERTEAM GERMANY&nbsp;·&nbsp;<span class="fs-red">BENCH MARKETS</span>&nbsp;·&nbsp;TRADING CUP SOLANA&nbsp;·&nbsp;AI VIDEO PRODUCTION&nbsp;·&nbsp;<span class="fs-red">HIGGSFIELD</span>&nbsp;·&nbsp;NANO BANANA PRO&nbsp;·&nbsp;<span class="fs-red">KLING 3.0</span>&nbsp;·&nbsp;SOLROUTER&nbsp;·&nbsp;SUPERTEAM GERMANY&nbsp;·&nbsp;<span class="fs-red">BENCH MARKETS</span>&nbsp;·&nbsp;TRADING CUP SOLANA&nbsp;·&nbsp;</span></div>
 </div>
-
-<section id="clients">
   <div class="clients-hdr">
     <div>
       <div class="eyebrow rv rv-l">Worldwide Partnerships</div>
@@ -509,50 +555,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="ai-row rv d4"><span class="ai-row-id">04</span><div><div class="ai-row-title">AI Avatar Videos</div><p class="ai-row-desc">Branded spokesperson videos with AI avatars, realistic voice and movement for marketing content.</p></div></div>
       <div class="ai-row rv d5"><span class="ai-row-id">05</span><div><div class="ai-row-title">Automated Content Pipelines</div><p class="ai-row-desc">End-to-end automated video and image systems — scripting, voiceover, edit, schedule. Hands-free.</p></div></div>
       <div class="ai-row rv d6"><span class="ai-row-id">06</span><div><div class="ai-row-title">AI Video Enhancement</div><p class="ai-row-desc">Upscale, restore and enhance existing footage — better resolution, stabilisation, colour grade.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="ai-work">
-  <div class="rv">
-    <div class="eyebrow rv-l">Next-Gen Content</div>
-    <h2 class="heading rv-l d1">FEATURED AI WORK ON <span class="dim">GLOBAL PLATFORMS</span></h2>
-  </div>
-  <div class="ai-work-videos rv d2" style="margin-top:40px">
-    <div class="ai-work-card">
-      <video src="ai video 1.mp4" autoplay loop muted playsinline></video>
-      <div class="ai-work-card-meta">
-        <div class="ai-work-card-tag">AI Generated · 2026</div>
-        <div class="ai-work-card-title">Video for SolRouter</div>
-      </div>
-    </div>
-    <div class="ai-work-card">
-      <video src="ai video 2.mp4" autoplay loop muted playsinline></video>
-      <div class="ai-work-card-meta">
-        <div class="ai-work-card-tag">AI Generated · 2026</div>
-        <div class="ai-work-card-title">Video for Superteam Germany</div>
-      </div>
-    </div>
-    <div class="ai-work-card">
-      <video src="ai video 3.mp4" autoplay loop muted playsinline></video>
-      <div class="ai-work-card-meta">
-        <div class="ai-work-card-tag">AI Generated · 2026</div>
-        <div class="ai-work-card-title">Video for Bench Markets</div>
-      </div>
-    </div>
-    <div class="ai-work-card">
-      <video src="ai video 4.mp4" autoplay loop muted playsinline></video>
-      <div class="ai-work-card-meta">
-        <div class="ai-work-card-tag">AI Generated · 2026</div>
-        <div class="ai-work-card-title">Video for Trading Cup Solana</div>
-      </div>
-    </div>
-    <div class="ai-work-card">
-      <video src="ai video 5.mp4" autoplay loop muted playsinline></video>
-      <div class="ai-work-card-meta">
-        <div class="ai-work-card-tag">AI Generated · 2026</div>
-        <div class="ai-work-card-title">AI Production Reel</div>
-      </div>
     </div>
   </div>
 </section>
@@ -750,7 +752,23 @@ function initMarquee(id,speed){
   loop();
 }
 initMarquee('work-carousel',0.85);
+initMarquee('ai-carousel',0.75);
 initMarquee('test-carousel',0.65);
+
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobile-menu');
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mob-link').forEach(a=>{
+  a.addEventListener('click',()=>{
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    const t=a.getAttribute('href');
+    if(t.startsWith('#')){setTimeout(()=>document.querySelector(t)?.scrollIntoView({behavior:'smooth'}),10);}
+  });
+});
 
 const ro=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s').forEach(el=>ro.observe(el));
