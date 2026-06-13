@@ -469,7 +469,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="eyebrow rv rv-l">Next-Gen Content</div>
       <h2 class="heading rv rv-l d1">FEATURED AI WORK ON <span class="dim">GLOBAL PLATFORMS</span></h2>
     </div>
-    <div class="work-ct rv rv-r">6</div>
+    <div class="work-ct rv rv-r">5</div>
   </div>
   <div class="mq-outer" id="ai-carousel">
     <div class="mq-track">
@@ -477,7 +477,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 1.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 2.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Superteam Germany</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 6.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Solana Summit Trading Cup</span></div></div>
-        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 3.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 4.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Bench Markets</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 5.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
       </div>
@@ -485,7 +484,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 1.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 2.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Superteam Germany</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 6.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Solana Summit Trading Cup</span></div></div>
-        <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 3.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 4.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">Bench Markets</span></div></div>
         <div class="work-item" style="flex:0 0 380px;aspect-ratio:16/9"><video src="ai video 5.mp4" autoplay loop muted playsinline></video><div class="ai-meta"><span class="ai-meta-tag">AI · 2026</span><span class="ai-meta-title">SolRouter</span></div></div>
       </div>
@@ -496,6 +494,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <div class="filmstrip">
   <div class="fs-inner"><span class="fs-text" style="animation-direction:reverse;color:rgba(255,255,255,0.11)">&nbsp;AI VIDEO PRODUCTION&nbsp;·&nbsp;<span class="fs-red">HIGGSFIELD</span>&nbsp;·&nbsp;NANO BANANA PRO&nbsp;·&nbsp;<span class="fs-red">KLING 3.0</span>&nbsp;·&nbsp;SOLROUTER&nbsp;·&nbsp;SUPERTEAM GERMANY&nbsp;·&nbsp;<span class="fs-red">BENCH MARKETS</span>&nbsp;·&nbsp;TRADING CUP SOLANA&nbsp;·&nbsp;AI VIDEO PRODUCTION&nbsp;·&nbsp;<span class="fs-red">HIGGSFIELD</span>&nbsp;·&nbsp;NANO BANANA PRO&nbsp;·&nbsp;<span class="fs-red">KLING 3.0</span>&nbsp;·&nbsp;SOLROUTER&nbsp;·&nbsp;SUPERTEAM GERMANY&nbsp;·&nbsp;<span class="fs-red">BENCH MARKETS</span>&nbsp;·&nbsp;TRADING CUP SOLANA&nbsp;·&nbsp;</span></div>
 </div>
+
+<section id="clients">
   <div class="clients-hdr">
     <div>
       <div class="eyebrow rv rv-l">Worldwide Partnerships</div>
@@ -754,6 +754,21 @@ function initMarquee(id,speed){
 initMarquee('work-carousel',0.85);
 initMarquee('ai-carousel',0.75);
 initMarquee('test-carousel',0.65);
+
+// Mobile video autoplay — iOS/Android block autoplay unless triggered via JS
+const vio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    const v=e.target;
+    if(e.isIntersecting){v.muted=true;v.play().catch(()=>{});}
+    else{v.pause();}
+  });
+},{threshold:0.2});
+document.querySelectorAll('video').forEach(v=>{
+  v.muted=true;
+  v.setAttribute('playsinline','');
+  v.setAttribute('webkit-playsinline','');
+  vio.observe(v);
+});
 
 const hamburger=document.getElementById('hamburger');
 const mobileMenu=document.getElementById('mobile-menu');
