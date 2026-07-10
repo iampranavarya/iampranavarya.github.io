@@ -15,9 +15,12 @@
 
 <title>Pranav Arya — Berlin Filmmaker &amp; AI Video Producer | PAFP</title>
 <meta name="description" content="Berlin-based filmmaker and AI video producer covering F1, Web3 summits, and global brand campaigns. 180K+ community, AI-powered production with Higgsfield, Kling 3.0 &amp; Nano Banana Pro."/>
-<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
 <meta name="author" content="Pranav Arya"/>
 <link rel="canonical" href="https://pranavarya.com/"/>
+<link rel="icon" href="/pranavarya.jpg" type="image/jpeg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
 <!-- Open Graph / Facebook / LinkedIn / WhatsApp / Telegram previews -->
 <meta property="og:type" content="website"/>
@@ -483,6 +486,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <a href="#clients">Clients</a>
       <a href="#services-offered">Services</a>
       <a href="#ai-tech">AI Work</a>
+      <a href="/blog/">Blog</a>
       <a href="#about">About</a>
       <a href="#collaboration">Collab</a>
       <a href="#contact">Contact</a>
@@ -498,6 +502,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <a href="#clients" class="mob-link">Clients</a>
   <a href="#services-offered" class="mob-link">Services</a>
   <a href="#ai-tech" class="mob-link">AI Work</a>
+  <a href="/blog/" class="mob-link">Blog</a>
   <a href="#about" class="mob-link">About</a>
   <a href="#collaboration" class="mob-link">Collab</a>
   <a href="#contact" class="mob-link">Contact</a>
@@ -827,8 +832,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   </div>
 </footer>
 
-<div class="frame-tc" id="frame-tc">00:00:00:00</div>
-
 <script>
 const xh=document.getElementById('xh'),xv=document.getElementById('xv'),xd=document.getElementById('xd');
 document.addEventListener('mousemove',e=>{
@@ -859,7 +862,6 @@ setInterval(()=>{
   const f=frame%24,s=Math.floor(frame/24)%60,m=Math.floor(frame/1440)%60,h=Math.floor(frame/86400);
   const p=n=>String(n).padStart(2,'0');
   const tc=`${p(h)}:${p(m)}:${p(s)}:${p(f)}`;
-  document.getElementById('frame-tc').textContent=tc;
   document.getElementById('nav-tc').textContent=tc;
 },1000/24);
 
