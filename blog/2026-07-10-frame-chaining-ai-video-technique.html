@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Frame Chaining: The Real Secret to Long AI Video | PAFP Blog</title>
+<meta name="description" content="Discover how AI video pros chain clips together to beat the 5-10 second limit, and how to fight visual drift when stitching scenes."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-07-10-frame-chaining-ai-video-technique.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-07-10-frame-chaining-ai-video-technique.html"/>
+<meta property="og:title" content="Frame Chaining: The Real Secret to Long AI Video"/>
+<meta property="og:description" content="Discover how AI video pros chain clips together to beat the 5-10 second limit, and how to fight visual drift when stitching scenes."/>
+<meta property="og:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Frame Chaining: The Real Secret to Long AI Video"/>
+<meta name="twitter:description" content="Discover how AI video pros chain clips together to beat the 5-10 second limit, and how to fight visual drift when stitching scenes."/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Frame Chaining: The Real Secret to Long AI Video",
+  "description": "Discover how AI video pros chain clips together to beat the 5-10 second limit, and how to fight visual drift when stitching scenes.",
+  "datePublished": "2026-07-10",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:48px}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; July 10, 2026</div>
+<h1>Frame Chaining: The Real Secret to Long AI Video</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #ai video &middot; #workflow &middot; #tutorial &middot; #comfyui</div>
+<article>
+<p>Last month I had a client ask for a 40-second continuous shot through an F1 paddock, ending on a driver's face in close-up. No single model on the market generates 40 seconds clean, so I built it out of six clips stitched frame to frame, and the client never noticed the seams. That's the job now: stitching a video together and hiding the joints so well nobody thinks to look for them.</p>
+
+<p>Nobody outside the actual production trenches talks about this enough. The real skill in AI video right now isn't prompting, it's chaining. Every serious creator I know has converged on some version of this workflow, whether they're deep in a ComfyUI node graph or just poking around in a consumer tool over the weekend.</p>
+
+<h2>Frame chaining is the real trick, not the models themselves</h2>
+
+<p>The technique is almost embarrassingly simple once you see it. You take the final frame of Clip A, feed it back in as the starting image for Clip B, generate, grab that clip's final frame, feed it into Clip C, and keep going. Some people call it "Recursive Scene Extension," others just call it frame chaining, but it's the same trick underneath. A few tools have started shipping a one-click "continue" button that grabs your last frame automatically, though plenty of people were already doing this by hand long before it got a button.</p>
+
+<p>What it solves is that every model still caps out at somewhere around 5 to 10 seconds of genuinely coherent motion, and chaining is how you get past that without waiting for some lab to crack long-context video generation properly. I don't expect that problem to get solved in a way that's usable on a real deadline anytime soon.</p>
+
+<p>But chaining has a failure mode that will wreck a client delivery if you don't plan for it: visual drift. String together four or five segments and the subject stops holding together. A jaw shifts slightly, hair changes texture, a logo on a jacket quietly mutates into something else entirely. The model has no memory of your subject from clip to clip, so if that handoff frame was even a little soft or motion-blurred, every clip downstream inherits and compounds the problem.</p>
+
+<p>The fix that has actually held up for me across real jobs is to stop writing action-only prompts once you're past the first segment. Re-describe your subject every single time, in the same amount of detail you used at the start, rather than trusting the model to remember who "he" is. Describe the man, his age, his jacket, his face, and his direction of movement fresh in every prompt, as if the model has never seen him before, because it hasn't.
+</article>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+</body>
+</html>
