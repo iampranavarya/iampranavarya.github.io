@@ -105,14 +105,28 @@ AI in the entertainment industry for today, {TODAY_HUMAN}.
 RESEARCH BRIEF:
 {research_brief}
 
-Requirements:
+Structure requirements:
 - Open with a specific hook (a fact, a claim, a question) -- not "In today's world..."
 - Structure with 2-4 H2-style subheadings that break up the content logically
 - Include at least one concrete, actionable takeaway (a tip, a prompt idea, a workflow note)
-- Write in first person plural or first person singular occasionally, as a practitioner would
-- End with a short closing thought, not a generic summary paragraph
-- Do NOT use phrases like "In conclusion", "In today's fast-paced world", "It's important to note"
-- Do NOT pad with filler -- every paragraph should earn its place
+- Write with a real point of view -- react to things, don't just report them neutrally.
+  "This is genuinely impressive but also a little unsettling" beats "This is impressive."
+- End on a specific closing thought, not a summary recap paragraph
+
+Hard rules against AI-sounding writing:
+- NEVER use em dashes (—) or en dashes for dramatic pauses. Use a period, comma, or
+  parenthetical instead. Zero em dashes in the entire piece.
+- Vary sentence length aggressively. Mix short, punchy sentences with longer ones that
+  take their time. Do not settle into an even, mid-length rhythm.
+- Ban these words/phrases entirely: "testament", "landscape" (as in "the AI landscape"),
+  "showcasing", "serves as", "boasts", "delve", "dive into", "unlock", "seamless",
+  "robust", "cutting-edge", "game-changer", "in today's fast-paced world", "moreover",
+  "furthermore", "additionally" (as a paragraph opener), "it's not just X, it's Y",
+  "in conclusion", "the future looks bright", "the possibilities are endless"
+- No "rule of three" list padding (e.g. "faster, smarter, and more efficient") unless
+  each item is doing real, distinct work
+- No inflated significance framing ("marks a pivotal moment", "represents a turning point")
+  -- state what actually happened instead
 
 Output ONLY the article body in clean HTML using <p>, <h2>, <ul>/<li>, and <strong> tags
 as appropriate. No <html>, <head>, <body>, or <h1> tags -- just the inner content."""
@@ -120,23 +134,86 @@ as appropriate. No <html>, <head>, <body>, or <h1> tags -- just the inner conten
 
 
 # ---------- STEP 3: HUMANIZE / POLISH ----------
+BANNED_PHRASES = [
+    "testament", "showcasing", "serves as", "boasts", "delve", "dive into",
+    "unlock", "seamless", "robust", "cutting-edge", "game-changer", "game changer",
+    "moreover", "furthermore", "in conclusion", "the future looks bright",
+    "possibilities are endless", "pivotal moment", "turning point",
+    "fast-paced world", "it's not just", "in today's",
+]
+
+
 def humanize(draft_html):
     system = (
-        "You are a sharp human editor polishing a blog draft. Your job is to vary "
-        "sentence rhythm, cut robotic transitions, remove repetitive sentence openers, "
-        "tighten wordy phrases, and make it read like it was written in one sitting by "
-        "a specific person with opinions -- while keeping every factual claim intact."
+        "You are a sharp human editor polishing a blog draft. Your job is to remove "
+        "every trace of AI-generated writing patterns -- em dashes used for dramatic "
+        "pauses, generic AI vocabulary, uniform sentence rhythm, formulaic openers and "
+        "closers -- while keeping every factual claim intact and making it read like a "
+        "specific person wrote it in one sitting."
     )
-    user = f"""Edit this draft for natural, human rhythm. Vary sentence length noticeably
-(mix short punchy sentences with longer ones). Remove any remaining AI-tell phrases
-or overly balanced/listy structures that read as generated. Keep the HTML tags intact
-and keep it roughly the same length. Do not add new claims or facts.
+    user = f"""Edit this draft. Apply every rule below without exception:
+
+1. DELETE every em dash (—) or en dash used as a pause. Replace each with a period,
+   comma, or parenthetical rewrite. Search the text for the — character specifically
+   and remove all instances.
+2. Rewrite any sentence containing these words/phrases, replacing with plain language:
+   {", ".join(BANNED_PHRASES)}
+3. Vary sentence length hard -- if you see three sentences in a row of similar length,
+   break the pattern. Mix short and long deliberately.
+4. Remove any "rule of three" list that's just padding (three adjectives/nouns doing
+   the same job). Cut to what's actually distinct.
+5. If a paragraph reports a fact neutrally with no reaction, add a genuine point of
+   view to at least one paragraph in the piece.
+6. Read it as if aloud -- if any sentence sounds like marketing copy, flatten it to
+   something a person would actually say.
+
+Keep the HTML tags intact and keep it roughly the same length. Do not add new claims,
+facts, or numbers that weren't in the original.
 
 DRAFT:
 {draft_html}
 
 Output ONLY the edited HTML, nothing else."""
     return call_claude(system, user, max_tokens=3000)
+
+
+# ---------- STEP 3B: SELF-AUDIT PASS (catches what step 3 missed) ----------
+def audit_and_fix(body_html):
+    audit_system = (
+        "You are a blunt editor whose only job is spotting residual AI-writing tells."
+    )
+    audit_user = f"""What makes the following text sound obviously AI-generated, if
+anything? List specific tells briefly (em dashes, vocabulary, rhythm, structure).
+If it genuinely reads as human-written, say "CLEAN" and nothing else.
+
+TEXT:
+{body_html}"""
+    critique = call_claude(audit_system, audit_user, max_tokens=600)
+
+    if critique.strip().upper().startswith("CLEAN"):
+        return body_html
+
+    fix_system = "You are a sharp human editor making a final pass on a blog draft."
+    fix_user = f"""A previous review of this draft found these remaining AI-writing tells:
+
+{critique}
+
+Fix every issue listed. Keep HTML tags intact, keep the same approximate length,
+don't add new facts. Output ONLY the corrected HTML.
+
+DRAFT:
+{body_html}"""
+    return call_claude(fix_system, fix_user, max_tokens=3000)
+
+
+def strip_stray_em_dashes(text):
+    """Belt-and-suspenders: force any surviving em/en dashes to a period, since this
+    is the single most common tell readers notice first."""
+    text = re.sub(r"\s*[—–]\s*", ". ", text)
+    text = re.sub(r"\.\s*\.", ".", text)  # clean up any doubled periods from the swap
+    # capitalize the letter immediately following each ". " we just inserted
+    text = re.sub(r"(\.\s+)([a-z])", lambda m: m.group(1) + m.group(2).upper(), text)
+    return text
 
 
 # ---------- STEP 4: METADATA ----------
@@ -362,6 +439,12 @@ def main():
 
     print("Humanizing / polishing...")
     final_body = humanize(draft_html)
+
+    print("Running self-audit pass for remaining AI tells...")
+    final_body = audit_and_fix(final_body)
+
+    print("Applying hard em-dash safety net...")
+    final_body = strip_stray_em_dashes(final_body)
 
     print("Generating metadata...")
     meta = generate_metadata(final_body)
