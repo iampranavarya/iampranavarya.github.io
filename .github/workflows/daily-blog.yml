@@ -2,12 +2,19 @@ name: Daily AI Entertainment Blog Post
 
 on:
   schedule:
-    # Runs at 07:00 UTC daily (~08:00-09:00 Berlin time depending on DST)
-    - cron: '0 7 * * *'
+    # Checks in every hour from 06:00 to 21:00 UTC. The script itself decides
+    # (via random selection) which one hourly check-in actually publishes, so
+    # the real publish time is different and unpredictable every day, not a
+    # fixed clock time like a typical bot.
+    - cron: '0 6-21 * * *'
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab to test
 
 permissions:
   contents: write
+
+concurrency:
+  group: daily-blog-publish
+  cancel-in-progress: false   # let a sleeping/in-progress run finish before the next check-in starts
 
 jobs:
   generate-and-publish:
