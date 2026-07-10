@@ -118,6 +118,41 @@ def call_claude(system, user_content, tools=None, max_tokens=4000):
     return "\n".join(text_parts).strip()
 
 
+# Red-flag phrases that indicate the model got a broken/empty prompt instead of
+# real content to work with -- if any of these show up, something upstream failed
+# and we must NOT publish this as if it were a real article.
+BROKEN_OUTPUT_MARKERS = [
+    "no draft text", "please paste", "missing draft", "i don't see any draft",
+    "wasn't included", "was not included", "no content was provided",
+    "please provide the", "i don't see the", "no text was provided",
+]
+
+
+def looks_broken(text, min_length=300):
+    if not text or len(text.strip()) < min_length:
+        return True
+    lowered = text.lower()
+    return any(marker in lowered for marker in BROKEN_OUTPUT_MARKERS)
+
+
+def call_claude_validated(step_name, system, user_content, tools=None, max_tokens=4000, retries=2):
+    """Wraps call_claude with output validation and retries. Raises a clear
+    RuntimeError (failing the whole run loudly) rather than ever letting broken
+    output silently flow through to publication."""
+    last_result = ""
+    for attempt in range(1, retries + 1):
+        result = call_claude(system, user_content, tools=tools, max_tokens=max_tokens)
+        print(f"  [{step_name}] attempt {attempt}: {len(result)} chars")
+        if not looks_broken(result):
+            return result
+        print(f"  [{step_name}] attempt {attempt} looked broken, retrying...")
+        last_result = result
+    raise RuntimeError(
+        f"'{step_name}' produced broken/empty output after {retries} attempts. "
+        f"Last output preview: {last_result[:300]!r}"
+    )
+
+
 # ---------- STEP 1: RESEARCH ----------
 def research():
     system = (
@@ -146,6 +181,12 @@ numbers, and concrete details -- avoid vague generalities."""
 
 # ---------- STEP 2: DRAFT ----------
 def draft(research_brief):
+    if looks_broken(research_brief, min_length=50):
+        raise RuntimeError(
+            f"Research step produced unusable output, aborting before drafting. "
+            f"Preview: {research_brief[:300]!r}"
+        )
+
     system = (
         "You are writing for Pranav Arya's (PAFP) blog -- a Berlin-based filmmaker and "
         "AI video producer who works hands-on with tools like Higgsfield, Kling, Runway, "
@@ -184,7 +225,7 @@ Hard rules against AI-sounding writing:
 
 Output ONLY the article body in clean HTML using <p>, <h2>, <ul>/<li>, and <strong> tags
 as appropriate. No <html>, <head>, <body>, or <h1> tags -- just the inner content."""
-    return call_claude(system, user, max_tokens=3000)
+    return call_claude_validated("draft", system, user, max_tokens=3000)
 
 
 # ---------- STEP 3: HUMANIZE / POLISH ----------
@@ -198,6 +239,12 @@ BANNED_PHRASES = [
 
 
 def humanize(draft_html):
+    if looks_broken(draft_html):
+        raise RuntimeError(
+            f"Draft step produced unusable output, aborting before humanizing. "
+            f"Preview: {draft_html[:300]!r}"
+        )
+
     system = (
         "You are a sharp human editor polishing a blog draft. Your job is to remove "
         "every trace of AI-generated writing patterns -- em dashes used for dramatic "
@@ -228,11 +275,17 @@ DRAFT:
 {draft_html}
 
 Output ONLY the edited HTML, nothing else."""
-    return call_claude(system, user, max_tokens=3000)
+    return call_claude_validated("humanize", system, user, max_tokens=3000)
 
 
 # ---------- STEP 3B: SELF-AUDIT PASS (catches what step 3 missed) ----------
 def audit_and_fix(body_html):
+    if looks_broken(body_html):
+        raise RuntimeError(
+            f"Humanize step produced unusable output, aborting before audit pass. "
+            f"Preview: {body_html[:300]!r}"
+        )
+
     audit_system = (
         "You are a blunt editor whose only job is spotting residual AI-writing tells."
     )
@@ -257,7 +310,14 @@ don't add new facts. Output ONLY the corrected HTML.
 
 DRAFT:
 {body_html}"""
-    return call_claude(fix_system, fix_user, max_tokens=3000)
+    try:
+        return call_claude_validated("audit-fix", fix_system, fix_user, max_tokens=3000)
+    except RuntimeError as e:
+        # The fix pass itself is optional polish -- body_html is already known-valid
+        # (it passed the guard at the top of this function), so if the fix pass
+        # breaks, just skip it rather than losing the whole day's post over it.
+        print(f"  [audit-fix] failed validation, keeping pre-fix content instead: {e}")
+        return body_html
 
 
 def strip_stray_em_dashes(text):
@@ -398,14 +458,15 @@ POST_TEMPLATE = """<!DOCTYPE html>
 *,*::before,*::after{{margin:0;padding:0;box-sizing:border-box}}
 :root{{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
 --font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}}
-body{{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px}}
+body{{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}}
+img{{max-width:100%;height:auto}}
 a{{color:var(--red)}}
 .back{{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}}
 .back:hover{{color:var(--red)}}
 .eyebrow{{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}}
 h1{{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}}
 .meta{{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}}
-.hero-img{{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}}
+.hero-img{{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}}
 article h2{{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}}
 article p{{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}}
 article ul{{margin:0 0 20px 20px}}
@@ -480,10 +541,13 @@ footer a:hover{{color:var(--red)}}
 def build_post_html(title, meta_description, body_html, tags, canonical_url, filename, image_url=None):
     if image_url:
         full_image_url = f"{SITE_BASE_URL}{image_url}"
-        # fetchpriority=high since this is almost always the LCP element; eager
-        # load (not lazy) since it's above the fold, unlike the homepage's videos
+        # Explicit width/height attributes (matching our compress_and_save output
+        # of max 1200px wide, 16:9-cropped by CSS) let the browser reserve the
+        # correct box before the image even loads -- prevents layout shift and
+        # is an extra safety net against any overflow-driven mobile zoom bug.
         hero_img_tag = (
             f'<img src="{image_url}" alt="{title}" class="hero-img" '
+            f'width="1200" height="675" '
             f'fetchpriority="high" loading="eager"/>'
         )
     else:
@@ -534,7 +598,8 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 *,*::before,*::after{{margin:0;padding:0;box-sizing:border-box}}
 :root{{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
 --font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}}
-body{{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;max-width:1100px;margin:0 auto;padding:64px 24px 100px}}
+body{{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;max-width:1100px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}}
+img{{max-width:100%;height:auto}}
 .back{{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}}
 .back:hover{{color:var(--red)}}
 .eyebrow{{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}}
@@ -665,17 +730,21 @@ def main():
                   f"anyway since this was manually triggered.")
 
     print(f"[{TODAY_STR}] Researching (angle: {TODAY_ANGLE})...")
-    brief = research()
-    print("Research brief:\n", brief[:500], "...\n")
+    try:
+        brief = research()
+        print("Research brief:\n", brief[:500], "...\n")
 
-    print("Drafting article...")
-    draft_html = draft(brief)
+        print("Drafting article...")
+        draft_html = draft(brief)
 
-    print("Humanizing / polishing...")
-    final_body = humanize(draft_html)
+        print("Humanizing / polishing...")
+        final_body = humanize(draft_html)
 
-    print("Running self-audit pass for remaining AI tells...")
-    final_body = audit_and_fix(final_body)
+        print("Running self-audit pass for remaining AI tells...")
+        final_body = audit_and_fix(final_body)
+    except RuntimeError as e:
+        print(f"\nFATAL: pipeline aborted, nothing will be published today.\n{e}")
+        sys.exit(1)
 
     print("Applying hard em-dash safety net...")
     final_body = strip_stray_em_dashes(final_body)
