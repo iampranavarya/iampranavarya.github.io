@@ -9,6 +9,8 @@ import os
 import re
 import sys
 import json
+import time
+import random
 import datetime
 from pathlib import Path
 
@@ -22,6 +24,15 @@ BLOG_DIR = REPO_ROOT / "blog"
 SITEMAP_PATH = REPO_ROOT / "sitemap.xml"
 BLOG_INDEX_PATH = BLOG_DIR / "index.html"
 SITE_BASE_URL = "https://pranavarya.com"
+
+# Publish-time randomization: the GitHub Actions workflow triggers this script
+# hourly across WINDOW_START_HOUR-WINDOW_END_HOUR (UTC). Each run checks whether
+# today's post already exists; if not, it uses reservoir sampling so exactly one
+# of the remaining hourly check-ins gets chosen at random to actually publish,
+# then sleeps a random number of minutes within that hour. Net effect: one post
+# per day, at a different unpredictable time each day, instead of a fixed cron time.
+WINDOW_START_HOUR = 6   # 06:00 UTC ~ 07:00-08:00 Berlin depending on DST
+WINDOW_END_HOUR = 21    # 21:00 UTC ~ 22:00-23:00 Berlin depending on DST
 
 if not API_KEY:
     print("ERROR: ANTHROPIC_API_KEY environment variable not set.")
@@ -47,6 +58,44 @@ TOPIC_ANGLES = [
 ]
 angle_index = TODAY.toordinal() % len(TOPIC_ANGLES)
 TODAY_ANGLE = TOPIC_ANGLES[angle_index]
+
+
+# ---------- TIMING GATE ----------
+def already_published_today():
+    if not BLOG_DIR.exists():
+        return False
+    return any(f.name.startswith(TODAY_STR) for f in BLOG_DIR.glob("*.html"))
+
+
+def should_publish_this_run():
+    """Reservoir sampling across the remaining hourly check-ins today: gives a
+    uniformly random hour, then adds a random minute-level delay so it never
+    lands on a suspiciously exact clock time."""
+    now_utc = datetime.datetime.utcnow()
+    current_hour = now_utc.hour
+
+    if current_hour < WINDOW_START_HOUR or current_hour > WINDOW_END_HOUR:
+        print(f"Outside publish window ({WINDOW_START_HOUR}-{WINDOW_END_HOUR} UTC). Skipping.")
+        return False
+
+    if already_published_today():
+        print(f"Already published a post today ({TODAY_STR}). Skipping this check-in.")
+        return False
+
+    remaining_checks = WINDOW_END_HOUR - current_hour + 1
+    probability = 1.0 / remaining_checks
+    roll = random.random()
+    chosen = roll < probability
+    print(f"Hour {current_hour} UTC: {remaining_checks} check-ins left today, "
+          f"probability {probability:.2f}, roll {roll:.2f} -> {'PUBLISH' if chosen else 'skip'}")
+
+    if chosen:
+        jitter_seconds = random.randint(0, 55 * 60)  # random delay within the hour
+        jitter_minutes = jitter_seconds // 60
+        print(f"Selected this hour to publish. Sleeping {jitter_minutes} min for natural timing...")
+        time.sleep(jitter_seconds)
+
+    return chosen
 
 
 def call_claude(system, user_content, tools=None, max_tokens=4000):
@@ -430,6 +479,19 @@ def update_sitemap(canonical_url):
 
 # ---------- MAIN ----------
 def main():
+    # Manual test runs (workflow_dispatch) always publish immediately, no waiting.
+    # Scheduled runs go through the randomized timing gate.
+    is_manual_trigger = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+
+    if not is_manual_trigger:
+        if not should_publish_this_run():
+            print("Not publishing this run. Exiting cleanly.")
+            return
+    else:
+        if already_published_today():
+            print(f"Note: a post for {TODAY_STR} already exists, but proceeding "
+                  f"anyway since this was manually triggered.")
+
     print(f"[{TODAY_STR}] Researching (angle: {TODAY_ANGLE})...")
     brief = research()
     print("Research brief:\n", brief[:500], "...\n")
