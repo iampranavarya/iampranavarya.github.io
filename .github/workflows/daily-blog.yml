@@ -1,0 +1,38 @@
+name: Daily AI Entertainment Blog Post
+
+on:
+  schedule:
+    # Runs at 07:00 UTC daily (~08:00-09:00 Berlin time depending on DST)
+    - cron: '0 7 * * *'
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab to test
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic
+
+      - name: Generate today's post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/generate_post.py
+
+      - name: Commit and push if there are changes
+        run: |
+          git config user.name "PAFP Blog Bot"
+          git config user.email "actions@github.com"
+          git add blog/ sitemap.xml
+          git diff --staged --quiet || git commit -m "Auto-publish daily blog post $(date +'%Y-%m-%d')"
+          git push
