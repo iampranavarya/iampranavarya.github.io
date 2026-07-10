@@ -181,10 +181,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ink);border
 .hero-tags{display:flex;flex-direction:column;gap:0;margin-bottom:32px}
 .hero-tag{font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.22em;color:var(--red);text-transform:uppercase;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:10px}
 .hero-tag::before{content:'▸';font-size:0.48rem}
-.hero-title{font-family:var(--font-head);font-size:clamp(4.5rem,10.5vw,11rem);font-weight:900;line-height:0.85;letter-spacing:-0.01em;text-transform:uppercase}
+.hero-headline{font-family:var(--font-head);font-size:clamp(2.2rem,5.2vw,4.2rem);font-weight:900;line-height:1;letter-spacing:-0.005em;text-transform:uppercase;margin-bottom:28px}
+.hero-title{font-family:var(--font-head);font-size:clamp(4.5rem,9vw,9rem);font-weight:900;line-height:0.85;letter-spacing:-0.01em;text-transform:uppercase;margin-top:32px}
 .hero-title .red{color:var(--red)}
 .hero-title .ghost{color:transparent;-webkit-text-stroke:1px rgba(242,240,235,0.18)}
-.hero-sub{margin-top:36px;max-width:400px;font-size:0.98rem;font-weight:300;color:rgba(242,240,235,0.6);line-height:1.8}
+.hero-sub{margin-top:36px;max-width:460px;font-size:1.22rem;font-weight:400;color:rgba(242,240,235,0.78);line-height:1.6}
+.hero-rotate{position:relative;display:inline-grid;overflow:hidden;vertical-align:baseline;height:1em;line-height:1}
+.hero-rotate-item{grid-area:1/1;white-space:nowrap;color:var(--red);transform:translateY(100%);opacity:0;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1),opacity 0.4s ease}
+.hero-rotate-item.is-active{transform:translateY(0);opacity:1}
+.hero-rotate-item.is-exiting{transform:translateY(-100%);opacity:0}
 .hero-ctas{margin-top:36px;display:flex;gap:0}
 .btn-red{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--paper);background:var(--red);padding:15px 30px;text-decoration:none;border:1px solid var(--red);transition:background 0.2s}
 .btn-red:hover{background:#CC3018}
@@ -401,22 +406,14 @@ footer p{font-family:var(--font-mono);font-size:0.44rem;color:rgba(242,240,235,0
 /* slide from right */
 .rv-r{opacity:0;transform:translateX(48px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
 .rv-r.vis{opacity:1;transform:translateX(0)}
-/* scale in */
-.rv-s{opacity:0;transform:scale(0.94);transition:opacity 0.65s cubic-bezier(0.16,1,0.3,1),transform 0.65s cubic-bezier(0.16,1,0.3,1)}
-.rv-s.vis{opacity:1;transform:scale(1)}
 /* stagger delays */
 .d1{transition-delay:0.08s}.d2{transition-delay:0.16s}.d3{transition-delay:0.24s}.d4{transition-delay:0.32s}
-.d5{transition-delay:0.4s}.d6{transition-delay:0.48s}.d7{transition-delay:0.56s}.d8{transition-delay:0.64s}
+.d5{transition-delay:0.4s}.d6{transition-delay:0.48s}
 
 /* SECTION SCAN LINE — appears at top of each section as it enters */
 section{position:relative}
 section::before{content:'';position:absolute;top:0;left:0;width:0;height:1px;background:var(--red);opacity:0;transition:width 0.9s cubic-bezier(0.16,1,0.3,1),opacity 0.3s}
 section.in-view::before{width:100%;opacity:0.35}
-
-/* HEADING CLIP REVEAL */
-.clip-wrap{overflow:hidden;display:block}
-.clip-inner{display:block;transform:translateY(100%);transition:transform 0.8s cubic-bezier(0.16,1,0.3,1)}
-.vis .clip-inner,.clip-inner.vis{transform:translateY(0)}
 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.02;pointer-events:none;z-index:9990}
@@ -515,8 +512,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="hero-tag">Berlin, Germany · Based</div>
       <div class="hero-tag">AI-Powered Production · 2026</div>
     </div>
-    <h1 class="hero-title">PRANAV<br><span class="red">ARYA</span><br><span class="ghost">FILM</span></h1>
-    <p class="hero-sub">Visual narratives built for the world's most demanding stages — from F1 circuits and blockchain summits to AI-generated campaigns that scale.</p>
+    <p class="hero-headline">I create stunning <span class="hero-rotate" id="heroRotate"><span class="hero-rotate-item is-active">AI movies</span><span class="hero-rotate-item">real-life photography</span><span class="hero-rotate-item">films</span></span></p>
+    <p class="hero-sub">And I teach others to do the same. Whatever you need it for — a project, a brand, an event or social media, you're in the right place.</p>
+    <h1 class="hero-title">PRANAV<br><span class="red">ARYA</span><br><span class="ghost">FILM</span><br><span class="ghost">PRODUCTION</span></h1>
     <div class="hero-ctas">
       <a href="#work" class="btn-red">View Work</a>
       <a href="#contact" class="btn-outline">Get in Touch</a>
@@ -727,7 +725,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 <section id="about">
   <div class="about-img-wrap rv rv-l">
-    <img src="pranavarya.jpg" alt="Pranav Arya, Berlin-based filmmaker and creative director at PAFP" class="about-img" onerror="this.parentElement.style.background='#1a1a20';this.style.display='none'"/>
+    <img src="pranavarya.jpg" alt="Pranav Arya, Berlin-based filmmaker and creative director at PAFP" class="about-img" id="aboutImg"/>
     <div class="corner tl"></div><div class="corner br"></div>
   </div>
   <div class="about-body rv rv-r">
@@ -842,7 +840,7 @@ document.addEventListener('mousemove',e=>{
   xv.style.left=x+'px';xv.style.top=(y-14)+'px';
   xd.style.left=x+'px';xd.style.top=y+'px';
 });
-document.querySelectorAll('a,button,.work-item,.tcard,.svc,.ccard,.ctl tr,.ticker-row,.ai-row,.loc,.ai-work-card').forEach(el=>{
+document.querySelectorAll('a,button,.work-item,.tcard,.svc,.ccard,.ticker-row,.ai-row,.loc').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expanded'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expanded'));
 });
@@ -969,6 +967,33 @@ function scan(){
 }
 setInterval(scan,2200);scan();
 locRows.forEach((r,i)=>{r.addEventListener('click',()=>{si=i;scan();})});
+
+// Moved from inline onerror= for cleaner markup / CSP-friendliness
+const aboutImg=document.getElementById('aboutImg');
+if(aboutImg){
+  aboutImg.addEventListener('error',()=>{
+    aboutImg.parentElement.style.background='#1a1a20';
+    aboutImg.style.display='none';
+  });
+}
+
+// Hero rotating word — vertical slide, cycles every 1.5s
+(function(){
+  const items=document.querySelectorAll('#heroRotate .hero-rotate-item');
+  if(items.length<2)return;
+  let idx=0;
+  setInterval(()=>{
+    const current=items[idx];
+    current.classList.remove('is-active');
+    current.classList.add('is-exiting');
+    idx=(idx+1)%items.length;
+    const next=items[idx];
+    requestAnimationFrame(()=>{next.classList.add('is-active');});
+    setTimeout(()=>{
+      items.forEach((it,i)=>{if(i!==idx){it.classList.remove('is-active','is-exiting');}});
+    },550);
+  },1500);
+})();
 </script>
 </body>
 </html>
