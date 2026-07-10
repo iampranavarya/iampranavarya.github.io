@@ -103,7 +103,7 @@ def should_publish_this_run():
     return chosen
 
 
-def call_claude(system, user_content, tools=None, max_tokens=4000):
+def call_claude(system, user_content, tools=None, max_tokens=6000):
     kwargs = dict(
         model=MODEL,
         max_tokens=max_tokens,
@@ -115,7 +115,18 @@ def call_claude(system, user_content, tools=None, max_tokens=4000):
     resp = client.messages.create(**kwargs)
     # Concatenate all text blocks (search results interleave tool_use/tool_result blocks)
     text_parts = [b.text for b in resp.content if getattr(b, "type", None) == "text"]
-    return "\n".join(text_parts).strip()
+    result = "\n".join(text_parts).strip()
+
+    if not result:
+        # Diagnostic breadcrumb: if we ever get empty output again, this tells us
+        # WHY instead of just "0 chars" -- almost always either the token budget
+        # was exhausted before any text block was produced, or the model returned
+        # only non-text content (e.g. only a tool_use block with no text).
+        block_types = [getattr(b, "type", "?") for b in resp.content]
+        print(f"    [call_claude] EMPTY result. stop_reason={resp.stop_reason}, "
+              f"content block types={block_types}, max_tokens was {max_tokens}")
+
+    return result
 
 
 # Red-flag phrases that indicate the model got a broken/empty prompt instead of
@@ -175,7 +186,7 @@ numbers, and concrete details -- avoid vague generalities."""
         system,
         user,
         tools=[{"type": "web_search_20250305", "name": "web_search"}],
-        max_tokens=3000,
+        max_tokens=4000,
     )
 
 
@@ -225,7 +236,7 @@ Hard rules against AI-sounding writing:
 
 Output ONLY the article body in clean HTML using <p>, <h2>, <ul>/<li>, and <strong> tags
 as appropriate. No <html>, <head>, <body>, or <h1> tags -- just the inner content."""
-    return call_claude_validated("draft", system, user, max_tokens=3000)
+    return call_claude_validated("draft", system, user, max_tokens=6000)
 
 
 # ---------- STEP 3: HUMANIZE / POLISH ----------
@@ -275,7 +286,7 @@ DRAFT:
 {draft_html}
 
 Output ONLY the edited HTML, nothing else."""
-    return call_claude_validated("humanize", system, user, max_tokens=3000)
+    return call_claude_validated("humanize", system, user, max_tokens=6000)
 
 
 # ---------- STEP 3B: SELF-AUDIT PASS (catches what step 3 missed) ----------
@@ -295,7 +306,7 @@ If it genuinely reads as human-written, say "CLEAN" and nothing else.
 
 TEXT:
 {body_html}"""
-    critique = call_claude(audit_system, audit_user, max_tokens=600)
+    critique = call_claude(audit_system, audit_user, max_tokens=1000)
 
     if critique.strip().upper().startswith("CLEAN"):
         return body_html
@@ -311,7 +322,7 @@ don't add new facts. Output ONLY the corrected HTML.
 DRAFT:
 {body_html}"""
     try:
-        return call_claude_validated("audit-fix", fix_system, fix_user, max_tokens=3000)
+        return call_claude_validated("audit-fix", fix_system, fix_user, max_tokens=6000)
     except RuntimeError as e:
         # The fix pass itself is optional polish -- body_html is already known-valid
         # (it passed the guard at the top of this function), so if the fix pass
@@ -342,7 +353,7 @@ no commentary) with these exact keys:
 
 BODY:
 {body_html[:2000]}"""
-    raw = call_claude(system, user, max_tokens=500)
+    raw = call_claude(system, user, max_tokens=800)
     raw = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
     try:
         return json.loads(raw)
