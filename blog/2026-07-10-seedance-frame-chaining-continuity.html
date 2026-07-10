@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Seedance 2.0 Solves AI Video's Continuity Problem | PAFP Blog</title>
+<meta name="description" content="Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-07-10-seedance-frame-chaining-continuity.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-07-10-seedance-frame-chaining-continuity.html"/>
+<meta property="og:title" content="Seedance 2.0 Solves AI Video's Continuity Problem"/>
+<meta property="og:description" content="Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work."/>
+<meta property="og:image" content="https://pranavarya.com/blog/images/seedance-frame-chaining-continuity.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Seedance 2.0 Solves AI Video's Continuity Problem"/>
+<meta name="twitter:description" content="Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work."/>
+<meta name="twitter:image" content="https://pranavarya.com/blog/images/seedance-frame-chaining-continuity.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Seedance 2.0 Solves AI Video's Continuity Problem",
+  "description": "Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work.",
+  "image": "https://pranavarya.com/blog/images/seedance-frame-chaining-continuity.jpg",
+  "datePublished": "2026-07-10",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+.hero-img{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; July 10, 2026</div>
+<h1>Seedance 2.0 Solves AI Video's Continuity Problem</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #seedance &middot; #ai-video &middot; #tutorial &middot; #pipeline</div>
+<img src="/blog/images/seedance-frame-chaining-continuity.jpg" alt="Seedance 2.0 Solves AI Video's Continuity Problem" class="hero-img" width="1200" height="675" fetchpriority="high" loading="eager"/>
+<article>
+<p>Nine reference images, three video clips, three audio files, one generation. That's the spec sheet on Seedance 2.0's latest release, and it tells you exactly where this industry is headed in the back half of 2026. We stopped arguing about whether AI video looks real enough months ago. The actual fight now is over continuity: can the same actor wear the same jacket in shot four that she wore in shot one, under the same light, without you paying a colorist to fix it in post. That's the whole game right now. I've spent the last three weeks rebuilding my pipeline around it for a Web3 summit recap and an F1-adjacent sponsor piece, so here's what's actually working.</p>
+
+<h2>Frame chaining stopped being a hack around March</h2>
+<p>Every serious model still caps you at 8 to 20 seconds per generation. Kling 3.0, Veo 3.1, Runway Gen-4.5, Seedance 2.0, doesn't matter which one you pick, you're chaining clips the moment your cut runs longer than a TikTok attention span. What changed is that chaining used to mean exporting a last frame, re-uploading it, praying the model remembered what a face looks like. Now it's a built-in feature. Seedance 2.0 treats the last frame of a clip as a native reference for the next one, and it carries your character reference forward automatically. I had a client ask for the same presenter across a six-shot sequence, same blazer, same badge lanyard, and instead of babysitting seven separate uploads I just let the reference chain do it. First time in this job I've said "that just worked" out loud in an edit bay.</p>
+<p>The native lip-sync across eight-plus languages deserves more attention than it's getting. We had a German cut and an English cut due the same week, same summit sponsor, and normally that means two separate voice pipelines and two rounds of sync headaches. Not anymore, and honestly that alone saved me a full day I would've spent babysitting timecodes.</p>
+
+<h2>The storyboard layer is doing the real work, not the video model</h2>
+<p>It took me longer than I'd like to admit to see that the video model was never the bottleneck. The bottleneck was making creative decisions inside a tool that's expensive and slow to iterate on. So the workflow that's spreading through high-volume shops right now flips the order entirely. You generate your stills first, cheap and fast, in an image model like Nano Banana Pro. Composition, lighting, pose, color palette, all locked before video generation even starts. Then you hand that frame to the video model as a fixed reference and only ask it to solve motion, camera path, and timing.</p>
+<p>This isn't a nice-to-have if you
+</article>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-07-10-seedance-frame-chaining-continuity.html";
+  const currentTags = ["seedance", "ai-video", "tutorial", "pipeline"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      // Score by tag overlap first, then fall back to most recent
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>

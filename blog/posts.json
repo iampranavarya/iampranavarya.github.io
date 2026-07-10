@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "filename": "2026-07-10-seedance-frame-chaining-continuity.html",
+    "title": "Seedance 2.0 Solves AI Video's Continuity Problem",
+    "meta_description": "Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work.",
+    "tags": [
+      "seedance",
+      "ai-video",
+      "tutorial",
+      "pipeline"
+    ],
+    "date": "2026-07-10"
+  }
+]
