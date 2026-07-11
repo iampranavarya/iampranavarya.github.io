@@ -22,6 +22,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
+<!-- hreflang: tells Google which language version to show which searcher -->
+<link rel="alternate" hreflang="en" href="https://pranavarya.com/"/>
+<link rel="alternate" hreflang="de" href="https://pranavarya.com/de/"/>
+<link rel="alternate" hreflang="x-default" href="https://pranavarya.com/"/>
+
 <!-- Open Graph / Facebook / LinkedIn / WhatsApp / Telegram previews -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://pranavarya.com/"/>
@@ -32,6 +37,7 @@
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="1500"/>
 <meta property="og:locale" content="en_US"/>
+<meta property="og:locale:alternate" content="de_DE"/>
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image"/>
@@ -174,6 +180,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ink);border
 .nav-links{display:flex;align-items:center;margin-left:auto}
 .nav-links a{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.18em;color:var(--paper);text-decoration:none;opacity:0.4;text-transform:uppercase;transition:opacity 0.2s,color 0.2s;height:100%;display:flex;align-items:center;padding:0 20px;border-left:1px solid rgba(255,255,255,0.05)}
 .nav-links a:hover{opacity:1;color:var(--red)}
+.nav-lang{opacity:1 !important;color:var(--red) !important;font-weight:700}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
 
 #hero{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:56px;overflow:hidden}
@@ -487,6 +494,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <a href="#about">About</a>
       <a href="#collaboration">Collab</a>
       <a href="#contact">Contact</a>
+      <a href="/de/" class="nav-lang">DE</a>
     </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -503,6 +511,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <a href="#about" class="mob-link">About</a>
   <a href="#collaboration" class="mob-link">Collab</a>
   <a href="#contact" class="mob-link">Contact</a>
+  <a href="/de/" class="mob-link">DE</a>
 </div>
 
 <section id="hero">
