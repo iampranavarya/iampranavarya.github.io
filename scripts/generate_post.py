@@ -486,6 +486,11 @@ article strong{{color:var(--red);font-weight:500}}
 footer{{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}}
 footer a{{color:var(--gray);text-decoration:none}}
 footer a:hover{{color:var(--red)}}
+.author-box{{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}}
+.author-box p{{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}}
+.author-box strong{{color:var(--paper);font-weight:500}}
+.author-box a{{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}}
+.author-box a:hover{{border-bottom-color:var(--red)}}
 .related{{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}}
 .related-label{{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}}
 .related-grid{{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
@@ -506,6 +511,9 @@ footer a:hover{{color:var(--red)}}
 <article>
 {body}
 </article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
 <div class="related" id="related-posts">
   <div class="related-label">Keep Reading</div>
   <div class="related-grid" id="related-grid"></div>
