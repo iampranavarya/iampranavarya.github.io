@@ -30,14 +30,8 @@ SITEMAP_PATH = REPO_ROOT / "sitemap.xml"
 BLOG_INDEX_PATH = BLOG_DIR / "index.html"
 SITE_BASE_URL = "https://pranavarya.com"
 
-# Publish-time randomization: the GitHub Actions workflow triggers this script
-# hourly across WINDOW_START_HOUR-WINDOW_END_HOUR (UTC). Each run checks whether
-# today's post already exists; if not, it uses reservoir sampling so exactly one
-# of the remaining hourly check-ins gets chosen at random to actually publish,
-# then sleeps a random number of minutes within that hour. Net effect: one post
-# per day, at a different unpredictable time each day, instead of a fixed cron time.
-WINDOW_START_HOUR = 6   # 06:00 UTC ~ 07:00-08:00 Berlin depending on DST
-WINDOW_END_HOUR = 21    # 21:00 UTC ~ 22:00-23:00 Berlin depending on DST
+WINDOW_START_HOUR = 6
+WINDOW_END_HOUR = 21
 
 if not API_KEY:
     print("ERROR: ANTHROPIC_API_KEY environment variable not set.")
@@ -49,9 +43,6 @@ TODAY = datetime.date.today()
 TODAY_STR = TODAY.strftime("%Y-%m-%d")
 TODAY_HUMAN = TODAY.strftime("%B %d, %Y")
 
-# Rotating topic angles so consecutive days don't read as templated/identical.
-# The research step still finds whatever is actually newsworthy that day;
-# this just biases the angle when there's no single dominant news story.
 TOPIC_ANGLES = [
     "a breaking model release or major update in AI video/image generation",
     "a practical how-to tutorial for a specific AI filmmaking workflow",
@@ -65,7 +56,6 @@ angle_index = TODAY.toordinal() % len(TOPIC_ANGLES)
 TODAY_ANGLE = TOPIC_ANGLES[angle_index]
 
 
-# ---------- TIMING GATE ----------
 def already_published_today():
     if not BLOG_DIR.exists():
         return False
@@ -73,9 +63,6 @@ def already_published_today():
 
 
 def should_publish_this_run():
-    """Reservoir sampling across the remaining hourly check-ins today: gives a
-    uniformly random hour, then adds a random minute-level delay so it never
-    lands on a suspiciously exact clock time."""
     now_utc = datetime.datetime.utcnow()
     current_hour = now_utc.hour
 
@@ -95,7 +82,7 @@ def should_publish_this_run():
           f"probability {probability:.2f}, roll {roll:.2f} -> {'PUBLISH' if chosen else 'skip'}")
 
     if chosen:
-        jitter_seconds = random.randint(0, 55 * 60)  # random delay within the hour
+        jitter_seconds = random.randint(0, 55 * 60)
         jitter_minutes = jitter_seconds // 60
         print(f"Selected this hour to publish. Sleeping {jitter_minutes} min for natural timing...")
         time.sleep(jitter_seconds)
@@ -103,35 +90,41 @@ def should_publish_this_run():
     return chosen
 
 
-def call_claude(system, user_content, tools=None, max_tokens=6000):
+# ---------- CLAUDE CALL WRAPPER ----------
+# Claude Sonnet 5 runs with adaptive thinking ON BY DEFAULT, and thinking tokens
+# count against max_tokens. For formulaic rewrite/edit tasks (humanize, audit,
+# metadata) we don't need deep reasoning -- we need output. Without disabling
+# thinking explicitly, the model can burn the entire max_tokens budget "thinking"
+# about how to edit the draft and return zero characters of actual text, which is
+# exactly what was happening (stop_reason=max_tokens, content block types=['thinking']).
+# Manual budget_tokens control (thinking: {"type": "enabled", "budget_tokens": N})
+# is not supported on Sonnet 5 and returns a 400 error -- disabling is the reliable
+# lever here. Sonnet 5's tokenizer also produces ~30% more tokens for the same text
+# than what these budgets were originally tuned for, so budgets are padded up too.
+def call_claude(system, user_content, tools=None, max_tokens=6000, disable_thinking=True):
     kwargs = dict(
         model=MODEL,
         max_tokens=max_tokens,
         system=system,
         messages=[{"role": "user", "content": user_content}],
     )
+    if disable_thinking:
+        kwargs["thinking"] = {"type": "disabled"}
     if tools:
         kwargs["tools"] = tools
     resp = client.messages.create(**kwargs)
-    # Concatenate all text blocks (search results interleave tool_use/tool_result blocks)
     text_parts = [b.text for b in resp.content if getattr(b, "type", None) == "text"]
     result = "\n".join(text_parts).strip()
 
     if not result:
-        # Diagnostic breadcrumb: if we ever get empty output again, this tells us
-        # WHY instead of just "0 chars" -- almost always either the token budget
-        # was exhausted before any text block was produced, or the model returned
-        # only non-text content (e.g. only a tool_use block with no text).
         block_types = [getattr(b, "type", "?") for b in resp.content]
         print(f"    [call_claude] EMPTY result. stop_reason={resp.stop_reason}, "
-              f"content block types={block_types}, max_tokens was {max_tokens}")
+              f"content block types={block_types}, max_tokens was {max_tokens}, "
+              f"thinking_disabled={disable_thinking}")
 
     return result
 
 
-# Red-flag phrases that indicate the model got a broken/empty prompt instead of
-# real content to work with -- if any of these show up, something upstream failed
-# and we must NOT publish this as if it were a real article.
 BROKEN_OUTPUT_MARKERS = [
     "no draft text", "please paste", "missing draft", "i don't see any draft",
     "wasn't included", "was not included", "no content was provided",
@@ -146,18 +139,20 @@ def looks_broken(text, min_length=300):
     return any(marker in lowered for marker in BROKEN_OUTPUT_MARKERS)
 
 
-def call_claude_validated(step_name, system, user_content, tools=None, max_tokens=4000, retries=2):
-    """Wraps call_claude with output validation and retries. Raises a clear
-    RuntimeError (failing the whole run loudly) rather than ever letting broken
-    output silently flow through to publication."""
+def call_claude_validated(step_name, system, user_content, tools=None, max_tokens=4000,
+                           retries=2, disable_thinking=True):
     last_result = ""
     for attempt in range(1, retries + 1):
-        result = call_claude(system, user_content, tools=tools, max_tokens=max_tokens)
+        result = call_claude(system, user_content, tools=tools, max_tokens=max_tokens,
+                              disable_thinking=disable_thinking)
         print(f"  [{step_name}] attempt {attempt}: {len(result)} chars")
         if not looks_broken(result):
             return result
-        print(f"  [{step_name}] attempt {attempt} looked broken, retrying...")
+        print(f"  [{step_name}] attempt {attempt} looked broken, retrying with a larger budget...")
         last_result = result
+        # If it looked broken because thinking (even disabled) or long input ate the
+        # budget, give the retry more room rather than repeating the exact same call.
+        max_tokens = int(max_tokens * 1.5)
     raise RuntimeError(
         f"'{step_name}' produced broken/empty output after {retries} attempts. "
         f"Last output preview: {last_result[:300]!r}"
@@ -182,11 +177,14 @@ Today's angle should lean toward: {TODAY_ANGLE}
 Return a concise research brief (bullet points) with the 3-5 most useful, specific,
 sourced findings you can use to write an original blog post. Include names, version
 numbers, and concrete details -- avoid vague generalities."""
+    # Research benefits from a little reasoning to synthesize search results well,
+    # and it has tool calls in play, so leave thinking on here (Sonnet 5 default).
     return call_claude(
         system,
         user,
         tools=[{"type": "web_search_20250305", "name": "web_search"}],
-        max_tokens=4000,
+        max_tokens=6000,
+        disable_thinking=False,
     )
 
 
@@ -236,7 +234,7 @@ Hard rules against AI-sounding writing:
 
 Output ONLY the article body in clean HTML using <p>, <h2>, <ul>/<li>, and <strong> tags
 as appropriate. No <html>, <head>, <body>, or <h1> tags -- just the inner content."""
-    return call_claude_validated("draft", system, user, max_tokens=6000)
+    return call_claude_validated("draft", system, user, max_tokens=8000, disable_thinking=True)
 
 
 # ---------- STEP 3: HUMANIZE / POLISH ----------
@@ -286,7 +284,7 @@ DRAFT:
 {draft_html}
 
 Output ONLY the edited HTML, nothing else."""
-    return call_claude_validated("humanize", system, user, max_tokens=6000)
+    return call_claude_validated("humanize", system, user, max_tokens=8000, disable_thinking=True)
 
 
 # ---------- STEP 3B: SELF-AUDIT PASS (catches what step 3 missed) ----------
@@ -306,7 +304,7 @@ If it genuinely reads as human-written, say "CLEAN" and nothing else.
 
 TEXT:
 {body_html}"""
-    critique = call_claude(audit_system, audit_user, max_tokens=1000)
+    critique = call_claude(audit_system, audit_user, max_tokens=1200, disable_thinking=True)
 
     if critique.strip().upper().startswith("CLEAN"):
         return body_html
@@ -322,21 +320,16 @@ don't add new facts. Output ONLY the corrected HTML.
 DRAFT:
 {body_html}"""
     try:
-        return call_claude_validated("audit-fix", fix_system, fix_user, max_tokens=6000)
+        return call_claude_validated("audit-fix", fix_system, fix_user, max_tokens=8000,
+                                      disable_thinking=True)
     except RuntimeError as e:
-        # The fix pass itself is optional polish -- body_html is already known-valid
-        # (it passed the guard at the top of this function), so if the fix pass
-        # breaks, just skip it rather than losing the whole day's post over it.
         print(f"  [audit-fix] failed validation, keeping pre-fix content instead: {e}")
         return body_html
 
 
 def strip_stray_em_dashes(text):
-    """Belt-and-suspenders: force any surviving em/en dashes to a period, since this
-    is the single most common tell readers notice first."""
     text = re.sub(r"\s*[—–]\s*", ". ", text)
-    text = re.sub(r"\.\s*\.", ".", text)  # clean up any doubled periods from the swap
-    # capitalize the letter immediately following each ". " we just inserted
+    text = re.sub(r"\.\s*\.", ".", text)
     text = re.sub(r"(\.\s+)([a-z])", lambda m: m.group(1) + m.group(2).upper(), text)
     return text
 
@@ -353,12 +346,11 @@ no commentary) with these exact keys:
 
 BODY:
 {body_html[:2000]}"""
-    raw = call_claude(system, user, max_tokens=800)
+    raw = call_claude(system, user, max_tokens=1200, disable_thinking=True)
     raw = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
-        # Safe fallback so the pipeline never hard-fails on a parsing hiccup
         return {
             "title": f"AI in Entertainment — {TODAY_HUMAN}",
             "meta_description": "Daily notes on AI tools, models, and techniques in film and content production.",
@@ -369,19 +361,15 @@ BODY:
 
 # ---------- STEP 4B: HERO IMAGE ----------
 IMAGES_DIR = BLOG_DIR / "images"
-MAX_IMAGE_WIDTH = 1200   # plenty for a 16:9 hero at any real display size
-JPEG_QUALITY = 82        # sweet spot: visually near-lossless, file size stays small
+MAX_IMAGE_WIDTH = 1200
+JPEG_QUALITY = 82
 
 
 def compress_and_save(raw_bytes, output_path):
-    """Whatever resolution/format the API hands back, normalize it to a
-    predictable, small, web-ready JPEG. Never trust the raw output size."""
     img = Image.open(io.BytesIO(raw_bytes))
 
-    # Flatten any transparency (PNG output) onto white before JPEG conversion,
-    # since JPEG has no alpha channel
     if img.mode in ("RGBA", "LA", "P"):
-        background = Image.new("RGB", img.size, (12, 11, 10))  # matches --ink
+        background = Image.new("RGB", img.size, (12, 11, 10))
         img = img.convert("RGBA")
         background.paste(img, mask=img.split()[-1])
         img = background
@@ -398,9 +386,6 @@ def compress_and_save(raw_bytes, output_path):
 
 
 def generate_hero_image(title, tags, slug):
-    """Generates a single on-brand hero image via Nano Banana. Returns the
-    site-relative image path, or None if generation fails (pipeline continues
-    without an image rather than failing the whole run)."""
     if not GOOGLE_API_KEY:
         print("No GOOGLE_API_KEY set -- skipping image generation.")
         return None
@@ -412,8 +397,8 @@ professional film-production quality, high contrast. Subject should relate to:
 {', '.join(tags)}. No text, no logos, no watermarks, no readable UI screenshots."""
 
     try:
-        client = google_genai.Client(api_key=GOOGLE_API_KEY)
-        response = client.models.generate_content(
+        gclient = google_genai.Client(api_key=GOOGLE_API_KEY)
+        response = gclient.models.generate_content(
             model=IMAGE_MODEL,
             contents=prompt,
         )
@@ -521,7 +506,6 @@ footer a:hover{{color:var(--red)}}
     .then(r => r.json())
     .then(posts => {{
       const others = posts.filter(p => p.filename !== currentFile);
-      // Score by tag overlap first, then fall back to most recent
       others.forEach(p => {{
         p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
       }});
@@ -552,17 +536,13 @@ footer a:hover{{color:var(--red)}}
 def build_post_html(title, meta_description, body_html, tags, canonical_url, filename, image_url=None):
     if image_url:
         full_image_url = f"{SITE_BASE_URL}{image_url}"
-        # Explicit width/height attributes (matching our compress_and_save output
-        # of max 1200px wide, 16:9-cropped by CSS) let the browser reserve the
-        # correct box before the image even loads -- prevents layout shift and
-        # is an extra safety net against any overflow-driven mobile zoom bug.
         hero_img_tag = (
             f'<img src="{image_url}" alt="{title}" class="hero-img" '
             f'width="1200" height="675" '
             f'fetchpriority="high" loading="eager"/>'
         )
     else:
-        full_image_url = f"{SITE_BASE_URL}/pranavarya.jpg"  # fallback for social shares
+        full_image_url = f"{SITE_BASE_URL}/pranavarya.jpg"
         hero_img_tag = ""
 
     return POST_TEMPLATE.format(
@@ -669,7 +649,6 @@ def update_blog_index(filename, title, meta_description, tags, image_url=None):
             BLOG_INDEX_PATH.write_text(new_content, encoding="utf-8")
             return
 
-    # First run: no index exists yet, or marker not found -- build fresh
     BLOG_INDEX_PATH.write_text(INDEX_TEMPLATE.format(posts=card), encoding="utf-8")
 
 
@@ -711,7 +690,6 @@ def update_sitemap(canonical_url):
             content = content.replace("</urlset>", entry + "</urlset>")
             SITEMAP_PATH.write_text(content, encoding="utf-8")
             return
-    # Fallback: create a minimal sitemap if missing entirely
     fresh = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -727,8 +705,6 @@ def update_sitemap(canonical_url):
 
 # ---------- MAIN ----------
 def main():
-    # Manual test runs (workflow_dispatch) always publish immediately, no waiting.
-    # Scheduled runs go through the randomized timing gate.
     is_manual_trigger = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
 
     if not is_manual_trigger:
