@@ -101,6 +101,20 @@ def should_publish_this_run():
 # is not supported on Sonnet 5 and returns a 400 error -- disabling is the reliable
 # lever here. Sonnet 5's tokenizer also produces ~30% more tokens for the same text
 # than what these budgets were originally tuned for, so budgets are padded up too.
+def strip_code_fences(text):
+    """Models sometimes wrap HTML/text output in a markdown code fence
+    (```html ... ```) even when explicitly told to output raw HTML only.
+    Left unstripped, the literal ```html text gets published straight onto
+    the page. Strip a leading fence (with optional language tag) and a
+    trailing fence if present."""
+    if not text:
+        return text
+    stripped = text.strip()
+    stripped = re.sub(r"^```[a-zA-Z]*\s*\n?", "", stripped)
+    stripped = re.sub(r"\n?```\s*$", "", stripped)
+    return stripped.strip()
+
+
 def call_claude(system, user_content, tools=None, max_tokens=6000, disable_thinking=True):
     kwargs = dict(
         model=MODEL,
@@ -115,6 +129,7 @@ def call_claude(system, user_content, tools=None, max_tokens=6000, disable_think
     resp = client.messages.create(**kwargs)
     text_parts = [b.text for b in resp.content if getattr(b, "type", None) == "text"]
     result = "\n".join(text_parts).strip()
+    result = strip_code_fences(result)
 
     if not result:
         block_types = [getattr(b, "type", "?") for b in resp.content]
