@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-12-sora-shutdown-seedance-2-5.html",
+    "title": "Sora Shuts Down as Seedance 2.5 Takes the Spotlight",
+    "meta_description": "Sora's API closes Sept 24 amid huge losses, while ByteDance's Seedance 2.5 debuts 30-second clips and semantic editing.",
+    "tags": [
+      "seedance",
+      "sora",
+      "video-generation",
+      "news"
+    ],
+    "date": "2026-07-12"
+  },
+  {
     "filename": "2026-07-12-seedance-2-5-continuous-video.html",
     "title": "Seedance 2.5: 30-Second AI Video, No More Stitching",
     "meta_description": "ByteDance's Seedance 2.5 generates 30 continuous seconds with 50 reference assets, ending seam-matching hell for AI video editors.",
