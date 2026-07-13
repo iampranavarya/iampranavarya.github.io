@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How I Storyboard AI Product Films in an Afternoon | PAFP Blog</title>
+<meta name="description" content="A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-07-13-ai-storyboard-pipeline-product-film.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-07-13-ai-storyboard-pipeline-product-film.html"/>
+<meta property="og:title" content="How I Storyboard AI Product Films in an Afternoon"/>
+<meta property="og:description" content="A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days."/>
+<meta property="og:image" content="https://pranavarya.com/blog/images/ai-storyboard-pipeline-product-film.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="How I Storyboard AI Product Films in an Afternoon"/>
+<meta name="twitter:description" content="A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days."/>
+<meta name="twitter:image" content="https://pranavarya.com/blog/images/ai-storyboard-pipeline-product-film.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How I Storyboard AI Product Films in an Afternoon",
+  "description": "A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days.",
+  "image": "https://pranavarya.com/blog/images/ai-storyboard-pipeline-product-film.jpg",
+  "datePublished": "2026-07-13",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+.hero-img{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; July 13, 2026</div>
+<h1>How I Storyboard AI Product Films in an Afternoon</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #kling &middot; #nano-banana &middot; #workflow &middot; #ai-video</div>
+<img src="/blog/images/ai-storyboard-pipeline-product-film.jpg" alt="How I Storyboard AI Product Films in an Afternoon" class="hero-img" width="1200" height="675" fetchpriority="high" loading="eager"/>
+<article>
+<p>Last week a client asked me to storyboard a 30-second product film in an afternoon. Six months ago I would have laughed and quoted them three days minimum. Instead I opened ChatGPT, Nano Banana Pro, and Kling 3.0 in three tabs, and had a locked cut before dinner. No DP, no location scout arguing about permits, no crew waiting on a lighting setup. This is the part of the job that's changed the most this year, and it's the part nobody outside the industry seems to fully register yet. The pipeline itself has become the craft.</p>
+
+<p>I've been running AI video workflows on real client work since Runway Gen-2 was still choking on hands, and the jump this year feels different from the usual model update. We're not just getting better single shots anymore. We're getting actual production pipelines that mimic how a film crew thinks: concept, storyboard, reference, shoot, edit. That structure matters more than any individual model's benchmark score.</p>
+
+<h2>The storyboard-first pipeline everyone's quietly using</h2>
+
+<p>Here's the workflow I've converged on. It's the same one circulating across every serious AI filmmaking Discord right now, which tells you it actually works rather than just sounding good in a demo video.</p>
+
+<p>It starts with ChatGPT for the bones: describe your product, brand, and vibe in plain language and ask for a concept plus a 9-shot list. Don't overthink the prompt. Treat it like briefing a junior creative director who needs structure, not poetry.</p>
+
+<p>Next comes Nano Banana Pro for the storyboard, and this is the part people underrate. Using the 3x3 grid technique, you generate all nine storyboard frames in a single call instead of nine separate ones, which cuts the cost of that stage dramatically. Just as importantly, it keeps character and product details consistent across frames because the model is reasoning about all nine at once instead of drifting shot to shot.</p>
+
+<p>From there, Seedance 2.0 or Kling 3.0 Omni handle motion. Feed your storyboard stills in as visual anchors, add a reference clip for camera movement, and let the model handle the physics.</p>
+
+<p>Last comes a light edit pass. Cut, grade, add music. This part hasn't changed. It's still where taste lives.</p>
+
+<p>The result on that recent brand film: 3 days total, including revisions, against an estimated 2 months for a traditional shoot. That's a shift in kind, not just in speed. Manual prompting without the pipeline structure still would have eaten a week or more on the same brief, so the pipeline is the multiplier here, not any single tool.</p>
+
+<h2>Seedance 2.0 and Kling 3.0 are finally speaking the same language as editors</h2>
+
+<p>Seedance 2.0, which ByteDance shipped back in February, is still the model I reach for when audio matters. You can hand it 9 images, 3 fifteen-second video clips, and 3 audio tracks in one pass, alongside your text prompt. The character photo becomes your visual anchor, the film clip sets your camera reference, and the audio track establishes pacing before you've generated a single frame. I used the bookend-frame trick on a Web3 summit recap last month: defined the opening shot as a wide of the venue, the closing shot as a tight product hero, and let Seedance fill the middle. The camera move it invented between those two points had a push and a subtle rack focus I wouldn't have thought to storyboard myself, and I'm not used to admitting that about a tool.</p>
+
+<p>Kling's recent update brought something I didn't expect to like this much: Performance Cloning. You record yourself acting out a scene, three to eight seconds, and the model extracts the performance, not just the face, and re-renders it onto a different character in a different setting while keeping the acting choices intact. For an F1-adjacent campaign I shot last month, I performed the driver's reaction beat myself in my living room, phone propped on a stack of books, and Kling rebuilt it with the actual athlete's likeness on a paddock set that never existed. The Motion Brush tool, where you draw the camera path directly on a frame, is the missing piece that finally makes this feel like directing instead of gambling on prompt wording.</p>
+
+<h2>One trick that actually fixed my biggest headache</h2>
+
+<p>Multi-object scene placement has been the most reliably broken part of this entire process for a year. Ask for "a watch on a table next to a coffee cup and a phone" and you'll get some cursed arrangement more often than not. The fix that's been circulating, and that I now use on every product shoot, is the Canva labeling method: arrange your objects in Canva first, label each one clearly, flatten it into a single reference image, then feed that in instead of describing positions in text. Accuracy jumps close to perfect. It sounds almost too simple to be a real technique, but spatial reasoning from a labeled reference image is a different task for these models than parsing spatial language, and it shows every time.</p>
+
+<h2>The part that's hard to shrug off</h2>
+
+<p>Orion, the AI-made superhero short by Stefan Flickinger, just took both Best AI Short and Audience Choice for Best Film at the AI International Film Festival in Hollywood. Not "best AI film". Best film, full stop, voted on by an audience that had traditional shorts in the same program to compare it against. I watched clips from it and the comic timing is sharp in a way that used to require a human editor's instinct for rhythm. The tools are no longer just fast. Sometimes they're better at the craft than the shortcuts we used to lean on, and after fifteen years of doing this the slow way, that's not something I expected to be writing.</p>
+
+<p>I don't think that makes human filmmakers obsolete. I think it makes the ones who understand pipeline design, not just prompting, more valuable, and everyone else easier to replace.</p>
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-07-13-ai-storyboard-pipeline-product-film.html";
+  const currentTags = ["kling", "nano-banana", "workflow", "ai-video"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>
