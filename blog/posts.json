@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-14-kling-3-prompt-structure-guide.html",
+    "title": "Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)",
+    "meta_description": "Kling 3.0 breaks static Midjourney-style prompts. Learn the camera-first structure that turns frozen mannequin shots into real motion.",
+    "tags": [
+      "kling",
+      "prompts",
+      "tutorial",
+      "ai-video"
+    ],
+    "date": "2026-07-14"
+  },
+  {
     "filename": "2026-07-13-ai-storyboard-pipeline-product-film.html",
     "title": "How I Storyboard AI Product Films in an Afternoon",
     "meta_description": "A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days.",
