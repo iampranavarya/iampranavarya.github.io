@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-17-sora-shutdown-frame-chaining-pipeline.html",
+    "title": "Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now",
+    "meta_description": "Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in.",
+    "tags": [
+      "sora",
+      "kling",
+      "runway",
+      "automation"
+    ],
+    "date": "2026-07-17"
+  },
+  {
     "filename": "2026-07-15-ai-film-tribeca-industry-backlash.html",
     "title": "AI Docudrama Hits Tribeca: Industry Reacts",
     "meta_description": "An AI-generated film premiered at Tribeca's main slate while SAG-AFTRA slams AI actor Tilly Norwood. Here's what the mixed reactions reveal.",

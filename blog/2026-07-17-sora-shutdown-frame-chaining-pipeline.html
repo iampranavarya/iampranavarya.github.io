@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now | PAFP Blog</title>
+<meta name="description" content="Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html"/>
+<meta property="og:title" content="Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now"/>
+<meta property="og:description" content="Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in."/>
+<meta property="og:image" content="https://pranavarya.com/blog/images/sora-shutdown-frame-chaining-pipeline.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now"/>
+<meta name="twitter:description" content="Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in."/>
+<meta name="twitter:image" content="https://pranavarya.com/blog/images/sora-shutdown-frame-chaining-pipeline.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now",
+  "description": "Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in.",
+  "image": "https://pranavarya.com/blog/images/sora-shutdown-frame-chaining-pipeline.jpg",
+  "datePublished": "2026-07-17",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+.hero-img{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; July 17, 2026</div>
+<h1>Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #sora &middot; #kling &middot; #runway &middot; #automation</div>
+<img src="/blog/images/sora-shutdown-frame-chaining-pipeline.jpg" alt="Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now" class="hero-img" width="1200" height="675" fetchpriority="high" loading="eager"/>
+<article>
+<p>September 24, 2026 is the date the Sora API dies. That's nine weeks away. If your studio built prompt libraries, n8n pipelines, or a client's entire brand pipeline around Sora's continuation quirks, that migration is now happening on OpenAI's timeline, not yours. More than one client has asked mid-project whether they can still use Sora for a piece already in motion. The answer is a hard no. The lesson worth relearning: never build a production pipeline around a single vendor's roadmap.</p>
+
+<p>The good news is that the technique everyone leaned on Sora for, chaining short clips into something that feels continuous, has gotten better everywhere else, and more automatable too. That changes how a shoot gets planned from the start. Below is what's actually working on real jobs right now.</p>
+
+<h2>Frame chaining is no longer a manual chore</h2>
+
+<p>The basic move hasn't changed: generate a clip, grab its last frame, feed that frame back in as the starting image for the next clip. Treat the video like a music video or a montage rather than one continuous take, because no model currently holds a clean continuous shot past 8 to 12 seconds without the quality collapsing. Screenshotting last frames out of Kling and Runway exports by hand has been the standard workflow since last year.
+
+<p>What's changed is that this workflow can now run itself. There's an n8n template circulating that strings together a video-understanding API (it describes the last frame, the audio, the scene mood), an agent that writes the next scene's prompt from that description plus a narrative brief, and a frame-extraction step that pulls the last frame as a JPG and hands it straight to the next generation call. No human in the loop except for QA.</p>
+
+<p>On a recent recap video that needed six chained shots of a "digital city" concept, this setup cut per-video assembly time roughly in half. It isn't flawless: the agent occasionally ignores lighting continuity between shots, but as a first-draft generator it earns its keep. Garbage in, garbage out still applies. A vague narrative theme prompt sends the chain into nonsense by clip four.</p>
+
+<h2>Continuity tokens are the unglamorous part that actually matters</h2>
+
+<p>The hard part was never the chaining. It's stopping a subject from morphing into a slightly different subject every three clips. That's where seed locking and continuity tokens come in, and it's the single most useful prompt-engineering habit worth picking up this year.</p>
+
+<p>The method: generate the hero shot first. Lock the Seed ID. Then write down the exact descriptors used for the subject, word for word, not paraphrased. If a scooter is "matte black texture, gold trim" in shot one, that exact phrase goes into every subsequent prompt, especially close-ups, where the model has less context to work with and tends to hallucinate a glossy finish because glossy is statistically more common in its training data.</p>
+
+<p>Before generating anything for a chained sequence, write a one-line continuity card for every subject and prop in the scene and paste it verbatim into every prompt in the chain. It feels redundant because it is, but it's also the difference between a client asking why the car changed color and a client never noticing it didn't.</p>
+
+<h2>Chaining, interpolation, and native continuation aren't the same tool</h2>
+
+<p>These three get conflated constantly, and mixing them up is how a render gets burned on the wrong problem.</p>
+
+<p><strong>Frame chaining</strong> (described above) only anchors the start of the next clip. The model still has to invent everything else, including where the shot ends up.</p>
+
+<p><strong>Keyframe interpolation</strong> anchors both ends. Upload a first frame and a last frame, describe the motion between them, and the model fills in the middle. This is the right tool for a precise product reveal or a before-and-after transformation where the final frame is non-negotiable. On a watch unveiling shot recently, the first frame was a closed box and the last frame was the watch on a wrist; interpolation nailed the transition in three tries. Chaining alone, with no fixed endpoint to aim for, would likely have taken twenty.</p>
+
+<p><strong>Native in-app continuation</strong>, which Grok Imagine now does out of the box, skips the frame-extraction step entirely. Generate a clip, hit "continue," and it picks up motion, character position, and lighting from the final frame automatically. Grok's own guidance holds up: keep the camera static, keep every subject inside frame for the whole scene, and don't introduce new characters mid-continuation. Break any of those rules and the seam shows immediately.</p>
+
+<p>On the avatar side, HeyGen's Avatar V solves a similar problem for talking heads, differently. Instead of predicting motion from one photo, it fine-tunes on actual reference footage, then holds that consistency across scenes up to three minutes long inside a one-shot video that can run a full hour. For corporate and F1 sponsor content, where a spokesperson needs to sound and move like themselves across a dozen cutdowns, that's the chaining problem solved by training consistency in rather than stitching it together after the fact. Of the three approaches, it's the one that fails least visibly, which matters most for anything client-facing.</p>
+
+<p>None of these tools solves the underlying limitation on its own: no model yet holds a coherent scene for more than a few seconds. The choice depends on what actually needs protecting in a given shot, whether that's motion, an exact endpoint, or a face. Getting that choice wrong wastes a render and a client's patience in equal measure.</p>
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-07-17-sora-shutdown-frame-chaining-pipeline.html";
+  const currentTags = ["sora", "kling", "runway", "automation"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>
