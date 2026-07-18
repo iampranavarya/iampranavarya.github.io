@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-18-sora-shutdown-kling-seedance-rise.html",
+    "title": "Sora's Death and the Rise of Chinese Video AI",
+    "meta_description": "Sora's API shuts down Sept 24 after burning cash, while Kling and Seedance quietly pull ahead in real-world video AI use.",
+    "tags": [
+      "sora",
+      "kling",
+      "seedance",
+      "ai-video"
+    ],
+    "date": "2026-07-18"
+  },
+  {
     "filename": "2026-07-17-sora-shutdown-frame-chaining-pipeline.html",
     "title": "Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now",
     "meta_description": "Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in.",
