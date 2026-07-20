@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-20-seedance-depth-map-motion-transfer.html",
+    "title": "Seedance 2.0 Depth Map Trick for Clean Motion Transfer",
+    "meta_description": "Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.",
+    "tags": [
+      "seedance",
+      "comfyui",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2026-07-20"
+  },
+  {
     "filename": "2026-07-19-kling-vs-veo-ai-video-shakeup.html",
     "title": "Kling vs Veo vs Sora: The AI Video Landscape Shifted",
     "meta_description": "Kling v3 tops the leaderboard, Sora's app is gone, and Veo 3.1 holds its own. Here's what the AI video shakeup means for your pipeline.",

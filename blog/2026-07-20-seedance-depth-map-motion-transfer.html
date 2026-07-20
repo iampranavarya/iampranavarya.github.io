@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Seedance 2.0 Depth Map Trick for Clean Motion Transfer | PAFP Blog</title>
+<meta name="description" content="Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-07-20-seedance-depth-map-motion-transfer.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-07-20-seedance-depth-map-motion-transfer.html"/>
+<meta property="og:title" content="Seedance 2.0 Depth Map Trick for Clean Motion Transfer"/>
+<meta property="og:description" content="Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer."/>
+<meta property="og:image" content="https://pranavarya.com/blog/images/seedance-depth-map-motion-transfer.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Seedance 2.0 Depth Map Trick for Clean Motion Transfer"/>
+<meta name="twitter:description" content="Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer."/>
+<meta name="twitter:image" content="https://pranavarya.com/blog/images/seedance-depth-map-motion-transfer.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Seedance 2.0 Depth Map Trick for Clean Motion Transfer",
+  "description": "Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.",
+  "image": "https://pranavarya.com/blog/images/seedance-depth-map-motion-transfer.jpg",
+  "datePublished": "2026-07-20",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+.hero-img{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; July 20, 2026</div>
+<h1>Seedance 2.0 Depth Map Trick for Clean Motion Transfer</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #seedance &middot; #comfyui &middot; #workflow &middot; #tutorial</div>
+<img src="/blog/images/seedance-depth-map-motion-transfer.jpg" alt="Seedance 2.0 Depth Map Trick for Clean Motion Transfer" class="hero-img" width="1200" height="675" fetchpriority="high" loading="eager"/>
+<article>
+<p>Sora's API dies in September. I still have three client contracts referencing a Sora-based pipeline that was written in January like it was permanent infrastructure. It wasn't going to be, and nothing in this industry is permanent infrastructure right now. If you've been building your workflow around one model instead of one process, this is the month that bites you.</p>
+
+<p>I've spent the last two weeks rebuilding a chunk of my own pipeline around Seedance 2.0. The model earned the switch, though I'll admit the Sora deadline forced my hand too. Here's what's actually working on real jobs right now.</p>
+
+<h2>The depth map trick is real, and it's dumber than you'd expect</h2>
+
+<p>Everyone's talking about this right now: before you feed reference footage into Seedance 2.0 for motion transfer, convert it to a grayscale depth map first. Don't send the raw clip. Strip it down to structure, then let Seedance rebuild appearance from your style reference separately.</p>
+
+<p>I tried this on a Web3 summit recap where the client wanted a specific walk-and-turn camera move recreated on a CG-ish brand mascot. Feeding Seedance the raw reference clip gave me motion that was close but kept bleeding the original actor's proportions into the output. Swap in a depth map and the model stops fighting itself. It has nothing to reference but motion and geometry, so that's all it copies, while appearance comes from your first-frame style image. The separation gets a lot cleaner, and so does the result.</p>
+
+<p>If you're in ComfyUI, there's now a node for this that fuses the depth map (structure), your first-frame reference (appearance), and your prompt (semantic intent) into one pass. The batch fan-out and collector nodes let you queue four style variations off a single depth map in one run, and that's the actual time-saver here. You're not re-running motion capture four times. You're re-running appearance four times off a motion skeleton you already solved.</p>
+
+<p><strong>Actionable version if you're not touching ComfyUI:</strong> run your reference clip through a depth estimation pass, export it as grayscale video, and use that as your Seedance motion input instead of the source footage. One extra step, noticeably fewer weird identity-bleed artifacts.</p>
+
+<h2>Omni Mode doesn't feel like a gimmick, which surprised me</h2>
+
+<p>Seedance 2.0's Omni Mode takes 9 images, 3 fifteen-second video clips, and 3 audio files simultaneously, alongside your prompt. A character photo anchors appearance. A film clip anchors camera movement. A track sets pacing. The model reads all of it at once instead of you stitching separate generations together in post.</p>
+
+<p>I was skeptical until I used it on an F1-adjacent brand piece where the client wanted a very specific slow dolly-in matched to an old reference spot, set to a temp track that dictated the emotional beat of the cut. Normally that's three separate tools and a lot of manual timing in Resolve afterward. Omni Mode got me 80% of the way there in one generation. I still had to stabilize and de-flicker in DaVinci after, since that step hasn't disappeared, but the base plate was usable instead of a rough draft. It justified the cost on its own.</p>
+
+<p>Start/end-frame interpolation is the other half worth mentioning. You define your opening and closing composition and Seedance fills the physics between them. This is genuinely good for match cuts and reveal shots where you know exactly where you're starting and landing but don't want to hand-animate the transition.</p>
+
+<h2>Know when to leave Sora behind, and where everything else sits</h2>
+
+<p>The sunset timeline is blunt: web and app access ended in April, API access dies September 24th. If you're a ChatGPT Plus or Pro subscriber, Sora 2 still lives inside ChatGPT itself. But any production pipeline built around the standalone app or API needs a plan this month, not in August when you're panicking before a deadline.</p>
+
+<p>My current cheat sheet, drawn from jobs I've actually billed:</p>
+
+<ul>
+<li>Runway when the client needs granular control over a specific shot</li>
+<li>Kling when budget and iteration speed matter more than polish</li>
+<li>Luma for moody image-to-video work, especially anything atmospheric</li>
+<li>Veo when you need the best all-around output including audio</li>
+<li>Sora only if you're maintaining something already built on it</li>
+</ul>
+
+<p>Betting on a single model is a losing strategy this year. Betting on a repeatable process has held up a lot better.</p>
+
+<h2>Speed as a technique, and why boards still save your budget</h2>
+
+<p>The Popeyes "Wrap Battle" case is nearly a year old now but it still holds up as the reference point for reactive production. Full ad, music included, done in under 3 days using Veo 3 and Suno, after the team abandoned image-to-video because it was too slow for the news cycle they were chasing. It's a technique you build a retainer around if you're working with any brand that wants cultural-moment reactivity.</p>
+
+<p>But speed without structure is how budgets evaporate. The discipline I keep coming back to, and the one I'd push hardest on anyone starting out right now, is boarding before you generate motion. Boards cost cents. They decide composition, continuity, and shot intent before you've spent a single credit on video generation. Skip straight to motion on an un-boarded scene and you end up re-rolling the same shot fifteen times at $2 a pop, chasing a camera move you never actually defined.</p>
+
+<p>Write the script. Board it scene by scene. Generate stills from beats the story has actually earned. Then generate motion. The models will keep trading the lead every quarter. It's Seedance now, it'll be something else by winter. Whatever pipeline you've built around evaluating and combining them is what actually stays yours.</p>
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-07-20-seedance-depth-map-motion-transfer.html";
+  const currentTags = ["seedance", "comfyui", "workflow", "tutorial"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>
