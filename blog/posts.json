@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-21-kling-prompting-versions-explained.html",
+    "title": "Kling Prompt Dialects: Why Version Matters More Than You Think",
+    "meta_description": "Netflix's $587M InterPositive deal shows AI is quietly powering production. Learn why each Kling version needs a different prompting style.",
+    "tags": [
+      "kling",
+      "prompts",
+      "ai-video",
+      "tutorial"
+    ],
+    "date": "2026-07-21"
+  },
+  {
     "filename": "2026-07-20-seedance-depth-map-motion-transfer.html",
     "title": "Seedance 2.0 Depth Map Trick for Clean Motion Transfer",
     "meta_description": "Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.",
