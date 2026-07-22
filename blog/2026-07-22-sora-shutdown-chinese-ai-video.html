@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sora Is Dead: Why Chinese AI Video Models Now Lead | PAFP Blog</title>
+<meta name="description" content="Sora's API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here's what it means for your workflow."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-07-22-sora-shutdown-chinese-ai-video.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-07-22-sora-shutdown-chinese-ai-video.html"/>
+<meta property="og:title" content="Sora Is Dead: Why Chinese AI Video Models Now Lead"/>
+<meta property="og:description" content="Sora's API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here's what it means for your workflow."/>
+<meta property="og:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Sora Is Dead: Why Chinese AI Video Models Now Lead"/>
+<meta name="twitter:description" content="Sora's API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here's what it means for your workflow."/>
+<meta name="twitter:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sora Is Dead: Why Chinese AI Video Models Now Lead",
+  "description": "Sora's API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here's what it means for your workflow.",
+  "image": "https://pranavarya.com/pranavarya.jpg",
+  "datePublished": "2026-07-22",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+.hero-img{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; July 22, 2026</div>
+<h1>Sora Is Dead: Why Chinese AI Video Models Now Lead</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #sora &middot; #kling &middot; #ai-video &middot; #news</div>
+
+<article>
+<p>Sora burned roughly $15 million a day and made $2.1 million total before OpenAI pulled the plug. I keep sitting with that number. It explains where AI video is heading in the second half of 2026, and none of it is good news if you were betting your workflow on American tools winning by default.</p>
+
+<p>The Sora API dies for good on September 24. The web and app versions already went dark back in April. Sam Altman reportedly redirected the compute toward something codenamed "Spud." Meanwhile I opened Artificial Analysis last week to check the leaderboard for a client pitch and found seven of the top eight video models are Chinese: Seedance 2.0, Vidu Q3 Pro, Kling 3.0, Wan 2.6. Runway Gen-4.5 holds the number one spot, and it's the only Western name in the top five that still matters.</p>
+
+<p>I've spent two years building pipelines around Runway and Kling for client work, from F1 sponsor content to Web3 summit recap reels. So this shift isn't theoretical for me. I'm dealing with it this week, on an actual deadline.</p>
+
+<h2>Why Sora actually died</h2>
+
+<p>People keep framing this as a technology failure. It wasn't. Sora looked good. The problem was the unit economics never worked, and OpenAI shipped anyway, apparently aware of the gap. Charging $20 a month for basic access while burning $15 million a day isn't a business model. It's a demo that happened to have a subscription form attached to it.</p>
+
+<p>Kuaishou took the opposite approach. Nineteen months of quiet infrastructure work before Kling ever got loud, and now something like 60 million creators use it, at least by the last count I saw. Kling 3.0 Standard runs about $0.84 for a ten second clip with audio. That's not a discount. That's a company that built for scale from day one instead of chasing a headline demo reel. Same story with Alibaba's Wan 2.6, which has been climbing the rankings while everyone was distracted watching Sora's user numbers slide from a million down to under 500k, based on the figures floating around at the time.</p>
+
+<p>The lesson for anyone producing client work isn't "Chinese models are better," full stop. It's that the companies who treated video generation as infrastructure beat the company that treated it as a launch event. I've said this to clients directly: don't ask me which model is best, ask me which model is best this month, because that answer expires fast.</p>
+
+<h2>What I'm actually cutting with right now</h2>
+
+<p>For anyone doing narrative or cinematic work in mid-2026, the real contest is between four tools, and they're not interchangeable.</p>
+
+<ul>
+<li><strong>Veo 3.1</strong> wins on prompt adherence and native audio, which matters when a client needs 4K portrait output that follows the brief on the first pass without ten regenerations.</li>
+<li><strong>Kling 3.0</strong> matches it on cinematic lighting and handles complex motion better than anything else I've tested. Hair moves like hair, liquids behave, fabric doesn't warp mid-shot. The multi-shot storyboard mode with synced audio across cuts has saved me real editing time on branded content.</li>
+<li><strong>Runway Gen-4.5</strong> is still my go-to when a client wants granular control, since motion brush and reference-driven character consistency matter more than raw photorealism when you're trying to keep a brand mascot looking the same across twelve shots.</li>
+<li><strong>Higgsfield</strong> is quietly becoming the fourth option. I used it on a recent branded piece specifically because the client wanted UGC-style pacing without hiring ten creators, and the Soul UGC Builder got most of the way there on its own.</li>
+</ul>
+
+<p>None of these four are safe long-term bets. Stop picking a favorite, and start abstracting your workflow away from any single API.</p>
+
+<h2>Build prompt libraries, not platform loyalty</h2>
+
+<p>Here's the workflow shift I've made on every project since March. I no longer write prompts inside a tool's native interface. I keep a separate prompt library, plain text, organized loosely by shot type and lighting, that I can drop into whichever model wins that quarter. If Kling gets outpaced by Wan 2.7 in October, I don't want three months of prompt engineering trapped in a UI I'm about to abandon.</p>
+
+<p>Write your prompts as portable instructions, not tool-specific incantations. Instead of "Kling storyboard mode, shot 1," write "wide establishing shot, handheld drift, golden hour, character reference locked." That sentence works in Runway, Veo, or whatever ships next quarter. I also try to re-evaluate my default model every quarter now instead of every year. The frontier moves too fast for annual reviews to mean much.</p>
+
+<p>The same logic applies to the avatar stack most of us are running for presenter-style content. ElevenLabs for narration, HeyGen for the performance, an editor cutting around the render's weak spots. I've learned to lock the audio first: upload the final narration to HeyGen before touching the avatar generation. Timing drift between a re-generated voice track and an already-rendered face is the most annoying failure mode in this whole workflow, and it wastes credits you can't get back.</p>
+
+<h2>The budget numbers deserve more attention than they're getting</h2>
+
+<p>Tribeca showed a feature film this year, "Dreams of Violets," made for $2,000, without a single camera, actor, or set in the traditional sense. Separately, a feature called DreadClub: Vampire's Verdict reportedly got made for around $400. That used to be a lunch budget for a location scout. Now it's apparently enough for a completed feature.</p>
+
+<p>I don't think this replaces real film production, and honestly some of what I've seen from the fully-AI feature crowd still looks like a tech demo wearing a plot. But the fact that it's even a category now, with Tribeca giving it a slot, means the floor for "what counts as a producible idea" dropped considerably. If you've been sitting on a short film concept because you couldn't afford a weekend shoot, that excuse doesn't hold anymore.</p>
+
+<p>The Sora shutdown isn't really a story about one product failing. It's a signal that the entire cost structure of this industry reset in about eighteen months. Whatever I'm cutting with by December is anyone's guess at this point. Probably something that doesn't have a name yet.</p>
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-07-22-sora-shutdown-chinese-ai-video.html";
+  const currentTags = ["sora", "kling", "ai-video", "news"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>
