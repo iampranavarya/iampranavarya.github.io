@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-07-24-frame-chaining-post-sora-workflow.html",
+    "title": "Frame Chaining in 2026: The Post-Sora AI Video Workflow",
+    "meta_description": "Sora is gone. Here's how frame chaining and last-frame seeding on Kling, Veo, and Seedance keep AI video clips looking like one continuous shot.",
+    "tags": [
+      "ai video",
+      "kling",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2026-07-24"
+  },
+  {
     "filename": "2026-07-23-sora-shutdown-kling-pipeline-shift.html",
     "title": "Sora's Sunset: Why Kling Now Powers a Feature Film",
     "meta_description": "Sora 2 is being shut down, and studios are pivoting to Kling. Here's what a full-length AI feature film reveals about pipeline risk in 2026.",
