@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Hardest Problem in AI Image Generation Is Consistency | PAFP Blog</title>
+<meta name="description" content="Generating one great AI image is easy. Keeping a character or product consistent across a whole campaign is the actual hard problem, and here's how I approach it."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2025-11-12-ai-image-consistency-across-a-campaign.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2025-11-12-ai-image-consistency-across-a-campaign.html"/>
+<meta property="og:title" content="The Hardest Problem in AI Image Generation Is Consistency"/>
+<meta property="og:description" content="Generating one great AI image is easy. Keeping a character or product consistent across a whole campaign is the actual hard problem, and here's how I approach it."/>
+<meta property="og:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="The Hardest Problem in AI Image Generation Is Consistency"/>
+<meta name="twitter:description" content="Generating one great AI image is easy. Keeping a character or product consistent across a whole campaign is the actual hard problem, and here's how I approach it."/>
+<meta name="twitter:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Hardest Problem in AI Image Generation Is Consistency",
+  "description": "Generating one great AI image is easy. Keeping a character or product consistent across a whole campaign is the actual hard problem, and here's how I approach it.",
+  "image": "https://pranavarya.com/pranavarya.jpg",
+  "datePublished": "2025-11-12",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI & Filmmaking &middot; November 12, 2025</div>
+<h1>The Hardest Problem in AI Image Generation Is Consistency</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #ai &middot; #generative-images &middot; #workflow &middot; #tutorial</div>
+<article>
+
+<p>Any AI image tool can produce a single striking frame on a good prompt. The problem that actually determines whether AI generation is usable for real client work is consistency: the same product, the same character, the same lighting logic, holding together across twenty or fifty variations instead of drifting a little further from itself with each new generation.</p>
+<h2>Reference images beat clever prompting every time</h2>
+<p>I used to try to solve consistency purely through increasingly detailed text prompts, describing a product's exact proportions and materials in painstaking detail. It never held up past a handful of generations. What actually works is feeding a real reference photo into the generation process and treating the text prompt as a modifier on that reference rather than the sole source of truth. Consistency jumps immediately once the model has something concrete to anchor to instead of reconstructing an object from description alone.</p>
+<h2>Lock what matters, let the rest breathe</h2>
+<p>The instinct to lock every variable for consistency backfires, because a set of images that are too rigidly identical reads as obviously synthetic and repetitive rather than as a coherent campaign. I lock the object itself, the product or the character's core features, and deliberately let lighting, background, and camera angle vary within a defined range. That's closer to how a real photo shoot actually works anyway, same subject, different setups, and it reads as more believable specifically because it isn't perfectly uniform.</p>
+<ul>
+<li>Anchor generation to a real reference image, not just a text description</li>
+<li>Lock the subject, let environment and angle vary within limits</li>
+<li>Judge a set as a set, not by cherry-picking the single best frame</li>
+</ul>
+<h2>The review step that catches drift early</h2>
+<p>I now review generated sets as a grid rather than one image at a time, because drift that's invisible looking at a single frame becomes obvious the moment you see ten variations side by side. Catching that early means regenerating from the same locked reference instead of trying to fix an already-drifted set in post, which almost never fully works and wastes more time than starting the batch over.</p>
+
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2025-11-12-ai-image-consistency-across-a-campaign.html";
+  const currentTags = ["ai", "generative-images", "workflow", "tutorial"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>

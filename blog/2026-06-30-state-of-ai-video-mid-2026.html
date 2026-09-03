@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Where AI Video Actually Stands, Halfway Through the Year | PAFP Blog</title>
+<meta name="description" content="A honest mid-year assessment of AI video tools, six months on from the last major wave of releases, focused on what's actually usable in production."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-06-30-state-of-ai-video-mid-2026.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-06-30-state-of-ai-video-mid-2026.html"/>
+<meta property="og:title" content="Where AI Video Actually Stands, Halfway Through the Year"/>
+<meta property="og:description" content="A honest mid-year assessment of AI video tools, six months on from the last major wave of releases, focused on what's actually usable in production."/>
+<meta property="og:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Where AI Video Actually Stands, Halfway Through the Year"/>
+<meta name="twitter:description" content="A honest mid-year assessment of AI video tools, six months on from the last major wave of releases, focused on what's actually usable in production."/>
+<meta name="twitter:image" content="https://pranavarya.com/pranavarya.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Where AI Video Actually Stands, Halfway Through the Year",
+  "description": "A honest mid-year assessment of AI video tools, six months on from the last major wave of releases, focused on what's actually usable in production.",
+  "image": "https://pranavarya.com/pranavarya.jpg",
+  "datePublished": "2026-06-30",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI & Filmmaking &middot; June 30, 2026</div>
+<h1>Where AI Video Actually Stands, Halfway Through the Year</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #ai-video &middot; #state-of-the-industry &middot; #review &middot; #workflow</div>
+<article>
+
+<p>Halfway through the year feels like a reasonable point to step back from the constant churn of individual model updates and ask a broader question: where does AI video actually stand right now, for someone using it in real production work rather than watching it from the outside through launch-day demo reels.</p>
+<h2>What's genuinely production-ready now that wasn't a year ago</h2>
+<p>Reference-anchored consistency across a set of generated images and clips has gone from a genuine limitation to something I trust for real campaign work, which has meaningfully expanded what kinds of jobs I'll actually pitch AI generation for. Native synced audio across the major video models has also crossed from novelty into something I use in real deliverables regularly, cutting a real production step for a meaningful share of my output.</p>
+<h2>What's still not there despite the coverage suggesting otherwise</h2>
+<p>Complex multi-subject interaction, more than one person or object moving independently and believably relative to each other within a single generated clip, remains a genuine weak point across every model I've tested this year, and I don't think that's close to solved despite individual demo clips that make it look solved under carefully chosen conditions. Fully autonomous end-to-end production, concept to finished, polished deliverable with no human creative direction at any step, also remains further off than some coverage implies, at least for anything I'd actually put my name on.</p>
+<ul>
+<li>Genuinely solved: reference-anchored consistency, native synced audio</li>
+<li>Still a real weak point: complex multi-subject interaction</li>
+<li>Not close: fully autonomous production with no human creative direction</li>
+</ul>
+<h2>The honest overall assessment</h2>
+<p>This has been a year of AI video moving from "impressive but unreliable" to "genuinely reliable for a defined, real subset of production work," which is a meaningfully smaller claim than the more breathless coverage suggests and a more useful one for anyone actually trying to plan a production pipeline around it. I'd rather give clients that honest, bounded picture than an inflated one that sets expectations these tools still can't fully meet.</p>
+
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-06-30-state-of-ai-video-mid-2026.html";
+  const currentTags = ["ai-video", "state-of-the-industry", "review", "workflow"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>
