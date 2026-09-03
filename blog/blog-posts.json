@@ -1,0 +1,1438 @@
+[
+  {
+    "filename": "2026-07-27-soul-id-cinema-studio-consistency.html",
+    "title": "Consistency Wins: Soul ID, Cinema Studio & AI Film",
+    "meta_description": "How Higgsfield's Soul ID and Cinema Studio lock character identity and camera moves across Seedance, Kling, and Veo for consistent AI films.",
+    "tags": [
+      "higgsfield",
+      "ai-filmmaking",
+      "tutorial",
+      "workflow"
+    ],
+    "date": "2026-07-27"
+  },
+  {
+    "filename": "2026-07-26-seedance-25-rollout-reality-check.html",
+    "title": "Seedance 2.5: What's Real vs. Hype Right Now",
+    "meta_description": "Seedance 2.5 promises 30-second video and 50 references, but access is still limited. Here's what's actually usable today.",
+    "tags": [
+      "seedance",
+      "bytedance",
+      "ai-video",
+      "news"
+    ],
+    "date": "2026-07-26"
+  },
+  {
+    "filename": "2026-07-25-sora-shutdown-veo-kling-replace.html",
+    "title": "Sora Is Dead: Why Veo 3.1 and Kling 3.0 Win Now",
+    "meta_description": "Sora's API shuts down Sept 24. Here's why Veo 3.1 and Kling 3.0 are the real AI video winners, with real pricing and client workflow notes.",
+    "tags": [
+      "sora",
+      "veo",
+      "kling",
+      "ai-video"
+    ],
+    "date": "2026-07-25"
+  },
+  {
+    "filename": "2026-07-24-frame-chaining-post-sora-workflow.html",
+    "title": "Frame Chaining in 2026: The Post-Sora AI Video Workflow",
+    "meta_description": "Sora is gone. Here's how frame chaining and last-frame seeding on Kling, Veo, and Seedance keep AI video clips looking like one continuous shot.",
+    "tags": [
+      "ai video",
+      "kling",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2026-07-24"
+  },
+  {
+    "filename": "2026-07-23-sora-shutdown-kling-pipeline-shift.html",
+    "title": "Sora's Sunset: Why Kling Now Powers a Feature Film",
+    "meta_description": "Sora 2 is being shut down, and studios are pivoting to Kling. Here's what a full-length AI feature film reveals about pipeline risk in 2026.",
+    "tags": [
+      "kling",
+      "sora",
+      "ai-video",
+      "production"
+    ],
+    "date": "2026-07-23"
+  },
+  {
+    "filename": "2026-07-22-sora-shutdown-chinese-ai-video.html",
+    "title": "Sora Is Dead: Why Chinese AI Video Models Now Lead",
+    "meta_description": "Sora's API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here's what it means for your workflow.",
+    "tags": [
+      "sora",
+      "kling",
+      "ai-video",
+      "news"
+    ],
+    "date": "2026-07-22"
+  },
+  {
+    "filename": "2026-07-21-kling-prompting-versions-explained.html",
+    "title": "Kling Prompt Dialects: Why Version Matters More Than You Think",
+    "meta_description": "Netflix's $587M InterPositive deal shows AI is quietly powering production. Learn why each Kling version needs a different prompting style.",
+    "tags": [
+      "kling",
+      "prompts",
+      "ai-video",
+      "tutorial"
+    ],
+    "date": "2026-07-21"
+  },
+  {
+    "filename": "2026-07-20-seedance-depth-map-motion-transfer.html",
+    "title": "Seedance 2.0 Depth Map Trick for Clean Motion Transfer",
+    "meta_description": "Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.",
+    "tags": [
+      "seedance",
+      "comfyui",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2026-07-20"
+  },
+  {
+    "filename": "2026-07-19-kling-vs-veo-ai-video-shakeup.html",
+    "title": "Kling vs Veo vs Sora: The AI Video Landscape Shifted",
+    "meta_description": "Kling v3 tops the leaderboard, Sora's app is gone, and Veo 3.1 holds its own. Here's what the AI video shakeup means for your pipeline.",
+    "tags": [
+      "kling",
+      "veo",
+      "sora",
+      "ai-video"
+    ],
+    "date": "2026-07-19"
+  },
+  {
+    "filename": "2026-07-18-sora-shutdown-kling-seedance-rise.html",
+    "title": "Sora's Death and the Rise of Chinese Video AI",
+    "meta_description": "Sora's API shuts down Sept 24 after burning cash, while Kling and Seedance quietly pull ahead in real-world video AI use.",
+    "tags": [
+      "sora",
+      "kling",
+      "seedance",
+      "ai-video"
+    ],
+    "date": "2026-07-18"
+  },
+  {
+    "filename": "2026-07-17-sora-shutdown-frame-chaining-pipeline.html",
+    "title": "Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now",
+    "meta_description": "Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in.",
+    "tags": [
+      "sora",
+      "kling",
+      "runway",
+      "automation"
+    ],
+    "date": "2026-07-17"
+  },
+  {
+    "filename": "2026-07-15-ai-film-tribeca-industry-backlash.html",
+    "title": "AI Docudrama Hits Tribeca: Industry Reacts",
+    "meta_description": "An AI-generated film premiered at Tribeca's main slate while SAG-AFTRA slams AI actor Tilly Norwood. Here's what the mixed reactions reveal.",
+    "tags": [
+      "ai film",
+      "tribeca",
+      "sag-aftra",
+      "news"
+    ],
+    "date": "2026-07-15"
+  },
+  {
+    "filename": "2026-07-14-kling-3-prompt-structure-guide.html",
+    "title": "Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)",
+    "meta_description": "Kling 3.0 breaks static Midjourney-style prompts. Learn the camera-first structure that turns frozen mannequin shots into real motion.",
+    "tags": [
+      "kling",
+      "prompts",
+      "tutorial",
+      "ai-video"
+    ],
+    "date": "2026-07-14"
+  },
+  {
+    "filename": "2026-07-13-ai-storyboard-pipeline-product-film.html",
+    "title": "How I Storyboard AI Product Films in an Afternoon",
+    "meta_description": "A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days.",
+    "tags": [
+      "kling",
+      "nano-banana",
+      "workflow",
+      "ai-video"
+    ],
+    "date": "2026-07-13"
+  },
+  {
+    "filename": "2026-07-12-sora-shutdown-seedance-2-5.html",
+    "title": "Sora Shuts Down as Seedance 2.5 Takes the Spotlight",
+    "meta_description": "Sora's API closes Sept 24 amid huge losses, while ByteDance's Seedance 2.5 debuts 30-second clips and semantic editing.",
+    "tags": [
+      "seedance",
+      "sora",
+      "video-generation",
+      "news"
+    ],
+    "date": "2026-07-12"
+  },
+  {
+    "filename": "2026-07-12-seedance-2-5-continuous-video.html",
+    "title": "Seedance 2.5: 30-Second AI Video, No More Stitching",
+    "meta_description": "ByteDance's Seedance 2.5 generates 30 continuous seconds with 50 reference assets, ending seam-matching hell for AI video editors.",
+    "tags": [
+      "seedance",
+      "ai-video",
+      "bytedance",
+      "news"
+    ],
+    "date": "2026-07-12"
+  },
+  {
+    "filename": "2026-07-11-seedance-2-5-muse-sora-shutdown.html",
+    "title": "Sora's Gone, Meta's Muse Is Messy, Seedance 2.5 Wins",
+    "meta_description": "Sora shuts down, Meta's Muse sparks consent concerns, and ByteDance's Seedance 2.5 quietly becomes the video model worth using this week.",
+    "tags": [
+      "seedance",
+      "sora",
+      "meta ai",
+      "video generation"
+    ],
+    "date": "2026-07-11"
+  },
+  {
+    "filename": "2026-07-11-sora-shutdown-kling-funding.html",
+    "title": "Sora Shuts Down as Kling Raises $2.8B: What Changes",
+    "meta_description": "Sora's API dies in September while Kling closes a $2.8B round backed by Alibaba, Baidu, and Tencent. Here's what it means for your AI video workflow.",
+    "tags": [
+      "sora",
+      "kling",
+      "ai-video",
+      "news"
+    ],
+    "date": "2026-07-11"
+  },
+  {
+    "filename": "2026-07-10-frame-chaining-ai-video-technique.html",
+    "title": "Frame-Chaining: How Pros Fake Long AI Videos",
+    "meta_description": "Learn the frame-chaining technique pros use to stitch short AI clips into continuous-looking videos, using Grok Imagine and similar tools.",
+    "tags": [
+      "ai video",
+      "grok imagine",
+      "tutorial",
+      "frame-chaining"
+    ],
+    "date": "2026-07-10"
+  },
+  {
+    "filename": "2026-07-10-seedance-frame-chaining-continuity.html",
+    "title": "Seedance 2.0 Solves AI Video's Continuity Problem",
+    "meta_description": "Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work.",
+    "tags": [
+      "seedance",
+      "ai-video",
+      "tutorial",
+      "pipeline"
+    ],
+    "date": "2026-07-10"
+  },
+  {
+    "filename": "2026-07-09-what-im-actually-looking-forward-to-this-year.html",
+    "title": "What I'm Actually Looking Forward to in Gear This Year",
+    "meta_description": "Rather than another prediction list, a filmmaker's honest read on which upcoming gear categories actually matter for real production work.",
+    "tags": [
+      "gear",
+      "wearables",
+      "opinion",
+      "cameras"
+    ],
+    "date": "2026-07-09"
+  },
+  {
+    "filename": "2026-07-06-a-year-of-daily-smart-glasses-use-what-id-tell-a-buyer.html",
+    "title": "A Year of Daily Smart Glasses Use: What I'd Actually Tell a Buyer",
+    "meta_description": "After a full year of near-daily smart glasses use across multiple generations of hardware, the honest advice I'd give someone considering buying a pair.",
+    "tags": [
+      "smart-glasses",
+      "review",
+      "buying-guide",
+      "wearables"
+    ],
+    "date": "2026-07-06"
+  },
+  {
+    "filename": "2026-07-03-action-camera-firmware-updates-worth-installing.html",
+    "title": "Which Action Camera Firmware Updates Are Actually Worth Installing",
+    "meta_description": "Not every firmware update is worth installing right before a paid shoot. A practical approach to deciding what to update and when.",
+    "tags": [
+      "action-camera",
+      "firmware",
+      "gear",
+      "workflow"
+    ],
+    "date": "2026-07-03"
+  },
+  {
+    "filename": "2026-06-30-state-of-ai-video-mid-2026.html",
+    "title": "Where AI Video Actually Stands, Halfway Through the Year",
+    "meta_description": "A honest mid-year assessment of AI video tools, six months on from the last major wave of releases, focused on what's actually usable in production.",
+    "tags": [
+      "ai-video",
+      "state-of-the-industry",
+      "review",
+      "workflow"
+    ],
+    "date": "2026-06-30"
+  },
+  {
+    "filename": "2026-06-26-action-camera-as-a-backup-b-cam-not-just-pov.html",
+    "title": "Using an Action Camera as a Real B-Cam, Not Just a POV Toy",
+    "meta_description": "Beyond helmet mounts and POV shots, an action camera set up properly can genuinely function as a second angle B-camera on real client shoots.",
+    "tags": [
+      "action-camera",
+      "workflow",
+      "gopro",
+      "technique"
+    ],
+    "date": "2026-06-26"
+  },
+  {
+    "filename": "2026-06-23-eye-af-tracking-limits-nobody-mentions.html",
+    "title": "Eye AF Is Great Until It Isn't. Here's Where It Breaks",
+    "meta_description": "Modern eye and subject tracking autofocus is genuinely impressive, but it has specific, predictable failure modes worth knowing before you rely on it.",
+    "tags": [
+      "autofocus",
+      "cameras",
+      "technique",
+      "gear"
+    ],
+    "date": "2026-06-23"
+  },
+  {
+    "filename": "2026-06-20-weather-sealing-what-it-actually-protects-against.html",
+    "title": "What Weather Sealing Actually Protects Against, Realistically",
+    "meta_description": "Weather sealing marketing implies more durability than most cameras actually deliver. A realistic, tested read on what it genuinely protects against.",
+    "tags": [
+      "cameras",
+      "gear",
+      "weather-sealing",
+      "durability"
+    ],
+    "date": "2026-06-20"
+  },
+  {
+    "filename": "2026-06-17-negotiating-usage-rights-for-ai-generated-content.html",
+    "title": "Usage Rights Get Weird Fast With AI-Generated Content",
+    "meta_description": "Standard usage rights language from traditional photography contracts doesn't map cleanly onto AI-generated deliverables. Here's how I've adapted mine.",
+    "tags": [
+      "contracts",
+      "ai-video",
+      "business",
+      "client-work"
+    ],
+    "date": "2026-06-17"
+  },
+  {
+    "filename": "2026-06-14-the-uncanny-valley-is-moving-not-disappearing.html",
+    "title": "The Uncanny Valley Isn't Closing, It's Just Moving",
+    "meta_description": "As AI video gets more convincing overall, the specific things that trigger an uncanny reaction keep shifting rather than disappearing entirely.",
+    "tags": [
+      "ai-video",
+      "opinion",
+      "technique",
+      "generative-ai"
+    ],
+    "date": "2026-06-14"
+  },
+  {
+    "filename": "2026-06-11-why-i-stopped-generating-in-english-only.html",
+    "title": "Why I Stopped Prompting AI Video Only in English",
+    "meta_description": "Prompting AI video models in a subject's native language, when the model supports it, has quietly produced more natural results in specific cases.",
+    "tags": [
+      "ai-video",
+      "prompts",
+      "workflow",
+      "international"
+    ],
+    "date": "2026-06-11"
+  },
+  {
+    "filename": "2026-06-08-ai-denoise-tools-are-genuinely-good-now.html",
+    "title": "AI Denoise Tools Have Actually Solved a Real Problem",
+    "meta_description": "High-ISO noise reduction used to mean a real trade-off against detail. Current AI denoise tools have genuinely closed that gap for most real work.",
+    "tags": [
+      "photo-editing",
+      "noise-reduction",
+      "ai",
+      "review"
+    ],
+    "date": "2026-06-08"
+  },
+  {
+    "filename": "2026-06-04-batch-processing-thousands-of-travel-photos-fast.html",
+    "title": "Processing Thousands of Travel Photos Without Losing a Week",
+    "meta_description": "A practical system for triaging and batch-editing a genuinely large volume of travel photography without letting the backlog become unmanageable.",
+    "tags": [
+      "photo-editing",
+      "workflow",
+      "travel",
+      "organization"
+    ],
+    "date": "2026-06-04"
+  },
+  {
+    "filename": "2026-06-01-packing-list-for-a-summer-of-travel-shoots.html",
+    "title": "My Actual Packing List Going Into a Summer of Travel Shoots",
+    "meta_description": "A realistic, tested packing list for a summer of back-to-back travel shoots, built from what actually got used last year rather than a wishlist.",
+    "tags": [
+      "travel",
+      "packing",
+      "gear",
+      "planning"
+    ],
+    "date": "2026-06-01"
+  },
+  {
+    "filename": "2026-05-29-archiving-old-projects-what-i-actually-keep.html",
+    "title": "What I Actually Keep When Archiving an Old Project",
+    "meta_description": "Full raw footage archives get expensive and unwieldy fast. A practical, honest system for deciding what actually survives long-term archiving.",
+    "tags": [
+      "archiving",
+      "storage",
+      "workflow",
+      "organization"
+    ],
+    "date": "2026-05-29"
+  },
+  {
+    "filename": "2026-05-26-building-a-review-link-workflow-clients-actually-use.html",
+    "title": "A Client Review Workflow People Actually Use Correctly",
+    "meta_description": "Most client feedback comes back vague and hard to act on. A specific review link setup that gets clearer, timestamped, actionable notes.",
+    "tags": [
+      "client-workflow",
+      "review-process",
+      "editing",
+      "productivity"
+    ],
+    "date": "2026-05-26"
+  },
+  {
+    "filename": "2026-05-23-caring-for-optics-in-humid-climates.html",
+    "title": "Keeping Binoculars and Lenses Fungus-Free in Humid Climates",
+    "meta_description": "Fungus growth inside optics is a real risk in humid travel destinations. Practical storage habits that actually prevent it.",
+    "tags": [
+      "binoculars",
+      "gear-maintenance",
+      "travel",
+      "optics"
+    ],
+    "date": "2026-05-23"
+  },
+  {
+    "filename": "2026-05-20-teleprompter-apps-for-solo-shooters.html",
+    "title": "Teleprompter Setups That Actually Work for a Solo Shooter",
+    "meta_description": "Running a teleprompter alone, without an operator, requires a different setup than the standard multi-person configuration. Here's what I actually use.",
+    "tags": [
+      "teleprompter",
+      "solo-shooting",
+      "gear",
+      "tutorial"
+    ],
+    "date": "2026-05-20"
+  },
+  {
+    "filename": "2026-05-17-wireless-hdmi-monitoring-for-client-review.html",
+    "title": "Wireless HDMI Monitoring Finally Doesn't Suck",
+    "meta_description": "Wireless video transmission for client monitors used to be unreliable and laggy. Current systems have genuinely closed that gap for most real-world use.",
+    "tags": [
+      "wireless-video",
+      "monitoring",
+      "gear",
+      "review"
+    ],
+    "date": "2026-05-17"
+  },
+  {
+    "filename": "2026-05-13-the-value-of-shooting-film-occasionally.html",
+    "title": "Why I Still Shoot a Roll of Film a Few Times a Year",
+    "meta_description": "Film has no practical place in a client delivery pipeline anymore, but shooting it occasionally has genuinely improved my digital work.",
+    "tags": [
+      "film-photography",
+      "technique",
+      "creative-practice"
+    ],
+    "date": "2026-05-13"
+  },
+  {
+    "filename": "2026-05-10-shooting-fashion-week-backstage-technique.html",
+    "title": "What Backstage Fashion Week Actually Teaches You About Speed",
+    "meta_description": "Backstage fashion week coverage is pure chaos and terrible light. Here's what shooting it repeatedly has taught me about working fast without losing quality.",
+    "tags": [
+      "fashion-photography",
+      "technique",
+      "event-photography"
+    ],
+    "date": "2026-05-10"
+  },
+  {
+    "filename": "2026-05-07-how-i-actually-decide-when-to-wear-smart-glasses.html",
+    "title": "How I Actually Decide When to Wear Smart Glasses on a Job",
+    "meta_description": "A year into regular smart glasses use, the actual decision tree for when they come along on a shoot versus when they stay in the bag.",
+    "tags": [
+      "smart-glasses",
+      "workflow",
+      "gear",
+      "decision-making"
+    ],
+    "date": "2026-05-07"
+  },
+  {
+    "filename": "2026-05-04-smart-glasses-for-live-event-streaming.html",
+    "title": "Using Smart Glasses as a Backup Live Stream Angle",
+    "meta_description": "An experimental setup using smart glasses' camera as a secondary POV angle for live event streaming, and how reliable it actually turned out to be.",
+    "tags": [
+      "smart-glasses",
+      "livestreaming",
+      "workflow",
+      "review"
+    ],
+    "date": "2026-05-04"
+  },
+  {
+    "filename": "2026-05-01-action-camera-in-cold-weather-battery-tips.html",
+    "title": "Keeping Action Camera Batteries Alive in Cold Weather",
+    "meta_description": "Cold weather kills action camera battery life fast. A few practical habits that meaningfully extend runtime on genuinely cold shoots.",
+    "tags": [
+      "action-camera",
+      "cold-weather",
+      "battery",
+      "tips"
+    ],
+    "date": "2026-05-01"
+  },
+  {
+    "filename": "2026-04-28-modular-action-camera-accessories-worth-the-money.html",
+    "title": "The Action Camera Accessories Actually Worth Buying",
+    "meta_description": "Most action camera accessory bundles are padding. Here's the short list of add-ons that have genuinely earned their spot in a working kit.",
+    "tags": [
+      "action-camera",
+      "accessories",
+      "gear",
+      "buying-guide"
+    ],
+    "date": "2026-04-28"
+  },
+  {
+    "filename": "2026-04-25-aps-c-vs-full-frame-for-travel-work-2026.html",
+    "title": "APS-C vs Full Frame for Travel Work, Revisited",
+    "meta_description": "Sensor gap arguments from a few years ago don't fully hold up anymore. An updated, honest take on APS-C versus full frame for travel-heavy work.",
+    "tags": [
+      "cameras",
+      "aps-c",
+      "full-frame",
+      "travel"
+    ],
+    "date": "2026-04-25"
+  },
+  {
+    "filename": "2026-04-21-nab-2026-recap-honest-take.html",
+    "title": "NAB 2026 Recap: The Honest, Filtered Version",
+    "meta_description": "NAB 2026 has wrapped. A filtered recap that separates genuine workflow improvements from keynote-only announcements that won't survive contact with real use.",
+    "tags": [
+      "nab",
+      "editing",
+      "news",
+      "gear"
+    ],
+    "date": "2026-04-21"
+  },
+  {
+    "filename": "2026-04-18-why-i-still-shoot-tethered-for-product-work.html",
+    "title": "Why I Still Shoot Tethered for Product Photography",
+    "meta_description": "Tethered shooting feels old-fashioned next to wireless workflows, but for product work it's still the fastest, most reliable way to get client sign-off.",
+    "tags": [
+      "tethering",
+      "product-photography",
+      "workflow",
+      "technique"
+    ],
+    "date": "2026-04-18"
+  },
+  {
+    "filename": "2026-04-15-adobe-nab-2026-updates-that-matter.html",
+    "title": "Adobe's NAB Announcements: What Actually Matters for Working Editors",
+    "meta_description": "Adobe's NAB 2026 updates included new color tools in Premiere and a new Frame.io storage option. Here's what's actually worth paying attention to.",
+    "tags": [
+      "adobe",
+      "premiere-pro",
+      "nab",
+      "news"
+    ],
+    "date": "2026-04-15"
+  },
+  {
+    "filename": "2026-04-12-sound-design-for-ai-generated-video.html",
+    "title": "Sound Design for AI-Generated Footage Is Its Own Skill",
+    "meta_description": "AI video's native audio has improved, but real sound design for generated footage still requires a distinct approach from designing for real footage.",
+    "tags": [
+      "sound-design",
+      "ai-video",
+      "audio",
+      "workflow"
+    ],
+    "date": "2026-04-12"
+  },
+  {
+    "filename": "2026-04-09-when-a-client-asks-for-fully-ai-generated-campaign.html",
+    "title": "A Client Asked for a Fully AI-Generated Campaign. Here's How That Went",
+    "meta_description": "A real project where a client wanted an entire campaign generated with no real photography at all, and what actually happened once we started.",
+    "tags": [
+      "ai-video",
+      "client-work",
+      "case-study",
+      "workflow"
+    ],
+    "date": "2026-04-09"
+  },
+  {
+    "filename": "2026-04-06-prompt-libraries-are-overrated-heres-why.html",
+    "title": "Prompt Libraries Are Overrated. Here's What Actually Works Better",
+    "meta_description": "Sharing and following pre-built AI video prompt libraries sounds efficient, but here's why building prompting instinct beats collecting templates.",
+    "tags": [
+      "ai-video",
+      "prompts",
+      "workflow",
+      "opinion"
+    ],
+    "date": "2026-04-06"
+  },
+  {
+    "filename": "2026-04-03-building-a-personal-preset-system-from-scratch.html",
+    "title": "Building a Preset System From Your Own Work, Not a Download",
+    "meta_description": "Instead of buying presets, a practical process for building your own preset library from edits you've already done and liked.",
+    "tags": [
+      "lightroom",
+      "presets",
+      "photo-editing",
+      "tutorial"
+    ],
+    "date": "2026-04-03"
+  },
+  {
+    "filename": "2026-03-30-raw-processing-speed-on-older-hardware.html",
+    "title": "Getting Usable Raw Processing Speed on a Laptop That's Not New",
+    "meta_description": "Practical settings adjustments that meaningfully speed up raw photo processing on older laptop hardware, without buying new gear.",
+    "tags": [
+      "photo-editing",
+      "workflow",
+      "hardware",
+      "tutorial"
+    ],
+    "date": "2026-03-30"
+  },
+  {
+    "filename": "2026-03-27-template-projects-that-actually-save-time.html",
+    "title": "The Template Projects That Actually Save Me Time",
+    "meta_description": "Not every reusable template is worth building. Here are the specific ones that have genuinely paid for the time spent setting them up.",
+    "tags": [
+      "editing",
+      "templates",
+      "workflow",
+      "productivity"
+    ],
+    "date": "2026-03-27"
+  },
+  {
+    "filename": "2026-03-24-audio-mixing-for-social-video-loud-environments.html",
+    "title": "Mixing Audio for Videos People Watch on a Bus With No Headphones",
+    "meta_description": "Most social video gets watched in loud, distracted environments with the sound off half the time. Here's how that changes an actual audio mix.",
+    "tags": [
+      "audio-mixing",
+      "editing",
+      "social-media",
+      "technique"
+    ],
+    "date": "2026-03-24"
+  },
+  {
+    "filename": "2026-03-21-spotting-scope-vs-binoculars-for-long-lens-scouting.html",
+    "title": "Spotting Scope or Binoculars for Scouting a Long Lens Shot",
+    "meta_description": "When scouting for a very long telephoto shot, a spotting scope beats binoculars in a way that's easy to underestimate until you've tried both.",
+    "tags": [
+      "binoculars",
+      "spotting-scope",
+      "gear",
+      "technique"
+    ],
+    "date": "2026-03-21"
+  },
+  {
+    "filename": "2026-03-18-what-im-hoping-nab-2026-brings.html",
+    "title": "What I'm Actually Hoping NAB Brings This Year",
+    "meta_description": "Ahead of NAB 2026, a working filmmaker's realistic wish list, focused on workflow fixes over flashy new features.",
+    "tags": [
+      "nab",
+      "editing",
+      "workflow",
+      "news"
+    ],
+    "date": "2026-03-18"
+  },
+  {
+    "filename": "2026-03-15-monitor-calibration-for-color-grading-on-the-road.html",
+    "title": "Calibrating a Laptop Screen for Color Grading on the Road",
+    "meta_description": "A practical, portable monitor calibration routine for color grading accurately on a laptop while traveling for shoots.",
+    "tags": [
+      "color-grading",
+      "monitor-calibration",
+      "workflow",
+      "gear"
+    ],
+    "date": "2026-03-15"
+  },
+  {
+    "filename": "2026-03-12-gimbal-vs-stabilized-lens-for-run-and-gun.html",
+    "title": "Gimbal or In-Lens Stabilization: What I Actually Reach For",
+    "meta_description": "For fast-moving run-and-gun coverage, when a handheld gimbal earns its setup time versus when good in-body stabilization alone is enough.",
+    "tags": [
+      "gimbal",
+      "stabilization",
+      "gear",
+      "technique"
+    ],
+    "date": "2026-03-12"
+  },
+  {
+    "filename": "2026-03-08-directing-non-actors-for-brand-testimonials.html",
+    "title": "Directing Non-Actors Without Making It Obvious They're Non-Actors",
+    "meta_description": "Most brand testimonial subjects have never been on camera before. A practical approach to directing them that doesn't read as stiff or coached.",
+    "tags": [
+      "directing",
+      "video-production",
+      "technique",
+      "brand-work"
+    ],
+    "date": "2026-03-08"
+  },
+  {
+    "filename": "2026-03-05-shooting-for-vertical-and-horizontal-simultaneously.html",
+    "title": "Framing for Vertical and Horizontal at the Same Time",
+    "meta_description": "Every deliverable now needs a vertical cut alongside the horizontal one. Here's how I actually frame shots to serve both without reshooting.",
+    "tags": [
+      "photography",
+      "composition",
+      "social-media",
+      "technique"
+    ],
+    "date": "2026-03-05"
+  },
+  {
+    "filename": "2026-03-02-translating-signage-live-with-smart-glasses-travel.html",
+    "title": "Live Translation Through Smart Glasses Actually Works Now",
+    "meta_description": "After using smart glasses' live translation feature on a shoot abroad, an honest take on where it genuinely helped and where it still fell short.",
+    "tags": [
+      "smart-glasses",
+      "travel",
+      "translation",
+      "review"
+    ],
+    "date": "2026-03-02"
+  },
+  {
+    "filename": "2026-02-27-six-months-with-display-smart-glasses.html",
+    "title": "Six Months With Display Smart Glasses: The Honest Verdict",
+    "meta_description": "Half a year into daily use of display-equipped smart glasses, an honest verdict on whether they've earned a permanent spot in a working kit.",
+    "tags": [
+      "smart-glasses",
+      "meta",
+      "review",
+      "wearables"
+    ],
+    "date": "2026-02-27"
+  },
+  {
+    "filename": "2026-02-24-underwater-housing-for-action-cameras-worth-it.html",
+    "title": "Do You Actually Need a Separate Underwater Housing?",
+    "meta_description": "Most modern action cameras are waterproof out of the box. Here's when a dedicated underwater housing is actually worth the extra bulk.",
+    "tags": [
+      "action-camera",
+      "underwater",
+      "gear",
+      "review"
+    ],
+    "date": "2026-02-24"
+  },
+  {
+    "filename": "2026-02-21-action-camera-timelapse-settings-that-actually-work.html",
+    "title": "The Action Camera Timelapse Settings I Actually Use",
+    "meta_description": "Default timelapse settings on most action cameras produce flickery, jarring results. Here's the interval and exposure setup I actually rely on.",
+    "tags": [
+      "action-camera",
+      "timelapse",
+      "tutorial",
+      "gopro"
+    ],
+    "date": "2026-02-21"
+  },
+  {
+    "filename": "2026-02-18-medium-format-for-brand-work-worth-it.html",
+    "title": "Is Medium Format Actually Worth It for Brand Photography?",
+    "meta_description": "After renting a medium format body for a campaign, an honest assessment of whether the resolution and rendering actually justified the cost and hassle.",
+    "tags": [
+      "medium-format",
+      "cameras",
+      "review",
+      "brand-photography"
+    ],
+    "date": "2026-02-18"
+  },
+  {
+    "filename": "2026-02-14-kling-3-camera-prompt-cheat-sheet.html",
+    "title": "My Kling 3.0 Camera Prompt Cheat Sheet After a Week of Testing",
+    "meta_description": "A working reference of camera movement phrases that actually get consistent results out of Kling 3.0, built from a week of real testing.",
+    "tags": [
+      "kling",
+      "prompts",
+      "tutorial",
+      "ai-video"
+    ],
+    "date": "2026-02-14"
+  },
+  {
+    "filename": "2026-02-11-renting-vs-buying-specialty-lenses.html",
+    "title": "When Renting a Lens Beats Owning It, Even for Regular Work",
+    "meta_description": "The math on renting versus owning specialty lenses, and why I still rent gear I use several times a year rather than buying it outright.",
+    "tags": [
+      "lenses",
+      "gear",
+      "cameras",
+      "budgeting"
+    ],
+    "date": "2026-02-11"
+  },
+  {
+    "filename": "2026-02-08-kling-3-first-real-tests.html",
+    "title": "Kling 3.0 Is Out. Here's What Actually Changed",
+    "meta_description": "Kling 3.0 just launched. Real tests against the previous version on camera control, prompt structure, and motion consistency.",
+    "tags": [
+      "kling",
+      "ai-video",
+      "news",
+      "review"
+    ],
+    "date": "2026-02-08"
+  },
+  {
+    "filename": "2026-02-05-building-a-personal-ai-model-library.html",
+    "title": "Why I Keep a Personal Library of AI Model Notes",
+    "meta_description": "With new AI video and image models shipping constantly, a simple personal reference system for tracking what each one is actually good at.",
+    "tags": [
+      "ai-video",
+      "workflow",
+      "organization",
+      "tutorial"
+    ],
+    "date": "2026-02-05"
+  },
+  {
+    "filename": "2026-02-02-why-longer-ai-clips-arent-always-better.html",
+    "title": "Longer AI Video Clips Aren't Automatically Better Clips",
+    "meta_description": "As AI video models push toward longer continuous generation, a case for why shorter, well-directed clips often still cut better.",
+    "tags": [
+      "ai-video",
+      "workflow",
+      "editing",
+      "technique"
+    ],
+    "date": "2026-02-02"
+  },
+  {
+    "filename": "2026-01-30-ai-video-for-pitch-decks-not-final-delivery.html",
+    "title": "AI Video's Best Use Case Might Be the Pitch, Not the Final Cut",
+    "meta_description": "Where AI-generated video has become genuinely essential in my pipeline isn't final delivery, it's the concepting and pitch stage before a client commits.",
+    "tags": [
+      "ai-video",
+      "client-work",
+      "pre-production",
+      "workflow"
+    ],
+    "date": "2026-01-30"
+  },
+  {
+    "filename": "2026-01-27-photoshop-vs-photo-ai-tools-for-retouching.html",
+    "title": "Where Photoshop Still Beats the New AI Retouching Tools",
+    "meta_description": "AI retouching tools handle a lot of quick fixes well, but there's a specific category of edit where manual Photoshop skill still wins.",
+    "tags": [
+      "photoshop",
+      "ai",
+      "retouching",
+      "photo-editing"
+    ],
+    "date": "2026-01-27"
+  },
+  {
+    "filename": "2026-01-24-raw-vs-jpeg-for-fast-turnaround-events.html",
+    "title": "Why I Shoot JPEG Alongside Raw for Same-Day Delivery",
+    "meta_description": "For events needing same-day photo delivery, a hybrid raw plus JPEG capture strategy that keeps quality without sacrificing speed.",
+    "tags": [
+      "photography",
+      "raw",
+      "workflow",
+      "event-photography"
+    ],
+    "date": "2026-01-24"
+  },
+  {
+    "filename": "2026-01-20-keyboard-shortcuts-that-actually-save-time-editing.html",
+    "title": "The Keyboard Shortcuts That Actually Save Time, Not the Full List",
+    "meta_description": "Skip memorizing every keyboard shortcut in your editor. Here are the handful that actually change editing speed in real, timed use.",
+    "tags": [
+      "editing",
+      "keyboard-shortcuts",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2026-01-20"
+  },
+  {
+    "filename": "2026-01-17-final-cut-pro-vs-premiere-for-fast-turnaround.html",
+    "title": "Final Cut Pro vs Premiere When the Turnaround Is Tomorrow",
+    "meta_description": "For same-day and next-day delivery event edits, does Final Cut Pro's speed advantage over Premiere actually hold up under real pressure?",
+    "tags": [
+      "final-cut-pro",
+      "premiere-pro",
+      "editing",
+      "comparison"
+    ],
+    "date": "2026-01-17"
+  },
+  {
+    "filename": "2026-01-14-ces-2026-recap-what-actually-shipped.html",
+    "title": "CES 2026 Recap: What Actually Matters, Filtered",
+    "meta_description": "CES 2026 has wrapped. A filtered recap of what's actually shipping or close to it, cutting through the concept-device noise.",
+    "tags": [
+      "ces",
+      "gadgets",
+      "news",
+      "gear"
+    ],
+    "date": "2026-01-14"
+  },
+  {
+    "filename": "2026-01-11-buying-your-first-pair-of-binoculars-mistakes.html",
+    "title": "The Mistakes Almost Everyone Makes Buying Their First Binoculars",
+    "meta_description": "The most common first-time binocular buying mistakes, from chasing magnification numbers to ignoring how the eyecups actually feel.",
+    "tags": [
+      "binoculars",
+      "buying-guide",
+      "gear"
+    ],
+    "date": "2026-01-11"
+  },
+  {
+    "filename": "2026-01-08-portable-power-stations-for-remote-shoots.html",
+    "title": "The Portable Power Station That Changed My Remote Shoots",
+    "meta_description": "A compact power station has quietly become essential gear for remote and multi-day shoots with no reliable outlet access.",
+    "tags": [
+      "gear",
+      "gadgets",
+      "power",
+      "remote-shoots"
+    ],
+    "date": "2026-01-08"
+  },
+  {
+    "filename": "2026-01-05-ces-2026-what-im-watching-for.html",
+    "title": "CES 2026: The Three Categories I'm Actually Watching",
+    "meta_description": "Ahead of CES 2026, a filmmaker's short list of what's actually worth paying attention to versus the usual concept-device noise.",
+    "tags": [
+      "ces",
+      "smart-glasses",
+      "gadgets",
+      "news"
+    ],
+    "date": "2026-01-05"
+  },
+  {
+    "filename": "2026-01-02-starting-the-year-with-a-gear-audit.html",
+    "title": "The New Year Gear Audit I Actually Do Every January",
+    "meta_description": "A simple, honest annual gear audit that separates what's actually earning its place in a working kit from what's just habit.",
+    "tags": [
+      "gear",
+      "workflow",
+      "new-year",
+      "planning"
+    ],
+    "date": "2026-01-02"
+  },
+  {
+    "filename": "2025-12-29-planning-shoots-around-unpredictable-winter-light.html",
+    "title": "Planning Around Winter Light When You Can't Reschedule",
+    "meta_description": "Short winter days and unpredictable weather force real planning discipline. Here's how I structure a winter shoot day to make the most of limited light.",
+    "tags": [
+      "photography",
+      "lighting",
+      "planning",
+      "winter"
+    ],
+    "date": "2025-12-29"
+  },
+  {
+    "filename": "2025-12-26-2025-gear-and-workflow-year-in-review.html",
+    "title": "What Actually Changed in My Workflow This Year",
+    "meta_description": "A year-end look back at what genuinely changed in a working filmmaker's gear and process in 2025, separated from what was just noise.",
+    "tags": [
+      "year-in-review",
+      "workflow",
+      "gear",
+      "ai"
+    ],
+    "date": "2025-12-26"
+  },
+  {
+    "filename": "2025-12-23-shooting-through-glass-and-reflections-technique.html",
+    "title": "Shooting Through Glass Without Fighting Every Reflection",
+    "meta_description": "A practical technique for shooting product and portrait work through glass or windows, using reflections deliberately instead of fighting them.",
+    "tags": [
+      "photography",
+      "technique",
+      "reflections",
+      "tutorial"
+    ],
+    "date": "2025-12-23"
+  },
+  {
+    "filename": "2025-12-20-ar-glasses-for-remote-client-review.html",
+    "title": "Using AR Glasses for Remote Client Review on Set",
+    "meta_description": "An experimental workflow using display-equipped smart glasses to let a remote client see and comment on a shoot in near real time.",
+    "tags": [
+      "ar-glasses",
+      "workflow",
+      "wearables",
+      "clients"
+    ],
+    "date": "2025-12-20"
+  },
+  {
+    "filename": "2025-12-17-smart-glasses-battery-anxiety-is-real.html",
+    "title": "Smart Glasses Battery Anxiety Is a Real Design Problem",
+    "meta_description": "Months into daily smart glasses use, battery anxiety has become the single biggest thing standing between these devices and genuine daily reliance.",
+    "tags": [
+      "smart-glasses",
+      "meta",
+      "wearables",
+      "review"
+    ],
+    "date": "2025-12-17"
+  },
+  {
+    "filename": "2025-12-14-action-camera-mounting-lessons-learned.html",
+    "title": "Action Camera Mounting Mistakes I Won't Make Twice",
+    "meta_description": "Hard-earned lessons about action camera mounting, from a strap that failed mid-shoot to angles that seemed clever and weren't.",
+    "tags": [
+      "action-camera",
+      "gear",
+      "technique",
+      "gopro"
+    ],
+    "date": "2025-12-14"
+  },
+  {
+    "filename": "2025-12-11-action-camera-audio-is-still-bad-heres-the-fix.html",
+    "title": "Action Camera Audio Is Still Bad. Here's My Actual Fix",
+    "meta_description": "Built-in action camera microphones remain a weak point across every brand. A practical workaround that doesn't add much bulk.",
+    "tags": [
+      "action-camera",
+      "audio",
+      "gear",
+      "tutorial"
+    ],
+    "date": "2025-12-11"
+  },
+  {
+    "filename": "2025-12-07-sensor-cleaning-and-maintenance-i-actually-do.html",
+    "title": "The Camera Maintenance I Actually Do, Not the Ideal Routine",
+    "meta_description": "A realistic, honest maintenance schedule for working camera bodies, built from what actually happens rather than what manuals recommend.",
+    "tags": [
+      "camera-maintenance",
+      "gear",
+      "workflow",
+      "tips"
+    ],
+    "date": "2025-12-07"
+  },
+  {
+    "filename": "2025-12-04-prime-vs-zoom-for-event-coverage.html",
+    "title": "I Switched Back to Primes for Event Coverage. Here's Why",
+    "meta_description": "After years of defaulting to a 24-70mm zoom for event work, a case for going back to a small set of fast primes.",
+    "tags": [
+      "lenses",
+      "cameras",
+      "gear",
+      "technique"
+    ],
+    "date": "2025-12-04"
+  },
+  {
+    "filename": "2025-12-01-holiday-gift-guide-for-filmmakers-2025.html",
+    "title": "What I'd Actually Ask For This Year, as a Working Filmmaker",
+    "meta_description": "A no-nonsense holiday gift guide for filmmakers and photographers, built from gear I actually use rather than a generic sponsored list.",
+    "tags": [
+      "gift-guide",
+      "gear",
+      "holiday",
+      "cameras"
+    ],
+    "date": "2025-12-01"
+  },
+  {
+    "filename": "2025-11-28-ai-video-render-times-real-numbers.html",
+    "title": "AI Video Render Times: The Numbers Nobody Publishes",
+    "meta_description": "Real, measured render times across the AI video tools I use weekly, and why the marketed speed rarely matches a real working queue.",
+    "tags": [
+      "ai-video",
+      "workflow",
+      "benchmarks",
+      "production"
+    ],
+    "date": "2025-11-28"
+  },
+  {
+    "filename": "2025-11-25-building-a-shot-list-that-survives-contact-with-reality.html",
+    "title": "A Shot List Is Useless the Moment It Meets Reality. Plan Anyway.",
+    "meta_description": "Why I still build detailed shot lists for AI-assisted and real shoots even though the actual shoot day rarely follows them exactly.",
+    "tags": [
+      "pre-production",
+      "workflow",
+      "ai-video",
+      "planning"
+    ],
+    "date": "2025-11-25"
+  },
+  {
+    "filename": "2025-11-22-nano-banana-pro-first-tests.html",
+    "title": "Nano Banana Pro: First Real Tests on Product Work",
+    "meta_description": "Google's Nano Banana Pro image model just shipped. Early tests against real product photography from a working brand shoot.",
+    "tags": [
+      "nano-banana",
+      "google",
+      "ai-images",
+      "news"
+    ],
+    "date": "2025-11-22"
+  },
+  {
+    "filename": "2025-11-19-when-to-say-no-to-an-ai-generated-deliverable.html",
+    "title": "When I Turn Down an AI-Generated Deliverable Request",
+    "meta_description": "AI video and image tools handle more of my client work every month, but there are specific requests I still decline to fulfill with generated content.",
+    "tags": [
+      "ai",
+      "client-work",
+      "ethics",
+      "workflow"
+    ],
+    "date": "2025-11-19"
+  },
+  {
+    "filename": "2025-11-15-batch-editing-presets-that-actually-hold-up.html",
+    "title": "Why Most Lightroom Presets Fall Apart on Real Client Work",
+    "meta_description": "The problem with off-the-shelf presets isn't the look, it's that they're built for one lighting condition and break everywhere else.",
+    "tags": [
+      "lightroom",
+      "presets",
+      "photo-editing",
+      "workflow"
+    ],
+    "date": "2025-11-15"
+  },
+  {
+    "filename": "2025-11-12-ai-image-consistency-across-a-campaign.html",
+    "title": "The Hardest Problem in AI Image Generation Is Consistency",
+    "meta_description": "Generating one great AI image is easy. Keeping a character or product consistent across a whole campaign is the actual hard problem, and here's how I approach it.",
+    "tags": [
+      "ai",
+      "generative-images",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2025-11-12"
+  },
+  {
+    "filename": "2025-11-09-capture-one-vs-lightroom-for-event-work.html",
+    "title": "Capture One vs Lightroom for High-Volume Event Culling",
+    "meta_description": "Which raw processor actually handles fast culling and batch editing better for someone shooting thousands of frames per event.",
+    "tags": [
+      "capture-one",
+      "lightroom",
+      "photo-editing",
+      "comparison"
+    ],
+    "date": "2025-11-09"
+  },
+  {
+    "filename": "2025-11-06-color-matching-mixed-camera-sources.html",
+    "title": "Color Matching Three Different Cameras in One Timeline",
+    "meta_description": "A practical approach to matching color across mismatched camera bodies in a single event edit, without a full custom LUT for every source.",
+    "tags": [
+      "color-grading",
+      "editing",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2025-11-06"
+  },
+  {
+    "filename": "2025-11-03-davinci-resolve-fusion-page-for-simple-motion-graphics.html",
+    "title": "You Don't Need After Effects for Simple Motion Graphics",
+    "meta_description": "DaVinci Resolve's Fusion page can handle most of the lower-third and title work a working editor actually needs, without leaving the timeline app.",
+    "tags": [
+      "davinci-resolve",
+      "motion-graphics",
+      "editing",
+      "tutorial"
+    ],
+    "date": "2025-11-03"
+  },
+  {
+    "filename": "2025-10-31-binoculars-for-astro-and-night-scouting.html",
+    "title": "Binoculars for Scouting Night Shoots, Not Just Wildlife",
+    "meta_description": "How a pair of low-light-friendly binoculars helps scout astrophotography and night event locations before a single frame gets shot.",
+    "tags": [
+      "binoculars",
+      "night-photography",
+      "gear",
+      "technique"
+    ],
+    "date": "2025-10-31"
+  },
+  {
+    "filename": "2025-10-28-ssd-storage-workflow-for-4k-footage.html",
+    "title": "My Actual SSD and Backup Workflow for 4K Event Footage",
+    "meta_description": "A practical, boring, tested storage and backup workflow for shooting multi-camera 4K events without losing footage.",
+    "tags": [
+      "storage",
+      "workflow",
+      "gear",
+      "backup"
+    ],
+    "date": "2025-10-28"
+  },
+  {
+    "filename": "2025-10-24-dji-mini-4-pro-for-travel-filmmaking.html",
+    "title": "Why the DJI Mini 4 Pro Is Still My Travel Drone Pick",
+    "meta_description": "A sub-250g drone kit is still the right call for most travel and brand shoots. Here's how the Mini 4 Pro holds up in real use.",
+    "tags": [
+      "dji",
+      "drone",
+      "gear",
+      "travel"
+    ],
+    "date": "2025-10-24"
+  },
+  {
+    "filename": "2025-10-21-editing-for-attention-first-three-seconds.html",
+    "title": "The First Three Seconds Decide Everything Now",
+    "meta_description": "Why editing for the first three seconds of a social video matters more than the rest of the edit combined, and how I actually structure a cut around it.",
+    "tags": [
+      "editing",
+      "social-media",
+      "workflow",
+      "technique"
+    ],
+    "date": "2025-10-21"
+  },
+  {
+    "filename": "2025-10-18-iphone-17-pro-camera-for-professional-b-roll.html",
+    "title": "iPhone 17 Pro as a Professional B-Roll Camera",
+    "meta_description": "How the iPhone 17 Pro's camera actually holds up as a secondary B-roll and behind-the-scenes camera on paid shoots.",
+    "tags": [
+      "iphone",
+      "smartphone-camera",
+      "review",
+      "workflow"
+    ],
+    "date": "2025-10-18"
+  },
+  {
+    "filename": "2025-10-15-composition-rule-of-thirds-when-to-break-it.html",
+    "title": "Rule of Thirds Is a Starting Point, Not a Rule",
+    "meta_description": "When breaking the rule of thirds actually improves a shot, and how to tell the difference between a deliberate break and a lazy one.",
+    "tags": [
+      "photography",
+      "composition",
+      "technique"
+    ],
+    "date": "2025-10-15"
+  },
+  {
+    "filename": "2025-10-12-veo-3-1-vs-sora-2-real-comparison.html",
+    "title": "Veo 3.1 vs Sora 2: Which One I Actually Reach For",
+    "meta_description": "With Veo 3.1 and Sora 2 both shipped, a direct comparison based on real client work rather than benchmark demos.",
+    "tags": [
+      "veo",
+      "sora",
+      "ai-video",
+      "comparison"
+    ],
+    "date": "2025-10-12"
+  },
+  {
+    "filename": "2025-10-09-gopro-hero-14-hands-on-notes.html",
+    "title": "GoPro Hero 14 Black: My Honest Hands-On Notes",
+    "meta_description": "Hero 14 Black is out. Real-world notes on battery life, heat management, and stabilization from the first week of actual use.",
+    "tags": [
+      "gopro",
+      "action-camera",
+      "review",
+      "gear"
+    ],
+    "date": "2025-10-09"
+  },
+  {
+    "filename": "2025-10-06-rokid-glasses-vs-meta-ray-ban.html",
+    "title": "Rokid Glasses vs Ray-Ban Meta: Two Very Different Bets",
+    "meta_description": "Rokid's AR-focused glasses and Meta's camera-first Ray-Bans are solving different problems. Here's how they actually compare for a working creator.",
+    "tags": [
+      "rokid",
+      "meta",
+      "smart-glasses",
+      "comparison"
+    ],
+    "date": "2025-10-06"
+  },
+  {
+    "filename": "2025-10-02-sora-2-first-week-notes.html",
+    "title": "Sora 2 Launched. Here's What Changed for My Workflow",
+    "meta_description": "OpenAI's Sora 2 shipped with real audio and physics improvements. First-week notes from actually using it on client work.",
+    "tags": [
+      "sora",
+      "ai-video",
+      "news",
+      "workflow"
+    ],
+    "date": "2025-10-02"
+  },
+  {
+    "filename": "2025-09-29-why-i-still-shoot-a-full-frame-body-alongside-ai.html",
+    "title": "Why I Still Carry a Full-Frame Body Alongside All the AI Tools",
+    "meta_description": "AI video and AI photography tools keep improving, but here's why a real full-frame camera still earns its place in a working filmmaker's bag.",
+    "tags": [
+      "cameras",
+      "gear",
+      "workflow",
+      "ai"
+    ],
+    "date": "2025-09-29"
+  },
+  {
+    "filename": "2025-09-26-ray-ban-meta-display-first-impressions.html",
+    "title": "Ray-Ban Meta Display: What Actually Impressed Me",
+    "meta_description": "First impressions of the newly announced Ray-Ban Meta Display glasses from a filmmaker who's been using the camera-only generation on set.",
+    "tags": [
+      "meta",
+      "ray-ban",
+      "smart-glasses",
+      "review"
+    ],
+    "date": "2025-09-26"
+  },
+  {
+    "filename": "2025-09-23-gopro-hero-14-what-were-hearing.html",
+    "title": "GoPro Just Teased Hero 14. Here's What Actually Matters",
+    "meta_description": "GoPro's Hero 14 teaser dropped this week. A working filmmaker's take on which rumored upgrades matter for real shoots and which are marketing noise.",
+    "tags": [
+      "gopro",
+      "action-camera",
+      "news",
+      "gear"
+    ],
+    "date": "2025-09-23"
+  },
+  {
+    "filename": "2025-09-20-shooting-into-harsh-midday-sun-without-flash.html",
+    "title": "Shooting Into Harsh Midday Sun Without a Flash",
+    "meta_description": "A practical technique for shooting portraits and event coverage in flat midday sun without carrying strobes or reflectors.",
+    "tags": [
+      "photography",
+      "lighting",
+      "technique",
+      "tutorial"
+    ],
+    "date": "2025-09-20"
+  },
+  {
+    "filename": "2025-09-17-prompting-ai-video-for-motion-not-just-looks.html",
+    "title": "Stop Prompting AI Video Like It's Midjourney",
+    "meta_description": "The biggest mistake filmmakers make moving from AI image tools to AI video: prompting for a static look instead of describing motion and camera behavior.",
+    "tags": [
+      "ai-video",
+      "prompts",
+      "tutorial",
+      "workflow"
+    ],
+    "date": "2025-09-17"
+  },
+  {
+    "filename": "2025-09-14-what-to-expect-from-meta-connect-2025.html",
+    "title": "What I'm Actually Expecting From Meta Connect This Year",
+    "meta_description": "Ahead of Meta Connect 2025, a filmmaker's honest read on where smart glasses are useful on set and where the hype outruns the hardware.",
+    "tags": [
+      "meta",
+      "smart-glasses",
+      "ai",
+      "wearables"
+    ],
+    "date": "2025-09-14"
+  },
+  {
+    "filename": "2025-09-10-binoculars-for-wildlife-and-event-photographers.html",
+    "title": "Why I Started Carrying Binoculars to Every Outdoor Shoot",
+    "meta_description": "A filmmaker's case for keeping a compact pair of binoculars in the bag, and what to actually look for if you're buying your first pair.",
+    "tags": [
+      "binoculars",
+      "gear",
+      "photography",
+      "outdoor"
+    ],
+    "date": "2025-09-10"
+  },
+  {
+    "filename": "2025-09-07-premiere-pro-proxy-workflow-2025.html",
+    "title": "My Premiere Pro Proxy Workflow for Multi-Cam Event Edits",
+    "meta_description": "How I set up proxies in Premiere Pro to keep multi-camera event edits responsive on a laptop, without losing a day to transcoding.",
+    "tags": [
+      "premiere-pro",
+      "editing",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2025-09-07"
+  },
+  {
+    "filename": "2025-09-04-dji-mic-2-vs-rode-wireless-pro.html",
+    "title": "DJI Mic 2 vs Rode Wireless Pro: What Actually Matters on Set",
+    "meta_description": "A working filmmaker's comparison of the DJI Mic 2 and Rode Wireless Pro for run-and-gun event and brand shoots.",
+    "tags": [
+      "audio",
+      "gear",
+      "gadgets",
+      "review"
+    ],
+    "date": "2025-09-04"
+  },
+  {
+    "filename": "2025-09-01-lightroom-masking-for-video-thumbnails.html",
+    "title": "The Lightroom Masking Trick I Use for Every Thumbnail",
+    "meta_description": "A simple Lightroom Classic masking workflow that makes video thumbnails and social stills pop without looking over-processed.",
+    "tags": [
+      "lightroom",
+      "photo-editing",
+      "workflow",
+      "tutorial"
+    ],
+    "date": "2025-09-01"
+  }
+]
