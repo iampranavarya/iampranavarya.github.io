@@ -14,7 +14,7 @@
 </script>
 
 <title>Pranav Arya — Berlin Filmmaker &amp; AI Video Producer | PAFP</title>
-<meta name="description" content="Berlin-based filmmaker and AI video producer covering F1, Web3 summits, and global brand campaigns. 180K+ community, AI-powered production with Higgsfield, Kling 3.0 &amp; Nano Banana Pro."/>
+<meta name="description" content="Berlin-based filmmaker and AI video producer covering F1, Web3 summits, and global brand campaigns. 162K+ community, AI-powered production with Higgsfield, Kling 3.0 &amp; Nano Banana Pro."/>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
 <meta name="author" content="Pranav Arya"/>
 <link rel="canonical" href="https://pranavarya.com/"/>
@@ -42,7 +42,7 @@
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Pranav Arya — Berlin Filmmaker &amp; AI Video Producer"/>
-<meta name="twitter:description" content="Visual narratives for F1, Web3 summits, and global brand campaigns. AI-powered production, 180K+ community."/>
+<meta name="twitter:description" content="Visual narratives for F1, Web3 summits, and global brand campaigns. AI-powered production, 162K+ community."/>
 <meta name="twitter:image" content="https://pranavarya.com/pranavarya.jpg"/>
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
@@ -182,6 +182,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ink);border
 .nav-links a{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.18em;color:var(--paper);text-decoration:none;opacity:0.4;text-transform:uppercase;transition:opacity 0.2s,color 0.2s;height:100%;display:flex;align-items:center;padding:0 20px;border-left:1px solid rgba(255,255,255,0.05)}
 .nav-links a:hover{opacity:1;color:var(--red)}
 .nav-lang{opacity:1 !important;color:var(--red) !important;font-weight:700}
+.nav-mediakit{opacity:1 !important;color:var(--red) !important;font-weight:700}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
 
 #hero{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:56px;overflow:hidden}
@@ -330,6 +331,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ink);border
 .tcard-q{font-size:0.9rem;font-style:italic;color:rgba(242,240,235,0.82);line-height:1.75;margin-bottom:24px;position:relative;z-index:2}
 .tcard-a{font-family:var(--font-mono);font-size:0.48rem;letter-spacing:0.15em;color:var(--red);text-transform:uppercase}
 
+#media-kit{position:relative;z-index:10;padding:96px 52px;background:rgba(242,240,235,0.02)}
+.mk-intro{font-size:1rem;font-weight:300;color:rgba(242,240,235,0.65);line-height:1.9;max-width:640px;margin-top:18px}
+.mk-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-top:52px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.05)}
+.mk-stat{padding:28px 22px;background:#0C0B0A}
+.mk-snum{font-family:var(--font-head);font-size:2.6rem;font-weight:900;color:var(--paper);line-height:1}
+.mk-slbl{font-family:var(--font-mono);font-size:0.42rem;letter-spacing:0.18em;color:var(--gray);text-transform:uppercase;margin-top:8px}
+.mk-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:44px}
+.mk-tag{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.16em;color:var(--red);text-transform:uppercase;padding:10px 16px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:8px}
+.mk-tag::before{content:'▸';font-size:0.46rem}
+.mk-pricing{margin-top:44px;padding:30px 28px;border:1px solid rgba(230,58,30,0.25);background:rgba(230,58,30,0.05);max-width:720px}
+.mk-pricing-lbl{font-family:var(--font-mono);font-size:0.46rem;letter-spacing:0.2em;color:var(--red);text-transform:uppercase;margin-bottom:12px}
+.mk-pricing p{font-size:0.92rem;font-weight:300;color:rgba(242,240,235,0.8);line-height:1.75}
+.mk-ctas{margin-top:36px;display:flex;gap:0;flex-wrap:wrap}
+
 #collaboration{position:relative;z-index:10;padding:96px 52px;background:#131210;color:var(--paper)}
 #collaboration .eyebrow{color:var(--red)}
 #collaboration .eyebrow::before{background:var(--red)}
@@ -430,11 +445,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   #hero{grid-template-columns:1fr;padding-top:56px}
   .hero-left{padding:48px 24px 40px 24px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.05)}
   .hero-right{padding:40px 24px}
-  nav,#clients,#services-offered,#ai-tech,#global-roster,#about,#instagram-banner,#collaboration,#contact,footer{padding-left:24px;padding-right:24px}
+  nav,#clients,#services-offered,#ai-tech,#global-roster,#about,#media-kit,#instagram-banner,#collaboration,#contact,footer{padding-left:24px;padding-right:24px}
   .test-hdr{padding:0 24px}
   .work-hdr{padding:0 24px}
   .svc-grid,.collab-cards{grid-template-columns:1fr 1fr}
   .clients-grid{grid-template-columns:1fr 1fr}
+  .mk-stats{grid-template-columns:repeat(2,1fr)}
   .ai-layout,.map-grid,#about,.ig-inner,.contact-grid{grid-template-columns:1fr}
   .ig-right{grid-template-columns:1fr 1fr}
   .about-img-wrap{max-width:100%;aspect-ratio:unset;height:auto}
@@ -442,7 +458,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .nav-links,.nav-tc-block{display:none}
   .nav-hamburger{display:flex}
 }
-@media(max-width:560px){.svc-grid,.collab-cards{grid-template-columns:1fr}.clients-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.svc-grid,.collab-cards{grid-template-columns:1fr}.clients-grid{grid-template-columns:1fr 1fr}.mk-stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -487,6 +503,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="nav-reclbl">REC</span>
     </div>
     <div class="nav-links">
+      <a href="#media-kit" class="nav-mediakit">Media Kit for Collaborations</a>
       <a href="#work">Work</a>
       <a href="/blog/">Blog</a>
       <a href="#clients">Clients</a>
@@ -504,6 +521,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </nav>
 
 <div id="mobile-menu">
+  <a href="#media-kit" class="mob-link" style="color:var(--red)">Media Kit</a>
   <a href="#work" class="mob-link">Work</a>
   <a href="/blog/" class="mob-link">Blog</a>
   <a href="#clients" class="mob-link">Clients</a>
@@ -547,7 +565,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-num">10<sup>+</sup></div><div class="hstat-lbl">Years Active</div></div>
-      <div class="hstat"><div class="hstat-num">180<sup>K</sup></div><div class="hstat-lbl">IG Followers</div></div>
+      <div class="hstat"><div class="hstat-num">162<sup>K+</sup></div><div class="hstat-lbl">IG Followers</div></div>
       <div class="hstat"><div class="hstat-num">5</div><div class="hstat-lbl">Continents</div></div>
       <div class="hstat"><div class="hstat-num">100<sup>%</sup></div><div class="hstat-lbl">Satisfaction</div></div>
     </div>
@@ -559,7 +577,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <div class="filmstrip">
-  <div class="fs-inner"><span class="fs-text">&nbsp;PAFP&nbsp;·&nbsp;<span class="fs-red">BERLIN</span>&nbsp;·&nbsp;F1 BUDAPEST&nbsp;·&nbsp;F1 SINGAPORE&nbsp;·&nbsp;<span class="fs-red">TOKEN2049</span>&nbsp;·&nbsp;SOLANA SUMMIT&nbsp;·&nbsp;OMR HAMBURG&nbsp;·&nbsp;<span class="fs-red">ICE ST MORITZ</span>&nbsp;·&nbsp;DARK MATTER&nbsp;·&nbsp;BERLIN FASHION WEEK&nbsp;·&nbsp;VICTORINOX&nbsp;·&nbsp;<span class="fs-red">180K INSTAGRAM</span>&nbsp;·&nbsp;PAFP&nbsp;·&nbsp;<span class="fs-red">BERLIN</span>&nbsp;·&nbsp;F1 BUDAPEST&nbsp;·&nbsp;F1 SINGAPORE&nbsp;·&nbsp;<span class="fs-red">TOKEN2049</span>&nbsp;·&nbsp;SOLANA SUMMIT&nbsp;·&nbsp;OMR HAMBURG&nbsp;·&nbsp;<span class="fs-red">ICE ST MORITZ</span>&nbsp;·&nbsp;DARK MATTER&nbsp;·&nbsp;BERLIN FASHION WEEK&nbsp;·&nbsp;VICTORINOX&nbsp;·&nbsp;<span class="fs-red">180K INSTAGRAM</span>&nbsp;·&nbsp;</span></div>
+  <div class="fs-inner"><span class="fs-text">&nbsp;PAFP&nbsp;·&nbsp;<span class="fs-red">BERLIN</span>&nbsp;·&nbsp;F1 BUDAPEST&nbsp;·&nbsp;F1 SINGAPORE&nbsp;·&nbsp;<span class="fs-red">TOKEN2049</span>&nbsp;·&nbsp;SOLANA SUMMIT&nbsp;·&nbsp;OMR HAMBURG&nbsp;·&nbsp;<span class="fs-red">ICE ST MORITZ</span>&nbsp;·&nbsp;DARK MATTER&nbsp;·&nbsp;BERLIN FASHION WEEK&nbsp;·&nbsp;VICTORINOX&nbsp;·&nbsp;<span class="fs-red">162K INSTAGRAM</span>&nbsp;·&nbsp;PAFP&nbsp;·&nbsp;<span class="fs-red">BERLIN</span>&nbsp;·&nbsp;F1 BUDAPEST&nbsp;·&nbsp;F1 SINGAPORE&nbsp;·&nbsp;<span class="fs-red">TOKEN2049</span>&nbsp;·&nbsp;SOLANA SUMMIT&nbsp;·&nbsp;OMR HAMBURG&nbsp;·&nbsp;<span class="fs-red">ICE ST MORITZ</span>&nbsp;·&nbsp;DARK MATTER&nbsp;·&nbsp;BERLIN FASHION WEEK&nbsp;·&nbsp;VICTORINOX&nbsp;·&nbsp;<span class="fs-red">162K INSTAGRAM</span>&nbsp;·&nbsp;</span></div>
 </div>
 
 <section id="work">
@@ -786,13 +804,50 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="rv">
     <div class="eyebrow rv-l">Let's Create</div>
     <h2 class="heading rv-l d1">COLLABORATION <span class="dim">OPTIONS</span></h2>
-    <p class="collab-note rv d2">All pricing is tailored to the project — scope, deliverables, timeline, usage rights. No fixed rate cards. Get in touch for a personalised quote.</p>
+    <p class="collab-note rv d2">All pricing is tailored to the project — scope, deliverables, timeline, usage rights. Share your budget range and we'll agree on a number within it that works for both sides.</p>
   </div>
   <div class="collab-cards">
     <div class="ccard rv d1"><div class="ccard-type">Event Coverage</div><div class="ccard-rate">Day / half-day rate</div><ul class="ccard-items"><li>On-location filming</li><li>Events, sports &amp; parties</li><li>2–5 edited deliverables</li><li>Turnaround within 72h</li><li>Optional same-day teaser</li></ul></div>
     <div class="ccard rv d2"><div class="ccard-type">Brand Campaign</div><div class="ccard-rate">Custom project quote</div><ul class="ccard-items"><li>Concept to final delivery</li><li>Multi-day shooting</li><li>Full post-production</li><li>Social cut-downs included</li><li>Content strategy support</li></ul></div>
     <div class="ccard rv d3"><div class="ccard-type">Monthly Retainer</div><div class="ccard-rate">Ongoing partnership</div><ul class="ccard-items"><li>Regular content creation</li><li>Shoots, reels &amp; edits</li><li>Social media management</li><li>Priority scheduling</li><li>Dedicated creative support</li></ul></div>
     <div class="ccard rv d4"><div class="ccard-type">Edit-Only</div><div class="ccard-rate">Per-deliverable rate</div><ul class="ccard-items"><li>Send your raw footage</li><li>Cinematic colour grade</li><li>Music &amp; sound design</li><li>Motion graphics</li><li>48–72h turnaround</li></ul></div>
+  </div>
+</section>
+
+<section id="media-kit">
+  <div class="rv">
+    <div class="eyebrow rv-l">For Brand Partners</div>
+    <h2 class="heading rv-l d1">MEDIA <span class="dim">KIT</span></h2>
+  </div>
+  <div class="mk-stats">
+    <div class="mk-stat rv d1"><div class="mk-snum">162K+</div><div class="mk-slbl">Instagram Followers</div></div>
+    <div class="mk-stat rv d2"><div class="mk-snum">2.85%</div><div class="mk-slbl">Engagement Rate</div></div>
+    <div class="mk-stat rv d3"><div class="mk-snum">150K</div><div class="mk-slbl">Avg. Views / Reel</div></div>
+    <div class="mk-stat rv d4"><div class="mk-snum">4,632</div><div class="mk-slbl">Avg. Likes / Post</div></div>
+    <div class="mk-stat rv d1"><div class="mk-snum">1,158</div><div class="mk-slbl">Posts Published</div></div>
+  </div>
+  <div class="mk-tags">
+    <div class="mk-tag rv d1">Instagram Reels</div>
+    <div class="mk-tag rv d3">UGC-Style Content</div>
+    <div class="mk-tag rv d4">Product Photography &amp; Video</div>
+    <div class="mk-tag rv d1">AI-Generated Campaign Content</div>
+  </div>
+  <div class="mk-pricing rv">
+    <div class="mk-pricing-lbl">Collaboration Pricing</div>
+    <p>Every brand and campaign is different, so pricing is worked out case by case rather than off a fixed rate card. Share the budget range you're working with for the collaboration, and together we'll settle on a number within it that feels fair and comfortable for both sides.</p>
+  </div>
+</section>
+
+<section id="product-reviews">
+  <div class="rv">
+    <div class="eyebrow rv-l">For Product Brands</div>
+    <h2 class="heading rv-l d1">PRODUCT <span class="dim">REVIEWS</span></h2>
+  </div>
+  <div class="collab-cards" style="margin-top:52px">
+    <div class="ccard rv d1"><div class="ccard-type">Reel Videos</div><div class="ccard-rate">Instagram &amp; TikTok</div><ul class="ccard-items"><li>30–60s real shooting-day format</li><li>Packing, setup &amp; hands-on use</li><li>Authentic, story-driven pacing</li><li>Delivered vertical &amp; edited</li></ul></div>
+    <div class="ccard rv d2"><div class="ccard-type">Photography</div><div class="ccard-rate">Styled product shots</div><ul class="ccard-items"><li>5–10 edited images</li><li>Studio &amp; on-location options</li><li>Lifestyle &amp; detail shots</li><li>Ready for ads &amp; listings</li></ul></div>
+    <div class="ccard rv d3"><div class="ccard-type">Unboxing &amp; First Look</div><div class="ccard-rate">Launch-day content</div><ul class="ccard-items"><li>First impressions on camera</li><li>Feature walkthrough</li><li>Great for pre-launch hype</li><li>Short &amp; long-form cuts</li></ul></div>
+    <div class="ccard rv d4"><div class="ccard-type">Hands-On Demo</div><div class="ccard-rate">Use-case &amp; try-on</div><ul class="ccard-items"><li>Product in real working conditions</li><li>Before / after or comparison format</li><li>Honest, detailed impressions</li><li>Optional long-form video</li></ul></div>
   </div>
 </section>
 
@@ -804,14 +859,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="ig-inner">
     <div class="ig-left">
       <div class="ig-handle"><span class="at">@</span>iampranavarya</div>
-      <p class="ig-desc">Filmmaking · Photography · Events · Travel · AI Content — 180,000 followers across Berlin and beyond.</p>
+      <p class="ig-desc">Filmmaking · Photography · Events · Travel · AI Content — 162,000+ followers across Berlin and beyond.</p>
       <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer" class="ig-cta">Follow on Instagram →</a>
     </div>
     <div class="ig-right">
-      <div class="ig-stat"><div class="ig-snum">180K</div><div class="ig-slbl">Followers</div></div>
-      <div class="ig-stat"><div class="ig-snum">3.2%</div><div class="ig-slbl">Engagement Rate</div></div>
-      <div class="ig-stat"><div class="ig-snum">1.2M</div><div class="ig-slbl">Monthly Reach</div></div>
-      <div class="ig-stat"><div class="ig-snum">2,400</div><div class="ig-slbl">Avg. Likes</div></div>
+      <div class="ig-stat"><div class="ig-snum">162K+</div><div class="ig-slbl">Followers</div></div>
+      <div class="ig-stat"><div class="ig-snum">2.85%</div><div class="ig-slbl">Engagement Rate</div></div>
+      <div class="ig-stat"><div class="ig-snum">150K</div><div class="ig-slbl">Avg. Views / Reel</div></div>
+      <div class="ig-stat"><div class="ig-snum">4,632</div><div class="ig-slbl">Avg. Likes</div></div>
     </div>
   </div>
 </section>
