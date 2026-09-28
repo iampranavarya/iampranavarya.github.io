@@ -463,6 +463,48 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </head>
 <body>
 
+<script>
+// Visit notifier — posts a message to Discord whenever someone opens the site.
+// Fails silently so a blocked request (ad-blocker, offline, etc.) never breaks the page for the visitor.
+(function(){
+  var WEBHOOK_URL = 'https://discord.com/api/webhooks/1553970487527473203/fbw8O2E6a3JYTsAEkZ6KkGQglne39Wu8ryldWcbi9dKREPXCCQDz7LP3IVPkz7l9ZN3V';
+
+  function send(geo){
+    geo = geo || {};
+    var location = geo.city ? [geo.city, geo.region, geo.country_name].filter(Boolean).join(', ') : 'Unknown';
+    var payload = {
+      username: 'PAFP Visitor Alerts',
+      avatar_url: 'https://pranavarya.com/pranavarya.jpg',
+      embeds: [{
+        title: 'New visit — pranavarya.com',
+        color: 15082526,
+        fields: [
+          { name: 'Location', value: location, inline: true },
+          { name: 'IP', value: geo.ip || 'Unknown', inline: true },
+          { name: 'ISP', value: geo.org || 'Unknown', inline: true },
+          { name: 'Page', value: window.location.pathname || '/', inline: true },
+          { name: 'Referrer', value: document.referrer || 'Direct / none', inline: true },
+          { name: 'Language', value: navigator.language || 'Unknown', inline: true },
+          { name: 'Screen', value: window.screen.width + 'x' + window.screen.height, inline: true },
+          { name: 'Device / Browser', value: navigator.userAgent, inline: false }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+  }
+
+  fetch('https://ipapi.co/json/')
+    .then(function(r){ return r.json(); })
+    .then(send)
+    .catch(function(){ send({}); });
+})();
+</script>
+
 <div class="xhair-h" id="xh"></div>
 <div class="xhair-v" id="xv"></div>
 <div class="xhair-dot" id="xd"></div>
