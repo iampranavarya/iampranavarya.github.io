@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-10-05-kling-elements-character-consistency.html",
+    "title": "Kling 3.0 Omni Elements: Fixing AI Character Drift",
+    "meta_description": "How Kling 3.0 Omni's Elements system solves AI video character drift, with real workflow tips for keeping faces and wardrobes consistent.",
+    "tags": [
+      "kling",
+      "workflow",
+      "ai-video",
+      "tutorial"
+    ],
+    "date": "2026-10-05"
+  },
+  {
     "filename": "2026-10-04-kling-4-30-second-clips.html",
     "title": "Kling 4.0: 30-Second Clips, 4K HDR, and Real Competition",
     "meta_description": "Kling 4.0 brings 30-second clips, 4K HDR, and 10-reference control, but Seedance 2.5 and the leaderboard say the race isn't over.",
