@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0 | PAFP Blog</title>
+<meta name="description" content="Sora's API died Sept 24. Here's how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://pranavarya.com/blog/2026-10-11-sora-shutdown-kling-wan-migration.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://pranavarya.com/blog/2026-10-11-sora-shutdown-kling-wan-migration.html"/>
+<meta property="og:title" content="Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0"/>
+<meta property="og:description" content="Sora's API died Sept 24. Here's how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything."/>
+<meta property="og:image" content="https://pranavarya.com/blog/images/sora-shutdown-kling-wan-migration.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0"/>
+<meta name="twitter:description" content="Sora's API died Sept 24. Here's how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything."/>
+<meta name="twitter:image" content="https://pranavarya.com/blog/images/sora-shutdown-kling-wan-migration.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0",
+  "description": "Sora's API died Sept 24. Here's how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything.",
+  "image": "https://pranavarya.com/blog/images/sora-shutdown-kling-wan-migration.jpg",
+  "datePublished": "2026-10-11",
+  "author": {"@type": "Person", "name": "Pranav Arya", "url": "https://pranavarya.com/"},
+  "publisher": {"@type": "Organization", "name": "PAFP", "url": "https://pranavarya.com/"}
+}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
+--font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
+img{max-width:100%;height:auto}
+a{color:var(--red)}
+.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
+.back:hover{color:var(--red)}
+.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+h1{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}
+.meta{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}
+.hero-img{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}
+article h2{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}
+article p{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}
+article ul{margin:0 0 20px 20px}
+article li{margin-bottom:8px;color:rgba(242,240,235,0.85)}
+article strong{color:var(--red);font-weight:500}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--red)}
+.author-box{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
+.author-box p{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}
+.author-box strong{color:var(--paper);font-weight:500}
+.author-box a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}
+.author-box a:hover{border-bottom-color:var(--red)}
+.related{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}
+.related-label{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}
+.related-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
+.related-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}
+.related-card:hover h3{color:var(--red)}
+.related-card p{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}
+@media(max-width:560px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="/blog/" class="back">&larr; Back to Blog</a>
+<div class="eyebrow">AI &middot; Entertainment &middot; October 11, 2026</div>
+<h1>Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0</h1>
+<div class="meta">By Pranav Arya &middot; PAFP &middot; #sora &middot; #kling &middot; #wan &middot; #video-ai</div>
+<img src="/blog/images/sora-shutdown-kling-wan-migration.jpg" alt="Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0" class="hero-img" width="1200" height="675" fetchpriority="high" loading="eager"/>
+<article>
+<p>I rebuilt two client pipelines this week because a model I was relying on simply stopped existing. Sora's API shut down on September 24. If you were still routing anything through it, that pipeline is now a corpse, and no warning email is going to make that feel better. There's a lot to get through this week.</p>
+
+<h2>What happened to the video model leaderboard</h2>
+<p>OpenAI killed the Sora consumer app back in April and finished the job by sunsetting the API on September 24. Sora had been limping for months, so the shutdown itself wasn't shocking. Watching the Artificial Analysis leaderboard reset in real time still caught me off guard, though. Alibaba's Wan jumped a full version to 3.0 and now leads the text-to-video board outright. Kuaishou's Kling also jumped a full version. Google folded Veo into Gemini Omni, burying a strong video model inside a "do everything" multimodal brand instead of letting it stand on its own. I don't love that decision.</p>
+<p>A lot of agencies built client workflows on Sora, because the output quality was genuinely good for a while. Those teams are migrating now. I've moved two ongoing projects to Wan 3.0 this month and one to Kling 4.0 Flash. Neither replacement is a drop-in. The prompting language is different, the reference handling is different, and your storyboard-to-shot ratio changes depending on how long a single generation can run.</p>
+
+<h2>Kling and Wan both want longer, cleaner takes</h2>
+<p>Kling 4.0's headline number is 30 seconds in a single generation, up from Kling 3.0's 15-second ceiling. That doubles the length of a continuous take, which matters a lot if you've ever tried to hide a stitch point in a dialogue scene. It also outputs 4K and 1080p in 10-bit HDR, takes multimodal input across images, videos, and subjects, and handles two-channel stereo audio with lip sync in multiple languages. This is a tool built for people trying to finish actual scenes, not just mood clips for a sizzle reel. The Flash variant has been in limited access since September 28. Its Omni Reference feature is the part I'd test first if you're doing brand work with a consistent cast of products or characters.</p>
+<p>Wan 3.0 is doing something different, and it's the one I'm most excited to misuse. It accepts documents as input now. PPT, PDF, DOC, XLS. Feed it a pitch deck and you get lifelike human faces and consistent reference-to-video output back. I ran a client's existing keynote slides through it as a test and got a surprisingly coherent narrated sequence out the other end. It's rough, not final-pixel work, but as a first-pass visualization tool for a conference talk or an investor deck, it's faster than anything I've used before. The pricing is aggressive too, scaling from a few cents a second at lower resolutions up to around twenty cents a second at 1080p. That's cheap enough to let clients iterate on a deck-to-video concept without flinching at the invoice.</p>
+<p><strong>Actionable workflow note:</strong> if you're pitching a brand or Web3 client on a video concept before budget is locked, stop building a traditional animatic. Take their existing slide deck, strip it down to 6-8 key slides with clear visual direction in the speaker notes, and run it through Wan 3.0's document input. You'll have a scored, voiced rough cut in under an hour. It beats a storyboard PDF for persuasion, and it costs almost nothing compared to a day of your time in After Effects.</p>
+
+<h2>An AI feature film cleared an MPA rating</h2>
+<p>"Gods Don't Give Gifts," from YouTuber Zack London and Edward Saatchi's studio Fable, got an R rating from the MPA, and its trailer started playing in US theaters on October 9. Posters in multiplex lobbies and everything. The film opens in limited US/UK release on December 4, pushed back from October 30 specifically to qualify for awards season. Saatchi is calling it "a seminal, historic moment in animation" and comparing it to Toy Story. That's a big swing given the Academy banned AI actors and AI-written scripts from eligibility back in May, so there's friction built into this release before a single ticket sells.</p>
+<p>The credit structure matters more than the marketing here: the visuals were AI-generated, but the voices and creative direction came from human talent. That's the model I'd bet on surviving long-term in this industry. A clear division where humans own performance and story while AI owns the pixel-generation labor. It's a more honest pitch than "we replaced the animators," and it also makes for a better production process. I'd rather see ten more films built this way than one more press release claiming full automation that nobody can actually verify.</p>
+
+<h2>Cheap, fast tools are reshaping previs</h2>
+<p>xAI shipped Grok Imagine Video 1.5 Lite on October 8 at $0.02/s for 480p and $0.03/s for 720p, plus a cent per input image. That's previs pricing, not final-pixel pricing. The full 1.5 model already does reference-to-video with up to seven tagged images bound to specific shots, handy for keeping a subject consistent across a sequence. The Lite tier is clearly built for the part of the job nobody likes paying for: rapid iteration before you commit real compute budget to a shot. Pair that with Nano Banana 2.1, which Google quietly shipped October 6 for stills, and you've got a cheap stills-plus-motion previs stack that didn't exist eight weeks ago.</p>
+
+<p>I used to plan client pipelines a year out. Now I plan them a month out and keep a migration checklist taped above my desk, because the next shutdown email is always coming. This week it was Sora. Next month it'll be something else, and the job is just rebuilding fast enough that the client never notices the ground moved under them.</p>
+</article>
+<div class="author-box">
+  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
+</div>
+<div class="related" id="related-posts">
+  <div class="related-label">Keep Reading</div>
+  <div class="related-grid" id="related-grid"></div>
+</div>
+<footer>
+  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+</footer>
+<script>
+(function() {
+  const currentFile = "2026-10-11-sora-shutdown-kling-wan-migration.html";
+  const currentTags = ["sora", "kling", "wan", "video-ai"];
+  fetch('/blog/posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const others = posts.filter(p => p.filename !== currentFile);
+      others.forEach(p => {
+        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
+      });
+      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
+      const picks = others.slice(0, 4);
+      const grid = document.getElementById('related-grid');
+      if (picks.length === 0) {
+        document.getElementById('related-posts').style.display = 'none';
+        return;
+      }
+      grid.innerHTML = picks.map(p => `
+        <a href="/blog/${p.filename}" class="related-card">
+          <h3>${p.title}</h3>
+          <p>${p.meta_description}</p>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('related-posts').style.display = 'none';
+    });
+})();
+</script>
+</body>
+</html>
