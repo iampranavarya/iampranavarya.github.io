@@ -1,5 +1,17 @@
 [
   {
+    "filename": "2026-10-13-kling-o3-prompting-shot-lists.html",
+    "title": "Kling O3 Prompting: Why Shot Lists Beat Paragraphs",
+    "meta_description": "Kling O3 demands a new prompting grammar. Learn the five-layer shot-list method replacing vague paragraph prompts for sharper AI video results.",
+    "tags": [
+      "kling",
+      "prompts",
+      "ai-video",
+      "tutorial"
+    ],
+    "date": "2026-10-13"
+  },
+  {
     "filename": "2026-10-11-sora-shutdown-kling-wan-migration.html",
     "title": "Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0",
     "meta_description": "Sora's API died Sept 24. Here's how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything.",
