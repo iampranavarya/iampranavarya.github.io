@@ -411,6 +411,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span class="nlgate-hint">Klicken, um fortzufahren →</span>
     <video class="nlgate-vid nlgate-vid-a" autoplay muted loop playsinline src="preview6.mp4"></video>
     <video class="nlgate-vid nlgate-vid-b" muted loop playsinline src="preview11.mp4"></video>
+    <div class="nlgate-grain"></div>
     <div class="nlgate-fade"></div>
     <div class="nlgate-in">
       <span class="nlgate-mono">01 / FILM</span>
@@ -435,6 +436,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     </div>
     <span class="nlgate-hint nlgate-hint-light">Öffnet einen neuen Tab ↗</span>
     <div class="nlgate-grid"></div>
+    <div class="nlgate-glow"></div>
     <div class="nlgate-office" data-status='["Research-Agent · Marktanalyse fertig, 14 Quellen verlinkt", "Lead-Agent · 12 Firmen bewertet, wartet auf Freigabe", "Content-Agent · Newsletter-Entwurf an Faktencheck übergeben", "Support-Agent · eine Frage an einen Menschen weitergegeben", "Faktencheck · 2 Aussagen zur Prüfung markiert"]' data-steps='[[0, 0], [1, 1], [2, 2], [3, 3], [1, 4], [3, 1], [0, 3], [2, 0]]'>
       <div class="nlgate-desks"><div class="nlgate-desk"><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Research</span></div><div class="nlgate-desk"><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Leads</span></div><div class="nlgate-desk"><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Content</span></div><div class="nlgate-desk"><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Support</span></div></div>
       <p class="nlgate-log"></p>
@@ -452,17 +454,29 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     transition:opacity .6s ease, visibility .6s;}
   #nlgate-root.nlgate-closing{opacity:0;visibility:hidden;pointer-events:none;}
   .nlgate-pane{position:relative;flex:1 1 0;min-width:0;display:flex;align-items:flex-end;overflow:hidden;color:#fff;text-decoration:none;
-    cursor:pointer;transition:flex-grow .7s cubic-bezier(.2,.7,.1,1);}
+    cursor:pointer;opacity:0;transform:translateY(16px) scale(1.012);
+    transition:flex-grow .7s cubic-bezier(.2,.7,.1,1), opacity 1s cubic-bezier(.2,.7,.1,1), transform 1s cubic-bezier(.2,.7,.1,1);}
+  #nlgate-root.nlgate-enter .nlgate-pane{opacity:1;transform:translateY(0) scale(1);}
+  #nlgate-root.nlgate-enter .nlgate-agents{transition-delay:.12s;}
   .nlgate-film{background:#050506;}
-  .nlgate-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.25) contrast(1.05);transition:opacity 1.4s ease;}
+  .nlgate-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.25) contrast(1.05);transition:opacity 1.4s ease;
+    animation:nlgate-kenburns 24s ease-in-out infinite alternate;}
   .nlgate-vid-a{opacity:.82;}
-  .nlgate-vid-b{opacity:0;}
+  .nlgate-vid-b{opacity:0;animation-delay:-9s;}
   .nlgate-vid-a.nlgate-off{opacity:0;}
   .nlgate-vid-b.nlgate-on{opacity:.82;}
+  @keyframes nlgate-kenburns{0%{transform:scale(1);}100%{transform:scale(1.09);}}
+  .nlgate-grain{position:absolute;inset:-12%;opacity:.05;mix-blend-mode:overlay;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:nlgate-grain-shift .5s steps(2) infinite;}
+  @keyframes nlgate-grain-shift{0%{transform:translate(0,0);}50%{transform:translate(-2%,1%);}100%{transform:translate(1%,-2%);}}
   .nlgate-fade{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,6,.9),rgba(5,5,6,.1) 40%,rgba(5,5,6,.45) 70%);}
   .nlgate-agents{background:#f7f7f2;color:#131311;}
   .nlgate-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(19,19,17,.2) 1px,transparent 1.4px);background-size:26px 26px;
     -webkit-mask-image:radial-gradient(ellipse at 55% 42%,#000 25%,transparent 72%);mask-image:radial-gradient(ellipse at 55% 42%,#000 25%,transparent 72%);}
+  .nlgate-glow{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s ease;
+    background:radial-gradient(260px at var(--mx,50%) var(--my,50%),rgba(224,68,13,.10),transparent 70%);}
+  .nlgate-agents:hover .nlgate-glow{opacity:1;}
 
   .nlgate-bar{position:absolute;top:0;left:0;right:0;z-index:4;display:flex;align-items:center;gap:7px;padding:12px clamp(16px,3vw,26px);
     background:rgba(5,5,6,.55);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,.08);}
@@ -480,7 +494,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .nlgate-desk span{font-size:.58rem;font-weight:600;line-height:1.15;text-align:center;color:rgba(19,19,17,.7);}
   .nlgate-desk.nlgate-busy{border-color:#e0440d;box-shadow:0 0 0 3px rgba(224,68,13,.14);background:#fff;}
   .nlgate-desk.nlgate-busy span{color:#131311;}
-  .nlgate-bot{position:relative;width:24px;height:30px;}
+  .nlgate-bot{position:relative;width:24px;height:30px;opacity:0;transform:translateY(6px) scale(.88);
+    transition:opacity .5s ease, transform .5s ease;}
+  #nlgate-root.nlgate-enter .nlgate-bot{opacity:1;transform:none;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(1) .nlgate-bot{transition-delay:.55s;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(2) .nlgate-bot{transition-delay:.68s;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(3) .nlgate-bot{transition-delay:.81s;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(4) .nlgate-bot{transition-delay:.94s;}
   .nlgate-bot-antenna{position:absolute;top:-6px;left:50%;width:2px;height:6px;margin-left:-1px;background:rgba(19,19,17,.3);}
   .nlgate-bot-antenna::after{content:'';position:absolute;top:-4px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:rgba(19,19,17,.28);transition:background .3s;}
   .nlgate-bot-head{position:relative;width:22px;height:13px;margin:0 auto;border-radius:6px 6px 5px 5px;background:#fff;border:1px solid rgba(19,19,17,.18);
@@ -510,7 +530,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   @keyframes nlgate-hint-pulse{0%,100%{opacity:.6;}50%{opacity:1;}}
 
   .nlgate-center{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;
-    gap:clamp(10px,2.4vw,28px);pointer-events:none;color:#fff;mix-blend-mode:difference;padding:0 16px;}
+    gap:clamp(10px,2.4vw,28px);pointer-events:none;color:#fff;mix-blend-mode:difference;padding:0 16px;
+    opacity:0;transition:opacity 1s ease .35s;}
+  #nlgate-root.nlgate-enter .nlgate-center{opacity:1;}
   .nlgate-ask-wrap{text-align:center;}
   .nlgate-ask{font-family:'Instrument Serif','Times New Roman',serif;font-weight:400;font-size:clamp(1.3rem,2.8vw,2.1rem);line-height:1.15;margin:0;}
   .nlgate-ask-sides{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:14px;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7;}
@@ -538,7 +560,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     .nlgate-in{padding-bottom:16px;max-width:none;}
     .nlgate-p{display:none;}
   }
-  @media (prefers-reduced-motion:reduce){ .nlgate-vid{transition:none;} .nlgate-bot,.nlgate-hint,.nlgate-ask-arrow{animation:none;} }
+  @media (prefers-reduced-motion:reduce){ .nlgate-vid{transition:none;animation:none;} .nlgate-bot,.nlgate-hint,.nlgate-ask-arrow,.nlgate-grain{animation:none;}
+    .nlgate-pane,.nlgate-center,.nlgate-bot{opacity:1;transform:none;transition:none;} }
 </style>
 <script>
 (function(){
@@ -546,6 +569,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   if(!root) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.documentElement.style.overflow='hidden';
+
+  // trigger the entrance animation (panes, center question, robots) on the next paint
+  if(!reduce){
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add('nlgate-enter'); }); });
+  } else {
+    root.classList.add('nlgate-enter');
+  }
 
   function enterFilm(){
     root.classList.add('nlgate-closing');
@@ -571,16 +601,37 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   var office=root.querySelector('.nlgate-office');
   if(office){
     var desks=[].slice.call(office.querySelectorAll('.nlgate-desk')), log=office.querySelector('.nlgate-log');
-    var seq=JSON.parse(office.dataset.steps), status=JSON.parse(office.dataset.status), k=0, officeTimer;
+    var seq=JSON.parse(office.dataset.steps), status=JSON.parse(office.dataset.status), k=0, officeTimer, typeTimer;
+    var typeLog=function(text){
+      if(!log) return;
+      if(typeTimer) clearInterval(typeTimer);
+      if(reduce){ log.textContent=text; return; }
+      log.textContent='';
+      var i=0;
+      typeTimer=setInterval(function(){
+        log.textContent+=text.charAt(i); i++;
+        if(i>=text.length) clearInterval(typeTimer);
+      }, 16);
+    };
     var tick=function(){
       var s=seq[k%seq.length]; k++;
       desks.forEach(function(d){d.classList.remove('nlgate-busy');});
       desks[s[0]].classList.add('nlgate-busy');
-      if(log) log.textContent=status[s[1]%status.length];
+      typeLog(status[s[1]%status.length]);
     };
     desks[0].classList.add('nlgate-busy');
-    if(log) log.textContent=status[0];
+    typeLog(status[0]);
     if(!reduce) { officeTimer=setInterval(tick, 2200); }
+  }
+
+  // soft cursor-reactive glow over the agents grid (desktop hover only)
+  var agentsPane=root.querySelector('.nlgate-agents');
+  if(agentsPane){
+    agentsPane.addEventListener('mousemove', function(e){
+      var r=agentsPane.getBoundingClientRect();
+      agentsPane.style.setProperty('--mx', (e.clientX-r.left)+'px');
+      agentsPane.style.setProperty('--my', (e.clientY-r.top)+'px');
+    });
   }
 
   // Skip the splash on repeat visits within the same browser session
