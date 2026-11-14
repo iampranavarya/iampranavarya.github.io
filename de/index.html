@@ -581,7 +581,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     root.classList.add('nlgate-closing');
     document.documentElement.style.overflow='';
     setTimeout(function(){ if(root&&root.parentNode) root.parentNode.removeChild(root); }, 650);
-    try{ sessionStorage.setItem('nlgate-seen','1'); }catch(e){}
   }
   film.addEventListener('click', enterFilm);
   film.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); enterFilm(); } });
@@ -633,9 +632,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       agentsPane.style.setProperty('--my', (e.clientY-r.top)+'px');
     });
   }
-
-  // Skip the splash on repeat visits within the same browser session
-  try{ if(sessionStorage.getItem('nlgate-seen')==='1'){ root.style.display='none'; document.documentElement.style.overflow=''; } }catch(e){}
 })();
 </script>
 <!-- ===== end Northlight gateway splash ===== -->
