@@ -700,6 +700,23 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   @media (max-width:860px) and (max-height:560px){ .nlgate-p,.nlgate-mono,.nlgate-why{display:none;} .nlgate-btn{min-height:44px;margin-top:8px;} .nlgate-head{padding-top:10px;padding-bottom:10px;} }
   @media (max-width:860px) and (max-height:460px){ .nlgate-office{display:none;} }
 
+  /* ---------- phones: minimal. One question, two names, two buttons. ---------- */
+  @media (max-width:860px){
+    #nlgate-root{grid-template-rows:auto minmax(0,1fr) minmax(0,1fr);}
+    .nlgate-why,.nlgate-tag,.nlgate-p,.nlgate-mono,.nlgate-bub,.nlgate-log,.nlgate-desk > span,.nlgate-newtab{display:none !important;}
+    .nlgate-head{padding:calc(22px + env(safe-area-inset-top,0px)) 20px 22px;}
+    .nlgate-ask{font-size:clamp(1.6rem,7vw,2.1rem);}
+    .nlgate-in{padding:0 22px 22px;}
+    .nlgate-agents .nlgate-in{padding-bottom:calc(22px + env(safe-area-inset-bottom,0px));}
+    .nlgate-h{font-size:clamp(1.9rem,8.2vw,2.5rem);margin-bottom:0;}
+    .nlgate-btn{min-height:52px;margin-top:16px;padding:0 18px;font-size:.875rem;}
+    .nlgate-office{margin:auto;padding:0;width:auto;}
+    .nlgate-desks{display:flex;gap:26px;justify-content:center;}
+    .nlgate-desk,.nlgate-desk.nlgate-busy{border:0;background:none;box-shadow:none;min-height:0;padding:8px 0 0;}
+    .nlgate-bot{zoom:1.5;}
+  }
+  @media (max-width:860px) and (max-height:430px){ .nlgate-office{display:none;} .nlgate-btn{min-height:44px;margin-top:8px;} .nlgate-head{padding-top:10px;padding-bottom:10px;} }
+
   /* ---------- shutter that closes on the splash and opens on the film site ---------- */
   .nlgate-shutter{position:fixed;inset:0;z-index:2147483001;pointer-events:none;}
   .nlgate-blade{position:absolute;left:0;right:0;height:50.5%;background:#050506;transition:transform .4s cubic-bezier(.7,0,.3,1);}
