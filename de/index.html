@@ -439,13 +439,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="nlgate-live">● LIVE</span>
     </div>
     <div class="nlgate-office" data-status='["Research-Agent · Marktanalyse fertig, 14 Quellen verlinkt", "Lead-Agent · 12 Firmen bewertet, wartet auf Freigabe", "Content-Agent · Newsletter-Entwurf an Faktencheck übergeben", "Support-Agent · eine Frage an einen Menschen weitergegeben", "Faktencheck · 2 Aussagen zur Prüfung markiert"]' data-steps='[[0,0],[1,1],[2,2],[3,3],[1,4],[3,1],[0,3],[2,0]]'>
-      <div class="nlgate-desks"><div class="nlgate-desk"><em class="nlgate-bub">14 Quellen gefunden</em><div class="nlgate-station"><span class="nlgate-screen"></span><span class="nlgate-fig nlgate-c1"><i class="f-head"></i><i class="f-arm f-arm-l"></i><i class="f-arm f-arm-r"></i><i class="f-body"></i><i class="f-hip"></i><i class="f-leg f-leg-l"></i><i class="f-leg f-leg-r"></i></span><span class="nlgate-table"></span></div><span>Research</span></div><div class="nlgate-desk"><em class="nlgate-bub">12 Leads bewertet</em><div class="nlgate-station"><span class="nlgate-screen"></span><span class="nlgate-fig nlgate-c2"><i class="f-head"></i><i class="f-arm f-arm-l"></i><i class="f-arm f-arm-r"></i><i class="f-body"></i><i class="f-hip"></i><i class="f-leg f-leg-l"></i><i class="f-leg f-leg-r"></i></span><span class="nlgate-table"></span></div><span>Leads</span></div><div class="nlgate-desk"><em class="nlgate-bub">Entwurf fertig</em><div class="nlgate-station"><span class="nlgate-screen"></span><span class="nlgate-fig nlgate-c3"><i class="f-head"></i><i class="f-arm f-arm-l"></i><i class="f-arm f-arm-r"></i><i class="f-body"></i><i class="f-hip"></i><i class="f-leg f-leg-l"></i><i class="f-leg f-leg-r"></i></span><span class="nlgate-table"></span></div><span>Content</span></div><div class="nlgate-desk"><em class="nlgate-bub">Ticket gelöst</em><div class="nlgate-station"><span class="nlgate-screen"></span><span class="nlgate-fig nlgate-c4"><i class="f-head"></i><i class="f-arm f-arm-l"></i><i class="f-arm f-arm-r"></i><i class="f-body"></i><i class="f-hip"></i><i class="f-leg f-leg-l"></i><i class="f-leg f-leg-r"></i></span><span class="nlgate-table"></span></div><span>Support</span></div><div class="nlgate-walkers" aria-hidden="true"><div class="nlgate-walker nlgate-walk-a"><span class="nlgate-fig nlgate-c5"><i class="f-head"></i><i class="f-arm f-arm-l"></i><i class="f-arm f-arm-r"></i><i class="f-body"></i><i class="f-hip"></i><i class="f-leg f-leg-l"></i><i class="f-leg f-leg-r"></i><i class="f-doc"></i></span></div><div class="nlgate-walker nlgate-walk-b"><span class="nlgate-fig nlgate-c6"><i class="f-head"></i><i class="f-arm f-arm-l"></i><i class="f-arm f-arm-r"></i><i class="f-body"></i><i class="f-hip"></i><i class="f-leg f-leg-l"></i><i class="f-leg f-leg-r"></i><i class="f-doc"></i></span></div></div></div>
+      <div class="nlgate-desks"><div class="nlgate-desk"><em class="nlgate-bub">14 Quellen gefunden</em><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Research</span></div><div class="nlgate-desk"><em class="nlgate-bub">12 Leads bewertet</em><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Leads</span></div><div class="nlgate-desk"><em class="nlgate-bub">Entwurf fertig</em><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Content</span></div><div class="nlgate-desk"><em class="nlgate-bub">Ticket gelöst</em><div class="nlgate-bot"><span class="nlgate-bot-antenna"></span><span class="nlgate-bot-head"><span class="nlgate-bot-eye"></span><span class="nlgate-bot-eye"></span></span><span class="nlgate-bot-body"></span></div><span>Support</span></div></div>
       <p class="nlgate-log"></p>
     </div>
     <div class="nlgate-in">
       <span class="nlgate-mono">02 / AGENTS</span>
       <h2 class="nlgate-h">Northlight Agents</h2>
-      <p class="nlgate-p">Teams aus KI-Agenten, die die tägliche Arbeit Ihres Unternehmens automatisieren, von Anfang bis Ende.</p>
+      <p class="nlgate-p">Teams aus KI-Agenten für Unternehmen, mit einem Protokoll, das Sie lesen können.</p>
       <span class="nlgate-btn nlgate-btn-agents"><span>Zu Northlight Agents</span><b><span class="nlgate-newtab">Neuer Tab </span>↗</b></span>
     </div>
   </a>
@@ -505,15 +505,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   @keyframes nlgate-blink{50%{opacity:.3;}}
 
   /* ---------- robots ---------- */
-  .nlgate-office{position:absolute;z-index:2;left:50%;top:33%;transform:translate(-50%,-50%);width:min(82%,330px);}
-  .nlgate-desks{zoom:1.15;}
-  @media (min-width:1200px){ .nlgate-desks{zoom:1.4;} .nlgate-office{width:min(82%,390px);} }
-  .nlgate-desks{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative;}
-  .nlgate-desks::before{content:'';position:absolute;left:-4%;right:-4%;top:58px;height:1px;background:rgba(19,19,17,.16);}
-  .nlgate-desk{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;}
-  .nlgate-desk > span{font-size:.68rem;font-weight:500;line-height:1.15;text-align:center;color:rgba(19,19,17,.6);transition:color .4s;}
+  .nlgate-office{position:absolute;z-index:2;left:50%;top:33%;transform:translate(-50%,-50%);width:min(82%,400px);}
+  .nlgate-desks{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;position:relative;}
+  .nlgate-desk{position:relative;border:1px solid rgba(19,19,17,.14);border-radius:9px;padding:9px 4px 7px;min-height:74px;background:rgba(255,255,255,.55);
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;transition:border-color .4s,box-shadow .4s,background .4s;}
+  .nlgate-desk > span{font-size:.68rem;font-weight:500;line-height:1.15;text-align:center;color:rgba(19,19,17,.7);}
+  .nlgate-desk.nlgate-busy{border-color:#e0440d;box-shadow:0 0 0 3px rgba(224,68,13,.14);background:#fff;}
   .nlgate-desk.nlgate-busy > span{color:#131311;}
-  .nlgate-bub{position:absolute;bottom:calc(100% - 4px);left:50%;transform:translateX(-50%) translateY(5px) scale(.85);transform-origin:50% 100%;opacity:0;z-index:4;
+  .nlgate-bub{position:absolute;bottom:calc(100% + 9px);left:50%;transform:translateX(-50%) translateY(5px) scale(.85);transform-origin:50% 100%;opacity:0;
     font-style:normal;font-size:.7rem;font-weight:500;line-height:1;white-space:nowrap;color:#fff;background:#131311;padding:6px 9px;border-radius:7px;
     transition:opacity .3s ease, transform .35s cubic-bezier(.2,1.4,.4,1);pointer-events:none;}
   .nlgate-bub::after{content:'';position:absolute;top:100%;left:50%;margin-left:-4px;border:4px solid transparent;border-top-color:#131311;}
@@ -521,82 +520,27 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .nlgate-desk:first-child .nlgate-bub::after{left:26px;}
   .nlgate-desk:last-child .nlgate-bub{left:auto;right:0;transform:translateY(5px) scale(.85);transform-origin:80% 100%;}
   .nlgate-desk:last-child .nlgate-bub::after{left:auto;right:22px;}
-  .nlgate-busy .nlgate-bub{opacity:1;transform:translateX(-50%);transition-delay:.5s;}
+  .nlgate-busy .nlgate-bub{opacity:1;transform:translateX(-50%);transition-delay:.7s;}
   .nlgate-desk:first-child.nlgate-busy .nlgate-bub,.nlgate-desk:last-child.nlgate-busy .nlgate-bub{transform:none;}
-
-  /* a workstation: one little person behind a desk with a screen */
-  .nlgate-station{position:relative;width:64px;height:58px;opacity:0;transform:translateY(6px);transition:opacity .5s ease, transform .5s ease;}
-  #nlgate-root.nlgate-enter .nlgate-station{opacity:1;transform:none;}
-  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(1) .nlgate-station{transition-delay:.55s;}
-  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(2) .nlgate-station{transition-delay:.68s;}
-  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(3) .nlgate-station{transition-delay:.81s;}
-  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(4) .nlgate-station{transition-delay:.94s;}
-  .nlgate-station .nlgate-fig{position:absolute;left:34px;bottom:12px;}
-  .nlgate-table{position:absolute;left:2px;right:2px;bottom:0;height:20px;}
-  .nlgate-table::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;border-radius:2px;background:#131311;}
-  .nlgate-table::after{content:'';position:absolute;left:3px;right:3px;top:3px;bottom:0;border-radius:0 0 3px 3px;background:#e9e6dc;border:1px solid rgba(19,19,17,.12);border-top:0;}
-  .nlgate-screen{position:absolute;left:8px;bottom:20px;width:21px;height:15px;border-radius:3px;background:#fff;border:1.5px solid #131311;overflow:hidden;}
-  .nlgate-screen::before{content:'';position:absolute;left:3px;right:3px;top:3px;height:2px;border-radius:1px;background:rgba(19,19,17,.22);
-    box-shadow:0 4px 0 rgba(19,19,17,.22),0 8px 0 rgba(19,19,17,.12);}
-  .nlgate-screen::after{content:'';position:absolute;left:12px;bottom:-4px;width:2px;height:4px;background:#131311;}
-  .nlgate-busy .nlgate-screen{border-color:#e0440d;}
-  .nlgate-busy .nlgate-screen::before{background:#e0440d;box-shadow:0 4px 0 rgba(224,68,13,.55),0 8px 0 rgba(224,68,13,.3);animation:nlgate-type-lines 1s steps(3) infinite;}
-  @keyframes nlgate-type-lines{0%{right:13px;}33%{right:8px;}66%{right:3px;}}
-
-  /* the little block person */
-  .nlgate-fig{display:block;width:20px;height:40px;--shirt:#131311;}
-  .nlgate-fig i{position:absolute;display:block;}
-  .nlgate-fig .f-head{left:5px;top:3px;width:10px;height:9px;border-radius:3px;background:#f2c94c;}
-  .nlgate-fig .f-head::before{content:'';position:absolute;left:3px;top:-3px;width:4px;height:3px;border-radius:1px 1px 0 0;background:#f2c94c;}
-  .nlgate-fig .f-head::after{content:'';position:absolute;left:2px;top:3px;width:2px;height:2px;border-radius:50%;background:#131311;box-shadow:4px 0 0 #131311;
-    animation:nlgate-fig-blink 4.6s ease-in-out infinite;}
-  .nlgate-fig .f-body{left:3px;top:12px;width:14px;height:13px;background:var(--shirt);clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);}
-  .nlgate-fig .f-arm{top:13px;width:4px;height:10px;border-radius:2px;background:var(--shirt);transform-origin:50% 1px;}
-  .nlgate-fig .f-arm::after{content:'';position:absolute;left:0;bottom:-2px;width:4px;height:3px;border-radius:1px;background:#f2c94c;}
-  .nlgate-fig .f-arm-l{left:0;transform:rotate(12deg);}
-  .nlgate-fig .f-arm-r{right:0;transform:rotate(-12deg);}
-  .nlgate-fig .f-hip{left:3px;top:25px;width:14px;height:2px;background:#2b2b28;}
-  .nlgate-fig .f-leg{top:26px;width:6px;height:12px;border-radius:0 0 1px 1px;background:#2b2b28;transform-origin:50% 0;}
-  .nlgate-fig .f-leg-l{left:3px;}
-  .nlgate-fig .f-leg-r{left:11px;}
-  .nlgate-c1{--shirt:#e0440d;} .nlgate-c2{--shirt:#131311;} .nlgate-c3{--shirt:#5f7184;} .nlgate-c4{--shirt:#c8c3b4;}
-  .nlgate-c5{--shirt:#2f6f5e;} .nlgate-c6{--shirt:#8a5a44;}
-  @keyframes nlgate-fig-blink{0%,90%,100%{transform:scaleY(1);}95%{transform:scaleY(.1);}}
-
-  /* working at the desk: arms tapping, small bob when it is their turn */
-  .nlgate-station .f-arm-l{animation:nlgate-tap-l 1.1s ease-in-out infinite;}
-  .nlgate-station .f-arm-r{animation:nlgate-tap-r 1.1s ease-in-out infinite;}
-  .nlgate-desk:nth-child(2) .nlgate-station .f-arm-l,.nlgate-desk:nth-child(2) .nlgate-station .f-arm-r{animation-delay:-.4s;}
-  .nlgate-desk:nth-child(3) .nlgate-station .f-arm-l,.nlgate-desk:nth-child(3) .nlgate-station .f-arm-r{animation-delay:-.7s;}
-  .nlgate-busy .nlgate-station .f-arm-l,.nlgate-busy .nlgate-station .f-arm-r{animation-duration:.32s;}
-  .nlgate-busy .nlgate-station .nlgate-fig{animation:nlgate-fig-bob .64s ease-in-out infinite;}
-  @keyframes nlgate-tap-l{0%,100%{transform:rotate(38deg);}50%{transform:rotate(52deg);}}
-  @keyframes nlgate-tap-r{0%,100%{transform:rotate(-28deg);}50%{transform:rotate(-14deg);}}
-  @keyframes nlgate-fig-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.5px);}}
-
-  /* colleagues walking between desks, carrying work */
-  .nlgate-walkers{position:absolute;left:0;right:0;top:0;height:58px;pointer-events:none;z-index:3;}
-  .nlgate-walker{position:absolute;bottom:0;left:0;width:20px;height:40px;opacity:0;transition:opacity .6s ease 1.2s;}
-  #nlgate-root.nlgate-enter .nlgate-walker{opacity:1;}
-  .nlgate-walker .nlgate-fig{position:relative;}
-  .nlgate-walker .f-leg-l{animation:nlgate-step 0.5s ease-in-out infinite;}
-  .nlgate-walker .f-leg-r{animation:nlgate-step 0.5s ease-in-out infinite reverse;}
-  .nlgate-walker .f-arm-l{animation:nlgate-swing 0.5s ease-in-out infinite reverse;}
-  .nlgate-walker .f-arm-r{animation:nlgate-swing-r 0.5s ease-in-out infinite;}
-  .nlgate-walker .f-doc{left:17px;top:19px;width:7px;height:8px;border-radius:1px;background:#fff;border:1px solid #e0440d;}
-  .nlgate-walker .f-doc::before{content:'';position:absolute;left:1px;right:1px;top:2px;height:1px;background:#e0440d;box-shadow:0 2px 0 #e0440d;}
-  @keyframes nlgate-step{0%,100%{transform:rotate(18deg);}50%{transform:rotate(-18deg);}}
-  @keyframes nlgate-swing{0%,100%{transform:rotate(22deg);}50%{transform:rotate(-8deg);}}
-  @keyframes nlgate-swing-r{0%,100%{transform:rotate(-22deg);}50%{transform:rotate(8deg);}}
-  .nlgate-walk-a{animation:nlgate-path-a 14s linear infinite;}
-  .nlgate-walk-a .nlgate-fig{animation:nlgate-face-a 14s steps(1) infinite;}
-  .nlgate-walk-b{animation:nlgate-path-b 18s linear infinite;animation-delay:-7s;}
-  .nlgate-walk-b .nlgate-fig{animation:nlgate-face-b 18s steps(1) infinite;animation-delay:-7s;}
-  /* walk right, pause to hand over, walk back; flip to face the way they walk */
-  @keyframes nlgate-path-a{0%{left:3%;}42%{left:62%;}50%{left:62%;}92%{left:3%;}100%{left:3%;}}
-  @keyframes nlgate-face-a{0%{transform:scaleX(1);}46%{transform:scaleX(-1);}96%{transform:scaleX(1);}}
-  @keyframes nlgate-path-b{0%{left:92%;}40%{left:30%;}50%{left:30%;}90%{left:92%;}100%{left:92%;}}
-  @keyframes nlgate-face-b{0%{transform:scaleX(-1);}45%{transform:scaleX(1);}95%{transform:scaleX(-1);}}
+  .nlgate-bot{position:relative;width:24px;height:30px;opacity:0;transform:translateY(6px) scale(.88);transition:opacity .5s ease, transform .5s ease;}
+  #nlgate-root.nlgate-enter .nlgate-bot{opacity:1;transform:none;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(1) .nlgate-bot{transition-delay:.55s;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(2) .nlgate-bot{transition-delay:.68s;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(3) .nlgate-bot{transition-delay:.81s;}
+  #nlgate-root.nlgate-enter .nlgate-desk:nth-child(4) .nlgate-bot{transition-delay:.94s;}
+  .nlgate-bot-antenna{position:absolute;top:-6px;left:50%;width:2px;height:6px;margin-left:-1px;background:rgba(19,19,17,.3);}
+  .nlgate-bot-antenna::after{content:'';position:absolute;top:-4px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:rgba(19,19,17,.28);transition:background .3s;}
+  .nlgate-bot-head{position:relative;display:flex;width:22px;height:13px;margin:0 auto;border-radius:6px 6px 5px 5px;background:#fff;border:1px solid rgba(19,19,17,.18);
+    align-items:center;justify-content:center;gap:4px;transition:border-color .3s;}
+  .nlgate-bot-eye{width:3px;height:3px;border-radius:50%;background:rgba(19,19,17,.55);animation:nlgate-bot-blink 4.4s ease-in-out infinite;}
+  .nlgate-bot-eye:nth-child(2){animation-delay:.08s;}
+  .nlgate-bot-body{display:block;width:17px;height:9px;margin:3px auto 0;border-radius:4px;background:#fff;border:1px solid rgba(19,19,17,.14);}
+  .nlgate-busy .nlgate-bot{animation:nlgate-bot-bob .7s ease-in-out infinite;}
+  .nlgate-busy .nlgate-bot-antenna::after{background:#e0440d;box-shadow:0 0 0 3px rgba(224,68,13,.18);animation:nlgate-blink .9s ease-in-out infinite;}
+  .nlgate-busy .nlgate-bot-head{border-color:#e0440d;}
+  .nlgate-busy .nlgate-bot-eye{background:#e0440d;animation:none;}
+  @keyframes nlgate-bot-blink{0%,88%,100%{transform:scaleY(1);}94%{transform:scaleY(.1);}}
+  @keyframes nlgate-bot-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-2px);}}
   .nlgate-log{margin:14px 2px 0;font-size:.72rem;line-height:1.4;color:rgba(19,19,17,.65);min-height:2.8em;text-align:center;}
 
   /* ---------- text + buttons ---------- */
@@ -675,8 +619,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     .nlgate-p{font-size:.8125rem;line-height:1.45;max-width:none;}
     .nlgate-btn{display:flex;width:100%;min-width:0;min-height:48px;margin-top:12px;padding:0 16px;font-size:.8125rem;gap:10px;}
     .nlgate-office{position:relative;left:auto;top:auto;transform:none;width:auto;margin:auto 20px;padding-top:72px;}
-    .nlgate-desks{gap:4px;}
-    .nlgate-desk{gap:6px;}
+    .nlgate-desks{gap:7px;}
+    .nlgate-desk{min-height:58px;padding:7px 2px 6px;gap:4px;}
     .nlgate-desk > span{font-size:.6875rem;}
     .nlgate-bub{font-size:.6875rem;padding:5px 8px;bottom:calc(100% + 8px);}
     .nlgate-log{font-size:.75rem;margin-top:8px;min-height:1.4em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -704,8 +648,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     .nlgate-h{font-size:clamp(1.9rem,8.2vw,2.5rem);margin-bottom:0;}
     .nlgate-btn{min-height:52px;margin-top:16px;padding:0 18px;font-size:.875rem;}
     .nlgate-office{margin:auto;padding:0;width:auto;}
-    .nlgate-office{width:min(100%,340px);padding:0 14px;}
-    .nlgate-desks{zoom:1.15;}
+    .nlgate-desks{display:flex;gap:26px;justify-content:center;}
+    .nlgate-desk,.nlgate-desk.nlgate-busy{border:0;background:none;box-shadow:none;min-height:0;padding:8px 0 0;}
+    .nlgate-bot{zoom:1.5;}
   }
   @media (max-width:860px) and (max-height:430px){ .nlgate-office{display:none;} .nlgate-btn{min-height:44px;margin-top:8px;} .nlgate-head{padding-top:10px;padding-bottom:10px;} }
 
@@ -718,8 +663,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .nlgate-open .nlgate-blade{transition:transform .7s cubic-bezier(.2,.7,.1,1) .08s;}
 
   @media (prefers-reduced-motion:reduce){
-    .nlgate-poster,.nlgate-vid,.nlgate-fig,.nlgate-fig i,.nlgate-fig i::after,.nlgate-screen::before,.nlgate-walker,.nlgate-ask-arrow,.nlgate-grain,.nlgate-agents::after,.nlgate-live{animation:none !important;}
-    .nlgate-pane,.nlgate-head,.nlgate-station,.nlgate-walker,.nlgate-in > *,.nlgate-bub{transition:none !important;}
+    .nlgate-poster,.nlgate-vid,.nlgate-bot,.nlgate-ask-arrow,.nlgate-grain,.nlgate-agents::after,.nlgate-live{animation:none !important;}
+    .nlgate-pane,.nlgate-head,.nlgate-bot,.nlgate-in > *,.nlgate-bub{transition:none !important;}
     .nlgate-agents::after{display:none;}
   }
 </style>
