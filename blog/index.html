@@ -1,288 +1,1552 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI &amp; Entertainment Blog | PAFP</title>
-<meta name="description" content="Daily notes on AI models, news, tutorials, and prompt tricks for AI-powered filmmaking and entertainment production, from Pranav Arya (PAFP)."/>
-<link rel="canonical" href="https://pranavarya.com/blog/"/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
---font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}
-body{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;max-width:1100px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}
-img{max-width:100%;height:auto}
-.back{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}
-.back:hover{color:var(--red)}
-.eyebrow{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}
-h1{font-family:var(--font-head);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;line-height:0.9;text-transform:uppercase;margin-bottom:16px}
-.sub{color:rgba(242,240,235,0.6);max-width:520px;margin-bottom:56px;line-height:1.7}
-.post-list{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.post-card{display:block;text-decoration:none;color:var(--paper);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);transition:border-color 0.2s,background 0.2s}
-.post-card:hover{border-color:var(--red);background:rgba(230,58,30,0.04)}
-.post-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#111}
-.post-card-body{padding:20px}
-.post-date{font-family:var(--font-mono);font-size:0.42rem;letter-spacing:0.16em;color:var(--red);text-transform:uppercase}
-.post-card h2{font-family:var(--font-head);font-size:1.25rem;font-weight:700;text-transform:uppercase;margin:8px 0 8px;line-height:1.15;transition:color 0.2s}
-.post-card:hover h2{color:var(--red)}
-.post-card p{color:rgba(242,240,235,0.55);font-size:0.82rem;margin-bottom:10px;line-height:1.5}
-.post-tags{font-family:var(--font-mono);font-size:0.4rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase}
-.empty{color:rgba(242,240,235,0.4);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:40px 0;grid-column:1/-1}
-@media(max-width:900px){.post-list{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.post-list{grid-template-columns:1fr}}
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Blog: AI Filmmaking, Cameras and Production Notes | PAFP</title>
+<meta name="description" content="Notes on AI filmmaking, AI video models, cameras, smart glasses, editing and production craft from Berlin filmmaker Pranav Arya and the PAFP team.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Pranav Arya">
+<meta name="theme-color" content="#060509">
+<link rel="canonical" href="https://pranavarya.com/blog/">
+<link rel="icon" href="/pranavarya.jpg" type="image/jpeg">
+<link rel="alternate" type="application/rss+xml" title="PAFP Blog" href="https://pranavarya.com/blog/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pranavarya.com/blog/">
+<meta property="og:site_name" content="PAFP | Pranav Arya Film Production">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Blog: AI Filmmaking, Cameras and Production Notes | PAFP">
+<meta property="og:description" content="Notes on AI filmmaking, AI video models, cameras, smart glasses, editing and production craft from Berlin filmmaker Pranav Arya and the PAFP team.">
+<meta property="og:image" content="https://pranavarya.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog: AI Filmmaking, Cameras and Production Notes | PAFP">
+<meta name="twitter:description" content="Notes on AI filmmaking, AI video models, cameras, smart glasses, editing and production craft from Berlin filmmaker Pranav Arya and the PAFP team.">
+<meta name="twitter:image" content="https://pranavarya.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/blog.css?v=3">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Blog",
+   "@id": "https://pranavarya.com/blog/#blog",
+   "url": "https://pranavarya.com/blog/",
+   "name": "PAFP Blog",
+   "description": "Notes on AI filmmaking, AI video models, cameras, smart glasses, editing and production craft from Berlin filmmaker Pranav Arya and the PAFP team.",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://pranavarya.com/#person"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "@id": "https://pranavarya.com/#organization",
+    "name": "PAFP | Pranav Arya Film Production",
+    "url": "https://pranavarya.com/",
+    "logo": {
+     "@type": "ImageObject",
+     "url": "https://pranavarya.com/pranavarya.jpg"
+    }
+   },
+   "blogPost": [
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora Shuts Down: AI Video Enters Its Second Phase",
+     "url": "https://pranavarya.com/blog/2026-10-14-sora-shutdown-ai-video-shift.html",
+     "datePublished": "2026-10-14",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-ai-video-shift.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Kling O3 Prompting: Why Shot Lists Beat Paragraphs",
+     "url": "https://pranavarya.com/blog/2026-10-13-kling-o3-prompting-shot-lists.html",
+     "datePublished": "2026-10-13",
+     "image": "https://pranavarya.com/blog/images/kling-o3-prompting-shot-lists.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0",
+     "url": "https://pranavarya.com/blog/2026-10-11-sora-shutdown-kling-wan-migration.html",
+     "datePublished": "2026-10-11",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-kling-wan-migration.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Can an AI Movie Win an Oscar? Testing the Rules",
+     "url": "https://pranavarya.com/blog/2026-10-10-ai-film-oscar-sora-shutdown.html",
+     "datePublished": "2026-10-10",
+     "image": "https://pranavarya.com/blog/images/ai-film-oscar-sora-shutdown.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora Is Dead: Kling 4.0 and the Chinese AI Video Sweep",
+     "url": "https://pranavarya.com/blog/2026-10-07-sora-shutdown-kling-video-shift.html",
+     "datePublished": "2026-10-07",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-kling-video-shift.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Kling 3.0 Omni Elements: Fixing AI Character Drift",
+     "url": "https://pranavarya.com/blog/2026-10-05-kling-elements-character-consistency.html",
+     "datePublished": "2026-10-05",
+     "image": "https://pranavarya.com/blog/images/kling-elements-character-consistency.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Kling 4.0: 30-Second Clips, 4K HDR, and Real Competition",
+     "url": "https://pranavarya.com/blog/2026-10-04-kling-4-30-second-clips.html",
+     "datePublished": "2026-10-04",
+     "image": "https://pranavarya.com/blog/images/kling-4-30-second-clips.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Consistency Wins: Soul ID, Cinema Studio & AI Film",
+     "url": "https://pranavarya.com/blog/2026-07-27-soul-id-cinema-studio-consistency.html",
+     "datePublished": "2026-07-27",
+     "image": "https://pranavarya.com/blog/images/soul-id-cinema-studio-consistency.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Seedance 2.5: What's Real vs. Hype Right Now",
+     "url": "https://pranavarya.com/blog/2026-07-26-seedance-25-rollout-reality-check.html",
+     "datePublished": "2026-07-26",
+     "image": "https://pranavarya.com/blog/images/seedance-25-rollout-reality-check.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora Is Dead: Why Veo 3.1 and Kling 3.0 Win Now",
+     "url": "https://pranavarya.com/blog/2026-07-25-sora-shutdown-veo-kling-replace.html",
+     "datePublished": "2026-07-25",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-veo-kling-replace.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Frame Chaining in 2026: The Post-Sora AI Video Workflow",
+     "url": "https://pranavarya.com/blog/2026-07-24-frame-chaining-post-sora-workflow.html",
+     "datePublished": "2026-07-24",
+     "image": "https://pranavarya.com/blog/images/frame-chaining-post-sora-workflow.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora's Sunset: Why Kling Now Powers a Feature Film",
+     "url": "https://pranavarya.com/blog/2026-07-23-sora-shutdown-kling-pipeline-shift.html",
+     "datePublished": "2026-07-23",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-kling-pipeline-shift.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora Is Dead: Why Chinese AI Video Models Now Lead",
+     "url": "https://pranavarya.com/blog/2026-07-22-sora-shutdown-chinese-ai-video.html",
+     "datePublished": "2026-07-22"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Kling Prompt Dialects: Why Version Matters More Than You Think",
+     "url": "https://pranavarya.com/blog/2026-07-21-kling-prompting-versions-explained.html",
+     "datePublished": "2026-07-21",
+     "image": "https://pranavarya.com/blog/images/kling-prompting-versions-explained.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Seedance 2.0 Depth Map Trick for Clean Motion Transfer",
+     "url": "https://pranavarya.com/blog/2026-07-20-seedance-depth-map-motion-transfer.html",
+     "datePublished": "2026-07-20",
+     "image": "https://pranavarya.com/blog/images/seedance-depth-map-motion-transfer.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Kling vs Veo vs Sora: The AI Video Landscape Shifted",
+     "url": "https://pranavarya.com/blog/2026-07-19-kling-vs-veo-ai-video-shakeup.html",
+     "datePublished": "2026-07-19",
+     "image": "https://pranavarya.com/blog/images/kling-vs-veo-ai-video-shakeup.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora's Death and the Rise of Chinese Video AI",
+     "url": "https://pranavarya.com/blog/2026-07-18-sora-shutdown-kling-seedance-rise.html",
+     "datePublished": "2026-07-18",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-kling-seedance-rise.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now",
+     "url": "https://pranavarya.com/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html",
+     "datePublished": "2026-07-17",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-frame-chaining-pipeline.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "AI Docudrama Hits Tribeca: Industry Reacts",
+     "url": "https://pranavarya.com/blog/2026-07-15-ai-film-tribeca-industry-backlash.html",
+     "datePublished": "2026-07-15",
+     "image": "https://pranavarya.com/blog/images/ai-film-tribeca-industry-backlash.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)",
+     "url": "https://pranavarya.com/blog/2026-07-14-kling-3-prompt-structure-guide.html",
+     "datePublished": "2026-07-14",
+     "image": "https://pranavarya.com/blog/images/kling-3-prompt-structure-guide.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "How I Storyboard AI Product Films in an Afternoon",
+     "url": "https://pranavarya.com/blog/2026-07-13-ai-storyboard-pipeline-product-film.html",
+     "datePublished": "2026-07-13",
+     "image": "https://pranavarya.com/blog/images/ai-storyboard-pipeline-product-film.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora Shuts Down as Seedance 2.5 Takes the Spotlight",
+     "url": "https://pranavarya.com/blog/2026-07-12-sora-shutdown-seedance-2-5.html",
+     "datePublished": "2026-07-12",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-seedance-2-5.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Seedance 2.5: 30-Second AI Video, No More Stitching",
+     "url": "https://pranavarya.com/blog/2026-07-12-seedance-2-5-continuous-video.html",
+     "datePublished": "2026-07-12",
+     "image": "https://pranavarya.com/blog/images/seedance-2-5-continuous-video.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora Shuts Down as Kling Raises $2.8B: What Changes",
+     "url": "https://pranavarya.com/blog/2026-07-11-sora-shutdown-kling-funding.html",
+     "datePublished": "2026-07-11",
+     "image": "https://pranavarya.com/blog/images/sora-shutdown-kling-funding.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Sora's Gone, Meta's Muse Is Messy, Seedance 2.5 Wins",
+     "url": "https://pranavarya.com/blog/2026-07-11-seedance-2-5-muse-sora-shutdown.html",
+     "datePublished": "2026-07-11",
+     "image": "https://pranavarya.com/blog/images/seedance-2-5-muse-sora-shutdown.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Seedance 2.0 Solves AI Video's Continuity Problem",
+     "url": "https://pranavarya.com/blog/2026-07-10-seedance-frame-chaining-continuity.html",
+     "datePublished": "2026-07-10",
+     "image": "https://pranavarya.com/blog/images/seedance-frame-chaining-continuity.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Frame-Chaining: How Pros Fake Long AI Videos",
+     "url": "https://pranavarya.com/blog/2026-07-10-frame-chaining-ai-video-technique.html",
+     "datePublished": "2026-07-10",
+     "image": "https://pranavarya.com/blog/images/frame-chaining-ai-video-technique.jpg"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "What I'm Actually Looking Forward to in Gear This Year",
+     "url": "https://pranavarya.com/blog/2026-07-09-what-im-actually-looking-forward-to-this-year.html",
+     "datePublished": "2026-07-09"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "A Year of Daily Smart Glasses Use: What I'd Actually Tell a Buyer",
+     "url": "https://pranavarya.com/blog/2026-07-06-a-year-of-daily-smart-glasses-use-what-id-tell-a-buyer.html",
+     "datePublished": "2026-07-06"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Which Action Camera Firmware Updates Are Actually Worth Installing",
+     "url": "https://pranavarya.com/blog/2026-07-03-action-camera-firmware-updates-worth-installing.html",
+     "datePublished": "2026-07-03"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Where AI Video Actually Stands, Halfway Through the Year",
+     "url": "https://pranavarya.com/blog/2026-06-30-state-of-ai-video-mid-2026.html",
+     "datePublished": "2026-06-30"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Using an Action Camera as a Real B-Cam, Not Just a POV Toy",
+     "url": "https://pranavarya.com/blog/2026-06-26-action-camera-as-a-backup-b-cam-not-just-pov.html",
+     "datePublished": "2026-06-26"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Eye AF Is Great Until It Isn't. Here's Where It Breaks",
+     "url": "https://pranavarya.com/blog/2026-06-23-eye-af-tracking-limits-nobody-mentions.html",
+     "datePublished": "2026-06-23"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "What Weather Sealing Actually Protects Against, Realistically",
+     "url": "https://pranavarya.com/blog/2026-06-20-weather-sealing-what-it-actually-protects-against.html",
+     "datePublished": "2026-06-20"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Usage Rights Get Weird Fast With AI-Generated Content",
+     "url": "https://pranavarya.com/blog/2026-06-17-negotiating-usage-rights-for-ai-generated-content.html",
+     "datePublished": "2026-06-17"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "The Uncanny Valley Isn't Closing, It's Just Moving",
+     "url": "https://pranavarya.com/blog/2026-06-14-the-uncanny-valley-is-moving-not-disappearing.html",
+     "datePublished": "2026-06-14"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Why I Stopped Prompting AI Video Only in English",
+     "url": "https://pranavarya.com/blog/2026-06-11-why-i-stopped-generating-in-english-only.html",
+     "datePublished": "2026-06-11"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "AI Denoise Tools Have Actually Solved a Real Problem",
+     "url": "https://pranavarya.com/blog/2026-06-08-ai-denoise-tools-are-genuinely-good-now.html",
+     "datePublished": "2026-06-08"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "Processing Thousands of Travel Photos Without Losing a Week",
+     "url": "https://pranavarya.com/blog/2026-06-04-batch-processing-thousands-of-travel-photos-fast.html",
+     "datePublished": "2026-06-04"
+    },
+    {
+     "@type": "BlogPosting",
+     "headline": "My Actual Packing List Going Into a Summer of Travel Shoots",
+     "url": "https://pranavarya.com/blog/2026-06-01-packing-list-for-a-summer-of-travel-shoots.html",
+     "datePublished": "2026-06-01"
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://pranavarya.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://pranavarya.com/blog/"
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
-<a href="/" class="back">&larr; Back to Home</a>
-<div class="eyebrow">PAFP Blog</div>
-<h1>AI &amp; Entertainment</h1>
-<p class="sub">Daily notes on models, news, tutorials, and prompt tricks in AI-powered filmmaking and content production.</p>
+<a class="skip" href="#content">Skip to content</a>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+<nav class="top wrap" id="nav" aria-label="Main">
+  <a href="/" class="logo" aria-label="PAFP home"><b></b>PAFP <small>Pranav Arya</small></a>
+  <div class="nav-links">
+    <a href="/#work">Work</a>
+    <a href="/#process">Process</a>
+    <a href="/#about">About</a>
+    <a href="/blog/" aria-current="page">Blog</a>
+    <a href="/#media-kit">Media Kit</a>
+  </div>
+  <a href="/#contact" class="btn btn-glow nav-cta">Start a project</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+</nav>
+
+<div id="menu" aria-hidden="true">
+  <a href="/#work">Work</a>
+  <a href="/#process">Process</a>
+  <a href="/#about">About</a>
+  <a href="/#media-kit">Media Kit</a>
+  <a href="/blog/">Blog</a>
+  <a href="/#contact" class="btn btn-glow">Start a project</a>
+</div>
+
+<main id="content">
+<header class="blog-hero wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Blog</li></ol></nav>
+  <span class="eyebrow">PAFP Blog</span>
+  <h1>Notes on <span class="serif grad">AI film,</span> cameras and craft.</h1>
+  <p class="dek">What we learn making films for brands, on set and with AI. New models, gear tests, workflows and the trends shaping production, written by Pranav Arya.</p>
+</header>
+
+<section class="blog-list wrap" aria-label="All articles">
+  <div class="chips" role="toolbar" aria-label="Filter by topic"><button type="button" class="chip on" data-f="all">All <i>127</i></button><button type="button" class="chip" data-f="ai-entertainment">AI &amp; Entertainment <i>27</i></button><button type="button" class="chip" data-f="ai-filmmaking">AI &amp; Filmmaking <i>20</i></button><button type="button" class="chip" data-f="smart-glasses">Smart Glasses <i>12</i></button><button type="button" class="chip" data-f="cameras">Cameras <i>11</i></button><button type="button" class="chip" data-f="photography">Photography <i>11</i></button><button type="button" class="chip" data-f="editing">Editing <i>11</i></button><button type="button" class="chip" data-f="gear">Gear <i>11</i></button><button type="button" class="chip" data-f="action-cameras">Action Cameras <i>10</i></button><button type="button" class="chip" data-f="photo-software">Photo Software <i>9</i></button><button type="button" class="chip" data-f="optics">Optics <i>5</i></button></div>
 <div class="post-list">
-<a href="/blog/2026-10-14-sora-shutdown-ai-video-shift.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-ai-video-shift.jpg" alt="Sora Shuts Down: AI Video Enters Its Second Phase" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 14, 2026</span>
+<a href="/blog/2026-10-14-sora-shutdown-ai-video-shift.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-ai-video-shift.jpg" alt="Sora Shuts Down: AI Video Enters Its Second Phase" width="1200" height="675" loading="eager" fetchpriority="high"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-14">October 14, 2026</time></span>
     <h2>Sora Shuts Down: AI Video Enters Its Second Phase</h2>
     <p>Sora is dead and the AI video industry moved on. Why orchestration across multiple models now beats chasing a single flashy clip.</p>
-    <span class="post-tags">#sora &middot; #ai-video &middot; #kling &middot; #runway</span>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-10-13-kling-o3-prompting-shot-lists.html" class="post-card">
-  <img src="/blog/images/kling-o3-prompting-shot-lists.jpg" alt="Kling O3 Prompting: Why Shot Lists Beat Paragraphs" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 13, 2026</span>
+<a href="/blog/2026-10-13-kling-o3-prompting-shot-lists.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/kling-o3-prompting-shot-lists.jpg" alt="Kling O3 Prompting: Why Shot Lists Beat Paragraphs" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-13">October 13, 2026</time></span>
     <h2>Kling O3 Prompting: Why Shot Lists Beat Paragraphs</h2>
     <p>Kling O3 demands a new prompting grammar. Learn the five-layer shot-list method replacing vague paragraph prompts for sharper AI video results.</p>
-    <span class="post-tags">#kling &middot; #prompts &middot; #ai-video &middot; #tutorial</span>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-10-11-sora-shutdown-kling-wan-migration.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-kling-wan-migration.jpg" alt="Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 11, 2026</span>
+<a href="/blog/2026-10-11-sora-shutdown-kling-wan-migration.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-kling-wan-migration.jpg" alt="Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-11">October 11, 2026</time></span>
     <h2>Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0</h2>
-    <p>Sora's API died Sept 24. Here's how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything.</p>
-    <span class="post-tags">#sora &middot; #kling &middot; #wan &middot; #video-ai</span>
+    <p>Sora&#x27;s API died Sept 24. Here&#x27;s how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-10-10-ai-film-oscar-sora-shutdown.html" class="post-card">
-  <img src="/blog/images/ai-film-oscar-sora-shutdown.jpg" alt="Can an AI Movie Win an Oscar? Testing the Rules" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 10, 2026</span>
+<a href="/blog/2026-10-10-ai-film-oscar-sora-shutdown.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/ai-film-oscar-sora-shutdown.jpg" alt="Can an AI Movie Win an Oscar? Testing the Rules" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-10">October 10, 2026</time></span>
     <h2>Can an AI Movie Win an Oscar? Testing the Rules</h2>
     <p>An AI anthology film eyes an Oscar nod while Sora shuts down, leaving tools like Kling and Veo 3.1 to fill the gap for filmmakers.</p>
-    <span class="post-tags">#ai-film &middot; #news &middot; #sora &middot; #kling</span>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-10-07-sora-shutdown-kling-video-shift.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-kling-video-shift.jpg" alt="Sora Is Dead: Kling 4.0 and the Chinese AI Video Sweep" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 07, 2026</span>
+<a href="/blog/2026-10-07-sora-shutdown-kling-video-shift.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-kling-video-shift.jpg" alt="Sora Is Dead: Kling 4.0 and the Chinese AI Video Sweep" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-07">October 7, 2026</time></span>
     <h2>Sora Is Dead: Kling 4.0 and the Chinese AI Video Sweep</h2>
-    <p>Sora shut down after just 12 months. Here's why Kling 4.0, Seedance, and Wan are now leading the generative video race.</p>
-    <span class="post-tags">#kling &middot; #sora &middot; #ai-video &middot; #news</span>
+    <p>Sora shut down after just 12 months. Here&#x27;s why Kling 4.0, Seedance, and Wan are now leading the generative video race.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-10-05-kling-elements-character-consistency.html" class="post-card">
-  <img src="/blog/images/kling-elements-character-consistency.jpg" alt="Kling 3.0 Omni Elements: Fixing AI Character Drift" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 05, 2026</span>
+<a href="/blog/2026-10-05-kling-elements-character-consistency.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/kling-elements-character-consistency.jpg" alt="Kling 3.0 Omni Elements: Fixing AI Character Drift" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-05">October 5, 2026</time></span>
     <h2>Kling 3.0 Omni Elements: Fixing AI Character Drift</h2>
-    <p>How Kling 3.0 Omni's Elements system solves AI video character drift, with real workflow tips for keeping faces and wardrobes consistent.</p>
-    <span class="post-tags">#kling &middot; #workflow &middot; #ai-video &middot; #tutorial</span>
+    <p>How Kling 3.0 Omni&#x27;s Elements system solves AI video character drift, with real workflow tips for keeping faces and wardrobes consistent.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-10-04-kling-4-30-second-clips.html" class="post-card">
-  <img src="/blog/images/kling-4-30-second-clips.jpg" alt="Kling 4.0: 30-Second Clips, 4K HDR, and Real Competition" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">October 04, 2026</span>
+<a href="/blog/2026-10-04-kling-4-30-second-clips.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/kling-4-30-second-clips.jpg" alt="Kling 4.0: 30-Second Clips, 4K HDR, and Real Competition" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-10-04">October 4, 2026</time></span>
     <h2>Kling 4.0: 30-Second Clips, 4K HDR, and Real Competition</h2>
-    <p>Kling 4.0 brings 30-second clips, 4K HDR, and 10-reference control, but Seedance 2.5 and the leaderboard say the race isn't over.</p>
-    <span class="post-tags">#kling &middot; #ai video &middot; #news &middot; #seedance</span>
+    <p>Kling 4.0 brings 30-second clips, 4K HDR, and 10-reference control, but Seedance 2.5 and the leaderboard say the race isn&#x27;t over.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-27-soul-id-cinema-studio-consistency.html" class="post-card">
-  <img src="/blog/images/soul-id-cinema-studio-consistency.jpg" alt="Consistency Wins: Soul ID, Cinema Studio & AI Film" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 27, 2026</span>
-    <h2>Consistency Wins: Soul ID, Cinema Studio & AI Film</h2>
-    <p>How Higgsfield's Soul ID and Cinema Studio lock character identity and camera moves across Seedance, Kling, and Veo for consistent AI films.</p>
-    <span class="post-tags">#higgsfield &middot; #ai-filmmaking &middot; #tutorial &middot; #workflow</span>
+<a href="/blog/2026-07-27-soul-id-cinema-studio-consistency.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/soul-id-cinema-studio-consistency.jpg" alt="Consistency Wins: Soul ID, Cinema Studio &amp; AI Film" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-27">July 27, 2026</time></span>
+    <h2>Consistency Wins: Soul ID, Cinema Studio &amp; AI Film</h2>
+    <p>How Higgsfield&#x27;s Soul ID and Cinema Studio lock character identity and camera moves across Seedance, Kling, and Veo for consistent AI films.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-26-seedance-25-rollout-reality-check.html" class="post-card">
-  <img src="/blog/images/seedance-25-rollout-reality-check.jpg" alt="Seedance 2.5: What's Real vs. Hype Right Now" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 26, 2026</span>
-    <h2>Seedance 2.5: What's Real vs. Hype Right Now</h2>
-    <p>Seedance 2.5 promises 30-second video and 50 references, but access is still limited. Here's what's actually usable today.</p>
-    <span class="post-tags">#seedance &middot; #bytedance &middot; #ai-video &middot; #news</span>
+<a href="/blog/2026-07-26-seedance-25-rollout-reality-check.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/seedance-25-rollout-reality-check.jpg" alt="Seedance 2.5: What&#x27;s Real vs. Hype Right Now" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-26">July 26, 2026</time></span>
+    <h2>Seedance 2.5: What&#x27;s Real vs. Hype Right Now</h2>
+    <p>Seedance 2.5 promises 30-second video and 50 references, but access is still limited. Here&#x27;s what&#x27;s actually usable today.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-25-sora-shutdown-veo-kling-replace.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-veo-kling-replace.jpg" alt="Sora Is Dead: Why Veo 3.1 and Kling 3.0 Win Now" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 25, 2026</span>
+<a href="/blog/2026-07-25-sora-shutdown-veo-kling-replace.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-veo-kling-replace.jpg" alt="Sora Is Dead: Why Veo 3.1 and Kling 3.0 Win Now" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-25">July 25, 2026</time></span>
     <h2>Sora Is Dead: Why Veo 3.1 and Kling 3.0 Win Now</h2>
-    <p>Sora's API shuts down Sept 24. Here's why Veo 3.1 and Kling 3.0 are the real AI video winners, with real pricing and client workflow notes.</p>
-    <span class="post-tags">#sora &middot; #veo &middot; #kling &middot; #ai-video</span>
+    <p>Sora&#x27;s API shuts down Sept 24. Here&#x27;s why Veo 3.1 and Kling 3.0 are the real AI video winners, with real pricing and client workflow notes.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-24-frame-chaining-post-sora-workflow.html" class="post-card">
-  <img src="/blog/images/frame-chaining-post-sora-workflow.jpg" alt="Frame Chaining in 2026: The Post-Sora AI Video Workflow" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 24, 2026</span>
+<a href="/blog/2026-07-24-frame-chaining-post-sora-workflow.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/frame-chaining-post-sora-workflow.jpg" alt="Frame Chaining in 2026: The Post-Sora AI Video Workflow" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-24">July 24, 2026</time></span>
     <h2>Frame Chaining in 2026: The Post-Sora AI Video Workflow</h2>
-    <p>Sora is gone. Here's how frame chaining and last-frame seeding on Kling, Veo, and Seedance keep AI video clips looking like one continuous shot.</p>
-    <span class="post-tags">#ai video &middot; #kling &middot; #workflow &middot; #tutorial</span>
+    <p>Sora is gone. Here&#x27;s how frame chaining and last-frame seeding on Kling, Veo, and Seedance keep AI video clips looking like one continuous shot.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-23-sora-shutdown-kling-pipeline-shift.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-kling-pipeline-shift.jpg" alt="Sora's Sunset: Why Kling Now Powers a Feature Film" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 23, 2026</span>
-    <h2>Sora's Sunset: Why Kling Now Powers a Feature Film</h2>
-    <p>Sora 2 is being shut down, and studios are pivoting to Kling. Here's what a full-length AI feature film reveals about pipeline risk in 2026.</p>
-    <span class="post-tags">#kling &middot; #sora &middot; #ai-video &middot; #production</span>
+<a href="/blog/2026-07-23-sora-shutdown-kling-pipeline-shift.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-kling-pipeline-shift.jpg" alt="Sora&#x27;s Sunset: Why Kling Now Powers a Feature Film" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-23">July 23, 2026</time></span>
+    <h2>Sora&#x27;s Sunset: Why Kling Now Powers a Feature Film</h2>
+    <p>Sora 2 is being shut down, and studios are pivoting to Kling. Here&#x27;s what a full-length AI feature film reveals about pipeline risk in 2026.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-22-sora-shutdown-chinese-ai-video.html" class="post-card">
-  
-  <div class="post-card-body">
-    <span class="post-date">July 22, 2026</span>
+<a href="/blog/2026-07-22-sora-shutdown-chinese-ai-video.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media ph" style="--h:44" aria-hidden="true"><span class="serif">AI &amp; Entertainment</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-22">July 22, 2026</time></span>
     <h2>Sora Is Dead: Why Chinese AI Video Models Now Lead</h2>
-    <p>Sora's API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here's what it means for your workflow.</p>
-    <span class="post-tags">#sora &middot; #kling &middot; #ai-video &middot; #news</span>
+    <p>Sora&#x27;s API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here&#x27;s what it means for your workflow.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-21-kling-prompting-versions-explained.html" class="post-card">
-  <img src="/blog/images/kling-prompting-versions-explained.jpg" alt="Kling Prompt Dialects: Why Version Matters More Than You Think" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 21, 2026</span>
+<a href="/blog/2026-07-21-kling-prompting-versions-explained.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/kling-prompting-versions-explained.jpg" alt="Kling Prompt Dialects: Why Version Matters More Than You Think" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-21">July 21, 2026</time></span>
     <h2>Kling Prompt Dialects: Why Version Matters More Than You Think</h2>
-    <p>Netflix's $587M InterPositive deal shows AI is quietly powering production. Learn why each Kling version needs a different prompting style.</p>
-    <span class="post-tags">#kling &middot; #prompts &middot; #ai-video &middot; #tutorial</span>
+    <p>Netflix&#x27;s $587M InterPositive deal shows AI is quietly powering production. Learn why each Kling version needs a different prompting style.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-20-seedance-depth-map-motion-transfer.html" class="post-card">
-  <img src="/blog/images/seedance-depth-map-motion-transfer.jpg" alt="Seedance 2.0 Depth Map Trick for Clean Motion Transfer" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 20, 2026</span>
+<a href="/blog/2026-07-20-seedance-depth-map-motion-transfer.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/seedance-depth-map-motion-transfer.jpg" alt="Seedance 2.0 Depth Map Trick for Clean Motion Transfer" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-20">July 20, 2026</time></span>
     <h2>Seedance 2.0 Depth Map Trick for Clean Motion Transfer</h2>
-    <p>Sora's API is shutting down in September. Here's how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.</p>
-    <span class="post-tags">#seedance &middot; #comfyui &middot; #workflow &middot; #tutorial</span>
+    <p>Sora&#x27;s API is shutting down in September. Here&#x27;s how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-19-kling-vs-veo-ai-video-shakeup.html" class="post-card">
-  <img src="/blog/images/kling-vs-veo-ai-video-shakeup.jpg" alt="Kling vs Veo vs Sora: The AI Video Landscape Shifted" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 19, 2026</span>
+<a href="/blog/2026-07-19-kling-vs-veo-ai-video-shakeup.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/kling-vs-veo-ai-video-shakeup.jpg" alt="Kling vs Veo vs Sora: The AI Video Landscape Shifted" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-19">July 19, 2026</time></span>
     <h2>Kling vs Veo vs Sora: The AI Video Landscape Shifted</h2>
-    <p>Kling v3 tops the leaderboard, Sora's app is gone, and Veo 3.1 holds its own. Here's what the AI video shakeup means for your pipeline.</p>
-    <span class="post-tags">#kling &middot; #veo &middot; #sora &middot; #ai-video</span>
+    <p>Kling v3 tops the leaderboard, Sora&#x27;s app is gone, and Veo 3.1 holds its own. Here&#x27;s what the AI video shakeup means for your pipeline.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-18-sora-shutdown-kling-seedance-rise.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-kling-seedance-rise.jpg" alt="Sora's Death and the Rise of Chinese Video AI" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 18, 2026</span>
-    <h2>Sora's Death and the Rise of Chinese Video AI</h2>
-    <p>Sora's API shuts down Sept 24 after burning cash, while Kling and Seedance quietly pull ahead in real-world video AI use.</p>
-    <span class="post-tags">#sora &middot; #kling &middot; #seedance &middot; #ai-video</span>
+<a href="/blog/2026-07-18-sora-shutdown-kling-seedance-rise.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-kling-seedance-rise.jpg" alt="Sora&#x27;s Death and the Rise of Chinese Video AI" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-18">July 18, 2026</time></span>
+    <h2>Sora&#x27;s Death and the Rise of Chinese Video AI</h2>
+    <p>Sora&#x27;s API shuts down Sept 24 after burning cash, while Kling and Seedance quietly pull ahead in real-world video AI use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-frame-chaining-pipeline.jpg" alt="Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 17, 2026</span>
+<a href="/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-frame-chaining-pipeline.jpg" alt="Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-17">July 17, 2026</time></span>
     <h2>Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now</h2>
-    <p>Sora's API dies Sept 24, 2026. Here's how to automate frame-chained video generation across Kling and Runway without vendor lock-in.</p>
-    <span class="post-tags">#sora &middot; #kling &middot; #runway &middot; #automation</span>
+    <p>Sora&#x27;s API dies Sept 24, 2026. Here&#x27;s how to automate frame-chained video generation across Kling and Runway without vendor lock-in.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-15-ai-film-tribeca-industry-backlash.html" class="post-card">
-  <img src="/blog/images/ai-film-tribeca-industry-backlash.jpg" alt="AI Docudrama Hits Tribeca: Industry Reacts" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 15, 2026</span>
+<a href="/blog/2026-07-15-ai-film-tribeca-industry-backlash.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/ai-film-tribeca-industry-backlash.jpg" alt="AI Docudrama Hits Tribeca: Industry Reacts" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-15">July 15, 2026</time></span>
     <h2>AI Docudrama Hits Tribeca: Industry Reacts</h2>
-    <p>An AI-generated film premiered at Tribeca's main slate while SAG-AFTRA slams AI actor Tilly Norwood. Here's what the mixed reactions reveal.</p>
-    <span class="post-tags">#ai film &middot; #tribeca &middot; #sag-aftra &middot; #news</span>
+    <p>An AI-generated film premiered at Tribeca&#x27;s main slate while SAG-AFTRA slams AI actor Tilly Norwood. Here&#x27;s what the mixed reactions reveal.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-14-kling-3-prompt-structure-guide.html" class="post-card">
-  <img src="/blog/images/kling-3-prompt-structure-guide.jpg" alt="Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 14, 2026</span>
+<a href="/blog/2026-07-14-kling-3-prompt-structure-guide.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/kling-3-prompt-structure-guide.jpg" alt="Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-14">July 14, 2026</time></span>
     <h2>Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)</h2>
     <p>Kling 3.0 breaks static Midjourney-style prompts. Learn the camera-first structure that turns frozen mannequin shots into real motion.</p>
-    <span class="post-tags">#kling &middot; #prompts &middot; #tutorial &middot; #ai-video</span>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-13-ai-storyboard-pipeline-product-film.html" class="post-card">
-  <img src="/blog/images/ai-storyboard-pipeline-product-film.jpg" alt="How I Storyboard AI Product Films in an Afternoon" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 13, 2026</span>
+<a href="/blog/2026-07-13-ai-storyboard-pipeline-product-film.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/ai-storyboard-pipeline-product-film.jpg" alt="How I Storyboard AI Product Films in an Afternoon" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-13">July 13, 2026</time></span>
     <h2>How I Storyboard AI Product Films in an Afternoon</h2>
     <p>A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days.</p>
-    <span class="post-tags">#kling &middot; #nano-banana &middot; #workflow &middot; #ai-video</span>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-12-sora-shutdown-seedance-2-5.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-seedance-2-5.jpg" alt="Sora Shuts Down as Seedance 2.5 Takes the Spotlight" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 12, 2026</span>
+<a href="/blog/2026-07-12-sora-shutdown-seedance-2-5.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-seedance-2-5.jpg" alt="Sora Shuts Down as Seedance 2.5 Takes the Spotlight" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-12">July 12, 2026</time></span>
     <h2>Sora Shuts Down as Seedance 2.5 Takes the Spotlight</h2>
-    <p>Sora's API closes Sept 24 amid huge losses, while ByteDance's Seedance 2.5 debuts 30-second clips and semantic editing.</p>
-    <span class="post-tags">#seedance &middot; #sora &middot; #video-generation &middot; #news</span>
+    <p>Sora&#x27;s API closes Sept 24 amid huge losses, while ByteDance&#x27;s Seedance 2.5 debuts 30-second clips and semantic editing.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-12-seedance-2-5-continuous-video.html" class="post-card">
-  <img src="/blog/images/seedance-2-5-continuous-video.jpg" alt="Seedance 2.5: 30-Second AI Video, No More Stitching" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 12, 2026</span>
+<a href="/blog/2026-07-12-seedance-2-5-continuous-video.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/seedance-2-5-continuous-video.jpg" alt="Seedance 2.5: 30-Second AI Video, No More Stitching" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-12">July 12, 2026</time></span>
     <h2>Seedance 2.5: 30-Second AI Video, No More Stitching</h2>
-    <p>ByteDance's Seedance 2.5 generates 30 continuous seconds with 50 reference assets, ending seam-matching hell for AI video editors.</p>
-    <span class="post-tags">#seedance &middot; #ai-video &middot; #bytedance &middot; #news</span>
+    <p>ByteDance&#x27;s Seedance 2.5 generates 30 continuous seconds with 50 reference assets, ending seam-matching hell for AI video editors.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-11-seedance-2-5-muse-sora-shutdown.html" class="post-card">
-  <img src="/blog/images/seedance-2-5-muse-sora-shutdown.jpg" alt="Sora's Gone, Meta's Muse Is Messy, Seedance 2.5 Wins" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 11, 2026</span>
-    <h2>Sora's Gone, Meta's Muse Is Messy, Seedance 2.5 Wins</h2>
-    <p>Sora shuts down, Meta's Muse sparks consent concerns, and ByteDance's Seedance 2.5 quietly becomes the video model worth using this week.</p>
-    <span class="post-tags">#seedance &middot; #sora &middot; #meta ai &middot; #video generation</span>
-  </div>
-</a>
-<a href="/blog/2026-07-11-sora-shutdown-kling-funding.html" class="post-card">
-  <img src="/blog/images/sora-shutdown-kling-funding.jpg" alt="Sora Shuts Down as Kling Raises $2.8B: What Changes" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 11, 2026</span>
+<a href="/blog/2026-07-11-sora-shutdown-kling-funding.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/sora-shutdown-kling-funding.jpg" alt="Sora Shuts Down as Kling Raises $2.8B: What Changes" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-11">July 11, 2026</time></span>
     <h2>Sora Shuts Down as Kling Raises $2.8B: What Changes</h2>
-    <p>Sora's API dies in September while Kling closes a $2.8B round backed by Alibaba, Baidu, and Tencent. Here's what it means for your AI video workflow.</p>
-    <span class="post-tags">#sora &middot; #kling &middot; #ai-video &middot; #news</span>
+    <p>Sora&#x27;s API dies in September while Kling closes a $2.8B round backed by Alibaba, Baidu, and Tencent. Here&#x27;s what it means for your AI video workflow.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-10-frame-chaining-ai-video-technique.html" class="post-card">
-  <img src="/blog/images/frame-chaining-ai-video-technique.jpg" alt="Frame-Chaining: How Pros Fake Long AI Videos" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 10, 2026</span>
+<a href="/blog/2026-07-11-seedance-2-5-muse-sora-shutdown.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/seedance-2-5-muse-sora-shutdown.jpg" alt="Sora&#x27;s Gone, Meta&#x27;s Muse Is Messy, Seedance 2.5 Wins" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-11">July 11, 2026</time></span>
+    <h2>Sora&#x27;s Gone, Meta&#x27;s Muse Is Messy, Seedance 2.5 Wins</h2>
+    <p>Sora shuts down, Meta&#x27;s Muse sparks consent concerns, and ByteDance&#x27;s Seedance 2.5 quietly becomes the video model worth using this week.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-07-10-seedance-frame-chaining-continuity.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/seedance-frame-chaining-continuity.jpg" alt="Seedance 2.0 Solves AI Video&#x27;s Continuity Problem" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-10">July 10, 2026</time></span>
+    <h2>Seedance 2.0 Solves AI Video&#x27;s Continuity Problem</h2>
+    <p>Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-07-10-frame-chaining-ai-video-technique.html" class="post-card" data-cat="ai-entertainment">
+  <div class="pc-media"><img src="/blog/images/frame-chaining-ai-video-technique.jpg" alt="Frame-Chaining: How Pros Fake Long AI Videos" width="1200" height="675" loading="lazy" decoding="async"></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Entertainment &middot; <time datetime="2026-07-10">July 10, 2026</time></span>
     <h2>Frame-Chaining: How Pros Fake Long AI Videos</h2>
     <p>Learn the frame-chaining technique pros use to stitch short AI clips into continuous-looking videos, using Grok Imagine and similar tools.</p>
-    <span class="post-tags">#ai video &middot; #grok imagine &middot; #tutorial &middot; #frame-chaining</span>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<a href="/blog/2026-07-10-seedance-frame-chaining-continuity.html" class="post-card">
-  <img src="/blog/images/seedance-frame-chaining-continuity.jpg" alt="Seedance 2.0 Solves AI Video's Continuity Problem" class="post-thumb" loading="lazy"/>
-  <div class="post-card-body">
-    <span class="post-date">July 10, 2026</span>
-    <h2>Seedance 2.0 Solves AI Video's Continuity Problem</h2>
-    <p>Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work.</p>
-    <span class="post-tags">#seedance &middot; #ai-video &middot; #tutorial &middot; #pipeline</span>
+<a href="/blog/2026-07-09-what-im-actually-looking-forward-to-this-year.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:68" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-07-09">July 9, 2026</time></span>
+    <h2>What I&#x27;m Actually Looking Forward to in Gear This Year</h2>
+    <p>Rather than another prediction list, a filmmaker&#x27;s honest read on which upcoming gear categories actually matter for real production work.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
   </div>
 </a>
-<p class="empty">First post publishing soon — check back shortly.</p>
+<a href="/blog/2026-07-06-a-year-of-daily-smart-glasses-use-what-id-tell-a-buyer.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:34" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-07-06">July 6, 2026</time></span>
+    <h2>A Year of Daily Smart Glasses Use: What I&#x27;d Actually Tell a Buyer</h2>
+    <p>After a full year of near-daily smart glasses use across multiple generations of hardware, the honest advice I&#x27;d give someone considering buying a pair.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-07-03-action-camera-firmware-updates-worth-installing.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:2" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2026-07-03">July 3, 2026</time></span>
+    <h2>Which Action Camera Firmware Updates Are Actually Worth Installing</h2>
+    <p>Not every firmware update is worth installing right before a paid shoot. A practical approach to deciding what to update and when.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-30-state-of-ai-video-mid-2026.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:17" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-06-30">June 30, 2026</time></span>
+    <h2>Where AI Video Actually Stands, Halfway Through the Year</h2>
+    <p>A honest mid-year assessment of AI video tools, six months on from the last major wave of releases, focused on what&#x27;s actually usable in production.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-26-action-camera-as-a-backup-b-cam-not-just-pov.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:120" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2026-06-26">June 26, 2026</time></span>
+    <h2>Using an Action Camera as a Real B-Cam, Not Just a POV Toy</h2>
+    <p>Beyond helmet mounts and POV shots, an action camera set up properly can genuinely function as a second angle B-camera on real client shoots.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-23-eye-af-tracking-limits-nobody-mentions.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:127" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-06-23">June 23, 2026</time></span>
+    <h2>Eye AF Is Great Until It Isn&#x27;t. Here&#x27;s Where It Breaks</h2>
+    <p>Modern eye and subject tracking autofocus is genuinely impressive, but it has specific, predictable failure modes worth knowing before you rely on it.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-20-weather-sealing-what-it-actually-protects-against.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:168" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-06-20">June 20, 2026</time></span>
+    <h2>What Weather Sealing Actually Protects Against, Realistically</h2>
+    <p>Weather sealing marketing implies more durability than most cameras actually deliver. A realistic, tested read on what it genuinely protects against.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-17-negotiating-usage-rights-for-ai-generated-content.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:138" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-06-17">June 17, 2026</time></span>
+    <h2>Usage Rights Get Weird Fast With AI-Generated Content</h2>
+    <p>Standard usage rights language from traditional photography contracts doesn&#x27;t map cleanly onto AI-generated deliverables. Here&#x27;s how I&#x27;ve adapted mine.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-14-the-uncanny-valley-is-moving-not-disappearing.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:115" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-06-14">June 14, 2026</time></span>
+    <h2>The Uncanny Valley Isn&#x27;t Closing, It&#x27;s Just Moving</h2>
+    <p>As AI video gets more convincing overall, the specific things that trigger an uncanny reaction keep shifting rather than disappearing entirely.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-11-why-i-stopped-generating-in-english-only.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:297" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-06-11">June 11, 2026</time></span>
+    <h2>Why I Stopped Prompting AI Video Only in English</h2>
+    <p>Prompting AI video models in a subject&#x27;s native language, when the model supports it, has quietly produced more natural results in specific cases.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-08-ai-denoise-tools-are-genuinely-good-now.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:175" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2026-06-08">June 8, 2026</time></span>
+    <h2>AI Denoise Tools Have Actually Solved a Real Problem</h2>
+    <p>High-ISO noise reduction used to mean a real trade-off against detail. Current AI denoise tools have genuinely closed that gap for most real work.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-04-batch-processing-thousands-of-travel-photos-fast.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:82" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2026-06-04">June 4, 2026</time></span>
+    <h2>Processing Thousands of Travel Photos Without Losing a Week</h2>
+    <p>A practical system for triaging and batch-editing a genuinely large volume of travel photography without letting the backlog become unmanageable.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-06-01-packing-list-for-a-summer-of-travel-shoots.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:99" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2026-06-01">June 1, 2026</time></span>
+    <h2>My Actual Packing List Going Into a Summer of Travel Shoots</h2>
+    <p>A realistic, tested packing list for a summer of back-to-back travel shoots, built from what actually got used last year rather than a wishlist.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-29-archiving-old-projects-what-i-actually-keep.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:231" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-05-29">May 29, 2026</time></span>
+    <h2>What I Actually Keep When Archiving an Old Project</h2>
+    <p>Full raw footage archives get expensive and unwieldy fast. A practical, honest system for deciding what actually survives long-term archiving.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-26-building-a-review-link-workflow-clients-actually-use.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:92" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-05-26">May 26, 2026</time></span>
+    <h2>A Client Review Workflow People Actually Use Correctly</h2>
+    <p>Most client feedback comes back vague and hard to act on. A specific review link setup that gets clearer, timestamped, actionable notes.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-23-caring-for-optics-in-humid-climates.html" class="post-card" data-cat="optics">
+  <div class="pc-media ph" style="--h:140" aria-hidden="true"><span class="serif">Optics</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Optics &middot; <time datetime="2026-05-23">May 23, 2026</time></span>
+    <h2>Keeping Binoculars and Lenses Fungus-Free in Humid Climates</h2>
+    <p>Fungus growth inside optics is a real risk in humid travel destinations. Practical storage habits that actually prevent it.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-20-teleprompter-apps-for-solo-shooters.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:289" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-05-20">May 20, 2026</time></span>
+    <h2>Teleprompter Setups That Actually Work for a Solo Shooter</h2>
+    <p>Running a teleprompter alone, without an operator, requires a different setup than the standard multi-person configuration. Here&#x27;s what I actually use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-17-wireless-hdmi-monitoring-for-client-review.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:224" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-05-17">May 17, 2026</time></span>
+    <h2>Wireless HDMI Monitoring Finally Doesn&#x27;t Suck</h2>
+    <p>Wireless video transmission for client monitors used to be unreliable and laggy. Current systems have genuinely closed that gap for most real-world use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-13-the-value-of-shooting-film-occasionally.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:221" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2026-05-13">May 13, 2026</time></span>
+    <h2>Why I Still Shoot a Roll of Film a Few Times a Year</h2>
+    <p>Film has no practical place in a client delivery pipeline anymore, but shooting it occasionally has genuinely improved my digital work.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-10-shooting-fashion-week-backstage-technique.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:104" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2026-05-10">May 10, 2026</time></span>
+    <h2>What Backstage Fashion Week Actually Teaches You About Speed</h2>
+    <p>Backstage fashion week coverage is pure chaos and terrible light. Here&#x27;s what shooting it repeatedly has taught me about working fast without losing quality.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-07-how-i-actually-decide-when-to-wear-smart-glasses.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:289" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-05-07">May 7, 2026</time></span>
+    <h2>How I Actually Decide When to Wear Smart Glasses on a Job</h2>
+    <p>A year into regular smart glasses use, the actual decision tree for when they come along on a shoot versus when they stay in the bag.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-04-smart-glasses-for-live-event-streaming.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:146" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-05-04">May 4, 2026</time></span>
+    <h2>Using Smart Glasses as a Backup Live Stream Angle</h2>
+    <p>An experimental setup using smart glasses&#x27; camera as a secondary POV angle for live event streaming, and how reliable it actually turned out to be.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-05-01-action-camera-in-cold-weather-battery-tips.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:99" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2026-05-01">May 1, 2026</time></span>
+    <h2>Keeping Action Camera Batteries Alive in Cold Weather</h2>
+    <p>Cold weather kills action camera battery life fast. A few practical habits that meaningfully extend runtime on genuinely cold shoots.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-28-modular-action-camera-accessories-worth-the-money.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:156" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2026-04-28">April 28, 2026</time></span>
+    <h2>The Action Camera Accessories Actually Worth Buying</h2>
+    <p>Most action camera accessory bundles are padding. Here&#x27;s the short list of add-ons that have genuinely earned their spot in a working kit.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-25-aps-c-vs-full-frame-for-travel-work-2026.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:311" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-04-25">April 25, 2026</time></span>
+    <h2>APS-C vs Full Frame for Travel Work, Revisited</h2>
+    <p>Sensor gap arguments from a few years ago don&#x27;t fully hold up anymore. An updated, honest take on APS-C versus full frame for travel-heavy work.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-21-nab-2026-recap-honest-take.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:67" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-04-21">April 21, 2026</time></span>
+    <h2>NAB 2026 Recap: The Honest, Filtered Version</h2>
+    <p>NAB 2026 has wrapped. A filtered recap that separates genuine workflow improvements from keynote-only announcements that won&#x27;t survive contact with real use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-18-why-i-still-shoot-tethered-for-product-work.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:258" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-04-18">April 18, 2026</time></span>
+    <h2>Why I Still Shoot Tethered for Product Photography</h2>
+    <p>Tethered shooting feels old-fashioned next to wireless workflows, but for product work it&#x27;s still the fastest, most reliable way to get client sign-off.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-15-adobe-nab-2026-updates-that-matter.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:145" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-04-15">April 15, 2026</time></span>
+    <h2>Adobe&#x27;s NAB Announcements: What Actually Matters for Working Editors</h2>
+    <p>Adobe&#x27;s NAB 2026 updates included new color tools in Premiere and a new Frame.io storage option. Here&#x27;s what&#x27;s actually worth paying attention to.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-12-sound-design-for-ai-generated-video.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:118" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-04-12">April 12, 2026</time></span>
+    <h2>Sound Design for AI-Generated Footage Is Its Own Skill</h2>
+    <p>AI video&#x27;s native audio has improved, but real sound design for generated footage still requires a distinct approach from designing for real footage.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-09-when-a-client-asks-for-fully-ai-generated-campaign.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:89" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-04-09">April 9, 2026</time></span>
+    <h2>A Client Asked for a Fully AI-Generated Campaign. Here&#x27;s How That Went</h2>
+    <p>A real project where a client wanted an entire campaign generated with no real photography at all, and what actually happened once we started.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-06-prompt-libraries-are-overrated-heres-why.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:1" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-04-06">April 6, 2026</time></span>
+    <h2>Prompt Libraries Are Overrated. Here&#x27;s What Actually Works Better</h2>
+    <p>Sharing and following pre-built AI video prompt libraries sounds efficient, but here&#x27;s why building prompting instinct beats collecting templates.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-04-03-building-a-personal-preset-system-from-scratch.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:216" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2026-04-03">April 3, 2026</time></span>
+    <h2>Building a Preset System From Your Own Work, Not a Download</h2>
+    <p>Instead of buying presets, a practical process for building your own preset library from edits you&#x27;ve already done and liked.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-30-raw-processing-speed-on-older-hardware.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:108" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2026-03-30">March 30, 2026</time></span>
+    <h2>Getting Usable Raw Processing Speed on a Laptop That&#x27;s Not New</h2>
+    <p>Practical settings adjustments that meaningfully speed up raw photo processing on older laptop hardware, without buying new gear.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-27-template-projects-that-actually-save-time.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:101" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-03-27">March 27, 2026</time></span>
+    <h2>The Template Projects That Actually Save Me Time</h2>
+    <p>Not every reusable template is worth building. Here are the specific ones that have genuinely paid for the time spent setting them up.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-24-audio-mixing-for-social-video-loud-environments.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:326" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-03-24">March 24, 2026</time></span>
+    <h2>Mixing Audio for Videos People Watch on a Bus With No Headphones</h2>
+    <p>Most social video gets watched in loud, distracted environments with the sound off half the time. Here&#x27;s how that changes an actual audio mix.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-21-spotting-scope-vs-binoculars-for-long-lens-scouting.html" class="post-card" data-cat="optics">
+  <div class="pc-media ph" style="--h:15" aria-hidden="true"><span class="serif">Optics</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Optics &middot; <time datetime="2026-03-21">March 21, 2026</time></span>
+    <h2>Spotting Scope or Binoculars for Scouting a Long Lens Shot</h2>
+    <p>When scouting for a very long telephoto shot, a spotting scope beats binoculars in a way that&#x27;s easy to underestimate until you&#x27;ve tried both.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-18-what-im-hoping-nab-2026-brings.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:96" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-03-18">March 18, 2026</time></span>
+    <h2>What I&#x27;m Actually Hoping NAB Brings This Year</h2>
+    <p>Ahead of NAB 2026, a working filmmaker&#x27;s realistic wish list, focused on workflow fixes over flashy new features.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-15-monitor-calibration-for-color-grading-on-the-road.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:78" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-03-15">March 15, 2026</time></span>
+    <h2>Calibrating a Laptop Screen for Color Grading on the Road</h2>
+    <p>A practical, portable monitor calibration routine for color grading accurately on a laptop while traveling for shoots.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-12-gimbal-vs-stabilized-lens-for-run-and-gun.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:312" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-03-12">March 12, 2026</time></span>
+    <h2>Gimbal or In-Lens Stabilization: What I Actually Reach For</h2>
+    <p>For fast-moving run-and-gun coverage, when a handheld gimbal earns its setup time versus when good in-body stabilization alone is enough.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-08-directing-non-actors-for-brand-testimonials.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:298" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2026-03-08">March 8, 2026</time></span>
+    <h2>Directing Non-Actors Without Making It Obvious They&#x27;re Non-Actors</h2>
+    <p>Most brand testimonial subjects have never been on camera before. A practical approach to directing them that doesn&#x27;t read as stiff or coached.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-05-shooting-for-vertical-and-horizontal-simultaneously.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:140" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2026-03-05">March 5, 2026</time></span>
+    <h2>Framing for Vertical and Horizontal at the Same Time</h2>
+    <p>Every deliverable now needs a vertical cut alongside the horizontal one. Here&#x27;s how I actually frame shots to serve both without reshooting.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-03-02-translating-signage-live-with-smart-glasses-travel.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:287" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-03-02">March 2, 2026</time></span>
+    <h2>Live Translation Through Smart Glasses Actually Works Now</h2>
+    <p>After using smart glasses&#x27; live translation feature on a shoot abroad, an honest take on where it genuinely helped and where it still fell short.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-27-six-months-with-display-smart-glasses.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:80" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-02-27">February 27, 2026</time></span>
+    <h2>Six Months With Display Smart Glasses: The Honest Verdict</h2>
+    <p>Half a year into daily use of display-equipped smart glasses, an honest verdict on whether they&#x27;ve earned a permanent spot in a working kit.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-24-underwater-housing-for-action-cameras-worth-it.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:226" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2026-02-24">February 24, 2026</time></span>
+    <h2>Do You Actually Need a Separate Underwater Housing?</h2>
+    <p>Most modern action cameras are waterproof out of the box. Here&#x27;s when a dedicated underwater housing is actually worth the extra bulk.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-21-action-camera-timelapse-settings-that-actually-work.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:14" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2026-02-21">February 21, 2026</time></span>
+    <h2>The Action Camera Timelapse Settings I Actually Use</h2>
+    <p>Default timelapse settings on most action cameras produce flickery, jarring results. Here&#x27;s the interval and exposure setup I actually rely on.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-18-medium-format-for-brand-work-worth-it.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:345" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-02-18">February 18, 2026</time></span>
+    <h2>Is Medium Format Actually Worth It for Brand Photography?</h2>
+    <p>After renting a medium format body for a campaign, an honest assessment of whether the resolution and rendering actually justified the cost and hassle.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-14-kling-3-camera-prompt-cheat-sheet.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:213" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-02-14">February 14, 2026</time></span>
+    <h2>My Kling 3.0 Camera Prompt Cheat Sheet After a Week of Testing</h2>
+    <p>A working reference of camera movement phrases that actually get consistent results out of Kling 3.0, built from a week of real testing.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-11-renting-vs-buying-specialty-lenses.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:146" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2026-02-11">February 11, 2026</time></span>
+    <h2>When Renting a Lens Beats Owning It, Even for Regular Work</h2>
+    <p>The math on renting versus owning specialty lenses, and why I still rent gear I use several times a year rather than buying it outright.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-08-kling-3-first-real-tests.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:81" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-02-08">February 8, 2026</time></span>
+    <h2>Kling 3.0 Is Out. Here&#x27;s What Actually Changed</h2>
+    <p>Kling 3.0 just launched. Real tests against the previous version on camera control, prompt structure, and motion consistency.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-05-building-a-personal-ai-model-library.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:223" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-02-05">February 5, 2026</time></span>
+    <h2>Why I Keep a Personal Library of AI Model Notes</h2>
+    <p>With new AI video and image models shipping constantly, a simple personal reference system for tracking what each one is actually good at.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-02-02-why-longer-ai-clips-arent-always-better.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:179" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-02-02">February 2, 2026</time></span>
+    <h2>Longer AI Video Clips Aren&#x27;t Automatically Better Clips</h2>
+    <p>As AI video models push toward longer continuous generation, a case for why shorter, well-directed clips often still cut better.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-30-ai-video-for-pitch-decks-not-final-delivery.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:140" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2026-01-30">January 30, 2026</time></span>
+    <h2>AI Video&#x27;s Best Use Case Might Be the Pitch, Not the Final Cut</h2>
+    <p>Where AI-generated video has become genuinely essential in my pipeline isn&#x27;t final delivery, it&#x27;s the concepting and pitch stage before a client commits.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-27-photoshop-vs-photo-ai-tools-for-retouching.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:205" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2026-01-27">January 27, 2026</time></span>
+    <h2>Where Photoshop Still Beats the New AI Retouching Tools</h2>
+    <p>AI retouching tools handle a lot of quick fixes well, but there&#x27;s a specific category of edit where manual Photoshop skill still wins.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-24-raw-vs-jpeg-for-fast-turnaround-events.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:118" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2026-01-24">January 24, 2026</time></span>
+    <h2>Why I Shoot JPEG Alongside Raw for Same-Day Delivery</h2>
+    <p>For events needing same-day photo delivery, a hybrid raw plus JPEG capture strategy that keeps quality without sacrificing speed.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-20-keyboard-shortcuts-that-actually-save-time-editing.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:279" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-01-20">January 20, 2026</time></span>
+    <h2>The Keyboard Shortcuts That Actually Save Time, Not the Full List</h2>
+    <p>Skip memorizing every keyboard shortcut in your editor. Here are the handful that actually change editing speed in real, timed use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-17-final-cut-pro-vs-premiere-for-fast-turnaround.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:80" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2026-01-17">January 17, 2026</time></span>
+    <h2>Final Cut Pro vs Premiere When the Turnaround Is Tomorrow</h2>
+    <p>For same-day and next-day delivery event edits, does Final Cut Pro&#x27;s speed advantage over Premiere actually hold up under real pressure?</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-14-ces-2026-recap-what-actually-shipped.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:11" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-01-14">January 14, 2026</time></span>
+    <h2>CES 2026 Recap: What Actually Matters, Filtered</h2>
+    <p>CES 2026 has wrapped. A filtered recap of what&#x27;s actually shipping or close to it, cutting through the concept-device noise.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-11-buying-your-first-pair-of-binoculars-mistakes.html" class="post-card" data-cat="optics">
+  <div class="pc-media ph" style="--h:134" aria-hidden="true"><span class="serif">Optics</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Optics &middot; <time datetime="2026-01-11">January 11, 2026</time></span>
+    <h2>The Mistakes Almost Everyone Makes Buying Their First Binoculars</h2>
+    <p>The most common first-time binocular buying mistakes, from chasing magnification numbers to ignoring how the eyecups actually feel.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-08-portable-power-stations-for-remote-shoots.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:156" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-01-08">January 8, 2026</time></span>
+    <h2>The Portable Power Station That Changed My Remote Shoots</h2>
+    <p>A compact power station has quietly become essential gear for remote and multi-day shoots with no reliable outlet access.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-05-ces-2026-what-im-watching-for.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:350" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2026-01-05">January 5, 2026</time></span>
+    <h2>CES 2026: The Three Categories I&#x27;m Actually Watching</h2>
+    <p>Ahead of CES 2026, a filmmaker&#x27;s short list of what&#x27;s actually worth paying attention to versus the usual concept-device noise.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2026-01-02-starting-the-year-with-a-gear-audit.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:86" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2026-01-02">January 2, 2026</time></span>
+    <h2>The New Year Gear Audit I Actually Do Every January</h2>
+    <p>A simple, honest annual gear audit that separates what&#x27;s actually earning its place in a working kit from what&#x27;s just habit.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-29-planning-shoots-around-unpredictable-winter-light.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:245" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2025-12-29">December 29, 2025</time></span>
+    <h2>Planning Around Winter Light When You Can&#x27;t Reschedule</h2>
+    <p>Short winter days and unpredictable weather force real planning discipline. Here&#x27;s how I structure a winter shoot day to make the most of limited light.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-26-2025-gear-and-workflow-year-in-review.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:92" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2025-12-26">December 26, 2025</time></span>
+    <h2>What Actually Changed in My Workflow This Year</h2>
+    <p>A year-end look back at what genuinely changed in a working filmmaker&#x27;s gear and process in 2025, separated from what was just noise.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-23-shooting-through-glass-and-reflections-technique.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:121" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2025-12-23">December 23, 2025</time></span>
+    <h2>Shooting Through Glass Without Fighting Every Reflection</h2>
+    <p>A practical technique for shooting product and portrait work through glass or windows, using reflections deliberately instead of fighting them.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-20-ar-glasses-for-remote-client-review.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:162" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2025-12-20">December 20, 2025</time></span>
+    <h2>Using AR Glasses for Remote Client Review on Set</h2>
+    <p>An experimental workflow using display-equipped smart glasses to let a remote client see and comment on a shoot in near real time.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-17-smart-glasses-battery-anxiety-is-real.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:45" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2025-12-17">December 17, 2025</time></span>
+    <h2>Smart Glasses Battery Anxiety Is a Real Design Problem</h2>
+    <p>Months into daily smart glasses use, battery anxiety has become the single biggest thing standing between these devices and genuine daily reliance.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-14-action-camera-mounting-lessons-learned.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:161" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2025-12-14">December 14, 2025</time></span>
+    <h2>Action Camera Mounting Mistakes I Won&#x27;t Make Twice</h2>
+    <p>Hard-earned lessons about action camera mounting, from a strap that failed mid-shoot to angles that seemed clever and weren&#x27;t.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-11-action-camera-audio-is-still-bad-heres-the-fix.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:11" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2025-12-11">December 11, 2025</time></span>
+    <h2>Action Camera Audio Is Still Bad. Here&#x27;s My Actual Fix</h2>
+    <p>Built-in action camera microphones remain a weak point across every brand. A practical workaround that doesn&#x27;t add much bulk.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-07-sensor-cleaning-and-maintenance-i-actually-do.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:31" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2025-12-07">December 7, 2025</time></span>
+    <h2>The Camera Maintenance I Actually Do, Not the Ideal Routine</h2>
+    <p>A realistic, honest maintenance schedule for working camera bodies, built from what actually happens rather than what manuals recommend.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-04-prime-vs-zoom-for-event-coverage.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:227" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2025-12-04">December 4, 2025</time></span>
+    <h2>I Switched Back to Primes for Event Coverage. Here&#x27;s Why</h2>
+    <p>After years of defaulting to a 24-70mm zoom for event work, a case for going back to a small set of fast primes.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-12-01-holiday-gift-guide-for-filmmakers-2025.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:213" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2025-12-01">December 1, 2025</time></span>
+    <h2>What I&#x27;d Actually Ask For This Year, as a Working Filmmaker</h2>
+    <p>A no-nonsense holiday gift guide for filmmakers and photographers, built from gear I actually use rather than a generic sponsored list.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-28-ai-video-render-times-real-numbers.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:35" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-11-28">November 28, 2025</time></span>
+    <h2>AI Video Render Times: The Numbers Nobody Publishes</h2>
+    <p>Real, measured render times across the AI video tools I use weekly, and why the marketed speed rarely matches a real working queue.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-25-building-a-shot-list-that-survives-contact-with-reality.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:23" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-11-25">November 25, 2025</time></span>
+    <h2>A Shot List Is Useless the Moment It Meets Reality. Plan Anyway.</h2>
+    <p>Why I still build detailed shot lists for AI-assisted and real shoots even though the actual shoot day rarely follows them exactly.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-22-nano-banana-pro-first-tests.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:86" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-11-22">November 22, 2025</time></span>
+    <h2>Nano Banana Pro: First Real Tests on Product Work</h2>
+    <p>Google&#x27;s Nano Banana Pro image model just shipped. Early tests against real product photography from a working brand shoot.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-19-when-to-say-no-to-an-ai-generated-deliverable.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:288" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-11-19">November 19, 2025</time></span>
+    <h2>When I Turn Down an AI-Generated Deliverable Request</h2>
+    <p>AI video and image tools handle more of my client work every month, but there are specific requests I still decline to fulfill with generated content.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-15-batch-editing-presets-that-actually-hold-up.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:225" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2025-11-15">November 15, 2025</time></span>
+    <h2>Why Most Lightroom Presets Fall Apart on Real Client Work</h2>
+    <p>The problem with off-the-shelf presets isn&#x27;t the look, it&#x27;s that they&#x27;re built for one lighting condition and break everywhere else.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-12-ai-image-consistency-across-a-campaign.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:60" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-11-12">November 12, 2025</time></span>
+    <h2>The Hardest Problem in AI Image Generation Is Consistency</h2>
+    <p>Generating one great AI image is easy. Keeping a character or product consistent across a whole campaign is the actual hard problem, and here&#x27;s how I approach it.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-09-capture-one-vs-lightroom-for-event-work.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:228" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2025-11-09">November 9, 2025</time></span>
+    <h2>Capture One vs Lightroom for High-Volume Event Culling</h2>
+    <p>Which raw processor actually handles fast culling and batch editing better for someone shooting thousands of frames per event.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-06-color-matching-mixed-camera-sources.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:189" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2025-11-06">November 6, 2025</time></span>
+    <h2>Color Matching Three Different Cameras in One Timeline</h2>
+    <p>A practical approach to matching color across mismatched camera bodies in a single event edit, without a full custom LUT for every source.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-11-03-davinci-resolve-fusion-page-for-simple-motion-graphics.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:274" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2025-11-03">November 3, 2025</time></span>
+    <h2>You Don&#x27;t Need After Effects for Simple Motion Graphics</h2>
+    <p>DaVinci Resolve&#x27;s Fusion page can handle most of the lower-third and title work a working editor actually needs, without leaving the timeline app.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-31-binoculars-for-astro-and-night-scouting.html" class="post-card" data-cat="optics">
+  <div class="pc-media ph" style="--h:236" aria-hidden="true"><span class="serif">Optics</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Optics &middot; <time datetime="2025-10-31">October 31, 2025</time></span>
+    <h2>Binoculars for Scouting Night Shoots, Not Just Wildlife</h2>
+    <p>How a pair of low-light-friendly binoculars helps scout astrophotography and night event locations before a single frame gets shot.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-28-ssd-storage-workflow-for-4k-footage.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:132" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2025-10-28">October 28, 2025</time></span>
+    <h2>My Actual SSD and Backup Workflow for 4K Event Footage</h2>
+    <p>A practical, boring, tested storage and backup workflow for shooting multi-camera 4K events without losing footage.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-24-dji-mini-4-pro-for-travel-filmmaking.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:133" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2025-10-24">October 24, 2025</time></span>
+    <h2>Why the DJI Mini 4 Pro Is Still My Travel Drone Pick</h2>
+    <p>A sub-250g drone kit is still the right call for most travel and brand shoots. Here&#x27;s how the Mini 4 Pro holds up in real use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-21-editing-for-attention-first-three-seconds.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:88" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2025-10-21">October 21, 2025</time></span>
+    <h2>The First Three Seconds Decide Everything Now</h2>
+    <p>Why editing for the first three seconds of a social video matters more than the rest of the edit combined, and how I actually structure a cut around it.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-18-iphone-17-pro-camera-for-professional-b-roll.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:164" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2025-10-18">October 18, 2025</time></span>
+    <h2>iPhone 17 Pro as a Professional B-Roll Camera</h2>
+    <p>How the iPhone 17 Pro&#x27;s camera actually holds up as a secondary B-roll and behind-the-scenes camera on paid shoots.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-15-composition-rule-of-thirds-when-to-break-it.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:203" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2025-10-15">October 15, 2025</time></span>
+    <h2>Rule of Thirds Is a Starting Point, Not a Rule</h2>
+    <p>When breaking the rule of thirds actually improves a shot, and how to tell the difference between a deliberate break and a lazy one.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-12-veo-3-1-vs-sora-2-real-comparison.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:23" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-10-12">October 12, 2025</time></span>
+    <h2>Veo 3.1 vs Sora 2: Which One I Actually Reach For</h2>
+    <p>With Veo 3.1 and Sora 2 both shipped, a direct comparison based on real client work rather than benchmark demos.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-09-gopro-hero-14-hands-on-notes.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:28" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2025-10-09">October 9, 2025</time></span>
+    <h2>GoPro Hero 14 Black: My Honest Hands-On Notes</h2>
+    <p>Hero 14 Black is out. Real-world notes on battery life, heat management, and stabilization from the first week of actual use.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-06-rokid-glasses-vs-meta-ray-ban.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:227" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2025-10-06">October 6, 2025</time></span>
+    <h2>Rokid Glasses vs Ray-Ban Meta: Two Very Different Bets</h2>
+    <p>Rokid&#x27;s AR-focused glasses and Meta&#x27;s camera-first Ray-Bans are solving different problems. Here&#x27;s how they actually compare for a working creator.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-10-02-sora-2-first-week-notes.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:334" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-10-02">October 2, 2025</time></span>
+    <h2>Sora 2 Launched. Here&#x27;s What Changed for My Workflow</h2>
+    <p>OpenAI&#x27;s Sora 2 shipped with real audio and physics improvements. First-week notes from actually using it on client work.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-29-why-i-still-shoot-a-full-frame-body-alongside-ai.html" class="post-card" data-cat="cameras">
+  <div class="pc-media ph" style="--h:231" aria-hidden="true"><span class="serif">Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Cameras &middot; <time datetime="2025-09-29">September 29, 2025</time></span>
+    <h2>Why I Still Carry a Full-Frame Body Alongside All the AI Tools</h2>
+    <p>AI video and AI photography tools keep improving, but here&#x27;s why a real full-frame camera still earns its place in a working filmmaker&#x27;s bag.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-26-ray-ban-meta-display-first-impressions.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:155" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2025-09-26">September 26, 2025</time></span>
+    <h2>Ray-Ban Meta Display: What Actually Impressed Me</h2>
+    <p>First impressions of the newly announced Ray-Ban Meta Display glasses from a filmmaker who&#x27;s been using the camera-only generation on set.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-23-gopro-hero-14-what-were-hearing.html" class="post-card" data-cat="action-cameras">
+  <div class="pc-media ph" style="--h:337" aria-hidden="true"><span class="serif">Action Cameras</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Action Cameras &middot; <time datetime="2025-09-23">September 23, 2025</time></span>
+    <h2>GoPro Just Teased Hero 14. Here&#x27;s What Actually Matters</h2>
+    <p>GoPro&#x27;s Hero 14 teaser dropped this week. A working filmmaker&#x27;s take on which rumored upgrades matter for real shoots and which are marketing noise.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-20-shooting-into-harsh-midday-sun-without-flash.html" class="post-card" data-cat="photography">
+  <div class="pc-media ph" style="--h:31" aria-hidden="true"><span class="serif">Photography</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photography &middot; <time datetime="2025-09-20">September 20, 2025</time></span>
+    <h2>Shooting Into Harsh Midday Sun Without a Flash</h2>
+    <p>A practical technique for shooting portraits and event coverage in flat midday sun without carrying strobes or reflectors.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-17-prompting-ai-video-for-motion-not-just-looks.html" class="post-card" data-cat="ai-filmmaking">
+  <div class="pc-media ph" style="--h:4" aria-hidden="true"><span class="serif">AI &amp; Filmmaking</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">AI &amp; Filmmaking &middot; <time datetime="2025-09-17">September 17, 2025</time></span>
+    <h2>Stop Prompting AI Video Like It&#x27;s Midjourney</h2>
+    <p>The biggest mistake filmmakers make moving from AI image tools to AI video: prompting for a static look instead of describing motion and camera behavior.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-14-what-to-expect-from-meta-connect-2025.html" class="post-card" data-cat="smart-glasses">
+  <div class="pc-media ph" style="--h:93" aria-hidden="true"><span class="serif">Smart Glasses</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Smart Glasses &middot; <time datetime="2025-09-14">September 14, 2025</time></span>
+    <h2>What I&#x27;m Actually Expecting From Meta Connect This Year</h2>
+    <p>Ahead of Meta Connect 2025, a filmmaker&#x27;s honest read on where smart glasses are useful on set and where the hype outruns the hardware.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-10-binoculars-for-wildlife-and-event-photographers.html" class="post-card" data-cat="optics">
+  <div class="pc-media ph" style="--h:2" aria-hidden="true"><span class="serif">Optics</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Optics &middot; <time datetime="2025-09-10">September 10, 2025</time></span>
+    <h2>Why I Started Carrying Binoculars to Every Outdoor Shoot</h2>
+    <p>A filmmaker&#x27;s case for keeping a compact pair of binoculars in the bag, and what to actually look for if you&#x27;re buying your first pair.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-07-premiere-pro-proxy-workflow-2025.html" class="post-card" data-cat="editing">
+  <div class="pc-media ph" style="--h:111" aria-hidden="true"><span class="serif">Editing</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Editing &middot; <time datetime="2025-09-07">September 7, 2025</time></span>
+    <h2>My Premiere Pro Proxy Workflow for Multi-Cam Event Edits</h2>
+    <p>How I set up proxies in Premiere Pro to keep multi-camera event edits responsive on a laptop, without losing a day to transcoding.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-04-dji-mic-2-vs-rode-wireless-pro.html" class="post-card" data-cat="gear">
+  <div class="pc-media ph" style="--h:242" aria-hidden="true"><span class="serif">Gear</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Gear &middot; <time datetime="2025-09-04">September 4, 2025</time></span>
+    <h2>DJI Mic 2 vs Rode Wireless Pro: What Actually Matters on Set</h2>
+    <p>A working filmmaker&#x27;s comparison of the DJI Mic 2 and Rode Wireless Pro for run-and-gun event and brand shoots.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
+<a href="/blog/2025-09-01-lightroom-masking-for-video-thumbnails.html" class="post-card" data-cat="photo-software">
+  <div class="pc-media ph" style="--h:189" aria-hidden="true"><span class="serif">Photo Software</span></div>
+  <div class="pc-body">
+    <span class="pc-meta">Photo Software &middot; <time datetime="2025-09-01">September 1, 2025</time></span>
+    <h2>The Lightroom Masking Trick I Use for Every Thumbnail</h2>
+    <p>A simple Lightroom Classic masking workflow that makes video thumbnails and social stills pop without looking over-processed.</p>
+    <span class="pc-more">Read article <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+  </div>
+</a>
 </div>
+</section>
+
+<section class="cta-band wrap" aria-label="Work together">
+  <div class="cta-inner">
+    <span class="eyebrow">Work together</span>
+    <h2>Need a film <span class="serif grad">for your brand?</span></h2>
+    <p>Real shoots on location or AI films made from scratch, for brands in every industry.</p>
+    <div class="cta-btns">
+      <a href="/#contact" class="btn btn-glow">Start a project <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <a href="/#work" class="btn btn-ghost">See the work</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <span>&copy; 2026 PAFP &middot; Pranav Arya Film Production &middot; Berlin</span>
+  <div class="foot-links"><a href="/">Home</a><a href="/blog/">Blog</a><a href="/#media-kit">Media Kit</a><a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/iampranavarya28" target="_blank" rel="noopener">Telegram</a><a href="mailto:collab.pranavarya@gmail.com">Email</a></div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/491744257711?text=Hi%20Pranav%2C%20I%20found%20you%20through%20your%20blog%20on%20pranavarya.com%20and%20would%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" aria-label="Chat with Pranav on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.24 9.43-9.44 9.43zm8.03-17.46A11.3 11.3 0 0 0 12.05.71C5.79.71.7 5.8.7 12.06c0 2 .52 3.95 1.52 5.67L.6 23.3l5.7-1.5a11.3 11.3 0 0 0 5.74 1.47h.01c6.26 0 11.35-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.03z"/></svg></a>
+
+<script src="/assets/blog.js?v=3" defer></script>
 </body>
 </html>

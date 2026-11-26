@@ -433,297 +433,58 @@ professional film-production quality, high contrast. Subject should relate to:
         return None
 
 
-# ---------- STEP 5: BUILD HTML PAGE ----------
-POST_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>{title} | PAFP Blog</title>
-<meta name="description" content="{meta_description}"/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="{canonical_url}"/>
-<meta property="og:type" content="article"/>
-<meta property="og:url" content="{canonical_url}"/>
-<meta property="og:title" content="{title}"/>
-<meta property="og:description" content="{meta_description}"/>
-<meta property="og:image" content="{og_image_url}"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="{title}"/>
-<meta name="twitter:description" content="{meta_description}"/>
-<meta name="twitter:image" content="{og_image_url}"/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<script type="application/ld+json">
-{{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": {title_json},
-  "description": {meta_description_json},
-  "image": {og_image_json},
-  "datePublished": "{date_iso}",
-  "author": {{"@type": "Person", "name": "Pranav Arya", "url": "{site_base}/"}},
-  "publisher": {{"@type": "Organization", "name": "PAFP", "url": "{site_base}/"}}
-}}
-</script>
-<style>
-*,*::before,*::after{{margin:0;padding:0;box-sizing:border-box}}
-:root{{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
---font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}}
-body{{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;line-height:1.8;max-width:760px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}}
-img{{max-width:100%;height:auto}}
-a{{color:var(--red)}}
-.back{{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}}
-.back:hover{{color:var(--red)}}
-.eyebrow{{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}}
-h1{{font-family:var(--font-head);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px}}
-.meta{{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase;margin-bottom:32px}}
-.hero-img{{width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:40px;border:1px solid rgba(255,255,255,0.08);background:#111;display:block}}
-article h2{{font-family:var(--font-head);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:40px 0 16px}}
-article p{{margin-bottom:20px;color:rgba(242,240,235,0.85);font-size:1.02rem}}
-article ul{{margin:0 0 20px 20px}}
-article li{{margin-bottom:8px;color:rgba(242,240,235,0.85)}}
-article strong{{color:var(--red);font-weight:500}}
-footer{{margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.14em;color:var(--gray);text-transform:uppercase}}
-footer a{{color:var(--gray);text-decoration:none}}
-footer a:hover{{color:var(--red)}}
-.author-box{{margin-top:56px;padding:28px 26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}}
-.author-box p{{font-size:0.88rem;color:rgba(242,240,235,0.75);line-height:1.75;margin:0}}
-.author-box strong{{color:var(--paper);font-weight:500}}
-.author-box a{{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(230,58,30,0.3)}}
-.author-box a:hover{{border-bottom-color:var(--red)}}
-.related{{margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.08)}}
-.related-label{{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:24px}}
-.related-grid{{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
-.related-card{{display:block;text-decoration:none;color:var(--paper);padding:20px;border:1px solid rgba(255,255,255,0.08);transition:border-color 0.2s,background 0.2s}}
-.related-card:hover{{border-color:var(--red);background:rgba(230,58,30,0.04)}}
-.related-card h3{{font-family:var(--font-head);font-size:1.1rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.15}}
-.related-card:hover h3{{color:var(--red)}}
-.related-card p{{font-size:0.78rem;color:rgba(242,240,235,0.5);margin:0;line-height:1.5}}
-@media(max-width:560px){{.related-grid{{grid-template-columns:1fr}}}}
-</style>
-</head>
-<body>
-<a href="/blog/" class="back">&larr; Back to Blog</a>
-<div class="eyebrow">AI &middot; Entertainment &middot; {date_human}</div>
-<h1>{title}</h1>
-<div class="meta">By Pranav Arya &middot; PAFP &middot; {tags_display}</div>
-{hero_img_tag}
-<article>
-{body}
-</article>
-<div class="author-box">
-  <p><strong>Pranav Arya</strong> is a Berlin-based filmmaker producing <a href="https://pranavarya.com/#ai-tech">AI video content</a> for brands and social media, alongside <a href="https://pranavarya.com/#services-offered">real-world event, brand, and fashion shoots</a> worldwide. He also <a href="https://pranavarya.com/#collaboration">teaches photography and videography</a> to aspiring creators. <a href="https://pranavarya.com/#contact">Get in touch</a> to work together.</p>
-</div>
-<div class="related" id="related-posts">
-  <div class="related-label">Keep Reading</div>
-  <div class="related-grid" id="related-grid"></div>
-</div>
-<footer>
-  <p>&copy; 2026 Pranav Arya Film Production &middot; <a href="/">pranavarya.com</a> &middot; <a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener noreferrer">Instagram</a></p>
-</footer>
-<script>
-(function() {{
-  const currentFile = {filename_json};
-  const currentTags = {tags_json};
-  fetch('/blog/posts.json')
-    .then(r => r.json())
-    .then(posts => {{
-      const others = posts.filter(p => p.filename !== currentFile);
-      others.forEach(p => {{
-        p._score = (p.tags || []).filter(t => currentTags.includes(t)).length;
-      }});
-      others.sort((a, b) => b._score - a._score || new Date(b.date) - new Date(a.date));
-      const picks = others.slice(0, 4);
-      const grid = document.getElementById('related-grid');
-      if (picks.length === 0) {{
-        document.getElementById('related-posts').style.display = 'none';
-        return;
-      }}
-      grid.innerHTML = picks.map(p => `
-        <a href="/blog/${{p.filename}}" class="related-card">
-          <h3>${{p.title}}</h3>
-          <p>${{p.meta_description}}</p>
-        </a>
-      `).join('');
-    }})
-    .catch(() => {{
-      document.getElementById('related-posts').style.display = 'none';
-    }});
-}})();
-</script>
-</body>
-</html>
-"""
 
+# ---------- STEP 6: RENDER WITH THE SITE THEME ----------
+# Look and SEO markup live in scripts/blog_theme.py (shared with
+# scripts/rebuild_blog.py). blog/posts.json is the source of truth: the new
+# post is added there, then the post page, blog index, RSS feed and
+# sitemap.xml are rendered from it.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import blog_theme  # noqa: E402
 
-def build_post_html(title, meta_description, body_html, tags, canonical_url, filename, image_url=None):
-    if image_url:
-        full_image_url = f"{SITE_BASE_URL}{image_url}"
-        hero_img_tag = (
-            f'<img src="{image_url}" alt="{title}" class="hero-img" '
-            f'width="1200" height="675" '
-            f'fetchpriority="high" loading="eager"/>'
-        )
-    else:
-        full_image_url = f"{SITE_BASE_URL}/pranavarya.jpg"
-        hero_img_tag = ""
-
-    return POST_TEMPLATE.format(
-        title=title,
-        meta_description=meta_description,
-        title_json=json.dumps(title),
-        meta_description_json=json.dumps(meta_description),
-        filename_json=json.dumps(filename),
-        tags_json=json.dumps(tags),
-        og_image_url=full_image_url,
-        og_image_json=json.dumps(full_image_url),
-        hero_img_tag=hero_img_tag,
-        canonical_url=canonical_url,
-        site_base=SITE_BASE_URL,
-        date_iso=TODAY.isoformat(),
-        date_human=TODAY_HUMAN,
-        body=body_html,
-        tags_display=" &middot; ".join(f"#{t}" for t in tags),
-    )
-
-
-# ---------- STEP 6: UPDATE BLOG INDEX ----------
-CARD_TEMPLATE = """<a href="/blog/{filename}" class="post-card">
-  {thumb_tag}
-  <div class="post-card-body">
-    <span class="post-date">{date_human}</span>
-    <h2>{title}</h2>
-    <p>{meta_description}</p>
-    <span class="post-tags">{tags_display}</span>
-  </div>
-</a>
-"""
-
-INDEX_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI &amp; Entertainment Blog | PAFP</title>
-<meta name="description" content="Daily notes on AI models, news, tutorials, and prompt tricks for AI-powered filmmaking and entertainment production, from Pranav Arya (PAFP)."/>
-<link rel="canonical" href="https://pranavarya.com/blog/"/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{{margin:0;padding:0;box-sizing:border-box}}
-:root{{--ink:#0C0B0A;--paper:#F2F0EB;--red:#E63A1E;--gray:#8A887F;
---font-head:'Barlow Condensed',sans-serif;--font-body:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace}}
-body{{background:var(--ink);color:var(--paper);font-family:var(--font-body);font-weight:300;max-width:1100px;margin:0 auto;padding:64px 24px 100px;overflow-x:hidden;width:100%;box-sizing:border-box}}
-img{{max-width:100%;height:auto}}
-.back{{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--gray);display:inline-block;margin-bottom:40px}}
-.back:hover{{color:var(--red)}}
-.eyebrow{{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:0.24em;color:var(--red);text-transform:uppercase;margin-bottom:16px}}
-h1{{font-family:var(--font-head);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;line-height:0.9;text-transform:uppercase;margin-bottom:16px}}
-.sub{{color:rgba(242,240,235,0.6);max-width:520px;margin-bottom:56px;line-height:1.7}}
-.post-list{{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}}
-.post-card{{display:block;text-decoration:none;color:var(--paper);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);transition:border-color 0.2s,background 0.2s}}
-.post-card:hover{{border-color:var(--red);background:rgba(230,58,30,0.04)}}
-.post-thumb{{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#111}}
-.post-card-body{{padding:20px}}
-.post-date{{font-family:var(--font-mono);font-size:0.42rem;letter-spacing:0.16em;color:var(--red);text-transform:uppercase}}
-.post-card h2{{font-family:var(--font-head);font-size:1.25rem;font-weight:700;text-transform:uppercase;margin:8px 0 8px;line-height:1.15;transition:color 0.2s}}
-.post-card:hover h2{{color:var(--red)}}
-.post-card p{{color:rgba(242,240,235,0.55);font-size:0.82rem;margin-bottom:10px;line-height:1.5}}
-.post-tags{{font-family:var(--font-mono);font-size:0.4rem;letter-spacing:0.1em;color:var(--gray);text-transform:uppercase}}
-.empty{{color:rgba(242,240,235,0.4);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:40px 0;grid-column:1/-1}}
-@media(max-width:900px){{.post-list{{grid-template-columns:1fr 1fr}}}}
-@media(max-width:560px){{.post-list{{grid-template-columns:1fr}}}}
-</style>
-</head>
-<body>
-<a href="/" class="back">&larr; Back to Home</a>
-<div class="eyebrow">PAFP Blog</div>
-<h1>AI &amp; Entertainment</h1>
-<p class="sub">Daily notes on models, news, tutorials, and prompt tricks in AI-powered filmmaking and content production.</p>
-<div class="post-list">
-{posts}
-</div>
-</body>
-</html>
-"""
-
-
-def update_blog_index(filename, title, meta_description, tags, image_url=None):
-    BLOG_DIR.mkdir(parents=True, exist_ok=True)
-    thumb_tag = (
-        f'<img src="{image_url}" alt="{title}" class="post-thumb" loading="lazy"/>'
-        if image_url else ""
-    )
-    card = CARD_TEMPLATE.format(
-        filename=filename,
-        date_human=TODAY_HUMAN,
-        title=title,
-        meta_description=meta_description,
-        tags_display=" &middot; ".join(f"#{t}" for t in tags),
-        thumb_tag=thumb_tag,
-    )
-
-    if BLOG_INDEX_PATH.exists():
-        existing = BLOG_INDEX_PATH.read_text(encoding="utf-8")
-        marker_start = existing.find('<div class="post-list">')
-        marker_end = existing.find("</div>", marker_start)
-        if marker_start != -1 and marker_end != -1:
-            insert_at = existing.index("\n", marker_start) + 1
-            new_content = existing[:insert_at] + card + existing[insert_at:]
-            BLOG_INDEX_PATH.write_text(new_content, encoding="utf-8")
-            return
-
-    BLOG_INDEX_PATH.write_text(INDEX_TEMPLATE.format(posts=card), encoding="utf-8")
-
-
-# ---------- STEP 7B: UPDATE POSTS MANIFEST (powers "Related Posts") ----------
+BLOG_INDEX_PATH = BLOG_DIR / "index.html"
 MANIFEST_PATH = BLOG_DIR / "posts.json"
+FEED_PATH = BLOG_DIR / "feed.xml"
+DEFAULT_CATEGORY = "AI & Entertainment"
 
 
-def update_posts_manifest(filename, title, meta_description, tags):
-    manifest = []
+def load_manifest():
     if MANIFEST_PATH.exists():
         try:
-            manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+            return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
-            manifest = []
+            pass
+    return []
 
-    manifest.insert(0, {
+
+def publish(filename, title, meta_description, body_html, tags, image_url=None):
+    manifest = [p for p in load_manifest() if p.get("filename") != filename]
+    entry = {
         "filename": filename,
         "title": title,
         "meta_description": meta_description,
         "tags": tags,
         "date": TODAY.isoformat(),
-    })
+        "category": DEFAULT_CATEGORY,
+        "image": image_url,
+    }
+    manifest.insert(0, entry)
 
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    BLOG_DIR.mkdir(parents=True, exist_ok=True)
+    (BLOG_DIR / filename).write_text(blog_theme.render_post(entry, body_html, manifest), encoding="utf-8")
+    print(f"Wrote {BLOG_DIR / filename}")
 
+    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+    print("Updated blog/posts.json")
 
-# ---------- STEP 8: UPDATE SITEMAP ----------
-def update_sitemap(canonical_url):
-    entry = f"""  <url>
-    <loc>{canonical_url}</loc>
-    <lastmod>{TODAY.isoformat()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-"""
-    if SITEMAP_PATH.exists():
-        content = SITEMAP_PATH.read_text(encoding="utf-8")
-        if "</urlset>" in content:
-            content = content.replace("</urlset>", entry + "</urlset>")
-            SITEMAP_PATH.write_text(content, encoding="utf-8")
-            return
-    fresh = f"""<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>{SITE_BASE_URL}/</loc>
-    <lastmod>{TODAY.isoformat()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-{entry}</urlset>
-"""
-    SITEMAP_PATH.write_text(fresh, encoding="utf-8")
+    BLOG_INDEX_PATH.write_text(blog_theme.render_index(manifest), encoding="utf-8")
+    print("Updated blog/index.html")
+
+    FEED_PATH.write_text(blog_theme.render_feed(manifest), encoding="utf-8")
+    print("Updated blog/feed.xml")
+
+    SITEMAP_PATH.write_text(blog_theme.render_sitemap(manifest), encoding="utf-8")
+    print("Updated sitemap.xml")
 
 
 # ---------- MAIN ----------
@@ -767,24 +528,11 @@ def main():
     tags = meta.get("tags", ["ai", "filmmaking"])
 
     filename = f"{TODAY_STR}-{slug}.html"
-    canonical_url = f"{SITE_BASE_URL}/blog/{filename}"
 
     print("Generating hero image...")
     image_url = generate_hero_image(title, tags, slug)
 
-    BLOG_DIR.mkdir(parents=True, exist_ok=True)
-    post_html = build_post_html(title, meta_description, final_body, tags, canonical_url, filename, image_url)
-    (BLOG_DIR / filename).write_text(post_html, encoding="utf-8")
-    print(f"Wrote {BLOG_DIR / filename}")
-
-    update_blog_index(filename, title, meta_description, tags, image_url)
-    print("Updated blog/index.html")
-
-    update_posts_manifest(filename, title, meta_description, tags)
-    print("Updated blog/posts.json")
-
-    update_sitemap(canonical_url)
-    print("Updated sitemap.xml")
+    publish(filename, title, meta_description, final_body, tags, image_url)
 
     print(f"DONE: {title}")
 
