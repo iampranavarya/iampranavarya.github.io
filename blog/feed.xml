@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>PAFP Blog</title>
+  <link>https://pranavarya.com/blog/</link>
+  <atom:link href="https://pranavarya.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Notes on AI filmmaking, cameras and production craft from Pranav Arya.</description>
+  <language>en</language>
+  <lastBuildDate>Wed, 14 Oct 2026 09:00:00 +0000</lastBuildDate>
+  <item>
+    <title>Sora Shuts Down: AI Video Enters Its Second Phase</title>
+    <link>https://pranavarya.com/blog/2026-10-14-sora-shutdown-ai-video-shift.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-14-sora-shutdown-ai-video-shift.html</guid>
+    <pubDate>Wed, 14 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora is dead and the AI video industry moved on. Why orchestration across multiple models now beats chasing a single flashy clip.</description>
+  </item>
+  <item>
+    <title>Kling O3 Prompting: Why Shot Lists Beat Paragraphs</title>
+    <link>https://pranavarya.com/blog/2026-10-13-kling-o3-prompting-shot-lists.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-13-kling-o3-prompting-shot-lists.html</guid>
+    <pubDate>Tue, 13 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Kling O3 demands a new prompting grammar. Learn the five-layer shot-list method replacing vague paragraph prompts for sharper AI video results.</description>
+  </item>
+  <item>
+    <title>Sora API Shutdown: Migrating to Kling 4.0 and Wan 3.0</title>
+    <link>https://pranavarya.com/blog/2026-10-11-sora-shutdown-kling-wan-migration.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-11-sora-shutdown-kling-wan-migration.html</guid>
+    <pubDate>Sun, 11 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API died Sept 24. Here&#x27;s how Kling 4.0 and Wan 3.0 compare, and what it takes to migrate client video pipelines without breaking everything.</description>
+  </item>
+  <item>
+    <title>Can an AI Movie Win an Oscar? Testing the Rules</title>
+    <link>https://pranavarya.com/blog/2026-10-10-ai-film-oscar-sora-shutdown.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-10-ai-film-oscar-sora-shutdown.html</guid>
+    <pubDate>Sat, 10 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>An AI anthology film eyes an Oscar nod while Sora shuts down, leaving tools like Kling and Veo 3.1 to fill the gap for filmmakers.</description>
+  </item>
+  <item>
+    <title>Sora Is Dead: Kling 4.0 and the Chinese AI Video Sweep</title>
+    <link>https://pranavarya.com/blog/2026-10-07-sora-shutdown-kling-video-shift.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-07-sora-shutdown-kling-video-shift.html</guid>
+    <pubDate>Wed, 07 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora shut down after just 12 months. Here&#x27;s why Kling 4.0, Seedance, and Wan are now leading the generative video race.</description>
+  </item>
+  <item>
+    <title>Kling 3.0 Omni Elements: Fixing AI Character Drift</title>
+    <link>https://pranavarya.com/blog/2026-10-05-kling-elements-character-consistency.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-05-kling-elements-character-consistency.html</guid>
+    <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>How Kling 3.0 Omni&#x27;s Elements system solves AI video character drift, with real workflow tips for keeping faces and wardrobes consistent.</description>
+  </item>
+  <item>
+    <title>Kling 4.0: 30-Second Clips, 4K HDR, and Real Competition</title>
+    <link>https://pranavarya.com/blog/2026-10-04-kling-4-30-second-clips.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-10-04-kling-4-30-second-clips.html</guid>
+    <pubDate>Sun, 04 Oct 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Kling 4.0 brings 30-second clips, 4K HDR, and 10-reference control, but Seedance 2.5 and the leaderboard say the race isn&#x27;t over.</description>
+  </item>
+  <item>
+    <title>Consistency Wins: Soul ID, Cinema Studio &amp; AI Film</title>
+    <link>https://pranavarya.com/blog/2026-07-27-soul-id-cinema-studio-consistency.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-27-soul-id-cinema-studio-consistency.html</guid>
+    <pubDate>Mon, 27 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>How Higgsfield&#x27;s Soul ID and Cinema Studio lock character identity and camera moves across Seedance, Kling, and Veo for consistent AI films.</description>
+  </item>
+  <item>
+    <title>Seedance 2.5: What&#x27;s Real vs. Hype Right Now</title>
+    <link>https://pranavarya.com/blog/2026-07-26-seedance-25-rollout-reality-check.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-26-seedance-25-rollout-reality-check.html</guid>
+    <pubDate>Sun, 26 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Seedance 2.5 promises 30-second video and 50 references, but access is still limited. Here&#x27;s what&#x27;s actually usable today.</description>
+  </item>
+  <item>
+    <title>Sora Is Dead: Why Veo 3.1 and Kling 3.0 Win Now</title>
+    <link>https://pranavarya.com/blog/2026-07-25-sora-shutdown-veo-kling-replace.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-25-sora-shutdown-veo-kling-replace.html</guid>
+    <pubDate>Sat, 25 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API shuts down Sept 24. Here&#x27;s why Veo 3.1 and Kling 3.0 are the real AI video winners, with real pricing and client workflow notes.</description>
+  </item>
+  <item>
+    <title>Frame Chaining in 2026: The Post-Sora AI Video Workflow</title>
+    <link>https://pranavarya.com/blog/2026-07-24-frame-chaining-post-sora-workflow.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-24-frame-chaining-post-sora-workflow.html</guid>
+    <pubDate>Fri, 24 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora is gone. Here&#x27;s how frame chaining and last-frame seeding on Kling, Veo, and Seedance keep AI video clips looking like one continuous shot.</description>
+  </item>
+  <item>
+    <title>Sora&#x27;s Sunset: Why Kling Now Powers a Feature Film</title>
+    <link>https://pranavarya.com/blog/2026-07-23-sora-shutdown-kling-pipeline-shift.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-23-sora-shutdown-kling-pipeline-shift.html</guid>
+    <pubDate>Thu, 23 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora 2 is being shut down, and studios are pivoting to Kling. Here&#x27;s what a full-length AI feature film reveals about pipeline risk in 2026.</description>
+  </item>
+  <item>
+    <title>Sora Is Dead: Why Chinese AI Video Models Now Lead</title>
+    <link>https://pranavarya.com/blog/2026-07-22-sora-shutdown-chinese-ai-video.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-22-sora-shutdown-chinese-ai-video.html</guid>
+    <pubDate>Wed, 22 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API shuts down Sept 24 as Chinese models like Kling, Seedance, and Wan dominate the leaderboard. Here&#x27;s what it means for your workflow.</description>
+  </item>
+  <item>
+    <title>Kling Prompt Dialects: Why Version Matters More Than You Think</title>
+    <link>https://pranavarya.com/blog/2026-07-21-kling-prompting-versions-explained.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-21-kling-prompting-versions-explained.html</guid>
+    <pubDate>Tue, 21 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Netflix&#x27;s $587M InterPositive deal shows AI is quietly powering production. Learn why each Kling version needs a different prompting style.</description>
+  </item>
+  <item>
+    <title>Seedance 2.0 Depth Map Trick for Clean Motion Transfer</title>
+    <link>https://pranavarya.com/blog/2026-07-20-seedance-depth-map-motion-transfer.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-20-seedance-depth-map-motion-transfer.html</guid>
+    <pubDate>Mon, 20 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API is shutting down in September. Here&#x27;s how I rebuilt my pipeline around Seedance 2.0 using a simple depth map trick for motion transfer.</description>
+  </item>
+  <item>
+    <title>Kling vs Veo vs Sora: The AI Video Landscape Shifted</title>
+    <link>https://pranavarya.com/blog/2026-07-19-kling-vs-veo-ai-video-shakeup.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-19-kling-vs-veo-ai-video-shakeup.html</guid>
+    <pubDate>Sun, 19 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Kling v3 tops the leaderboard, Sora&#x27;s app is gone, and Veo 3.1 holds its own. Here&#x27;s what the AI video shakeup means for your pipeline.</description>
+  </item>
+  <item>
+    <title>Sora&#x27;s Death and the Rise of Chinese Video AI</title>
+    <link>https://pranavarya.com/blog/2026-07-18-sora-shutdown-kling-seedance-rise.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-18-sora-shutdown-kling-seedance-rise.html</guid>
+    <pubDate>Sat, 18 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API shuts down Sept 24 after burning cash, while Kling and Seedance quietly pull ahead in real-world video AI use.</description>
+  </item>
+  <item>
+    <title>Sora API Shutdown: Rebuild Your Frame-Chaining Pipeline Now</title>
+    <link>https://pranavarya.com/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-17-sora-shutdown-frame-chaining-pipeline.html</guid>
+    <pubDate>Fri, 17 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API dies Sept 24, 2026. Here&#x27;s how to automate frame-chained video generation across Kling and Runway without vendor lock-in.</description>
+  </item>
+  <item>
+    <title>AI Docudrama Hits Tribeca: Industry Reacts</title>
+    <link>https://pranavarya.com/blog/2026-07-15-ai-film-tribeca-industry-backlash.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-15-ai-film-tribeca-industry-backlash.html</guid>
+    <pubDate>Wed, 15 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>An AI-generated film premiered at Tribeca&#x27;s main slate while SAG-AFTRA slams AI actor Tilly Norwood. Here&#x27;s what the mixed reactions reveal.</description>
+  </item>
+  <item>
+    <title>Why Kling 3.0 Punishes Lazy Prompting (And How to Fix It)</title>
+    <link>https://pranavarya.com/blog/2026-07-14-kling-3-prompt-structure-guide.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-14-kling-3-prompt-structure-guide.html</guid>
+    <pubDate>Tue, 14 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Kling 3.0 breaks static Midjourney-style prompts. Learn the camera-first structure that turns frozen mannequin shots into real motion.</description>
+  </item>
+  <item>
+    <title>How I Storyboard AI Product Films in an Afternoon</title>
+    <link>https://pranavarya.com/blog/2026-07-13-ai-storyboard-pipeline-product-film.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-13-ai-storyboard-pipeline-product-film.html</guid>
+    <pubDate>Mon, 13 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>A real client workflow using ChatGPT, Nano Banana Pro, and Kling 3.0 to cut a 30-second product film storyboard in hours, not days.</description>
+  </item>
+  <item>
+    <title>Sora Shuts Down as Seedance 2.5 Takes the Spotlight</title>
+    <link>https://pranavarya.com/blog/2026-07-12-sora-shutdown-seedance-2-5.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-12-sora-shutdown-seedance-2-5.html</guid>
+    <pubDate>Sun, 12 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API closes Sept 24 amid huge losses, while ByteDance&#x27;s Seedance 2.5 debuts 30-second clips and semantic editing.</description>
+  </item>
+  <item>
+    <title>Seedance 2.5: 30-Second AI Video, No More Stitching</title>
+    <link>https://pranavarya.com/blog/2026-07-12-seedance-2-5-continuous-video.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-12-seedance-2-5-continuous-video.html</guid>
+    <pubDate>Sun, 12 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>ByteDance&#x27;s Seedance 2.5 generates 30 continuous seconds with 50 reference assets, ending seam-matching hell for AI video editors.</description>
+  </item>
+  <item>
+    <title>Sora Shuts Down as Kling Raises $2.8B: What Changes</title>
+    <link>https://pranavarya.com/blog/2026-07-11-sora-shutdown-kling-funding.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-11-sora-shutdown-kling-funding.html</guid>
+    <pubDate>Sat, 11 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora&#x27;s API dies in September while Kling closes a $2.8B round backed by Alibaba, Baidu, and Tencent. Here&#x27;s what it means for your AI video workflow.</description>
+  </item>
+  <item>
+    <title>Sora&#x27;s Gone, Meta&#x27;s Muse Is Messy, Seedance 2.5 Wins</title>
+    <link>https://pranavarya.com/blog/2026-07-11-seedance-2-5-muse-sora-shutdown.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-11-seedance-2-5-muse-sora-shutdown.html</guid>
+    <pubDate>Sat, 11 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Sora shuts down, Meta&#x27;s Muse sparks consent concerns, and ByteDance&#x27;s Seedance 2.5 quietly becomes the video model worth using this week.</description>
+  </item>
+  <item>
+    <title>Seedance 2.0 Solves AI Video&#x27;s Continuity Problem</title>
+    <link>https://pranavarya.com/blog/2026-07-10-seedance-frame-chaining-continuity.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-10-seedance-frame-chaining-continuity.html</guid>
+    <pubDate>Fri, 10 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Frame chaining and native lip-sync in Seedance 2.0 finally fix AI video continuity. Real pipeline notes from three weeks of production work.</description>
+  </item>
+  <item>
+    <title>Frame-Chaining: How Pros Fake Long AI Videos</title>
+    <link>https://pranavarya.com/blog/2026-07-10-frame-chaining-ai-video-technique.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-10-frame-chaining-ai-video-technique.html</guid>
+    <pubDate>Fri, 10 Jul 2026 09:00:00 +0000</pubDate>
+    <category>AI &amp; Entertainment</category>
+    <description>Learn the frame-chaining technique pros use to stitch short AI clips into continuous-looking videos, using Grok Imagine and similar tools.</description>
+  </item>
+  <item>
+    <title>What I&#x27;m Actually Looking Forward to in Gear This Year</title>
+    <link>https://pranavarya.com/blog/2026-07-09-what-im-actually-looking-forward-to-this-year.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-09-what-im-actually-looking-forward-to-this-year.html</guid>
+    <pubDate>Thu, 09 Jul 2026 09:00:00 +0000</pubDate>
+    <category>Smart Glasses</category>
+    <description>Rather than another prediction list, a filmmaker&#x27;s honest read on which upcoming gear categories actually matter for real production work.</description>
+  </item>
+  <item>
+    <title>A Year of Daily Smart Glasses Use: What I&#x27;d Actually Tell a Buyer</title>
+    <link>https://pranavarya.com/blog/2026-07-06-a-year-of-daily-smart-glasses-use-what-id-tell-a-buyer.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-06-a-year-of-daily-smart-glasses-use-what-id-tell-a-buyer.html</guid>
+    <pubDate>Mon, 06 Jul 2026 09:00:00 +0000</pubDate>
+    <category>Smart Glasses</category>
+    <description>After a full year of near-daily smart glasses use across multiple generations of hardware, the honest advice I&#x27;d give someone considering buying a pair.</description>
+  </item>
+  <item>
+    <title>Which Action Camera Firmware Updates Are Actually Worth Installing</title>
+    <link>https://pranavarya.com/blog/2026-07-03-action-camera-firmware-updates-worth-installing.html</link>
+    <guid isPermaLink="true">https://pranavarya.com/blog/2026-07-03-action-camera-firmware-updates-worth-installing.html</guid>
+    <pubDate>Fri, 03 Jul 2026 09:00:00 +0000</pubDate>
+    <category>Action Cameras</category>
+    <description>Not every firmware update is worth installing right before a paid shoot. A practical approach to deciding what to update and when.</description>
+  </item>
+</channel>
+</rss>
