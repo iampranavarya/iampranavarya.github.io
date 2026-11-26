@@ -1640,7 +1640,7 @@ w.addEventListener('load',function(){
   const SITE_ID = 'pranavarya.com';
   // Same Discord destination as Eternore. A client-side webhook is publicly visible;
   // use a server-side relay for production if you need to keep it secret.
-  const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1543432207031468062/ZuYGUDy0h7QY_BV3rQpM6bqMzibNPhi9tEC6YbbL3BrSGZXUfW9W9MPktPQdiQvq-CJ8';
+  const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1553970487527473203/fbw8O2E6a3JYTsAEkZ6KkGQglne39Wu8ryldWcbi9dKREPXCCQDz7LP3IVPkz7l9ZN3V';
   const DISCORD_ENABLED = /^https:\/\/(?:discord\.com|discordapp\.com)\/api\/webhooks\/\d+\//.test(DISCORD_WEBHOOK_URL);
   const MAX_SENT_PER_TAB = 150;
   const MAX_EVENTS = 400;
@@ -1648,6 +1648,8 @@ w.addEventListener('load',function(){
   const events = [];
   const waitingEvents = [];
   let sent = 0, visitorGeo = {}, geoReady = false, lastScroll = 0;
+  // Attempts are not confirmations: no-cors deliberately hides HTTP status.
+  const delivery={attempted:0,failed:0,lastError:null};
   let deepestScroll = 0, lastError = 0;
   const allowed = new Set([
     'page_open','section_view','navigation','menu_toggle','film_open','film_close',
@@ -1690,11 +1692,23 @@ w.addEventListener('load',function(){
           timestamp:new Date().toISOString()
         }]
       };
+      // Discord webhooks accept a multipart payload_json field. FormData is
+      // a simple cross-origin request and avoids the JSON CORS preflight.
+      // no-cors permits delivery attempts without exposing Discord responses.
+      const form = new FormData();
+      form.append('payload_json', JSON.stringify(payload));
       fetch(DISCORD_WEBHOOK_URL,{
-        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
-      }).then(response=>{
-        if(!response.ok)console.warn('PAFP Discord HTTP status:',response.status);
-      }).catch(error=>console.warn('PAFP Discord delivery failed:',error));
+        method:'POST',
+        mode:'no-cors',
+        body:form,
+        keepalive:true
+      }).then(()=>{
+        delivery.attempted++;
+      }).catch(error=>{
+        delivery.failed++;
+        delivery.lastError=String(error);
+        console.warn('PAFP Discord delivery failed:', error);
+      });
     }catch(error){console.warn('PAFP Discord notification error:',error);}
   }
   function finishVisitorLookup(data) {
@@ -1720,7 +1734,7 @@ w.addEventListener('load',function(){
   }
   window.PAFPTrack=record;
   window.PAFPDiagnostics=Object.freeze({
-    summary:()=>({site_id:SITE_ID,total_events:events.length,event_counts:events.reduce((a,e)=>(a[e.type]=(a[e.type]||0)+1,a),{})}),
+    summary:()=>({site_id:SITE_ID,webhook_configured:DISCORD_ENABLED,total_events:events.length,delivery_attempts:delivery.attempted,network_failures:delivery.failed,last_error:delivery.lastError,note:'Browser cannot confirm Discord accepted a no-cors request',event_counts:events.reduce((a,e)=>(a[e.type]=(a[e.type]||0)+1,a),{})}),
     export:()=>{
       const blob=new Blob([JSON.stringify({site_id:SITE_ID,generated_at:new Date().toISOString(),scope:'current browser tab only',events},null,2)],{type:'application/json'});
       const url=URL.createObjectURL(blob),link=document.createElement('a');
