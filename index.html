@@ -135,10 +135,10 @@ body.menu-open #menu a{opacity:1;transform:none}
 .hero-eyebrow{margin-bottom:22px}
 .hero-title{font-weight:600;font-size:clamp(2.6rem,7.4vw,7.6rem);line-height:.94;letter-spacing:-.045em;max-width:14ch}
 .hero-title .serif{font-size:1.08em;letter-spacing:-.02em;padding-right:.06em}
-.rot{display:inline-grid;vertical-align:top;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.rot span{grid-area:1/1;transform:translateY(110%);transition:transform .9s var(--ease);white-space:nowrap}
-.rot span.on{transform:none}
-.rot span.off{transform:translateY(-110%)}
+.rot{display:inline-grid;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.rot span{grid-area:1/1;white-space:nowrap;opacity:0;transform:translateY(.28em);filter:blur(8px);transition:opacity .4s ease,transform .4s ease,filter .4s ease}
+.rot span.on{opacity:1;transform:none;filter:blur(0);transition:opacity .7s ease .32s,transform .8s cubic-bezier(.16,1,.3,1) .32s,filter .7s ease .32s}
+.rot span.off{opacity:0;transform:translateY(-.22em);filter:blur(8px)}
 .hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-top:clamp(26px,4vh,44px);flex-wrap:wrap}
 .hero-sub{max-width:520px;font-size:clamp(1rem,1.25vw,1.15rem);color:var(--mute);line-height:1.6}
 .hero-sub strong{color:var(--ink);font-weight:500}
@@ -158,6 +158,7 @@ body.menu-open #menu a{opacity:1;transform:none}
 
 /* split text */
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.hero-title .w{padding-bottom:.2em;margin-bottom:-.2em}
 .w>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--i)*55ms)}
 .in .w>span{transform:none}
 
@@ -422,11 +423,10 @@ footer a:hover{color:var(--ink)}
   .lb-box{grid-template-columns:1fr}
   .lb-actions{padding-top:16px}
   .scroll-cue{display:none}
-  #formats{height:auto!important}
-  .hs-sticky{position:relative;height:auto;padding:clamp(70px,10vh,110px) 0}
-  .hs-track{transform:none!important;width:auto;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px}
-  .hs-track::-webkit-scrollbar{display:none}
-  .fmt{scroll-snap-align:start;width:min(78vw,360px)}
+  .hs-sticky{height:100vh;height:100svh}
+  .fmt{width:min(74vw,340px)}
+  .fmt-frame{height:clamp(240px,44svh,420px)}
+  #formats .lede{display:none}
   .mobile-cta{display:flex}
 }
 @media (max-width:640px){
@@ -458,9 +458,10 @@ footer a:hover{color:var(--ink)}
 
 
 /* ===== WhatsApp chat widget ===== */
-.waw{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:12px;transition:opacity .4s,transform .5s var(--ease)}
-body.locked .waw,body.lb-open .waw,body.menu-open .waw{opacity:0;pointer-events:none;transform:translateY(20px)}
-.wa-launch{position:relative;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 36px -8px rgba(37,211,102,.6),0 0 0 1px rgba(255,255,255,.15) inset;transition:transform .4s var(--ease),background .3s}
+.waw{pointer-events:none;position:fixed;right:max(20px,env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:12px;transition:opacity .4s,transform .5s var(--ease)}
+body.locked .waw,body.lb-open .waw,body.menu-open .waw{opacity:0;transform:translateY(20px)}
+body.locked .waw *,body.lb-open .waw *,body.menu-open .waw *{pointer-events:none!important}
+.wa-launch{pointer-events:auto;position:relative;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 36px -8px rgba(37,211,102,.6),0 0 0 1px rgba(255,255,255,.15) inset;transition:transform .4s var(--ease),background .3s}
 .wa-launch:hover{transform:scale(1.07)}
 .wa-launch::before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:waPulse 2.4s ease-out infinite}
 @keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
@@ -474,7 +475,7 @@ body.locked .waw,body.lb-open .waw,body.menu-open .waw{opacity:0;pointer-events:
 .waw.open .wa-launch .ic-x{opacity:1;transform:none}
 .wa-panel{width:min(340px,calc(100vw - 40px));border-radius:22px;overflow:hidden;background:rgba(16,13,22,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--line2);box-shadow:0 30px 80px -20px rgba(0,0,0,.85);
   transform-origin:bottom right;transform:translateY(16px) scale(.92);opacity:0;visibility:hidden;transition:transform .5s var(--ease),opacity .35s,visibility .35s}
-.waw.open .wa-panel{transform:none;opacity:1;visibility:visible}
+.waw.open .wa-panel{transform:none;opacity:1;visibility:visible;pointer-events:auto}
 .wa-head{display:flex;align-items:center;gap:12px;padding:16px 16px 14px;background:linear-gradient(135deg,rgba(37,211,102,.22),rgba(37,211,102,.04));border-bottom:1px solid var(--line)}
 .wa-av{position:relative;width:44px;height:44px;border-radius:50%;overflow:hidden;flex:0 0 44px;background:radial-gradient(circle at 30% 30%,var(--mag),var(--vio))}
 .wa-av img{width:100%;height:100%;object-fit:cover;object-position:center top}
@@ -1355,9 +1356,9 @@ function startRot(){
   var k=0;
   setInterval(function(){
     var cur=items[k]; cur.classList.remove('on'); cur.classList.add('off');
-    k=(k+1)%items.length; var nx=items[k]; nx.classList.remove('off'); void nx.offsetWidth; nx.classList.add('on');
-    setTimeout(function(){cur.classList.remove('off')},900);
-  },2200);
+    k=(k+1)%items.length; var nx=items[k]; nx.classList.remove('off'); nx.classList.add('on');
+    setTimeout(function(){cur.classList.remove('off')},450);
+  },2600);
 }
 
 /* ---------- video cycler (crossfades two <video> elements) ---------- */
@@ -1471,7 +1472,7 @@ var hs=$('#formats'), track=$('#hsTrack'), steps=$$('.step'), stepsBox=$('#steps
 var hsDist=0;
 function sizeHS(){
   if(!hs||!track) return;
-  if(w.innerWidth<=980){hs.style.height='';hsDist=0;return;}
+  if(reduce){hs.style.height='';hsDist=0;track.style.overflowX='auto';return;}
   hsDist=Math.max(0,track.scrollWidth-w.innerWidth);
   hs.style.height=(w.innerHeight+hsDist)+'px';
 }
