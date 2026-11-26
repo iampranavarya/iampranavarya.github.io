@@ -9,7 +9,8 @@
 <meta name="author" content="Pranav Arya">
 <meta name="theme-color" content="#060509">
 <link rel="canonical" href="https://pranavarya.com/">
-<link rel="icon" href="/pranavarya.jpg" type="image/jpeg">
+<link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.jpg">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pranavarya.com/">
@@ -174,6 +175,7 @@ body.menu-open #menu a{opacity:1;transform:none}
 /* reveal */
 [data-reveal]{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0s)}
 [data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){[data-reveal][data-hero]:not(.in){opacity:.01}}
 
 /* ===== marquee ===== */
 .marquee{position:relative;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;background:rgba(255,255,255,.015)}
@@ -787,19 +789,19 @@ body.navhidden .switch-bar{top:14px}
 
     <div class="grid" id="grid" data-lb="ai">
       <div class="card feat" data-kind="ai" data-group="hospitality" data-title="Hotels &amp; Resorts" data-desc="Overwater villas, a sunrise suite and a sunset infinity pool. A stay that sells itself before the guest arrives." data-src-full="assets/videos/hotel-resorts.mp4" data-poster="assets/posters/hotel-resorts.webp" tabindex="0" role="button" aria-label="Play the Hotels &amp; Resorts AI film" data-reveal style="--d:0.00s">
-      <img src="assets/posters/hotel-resorts.webp" alt="AI-generated commercial for Hotels &amp; Resorts" loading="eager" decoding="async" width="854" height="480">
+      <img src="assets/posters/hotel-resorts.webp" alt="AI-generated commercial for Hotels &amp; Resorts" loading="lazy" decoding="async" width="854" height="480">
       <video muted loop playsinline preload="none" data-src="assets/videos/hotel-resorts.mp4" aria-hidden="true"></video>
       <div class="card-top"><span>01</span><span class="pill">Hospitality</span></div>
       <div class="card-bot"><h3>Hotels &amp; Resorts</h3><p>Overwater villas, a sunrise suite and a sunset infinity pool. A stay that sells itself before the guest arrives.</p></div><span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
     </div>
       <div class="card" data-kind="ai" data-group="property" data-title="Real Estate" data-desc="A cliffside villa revealed from the air, then from the edge of the pool. Listings that feel like a film premiere." data-src-full="assets/videos/real-estate.mp4" data-poster="assets/posters/real-estate.webp" tabindex="0" role="button" aria-label="Play the Real Estate AI film" data-reveal style="--d:0.07s">
-      <img src="assets/posters/real-estate.webp" alt="AI-generated commercial for Real Estate" loading="eager" decoding="async" width="854" height="480">
+      <img src="assets/posters/real-estate.webp" alt="AI-generated commercial for Real Estate" loading="lazy" decoding="async" width="854" height="480">
       <video muted loop playsinline preload="none" data-src="assets/videos/real-estate.mp4" aria-hidden="true"></video>
       <div class="card-top"><span>02</span><span class="pill">Property</span></div>
       <div class="card-bot"><h3>Real Estate</h3><p>A cliffside villa revealed from the air, then from the edge of the pool. Listings that feel like a film premiere.</p></div><span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
     </div>
       <div class="card" data-kind="ai" data-group="property" data-title="Automotive" data-desc="Headlight detail, a coastal road and a cliff-edge reveal. A launch film without closing a single road." data-src-full="assets/videos/automotive.mp4" data-poster="assets/posters/automotive.webp" tabindex="0" role="button" aria-label="Play the Automotive AI film" data-reveal style="--d:0.14s">
-      <img src="assets/posters/automotive.webp" alt="AI-generated commercial for Automotive" loading="eager" decoding="async" width="854" height="480">
+      <img src="assets/posters/automotive.webp" alt="AI-generated commercial for Automotive" loading="lazy" decoding="async" width="854" height="480">
       <video muted loop playsinline preload="none" data-src="assets/videos/automotive.mp4" aria-hidden="true"></video>
       <div class="card-top"><span>03</span><span class="pill">Auto</span></div>
       <div class="card-bot"><h3>Automotive</h3><p>Headlight detail, a coastal road and a cliff-edge reveal. A launch film without closing a single road.</p></div><span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
@@ -1028,12 +1030,12 @@ body.navhidden .switch-bar{top:14px}
       <p class="lede" data-reveal style="--d:.15s">Real or AI, your film is cut for where your audience actually is.</p>
     </div>
     <div class="hs-track" id="hsTrack" style="margin-top:clamp(24px,4vh,44px)">
-      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">9:16</span><div class="dev phone"><video muted loop playsinline preload="none" data-src="assets/real/previews/real-07.mp4" poster="assets/real/posters/real-07.webp"></video></div></div><h3>Reels &amp; TikTok</h3><p>Vertical, hook-first edits that stop the thumb.</p></div>
-      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">Website</span><div class="dev browser"><video muted loop playsinline preload="none" data-src="assets/videos/real-estate.mp4" poster="assets/posters/real-estate.webp"></video><div class="bt">Your hero section</div></div></div><h3>Website hero loops</h3><p>Silent, seamless loops that make your homepage feel premium.</p></div>
-      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">1:1 · 4:5</span><div class="dev square"><video muted loop playsinline preload="none" data-src="assets/videos/perfume.mp4" poster="assets/posters/perfume.webp"></video></div></div><h3>Paid social ads</h3><p>Multiple hooks and cuts so you can test what sells.</p></div>
-      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">Events</span><div class="dev story"><video muted loop playsinline preload="none" data-src="assets/real/previews/real-05.mp4" poster="assets/real/posters/real-05.webp"></video></div></div><h3>Event recaps</h3><p>Same-day teasers and full recaps while the buzz is still fresh.</p></div>
-      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">Menus · Rooms</span><div class="dev wide"><video muted loop playsinline preload="none" data-src="assets/videos/restaurant.mp4" poster="assets/posters/restaurant.webp"></video></div></div><h3>Menus, rooms &amp; listings</h3><p>Show the dish, the suite or the property before anyone visits.</p></div>
-      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">16:9</span><div class="dev tv"><video muted loop playsinline preload="none" data-src="assets/videos/automotive.mp4" poster="assets/posters/automotive.webp"></video></div></div><h3>YouTube &amp; screens</h3><p>Widescreen cuts for YouTube, events, lobbies and displays.</p></div>
+      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">9:16</span><div class="dev phone"><video muted loop playsinline preload="none" data-src="assets/real/previews/real-07.mp4" data-pv="assets/real/posters/real-07.webp"></video></div></div><h3>Reels &amp; TikTok</h3><p>Vertical, hook-first edits that stop the thumb.</p></div>
+      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">Website</span><div class="dev browser"><video muted loop playsinline preload="none" data-src="assets/videos/real-estate.mp4" data-pv="assets/posters/real-estate.webp"></video><div class="bt">Your hero section</div></div></div><h3>Website hero loops</h3><p>Silent, seamless loops that make your homepage feel premium.</p></div>
+      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">1:1 · 4:5</span><div class="dev square"><video muted loop playsinline preload="none" data-src="assets/videos/perfume.mp4" data-pv="assets/posters/perfume.webp"></video></div></div><h3>Paid social ads</h3><p>Multiple hooks and cuts so you can test what sells.</p></div>
+      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">Events</span><div class="dev story"><video muted loop playsinline preload="none" data-src="assets/real/previews/real-05.mp4" data-pv="assets/real/posters/real-05.webp"></video></div></div><h3>Event recaps</h3><p>Same-day teasers and full recaps while the buzz is still fresh.</p></div>
+      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">Menus · Rooms</span><div class="dev wide"><video muted loop playsinline preload="none" data-src="assets/videos/restaurant.mp4" data-pv="assets/posters/restaurant.webp"></video></div></div><h3>Menus, rooms &amp; listings</h3><p>Show the dish, the suite or the property before anyone visits.</p></div>
+      <div class="fmt"><div class="fmt-frame"><span class="fmt-tag">16:9</span><div class="dev tv"><video muted loop playsinline preload="none" data-src="assets/videos/automotive.mp4" data-pv="assets/posters/automotive.webp"></video></div></div><h3>YouTube &amp; screens</h3><p>Widescreen cuts for YouTube, events, lobbies and displays.</p></div>
     </div>
   </div>
 </section>
@@ -1283,7 +1285,7 @@ body.navhidden .switch-bar{top:14px}
 <div class="waw" id="waw">
   <div class="wa-panel" id="waPanel" role="dialog" aria-label="Chat with Pranav on WhatsApp" aria-hidden="true">
     <div class="wa-head">
-      <span class="wa-av"><img width="500" height="615" src="pranavarya.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></span>
+      <span class="wa-av"><img width="96" height="96" src="assets/wa-avatar.webp" alt="" loading="lazy" onerror="this.style.display='none'"></span>
       <div><b>Pranav Arya</b><span>PAFP · Replies on WhatsApp</span></div>
       <button class="wa-x" id="waClose" aria-label="Close chat"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
     </div>
@@ -1364,8 +1366,11 @@ function endIntro(){
   intro.classList.add('out'); B.classList.remove('locked');
   setTimeout(function(){ $$('[data-hero]').forEach(function(el){el.classList.add('in')}); },reduce?0:180);
   setTimeout(function(){intro.style.display='none'},1100);
-  armReveals(); startHero(); startRot();
+  later(armReveals,250); later(startRot,600);
+  if(d.readyState==='complete') later(startHero,700); else w.addEventListener('load',function(){later(startHero,700)},{once:true});
 }
+/* run non-urgent setup in idle time so the curtain animation stays smooth */
+function later(fn,ms){setTimeout(function(){(w.requestIdleCallback||function(f){f()})(fn,{timeout:400})},ms);}
 setTimeout(endIntro,reduce?0:(seen?650:1550));
 
 /* ---------- rotating word ---------- */
@@ -1422,6 +1427,10 @@ function startHero(){
 }
 var heroEl=$('#hero');
 new IntersectionObserver(function(es){var v=es[0].isIntersecting;heroCyclers.forEach(function(c){c.visible=v;v?c.resume():c.pause();});},{threshold:.05}).observe(heroEl);
+
+/* ---------- lazy video covers (load only when near the screen) ---------- */
+var pio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){$$('video[data-pv]',e.target).forEach(function(v){v.poster=v.getAttribute('data-pv')});pio.unobserve(e.target);}})},{rootMargin:'1000px 0px'});
+$$('video[data-pv]').forEach(function(v){var sec=v.closest('section')||v.parentNode;if(!sec.__pv){sec.__pv=1;pio.observe(sec);}});
 
 /* ---------- lazy videos ---------- */
 var vio=new IntersectionObserver(function(es){
