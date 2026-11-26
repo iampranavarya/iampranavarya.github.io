@@ -1,7 +1,14 @@
 /* PAFP blog theme. Matches the pranavarya.com homepage. */
+/* fonts: self-hosted (Inter Tight, Instrument Serif; SIL Open Font License) */
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/inter-tight-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(/assets/fonts/instrument-serif-latin-400-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/instrument-serif-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/inter-tight-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(/assets/fonts/instrument-serif-latin-ext-400-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/instrument-serif-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#060509;--bg2:#0c0912;--ink:#f5f2ee;--mute:rgba(245,242,238,.66);--dim:rgba(245,242,238,.42);
+  --bg:#060509;--bg2:#0c0912;--ink:#f5f2ee;--mute:rgba(245,242,238,.66);--dim:rgba(245,242,238,.58);
   --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.14);
   --ember:#ff6a3d;--mag:#ff2d78;--vio:#7b5cff;
   --grad:linear-gradient(100deg,#ffc7a3 0%,#ff6a3d 28%,#ff2d78 58%,#9b7bff 100%);
@@ -92,7 +99,7 @@ body.menu-open #menu a{opacity:1;transform:none}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:28px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 90%,transparent);mask-image:linear-gradient(90deg,#000 90%,transparent)}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:0 0 auto;height:38px;padding:0 15px;border-radius:99px;border:1px solid var(--line2);background:rgba(255,255,255,.03);font-size:.85rem;color:var(--mute);transition:all .3s}
-.chip i{font-style:normal;opacity:.55;margin-left:4px;font-size:.78rem}
+.chip i{font-style:normal;opacity:.8;margin-left:4px;font-size:.78rem}
 .chip:hover{color:var(--ink);border-color:rgba(255,255,255,.3)}
 .chip.on{background:var(--ink);color:#0b0910;border-color:var(--ink)}
 .post-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:clamp(60px,8vw,110px)}
@@ -100,6 +107,7 @@ body.menu-open #menu a{opacity:1;transform:none}
 .post-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.045)}
 .post-card[hidden]{display:none}
 .pc-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0d0a12}
+.pc-media picture{display:contents}
 .pc-media img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
 .post-card:hover .pc-media img{transform:scale(1.04)}
 .pc-media.ph{display:grid;place-items:center;background:
@@ -131,6 +139,7 @@ body.menu-open #menu a{opacity:1;transform:none}
 .byline b{font-weight:600}
 .byline span{font-size:.85rem;color:var(--dim)}
 .post-hero{max-width:calc(1180px + var(--pad)*2);margin:0 auto;padding:0 var(--pad);animation:rise 1s .3s var(--ease) both}
+.post-hero picture{display:block}
 .post-hero img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:24px;border:1px solid var(--line)}
 .prose{max-width:calc(var(--measure) + var(--pad)*2);margin:0 auto;padding-top:clamp(40px,5vw,64px);font-size:clamp(1.05rem,1.25vw,1.15rem);line-height:1.78;color:rgba(245,242,238,.86)}
 .prose>*+*{margin-top:1.15em}
@@ -206,7 +215,8 @@ body.menu-open .wa-float{opacity:0;pointer-events:none}
   .post-list>.post-card:first-child .pc-media{flex:none;aspect-ratio:16/9;min-height:0}
   .post-list>.post-card:first-child .pc-body{padding:20px 22px 22px}
   .post-hero{padding:0 12px}
-  .post-hero img{border-radius:18px}
+  .post-hero picture{display:block}
+.post-hero img{border-radius:18px}
   .ac-inner{flex-direction:column;padding:22px}
   .ac-inner img{width:72px;height:72px;flex-basis:72px}
   .cta-btns .btn{flex:1 1 100%;justify-content:center}

@@ -189,6 +189,11 @@ tricks, or tutorials that are circulating right now.
 
 Today's angle should lean toward: {TODAY_ANGLE}
 
+These posts are already published on the blog (newest first). Do NOT pick a story
+or angle that repeats any of them; Google treats near-duplicate posts as thin
+content. Find a genuinely different subject, tool or news item:
+{recent_titles()}
+
 Return a concise research brief (bullet points) with the 3-5 most useful, specific,
 sourced findings you can use to write an original blog post. Include names, version
 numbers, and concrete details -- avoid vague generalities."""
@@ -201,6 +206,15 @@ numbers, and concrete details -- avoid vague generalities."""
         max_tokens=6000,
         disable_thinking=False,
     )
+
+
+def recent_titles(n=60):
+    """Titles already on the blog, so research avoids repeating a topic."""
+    try:
+        posts = json.loads((BLOG_DIR / "posts.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return "- (none)"
+    return "\n".join(f"- {p.get('title', '')}" for p in posts[:n]) or "- (none)"
 
 
 # ---------- STEP 2: DRAFT ----------
@@ -469,6 +483,8 @@ def publish(filename, title, meta_description, body_html, tags, image_url=None):
         "image": image_url,
     }
     manifest.insert(0, entry)
+    if image_url:
+        blog_theme.make_variants(image_url)
 
     BLOG_DIR.mkdir(parents=True, exist_ok=True)
     (BLOG_DIR / filename).write_text(blog_theme.render_post(entry, body_html, manifest), encoding="utf-8")

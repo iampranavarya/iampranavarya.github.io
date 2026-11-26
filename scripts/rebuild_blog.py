@@ -77,6 +77,10 @@ def main():
     posts.sort(key=lambda x: (x[0]["date"], x[0]["filename"]), reverse=True)
     manifest = [m for m, _ in posts]
 
+    for meta, _ in posts:
+        if meta.get("image"):
+            T.make_variants(meta["image"])
+
     for meta, body in posts:
         (BLOG / meta["filename"]).write_text(T.render_post(meta, body, manifest), encoding="utf-8")
 

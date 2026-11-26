@@ -15,13 +15,13 @@ import datetime
 import html
 import json
 import re
+from pathlib import Path
 
 SITE = "https://pranavarya.com"
 WA_NUMBER = "491744257711"
-FONTS = ("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1"
-         "&family=Inter+Tight:wght@300;400;500;600;700&display=swap")
+ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OG = f"{SITE}/assets/og.jpg"
-ASSET_V = "3"  # bump to bust the CSS/JS cache after style changes
+ASSET_V = "4"  # bump to bust the CSS/JS cache after style changes
 
 PERSON = {
     "@type": "Person", "@id": f"{SITE}/#person", "name": "Pranav Arya",
@@ -88,16 +88,15 @@ def head(title, description, canonical, og_type, og_image, ld, extra=""):
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="PAFP | Pranav Arya Film Production">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="{esc(title.replace(' | PAFP Blog', ''))}">
+<meta property="og:title" content="{esc(re.sub(r' \| PAFP( Blog)?$', '', title))}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:image" content="{og_image}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(title.replace(' | PAFP Blog', ''))}">
+<meta name="twitter:title" content="{esc(re.sub(r' \| PAFP( Blog)?$', '', title))}">
 <meta name="twitter:description" content="{esc(description)}">
 <meta name="twitter:image" content="{og_image}">
-{extra}<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="{FONTS}">
+{extra}<link rel="preload" href="/assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/blog.css?v={ASSET_V}">
 <script type="application/ld+json">
 {jsonld(ld)}
@@ -154,13 +153,56 @@ FOOTER = f"""
 """
 
 
+# ---------------------------------------------------------------- images
+VARIANT_WIDTHS = (640, 1200)
+
+
+def variant(image_url, width):
+    """/blog/images/x.jpg -> /blog/images/w/x-640.webp"""
+    stem = Path(image_url).stem
+    return f"/blog/images/w/{stem}-{width}.webp"
+
+
+def make_variants(image_url):
+    """Create smaller WebP copies of a blog image for faster pages. Safe to rerun."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return
+    src = ROOT / image_url.lstrip("/")
+    if not src.exists():
+        return
+    for wdt in VARIANT_WIDTHS:
+        out = ROOT / variant(image_url, wdt).lstrip("/")
+        if out.exists() and out.stat().st_mtime >= src.stat().st_mtime:
+            continue
+        out.parent.mkdir(parents=True, exist_ok=True)
+        im = Image.open(src).convert("RGB")
+        if im.width > wdt:
+            im = im.resize((wdt, round(im.height * wdt / im.width)), Image.LANCZOS)
+        im.save(out, "WEBP", quality=74, method=6)
+
+
+def has_variants(image_url):
+    return all((ROOT / variant(image_url, w).lstrip("/")).exists() for w in VARIANT_WIDTHS)
+
+
+def picture(image_url, alt, sizes, attrs):
+    if not has_variants(image_url):
+        return f'<img src="{image_url}" alt="{alt}" width="1200" height="675" {attrs}>'
+    srcset = ", ".join(f"{variant(image_url, w)} {w}w" for w in VARIANT_WIDTHS)
+    return (f'<picture><source type="image/webp" srcset="{srcset}" sizes="{sizes}">'
+            f'<img src="{image_url}" alt="{alt}" width="1200" height="675" {attrs}></picture>')
+
+
 # ---------------------------------------------------------------- cards
 def thumb(post, cls="pc-media", eager=False):
     cat = esc(post.get("category") or "Blog")
     if post.get("image"):
         load = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
-        return (f'<div class="{cls}"><img src="{post["image"]}" alt="{esc(post["title"])}" '
-                f'width="1200" height="675" {load}></div>')
+        sizes = ("(max-width: 720px) 100vw, 60vw" if eager
+                 else "(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw")
+        return f'<div class="{cls}">{picture(post["image"], "", sizes, load)}</div>'
     hue = sum(ord(c) for c in post["filename"]) % 360
     return (f'<div class="{cls} ph" style="--h:{hue}" aria-hidden="true">'
             f'<span class="serif">{cat}</span></div>')
@@ -239,19 +281,22 @@ def render_post(post, body_html, manifest):
              f'<meta property="article:author" content="{SITE}/">\n'
              f'<meta property="article:section" content="{esc(cat)}">\n'
              + "".join(f'<meta property="article:tag" content="{esc(t)}">\n' for t in tags))
-    if post.get("image"):
-        extra += f'<link rel="preload" as="image" href="{post["image"]}" fetchpriority="high">\n'
+    if post.get("image") and has_variants(post["image"]):
+        srcset = ", ".join(f"{variant(post['image'], w)} {w}w" for w in VARIANT_WIDTHS)
+        extra += (f'<link rel="preload" as="image" type="image/webp" imagesrcset="{srcset}" '
+                  f'imagesizes="(max-width: 1260px) 100vw, 1180px" fetchpriority="high">\n')
 
     hero = ""
     if post.get("image"):
-        hero = (f'<figure class="post-hero">'
-                f'<img src="{post["image"]}" alt="{esc(post["title"])}" width="1200" height="675" '
-                f'fetchpriority="high" loading="eager" decoding="async"></figure>')
+        hero = ('<figure class="post-hero">'
+                + picture(post["image"], esc(post["title"]), "(max-width: 1260px) 100vw, 1180px",
+                          'fetchpriority="high" loading="eager" decoding="async"')
+                + '</figure>')
 
     tag_html = "".join(f"<li>#{esc(t)}</li>" for t in tags)
     related = "".join(card(p, heading="h3") for p in pick_related(manifest, post))
 
-    out = head(f"{post['title']} | PAFP Blog", post["meta_description"], canonical,
+    out = head(f"{post['title']} | PAFP", post["meta_description"], canonical,
                "article", img_abs, ld, extra)
     out += NAV
     out += f"""
