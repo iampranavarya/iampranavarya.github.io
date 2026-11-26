@@ -70,9 +70,32 @@
     if (h && document.querySelector('.chip[data-f="' + h.replace(/[^a-z0-9-]/g, '') + '"]')) applyFilter(h, false);
   }
 
+  // landing pages: play muted reels when visible, industry previews on hover
+  var autoVids = document.querySelectorAll('video[data-auto]');
+  if (autoVids.length && 'IntersectionObserver' in window && !reduce) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.25 });
+    autoVids.forEach(function (v) { vio.observe(v); });
+  }
+  if (window.matchMedia('(hover: hover)').matches && !reduce) {
+    document.querySelectorAll('.ind-card').forEach(function (card) {
+      var v = card.querySelector('video[data-hover]');
+      if (!v) return;
+      card.addEventListener('mouseenter', function () {
+        var p = v.play(); if (p && p.then) p.then(function () { v.classList.add('on'); }).catch(function () {});
+      });
+      card.addEventListener('mouseleave', function () { v.classList.remove('on'); v.pause(); });
+    });
+  }
+
   // reveal cards and sections that start below the fold
   if (!reduce && 'IntersectionObserver' in window) {
-    var targets = document.querySelectorAll('.post-card, .author-card, .cta-inner, .rel-head');
+    var targets = document.querySelectorAll('.post-card, .author-card, .cta-inner, .rel-head, .ind-card, .steps li, .cover-grid li, .reel-v');
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }

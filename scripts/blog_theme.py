@@ -21,7 +21,7 @@ SITE = "https://pranavarya.com"
 WA_NUMBER = "491744257711"
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OG = f"{SITE}/assets/og.jpg"
-ASSET_V = "4"  # bump to bust the CSS/JS cache after style changes
+ASSET_V = "5"  # bump to bust the CSS/JS cache after style changes
 
 PERSON = {
     "@type": "Person", "@id": f"{SITE}/#person", "name": "Pranav Arya",
@@ -141,6 +141,10 @@ ARROW = ('<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-widt
          '<path d="M3 8h10M9 4l4 4-4 4"/></svg>')
 
 FOOTER = f"""
+<nav class="foot-services wrap" aria-label="Services">
+  <div><span>Real shoots</span><a href="/event-videographer-berlin/">Event videography Berlin</a><a href="/food-videography-berlin/">Food &amp; restaurant videos</a><a href="/brand-film-production-berlin/">Brand films</a><a href="/podcast-production-berlin/">Podcast production</a></div>
+  <div><span>AI films</span><a href="/ai-video/">AI video production</a><a href="/ai-video/hotels-resorts/">Hotels</a><a href="/ai-video/real-estate/">Real estate</a><a href="/ai-video/restaurants/">Restaurants</a><a href="/ai-video/fashion/">Fashion</a><a href="/ai-video/skincare-beauty/">Beauty</a><a href="/ai-video/automotive/">Automotive</a></div>
+</nav>
 <footer class="site">
   <span>&copy; {datetime.date.today().year} PAFP &middot; Pranav Arya Film Production &middot; Berlin</span>
   <div class="foot-links"><a href="/">Home</a><a href="/blog/">Blog</a><a href="/#media-kit">Media Kit</a><a href="https://instagram.com/iampranavarya" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/iampranavarya28" target="_blank" rel="noopener">Telegram</a><a href="mailto:collab.pranavarya@gmail.com">Email</a></div>
@@ -440,6 +444,22 @@ def render_index(manifest):
 
 
 # ---------------------------------------------------------------- sitemap + feed
+def static_pages():
+    """Landing pages built by scripts/build_pages.py (marked with pafp:updated)."""
+    out = []
+    for f in sorted(ROOT.glob("**/index.html")):
+        rel = f.relative_to(ROOT).as_posix()
+        if rel == "index.html" or rel.split("/")[0] in ("blog", "de", "assets", "scripts", ".git"):
+            continue
+        txt = f.read_text(encoding="utf-8", errors="ignore")[:6000]
+        m = re.search(r'<meta name="pafp:updated" content="([0-9-]+)"', txt)
+        if not m:
+            continue
+        og = re.search(r'<meta property="og:image" content="([^"]+)"', txt)
+        out.append((f"{SITE}/{rel[:-len('index.html')]}", m.group(1), og.group(1) if og else None))
+    return out
+
+
 def render_sitemap(manifest, home_lastmod=None):
     latest = manifest[0]["date"] if manifest else datetime.date.today().isoformat()
     home_lastmod = home_lastmod or datetime.date.today().isoformat()
@@ -448,6 +468,9 @@ def render_sitemap(manifest, home_lastmod=None):
         f"    <image:image><image:loc>{SITE}/assets/og.jpg</image:loc></image:image>\n  </url>",
         f"  <url>\n    <loc>{SITE}/blog/</loc>\n    <lastmod>{latest}</lastmod>\n  </url>",
     ]
+    for loc, lastmod, img_url in static_pages():
+        img = f"\n    <image:image><image:loc>{img_url}</image:loc></image:image>" if img_url else ""
+        rows.append(f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{lastmod}</lastmod>{img}\n  </url>")
     for p in manifest:
         img = (f"\n    <image:image><image:loc>{SITE}{p['image']}</image:loc></image:image>"
                if p.get("image") else "")
