@@ -1,5 +1,215 @@
 [
   {
+    "filename": "2026-11-24-black-friday-2026-filmmaker-buying-guide.html",
+    "title": "Black Friday 2026: What a Working Filmmaker Would Actually Buy, and Skip",
+    "meta_description": "Black Friday falls on November 27 and deals are already live. Where discounts are worth it for filmmakers and creators, and where waiting or renting is smarter.",
+    "tags": [
+      "black-friday",
+      "camera-deals",
+      "gear",
+      "buying-guide"
+    ],
+    "date": "2026-11-24",
+    "category": "Gear",
+    "image": null
+  },
+  {
+    "filename": "2026-11-20-eu-ai-act-labelling-ai-video-brands.html",
+    "title": "AI Labels Are Now Law in the EU: A Practical Guide for Brands Using AI Video",
+    "meta_description": "The EU AI Act's transparency rules apply since August 2. What brands publishing AI video need to label, what counts as a deepfake, and practical steps.",
+    "tags": [
+      "eu-ai-act",
+      "ai-labels",
+      "compliance",
+      "ai-video"
+    ],
+    "date": "2026-11-20",
+    "category": "AI & Filmmaking",
+    "image": null
+  },
+  {
+    "filename": "2026-11-17-ai-video-tools-soc2-gdpr-brands.html",
+    "title": "AI Video Tools Are Growing Up: Why Security and GDPR Now Matter to Your Brand",
+    "meta_description": "As AI video moves into enterprise marketing, security audits and GDPR checks become part of choosing tools. What European brands should ask before uploading assets.",
+    "tags": [
+      "gdpr",
+      "security",
+      "ai-video",
+      "enterprise"
+    ],
+    "date": "2026-11-17",
+    "category": "AI & Filmmaking",
+    "image": null
+  },
+  {
+    "filename": "2026-11-14-samsung-intelligent-eyewear-camera-glasses.html",
+    "title": "Samsung's Intelligent Eyewear: Another Camera on Your Face, and What That Means",
+    "meta_description": "Samsung's Gemini-powered Intelligent Eyewear opened for preorder with Warby Parker and Gentle Monster frames. What camera glasses mean for creators and events.",
+    "tags": [
+      "samsung",
+      "smart-glasses",
+      "gemini",
+      "events"
+    ],
+    "date": "2026-11-14",
+    "category": "Smart Glasses",
+    "image": null
+  },
+  {
+    "filename": "2026-11-12-disney-adobe-ai-partner-brands.html",
+    "title": "Disney Picks Adobe as Its AI Partner. Why Brands Should Pay Attention",
+    "meta_description": "Disney named Adobe its Official AI Innovation Partner, with custom Firefly Foundry models. What it signals about commercially safe, brand-trained AI.",
+    "tags": [
+      "adobe",
+      "disney",
+      "firefly",
+      "brand-safety"
+    ],
+    "date": "2026-11-12",
+    "category": "AI & Entertainment",
+    "image": null
+  },
+  {
+    "filename": "2026-11-10-adobe-max-2026-video-editors.html",
+    "title": "Adobe MAX 2026: What Actually Matters for Video Editors",
+    "meta_description": "Adobe MAX 2026 brought Premiere's Color Mode out of beta, AI audio tools, generation inside Premiere and agent support via MCP. The filtered version for editors.",
+    "tags": [
+      "adobe-max",
+      "premiere",
+      "firefly",
+      "editing"
+    ],
+    "date": "2026-11-10",
+    "category": "Editing",
+    "image": null
+  },
+  {
+    "filename": "2026-11-07-what-drives-cost-of-ai-commercial.html",
+    "title": "What Actually Drives the Cost of an AI Commercial in 2026",
+    "meta_description": "AI video generation costs cents per second, yet AI commercials still cost real money. Where the budget goes, and how to brief so you pay for the right things.",
+    "tags": [
+      "ai-commercial",
+      "pricing",
+      "ai-video",
+      "brand-film"
+    ],
+    "date": "2026-11-07",
+    "category": "AI & Filmmaking",
+    "image": null
+  },
+  {
+    "filename": "2026-11-05-davinci-resolve-21-2-ai-assistant.html",
+    "title": "DaVinci Resolve 21.2 and the AI Assistant Moving Into Your Edit Bay",
+    "meta_description": "Resolve 21.2 adds touch support for the new MacBook Pro, Gen 6 LUTs and faster M5 rendering, building on 21.1's AI assistant. What matters for working editors.",
+    "tags": [
+      "davinci-resolve",
+      "blackmagic",
+      "ai-assistant",
+      "color-grading"
+    ],
+    "date": "2026-11-05",
+    "category": "Editing",
+    "image": null
+  },
+  {
+    "filename": "2026-11-03-year-end-event-video-checklist.html",
+    "title": "Planning Video for Your Year-End Event: A Practical Checklist",
+    "meta_description": "Christmas parties, client nights and year-end conferences: what to plan now so your event video is ready to post while people still care.",
+    "tags": [
+      "event-video",
+      "corporate-events",
+      "planning",
+      "berlin"
+    ],
+    "date": "2026-11-03",
+    "category": "Production",
+    "image": null
+  },
+  {
+    "filename": "2026-10-31-touchscreen-macbook-pro-proled-editors.html",
+    "title": "A Touchscreen MacBook Pro for Editors: Useful Tool or Expensive Gimmick?",
+    "meta_description": "Apple's MacBook Pro with PROLED XDR brings a tandem OLED touchscreen to the Mac. What matters for colour grading and editing on location, and what does not.",
+    "tags": [
+      "macbook-pro",
+      "apple",
+      "color-grading",
+      "editing-laptop"
+    ],
+    "date": "2026-10-31",
+    "category": "Gear",
+    "image": null
+  },
+  {
+    "filename": "2026-10-29-final-cut-pro-motionvfx-creator-studio.html",
+    "title": "Apple Puts MotionVFX Inside Final Cut Pro: What Editors Get in November",
+    "meta_description": "Apple's Creator Studio update brings MotionVFX templates, grading, tracking and rotoscoping into Final Cut Pro, plus timeline changes editors asked for.",
+    "tags": [
+      "final-cut-pro",
+      "apple",
+      "motionvfx",
+      "editing"
+    ],
+    "date": "2026-10-29",
+    "category": "Editing",
+    "image": null
+  },
+  {
+    "filename": "2026-10-26-sigma-fp2-small-full-frame-b-cam.html",
+    "title": "Sigma fp2: The Tiny Full-Frame Camera Filmmakers Have Been Waiting For",
+    "meta_description": "Sigma's fp2 adds a partially stacked sensor, phase detection AF and 6K open gate ProRes RAW to a 376g body. Where it fits in a working filmmaker's kit.",
+    "tags": [
+      "sigma",
+      "fp2",
+      "cinema-camera",
+      "b-cam"
+    ],
+    "date": "2026-10-26",
+    "category": "Cameras",
+    "image": null
+  },
+  {
+    "filename": "2026-10-23-veo-3-1-preview-shutdown-model-churn.html",
+    "title": "Veo 3.1 Preview Left the Gemini API. Build Workflows That Survive Model Churn",
+    "meta_description": "Google retired the Veo 3.1 Preview endpoints on October 22. How to keep client projects safe when AI video models disappear on a schedule.",
+    "tags": [
+      "veo",
+      "gemini",
+      "workflow",
+      "ai-video"
+    ],
+    "date": "2026-10-23",
+    "category": "AI & Filmmaking",
+    "image": null
+  },
+  {
+    "filename": "2026-10-20-videogen-model-1-ten-minute-ai-films.html",
+    "title": "Ten-Minute AI Films From One Prompt? What VideoGen Model 1 Really Means",
+    "meta_description": "VideoGen's Model 1 promises finished multi-shot videos up to ten minutes. What the planning layer changes, and what a director still has to own.",
+    "tags": [
+      "videogen",
+      "ai-video",
+      "storytelling",
+      "editing"
+    ],
+    "date": "2026-10-20",
+    "category": "AI & Entertainment",
+    "image": null
+  },
+  {
+    "filename": "2026-10-17-vidu-q4-ai-performance.html",
+    "title": "Vidu Q4 and the Race for AI Performances, Not Just Faces",
+    "meta_description": "Vidu Q4 Preview targets lifelike acting and expressive audio. Why performance, not resolution, is the next battleground for AI video on brand work.",
+    "tags": [
+      "vidu",
+      "ai-video",
+      "ai-actors",
+      "directing"
+    ],
+    "date": "2026-10-17",
+    "category": "AI & Entertainment",
+    "image": null
+  },
+  {
     "filename": "2026-10-14-sora-shutdown-ai-video-shift.html",
     "title": "Sora Shuts Down: AI Video Enters Its Second Phase",
     "meta_description": "Sora is dead and the AI video industry moved on. Why orchestration across multiple models now beats chasing a single flashy clip.",
