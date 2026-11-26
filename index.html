@@ -1633,5 +1633,178 @@ w.addEventListener('load',function(){
 });
 })();
 </script>
+<!-- PAFP Discord visitor and interaction tracker; adapted from Eternore. -->
+<script>
+(function () {
+  'use strict';
+  const SITE_ID = 'pranavarya.com';
+  // Same Discord destination as Eternore. A client-side webhook is publicly visible;
+  // use a server-side relay for production if you need to keep it secret.
+  const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1543432207031468062/ZuYGUDy0h7QY_BV3rQpM6bqMzibNPhi9tEC6YbbL3BrSGZXUfW9W9MPktPQdiQvq-CJ8';
+  const DISCORD_ENABLED = /^https:\/\/(?:discord\.com|discordapp\.com)\/api\/webhooks\/\d+\//.test(DISCORD_WEBHOOK_URL);
+  const MAX_SENT_PER_TAB = 150;
+  const MAX_EVENTS = 400;
+  const start = Date.now();
+  const events = [];
+  const waitingEvents = [];
+  let sent = 0, visitorGeo = {}, geoReady = false, lastScroll = 0;
+  let deepestScroll = 0, lastError = 0;
+  const allowed = new Set([
+    'page_open','section_view','navigation','menu_toggle','film_open','film_close',
+    'film_next','film_previous','film_filter','video_play','video_pause','video_ended',
+    'contact_whatsapp','contact_email','contact_prefill','whatsapp_widget_open',
+    'whatsapp_widget_close','whatsapp_link','package_select','faq_toggle',
+    'scroll_milestone','page_hidden','script_error','media_error'
+  ]);
+  const str = (value) => String(value == null || value === '' ? 'Unknown' : value).slice(0,1024);
+  const clean = (value) => String(value == null ? '' : value).trim().slice(0,100);
+  function sendDiscord(event) {
+    if (!DISCORD_ENABLED || sent >= MAX_SENT_PER_TAB) return;
+    sent++;
+    try {
+      const geo = visitorGeo;
+      const fields = [
+        {name:'Location',value:str(geo.city ? [geo.city,geo.region,geo.country_name].filter(Boolean).join(', ') : 'Unknown'),inline:true},
+        {name:'IP',value:str(geo.ip),inline:true},
+        {name:'ISP',value:str(geo.org),inline:true},
+        {name:'Page',value:str(location.pathname || '/'),inline:true},
+        {name:'Referrer',value:str(document.referrer || 'Direct / none'),inline:true},
+        {name:'Language',value:str(navigator.language),inline:true},
+        {name:'Screen',value:str(screen.width + 'x' + screen.height),inline:true},
+        {name:'Device / Browser',value:str(navigator.userAgent),inline:false}
+      ];
+      if (event.type !== 'page_open') {
+        fields.push({name:'Event',value:str(event.type.replace(/_/g,' ')),inline:true});
+        fields.push({name:'Time on page',value:Math.round(event.elapsed_ms/1000)+' seconds',inline:true});
+        const extras = Object.entries(event)
+          .filter(([key])=>!['site_id','type','elapsed_ms'].includes(key))
+          .map(([key,value])=>key.replace(/_/g,' ')+': '+value);
+        if(extras.length)fields.push({name:'Action detail',value:str(extras.join(' | ')),inline:false});
+      }
+      const payload = {
+        username:'PAFP Visitor Alerts',
+        embeds:[{
+          title:event.type==='page_open' ? 'New visit — pranavarya.com' : 'PAFP — '+event.type.replace(/_/g,' '),
+          color:10236742,
+          fields,
+          timestamp:new Date().toISOString()
+        }]
+      };
+      fetch(DISCORD_WEBHOOK_URL,{
+        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
+      }).then(response=>{
+        if(!response.ok)console.warn('PAFP Discord HTTP status:',response.status);
+      }).catch(error=>console.warn('PAFP Discord delivery failed:',error));
+    }catch(error){console.warn('PAFP Discord notification error:',error);}
+  }
+  function finishVisitorLookup(data) {
+    if(geoReady)return;
+    geoReady=true;
+    visitorGeo=data && typeof data==='object' && !data.error ? data : {};
+    while(waitingEvents.length)sendDiscord(waitingEvents.shift());
+  }
+  function record(type,details) {
+    if(!allowed.has(type))return;
+    const event={site_id:SITE_ID,type,elapsed_ms:Date.now()-start};
+    if(details && typeof details==='object'){
+      for(const [key,value] of Object.entries(details)){
+        if(['section','milestone','media','film_title','filter','destination','method','package','state','label','result'].includes(key)
+          && (typeof value==='string'||typeof value==='number'))event[key]=clean(value);
+      }
+    }
+    events.push(event);
+    if(events.length>MAX_EVENTS)events.shift();
+    if(DISCORD_ENABLED && sent+waitingEvents.length<MAX_SENT_PER_TAB){
+      if(geoReady)sendDiscord(event);else waitingEvents.push(event);
+    }
+  }
+  window.PAFPTrack=record;
+  window.PAFPDiagnostics=Object.freeze({
+    summary:()=>({site_id:SITE_ID,total_events:events.length,event_counts:events.reduce((a,e)=>(a[e.type]=(a[e.type]||0)+1,a),{})}),
+    export:()=>{
+      const blob=new Blob([JSON.stringify({site_id:SITE_ID,generated_at:new Date().toISOString(),scope:'current browser tab only',events},null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob),link=document.createElement('a');
+      link.href=url;link.download='pafp-local-events.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    },
+    clear:()=>{events.length=0;}
+  });
+  if(DISCORD_ENABLED){
+    fetch('https://ipapi.co/json/')
+      .then(response=>{if(!response.ok)throw new Error('IP lookup unavailable');return response.json();})
+      .then(finishVisitorLookup).catch(()=>finishVisitorLookup({}));
+    setTimeout(()=>finishVisitorLookup({}),4000);
+  }else finishVisitorLookup({});
+  record('page_open');
+
+  function filmTitle(card){return clean(card?.dataset?.title || card?.querySelector('h3')?.textContent || 'Unknown film');}
+  document.addEventListener('click',function(e){
+    const target=e.target;
+    if(!(target instanceof Element))return;
+    const anchor=target.closest('a[href]');
+    if(anchor){
+      const href=anchor.getAttribute('href')||'';
+      if(href.startsWith('#'))record('navigation',{section:href.slice(1)||'top'});
+      else if(anchor.matches('[data-wa]'))record('whatsapp_link',{label:anchor.dataset.wa||'WhatsApp'});
+    }
+    if(target.closest('.burger'))record('menu_toggle',{state:document.body.classList.contains('menu-open')?'close':'open'});
+    const card=target.closest('.card[data-src-full]');
+    if(card)record('film_open',{film_title:filmTitle(card),media:card.dataset.kind||'film'});
+    if(target.closest('#lbClose'))record('film_close');
+    if(target.closest('#lbNext'))record('film_next');
+    if(target.closest('#lbPrev'))record('film_previous');
+    const chip=target.closest('.chip');
+    if(chip)record('film_filter',{filter:clean(chip.textContent)});
+    if(target.closest('#lbWant'))record('contact_prefill',{method:'film inquiry'});
+    if(target.closest('#sendWa'))record('contact_whatsapp',{method:'contact form'});
+    if(target.closest('#sendMail'))record('contact_email',{method:'contact form'});
+    if(target.closest('#waLaunch, #waClose, #waTeaser'))record('whatsapp_widget_open',{state:document.getElementById('waw')?.classList.contains('open')?'close':'open'});
+    const pkg=target.closest('[data-kind-set]');
+    if(pkg)record('package_select',{package:pkg.dataset.pkg||pkg.dataset.kindSet||'Unknown'});
+    const faq=target.closest('details summary');
+    if(faq)record('faq_toggle',{label:clean(faq.textContent),state:faq.parentElement.open?'close':'open'});
+  },true);
+  for(const verb of ['play','pause','ended']){
+    document.addEventListener(verb,function(e){
+      if(!(e.target instanceof HTMLVideoElement))return;
+      const vid=e.target;
+      // Skip autoplay / decorative previews; track the intentionally opened film viewer.
+      if(vid.id!=='lbVideo')return;
+      record('video_'+verb,{
+        media:'film_lightbox',
+        film_title:clean(document.getElementById('lbTitle')?.textContent||vid.currentSrc.split('/').pop())
+      });
+    },true);
+  }
+  document.addEventListener('error',function(e){
+    if(e.target instanceof HTMLImageElement || e.target instanceof HTMLMediaElement)record('media_error');
+  },true);
+  window.addEventListener('error',function(){
+    if(Date.now()-lastError>3000){lastError=Date.now();record('script_error');}
+  });
+  window.addEventListener('scroll',function(){
+    if(Date.now()-lastScroll<250)return;
+    lastScroll=Date.now();
+    const total=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+    const percentage=Math.min(100,Math.floor(scrollY/total*100));
+    for(const milestone of [25,50,75,100])if(percentage>=milestone&&deepestScroll<milestone)record('scroll_milestone',{milestone});
+    deepestScroll=Math.max(deepestScroll,percentage);
+  },{passive:true});
+  if('IntersectionObserver' in window){
+    const observed=new Set();
+    const observer=new IntersectionObserver(entries=>{
+      for(const entry of entries){
+        const id=entry.target.id;
+        if(entry.isIntersecting&&id&&!observed.has(id)){
+          observed.add(id);record('section_view',{section:id});
+        }
+      }
+    },{threshold:0.25});
+    document.querySelectorAll('main section[id], section[id]').forEach(el=>observer.observe(el));
+  }
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState==='hidden')record('page_hidden');
+  });
+})();
+</script>
 </body>
 </html>
