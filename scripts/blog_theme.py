@@ -71,6 +71,7 @@ def wa_link(text):
 
 # ---------------------------------------------------------------- shared chrome
 def head(title, description, canonical, og_type, og_image, ld, extra=""):
+    social_title = esc(re.sub(r" \| PAFP( Blog)?$", "", title))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,11 +89,11 @@ def head(title, description, canonical, og_type, og_image, ld, extra=""):
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="PAFP | Pranav Arya Film Production">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="{esc(re.sub(r' \| PAFP( Blog)?$', '', title))}">
+<meta property="og:title" content="{social_title}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:image" content="{og_image}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(re.sub(r' \| PAFP( Blog)?$', '', title))}">
+<meta name="twitter:title" content="{social_title}">
 <meta name="twitter:description" content="{esc(description)}">
 <meta name="twitter:image" content="{og_image}">
 {extra}<link rel="preload" href="/assets/fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
