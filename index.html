@@ -75,16 +75,17 @@ main,footer,nav{position:relative;z-index:2}
 @keyframes introFailsafe{to{visibility:hidden;pointer-events:none}}
 .intro-orb{position:absolute;width:46vmin;height:46vmin;border-radius:50%;background:conic-gradient(from 0deg,var(--ember),var(--mag),var(--vio),var(--ember));filter:blur(60px);opacity:.0;animation:orb 1.6s var(--ease) forwards}
 @keyframes orb{to{opacity:.45;transform:scale(1.15) rotate(90deg)}}
-.intro-word{position:relative;display:flex;overflow:hidden;font-weight:600;font-size:clamp(2.4rem,9vw,7rem);letter-spacing:-.04em;line-height:1}
-.intro-word span{display:inline-block;transform:translateY(105%);animation:up .9s var(--ease) forwards;animation-delay:calc(var(--i)*45ms + .1s)}
-.intro-word .gap{width:.28em}
+.intro-word{position:relative;display:flex;flex-wrap:wrap;justify-content:center;column-gap:.26em;row-gap:.02em;padding:0 20px;text-align:center;font-weight:600;font-size:clamp(2.6rem,6.6vw,6.4rem);letter-spacing:-.045em;line-height:1}
+.intro-word .iw{display:inline-block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+.intro-word .iw>span{display:inline-block;transform:translateY(110%);animation:up .9s var(--ease) forwards;animation-delay:calc(var(--i)*140ms + .1s)}
+.intro-word .grad{padding-right:.04em}
+@media (max-width:640px){.intro-word{flex-direction:column;align-items:center;font-size:clamp(2.6rem,13vw,4.2rem);line-height:1.02}}
 @keyframes up{to{transform:none}}
-.intro-sub{position:relative;font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--mute);opacity:0;animation:fade .8s .55s forwards}
 @keyframes fade{to{opacity:1}}
 .intro-bar{position:absolute;left:50%;bottom:12vh;width:min(240px,50vw);height:1px;background:var(--line2);transform:translateX(-50%);overflow:hidden}
 .intro-bar i{position:absolute;inset:0;background:var(--grad);transform:scaleX(0);transform-origin:left;animation:bar 1.3s .1s var(--ease) forwards}
 @keyframes bar{to{transform:scaleX(1)}}
-#intro.fast .intro-word span{animation-duration:.5s;animation-delay:calc(var(--i)*15ms)}
+#intro.fast .intro-word .iw>span{animation-duration:.5s;animation-delay:calc(var(--i)*60ms)}
 #intro.fast .intro-bar i{animation-duration:.5s}
 
 /* ===== nav ===== */
@@ -627,8 +628,7 @@ body.navhidden .switch-bar{top:14px}
 
 <div id="intro" aria-hidden="true">
   <div class="intro-orb"></div>
-  <div class="intro-word"><span style="--i:0">P</span><span style="--i:1">R</span><span style="--i:2">A</span><span style="--i:3">N</span><span style="--i:4">A</span><span style="--i:5">V</span><span class="gap"></span><span style="--i:6">A</span><span style="--i:7">R</span><span style="--i:8">Y</span><span style="--i:9">A</span></div>
-  <div class="intro-sub">Shot on camera. Made with AI.</div>
+  <div class="intro-word"><span class="iw"><span style="--i:0">Film.</span></span><span class="iw"><span style="--i:1">Photography.</span></span><span class="iw"><span class="grad" style="--i:2">AI.</span></span></div>
   <div class="intro-bar"><i></i></div>
 </div>
 
