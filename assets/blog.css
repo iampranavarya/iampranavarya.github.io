@@ -69,8 +69,10 @@ nav.top.hide{transform:translateY(-100%)}
 .burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:26px}
 body.menu-open .burger span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
 body.menu-open .burger span:nth-child(2){transform:translateY(-4.5px) rotate(-45deg)}
-#menu{position:fixed;inset:0;z-index:45;background:rgba(6,5,9,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;flex-direction:column;justify-content:center;padding:var(--pad);gap:6px;clip-path:circle(0% at calc(100% - 42px) 36px);transition:clip-path .7s var(--ease);visibility:hidden}
-body.menu-open #menu{clip-path:circle(150% at calc(100% - 42px) 36px);visibility:visible}
+#menu{position:fixed;inset:0;z-index:45;background:#07060a;display:flex;flex-direction:column;justify-content:center;padding:var(--pad);gap:6px;overscroll-behavior:contain;clip-path:circle(0% at calc(100% - 42px) 36px);-webkit-clip-path:circle(0% at calc(100% - 42px) 36px);will-change:clip-path;transform:translateZ(0);contain:layout paint;transition:clip-path .6s var(--ease),-webkit-clip-path .6s var(--ease),visibility 0s linear .6s;visibility:hidden}
+body.menu-open #menu{clip-path:circle(150% at calc(100% - 42px) 36px);-webkit-clip-path:circle(150% at calc(100% - 42px) 36px);visibility:visible;transition:clip-path .6s var(--ease),-webkit-clip-path .6s var(--ease),visibility 0s}
+body.menu-open nav.top.scrolled{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-color:transparent}
+html{-webkit-tap-highlight-color:transparent}
 #menu a{font-size:clamp(2.2rem,10vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.15;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .6s var(--ease)}
 body.menu-open #menu a{opacity:1;transform:none}
 #menu a:nth-child(2){transition-delay:.05s}#menu a:nth-child(3){transition-delay:.1s}#menu a:nth-child(4){transition-delay:.15s}#menu a:nth-child(5){transition-delay:.2s}#menu a:nth-child(6){transition-delay:.25s}
