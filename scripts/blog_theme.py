@@ -21,7 +21,7 @@ SITE = "https://pranavarya.com"
 WA_NUMBER = "491744257711"
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OG = f"{SITE}/assets/og.jpg"
-ASSET_V = "5"  # bump to bust the CSS/JS cache after style changes
+ASSET_V = "6"  # bump to bust the CSS/JS cache after style changes
 
 PERSON = {
     "@type": "Person", "@id": f"{SITE}/#person", "name": "Pranav Arya",
